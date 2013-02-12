@@ -1,0 +1,16 @@
+
+\newtheorem{definicia}{Definition}[section]
+\newtheorem{HLPpoznamka}{Note}[section]
+\newtheorem{HLPpriklad}{Example}[section]
+\newtheorem{HLPcvicenie}[HLPpriklad]{Exercise}
+\newtheorem{HLPdokaz}{Proof}[section]
+\newtheorem{zadanie}{Task}[section]
+\newenvironment{poznamka}{\begin{HLPpoznamka}\rm}{\end{HLPpoznamka}}
+\newenvironment{priklad}{\begin{HLPpriklad}\rm}{\end{HLPpriklad}}
+\newenvironment{cvicenie}{\begin{HLPcvicenie}\rm}{\end{HLPcvicenie}}
+\newenvironment{dokaz}{\begin{HLPdokaz}\rm}{\end{HLPdokaz}}
+\newtheorem{veta}{Theorem}[section]
+\newtheorem{lema}[veta]{Lemma}
+\newtheorem{dosledok}[veta]{Corollary}
+\newtheorem{teza}[veta]{Proposition}
+

@@ -1,0 +1,120 @@
+\documentclass[12pt,oneside,openany,pagenumber=footcenter]{book}
+%\documentclass[a4paper,10pt]{report}
+
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{amsfonts}
+
+\usepackage{slovak}
+\usepackage{fontenc}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{makeidx}
+\input{vety.tex}
+\pagestyle{headings}
+
+\bibliographystyle{unsrt}
+
+\def\indexname{Register}
+% pekne pokope definujeme potrebne udaje
+\def\mftitlea{Biologicky motivované výpočtové modely}
+\def\mftitle{\mftitlea}
+\def\mfthesistype{Dizertačná práca}
+\def\mfauthor{Michal Kováč}
+\def\mfadvisor{doc. RNDr. Damas Gruska, PhD.}
+\def\mfplacedate{Bratislava, 2011}
+
+
+\ifx\pdfoutput\undefined\relax\else\pdfinfo{ /Title (\mftitle) /Author (\mfauthor) /Creator (PDFLaTeX) } \fi
+
+\def\eps{\varepsilon}
+\def\goodgap{\hspace{\subfigcapskip}}
+\makeindex
+
+\begin{document}
+\frontmatter
+\thispagestyle{empty}
+\begin{minipage}{0.20\textwidth}
+\includegraphics[width=0.9\textwidth]{img/comenius_half.png}
+\end{minipage}
+\begin{minipage}{0.79\textwidth}
+\begin{center}
+\sc Katedra Informatiky \\
+Fakulta Matematiky, Fyziky a Informatiky \\
+Univerzita Komenského, Bratislava
+\end{center}
+\end{minipage}
+
+\vfill
+\begin{center}
+\begin{minipage}{0.8\textwidth}
+\hrule
+\bigskip\bigskip
+\centerline{\LARGE\sc\mftitlea}
+\smallskip
+\centerline{(\mfthesistype)}
+\bigskip
+\bigskip
+\centerline{\large\sc\mfauthor}
+\bigskip\bigskip
+\hrule
+\end{minipage}
+\end{center}
+\vfill
+{\bf Vedúci:} \mfadvisor
+\hfill\mfplacedate
+\eject
+\eject
+
+\thispagestyle{empty}
+{~}\vspace{12cm}
+
+\include{prehlasenie}
+\include{podakovanie}
+\include{abstrakt}
+\tableofcontents{}
+\listoffigures{}
+\listoftables{}
+
+\mainmatter
+\include{uvod}
+
+\chapter{P systems}
+The concept of P systems was first introduced in a 1998 report by Gheorghe Păun in the report \cite{Paun:TUCS_208_98:Computing_with:98}.
+
+Some text about P systems. Gheorge Paun established this topic in 1998 with book Membrane Computing. There have been lot of research in this field of study.
+
+\section{Definitions}
+How is P system defined. Mostly taken from my article. Multiset rewriting. Accepting vs generating model, active or passive membranes, quality vs quantity aspects.
+
+\section{P system variants}
+We are interested in computation power of various variants of P systems. Especially those that are universal (Turing completeness).
+
+\subsection{Parallelism options}
+Maximal parallelism, minimal parallelism, n-parallelism, sequential models.
+
+\subsection{Contextivity rules}
+Context rules vs cooperational rules, catalytic rules, symmetric cooperational rules, catalytic rules, promoters, inhibitors, context-free rules.
+
+\subsection{Priority rules}
+\subsection{Energy of membranes}
+\subsection{Calculi of Looping Sequences}
+
+\section{Case studies}
+Vultures in Pyrenees, Scavangers of Pyrenees.
+
+\include{zaver}
+\backmatter
+
+% \begin{thebibliography}{1}
+\bibliography{diz}
+% \end{thebibliography}
+
+\include{prilohy}
+
+\printindex
+
+\end{document}

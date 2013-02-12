@@ -1,0 +1,435 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\usepackage{slovak}
+\usepackage{fontenc}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{makeidx}
+\input{theorems.tex}
+\pagestyle{headings}
+\bibliographystyle{unsrt}
+
+\def\eps{\varepsilon}
+\def\goodgap{\hspace{\subfigcapskip}}
+\renewcommand\refname{References}
+
+% Page margins
+\addtolength{\oddsidemargin}{-.875in}
+\addtolength{\evensidemargin}{-.875in}
+\addtolength{\textwidth}{1.75in}
+
+\addtolength{\topmargin}{-.875in}
+\addtolength{\textheight}{1.75in}
+
+% Itemize bulet types
+\renewcommand{\labelitemi}{$\bullet$}
+\renewcommand{\labelitemii}{$\cdot$}
+
+% Compact itemize
+\newenvironment{itemize*}%
+  {\begin{itemize}%
+    \setlength{\itemsep}{0pt}%
+    \setlength{\parskip}{0pt}}%
+  {\end{itemize}}
+
+% Compact enumerate
+\newenvironment{enumerate*}%
+  {\begin{enumerate}%
+    \setlength{\itemsep}{0pt}%
+    \setlength{\parskip}{0pt}}%
+  {\end{enumerate}}
+
+
+
+\begin{document}
+\title{Comparison of powers: inhibitors vs maximal parallelism}
+\author{Michal Kováč}
+\date{\today}
+\maketitle
+
+\begin{abstract}
+This article shows how the computational universality can be reached by using sequential P systems with inhibitors. Both accepting and generating case are investigated. A new variant of P system is defined in this paper, where the emptyness of a region is represented by a special vacuum object. This variant is shown to be universal when operating in the sequential mode.
+\end{abstract}
+
+\section{Introduction}
+Membrane systems (P systems) were introduced by Paun (see \cite{Paun2000108}) as distributed parallel computing devices inspired by the structure and functionality of cells.
+Current digital and bio technologies do not permit a direct implementation of a P system under the parallel semantics. 
+There have been lot of research that consider rewriting rules with catalysts, promoters and inhibitors. However, they were only used to overcome the limitations brought by noncooperative rules. 
+In this paper we will use rewriting rules with inhibitors to overcome the limitations of sequential mode.
+
+In \cite{Ibarra04dang:the} they have a variant of P systems with maximal parallelism restricted to use at most one instance of any rule in a step.
+They show that for universality is sufficient non-cooperative variant where the only allowed cooperative rule with both symbols equal. For example rule $a|a\rightarrow b$. Also, catalytic rules are sufficient too.
+
+In \cite{Sburlan05dragos} the author formally proves equality between classes of P systems and parikh images of classes in Chomski hierarchy. P systems with context-free rules are equal to $PsCF$ and P systems with cooperative rules are universal (equal to $PsRE$).
+
+%TODO: Computationally universal P systems without priorities: two catalysts are sufficient
+
+The gap between is filled in \cite{Ionescu:jucs_10_5:on_p_systems_with}. Assumed P systems with context-free rules and maximal parallelism, there is a need for some context added to the rules. Cooperative or catalytic rules are sufficient for universality. The paper shows that two catalyst are enough. There was an open question whether one catalyst is enough. Then it was shown that it is not enough unless we allow promoters or inhibotors. Without them it has the power of Lindenmayer systems.
+
+Rewriting controlled by inhibition is more thouroughly researched in \cite{Cavaliere:2004:IRP:2144633.2144648}. P systems with context-free rules and are enriched with rules with option to inhibit / de-inhibit another rule. This, with one catalyst is shown to be universal. Without catalyst and with only one membrane it is shown to have at least the power of Lindenmayer systems.
+
+However, \cite{doi:10.1142/S0129054106003772} shows that even if we have maximal parallel context-free rules with inhibitors, it is only equal to the family of Parikh sets of ET0L languages (PsET0L). If we have promoters instead of inhibitors, only the inclusion of the family PsET0L was proved. % it is stronger than PsET0L
+
+Several sequential variants of P systems were studied. In \cite{Freund:2004:SPS:2149813.2149831} membranes have been assigned energy values that can control rule rewriting. Each rule has energy that is consumed when the rule is applied. If we have rules with priorities, the system becomes universal.
+
+However, if we extend sequential P systems with cooperative rules as in \cite{Dang04onp} and restrict it to use only one membrane, it defines exactly semilinear sets and is not universal.
+
+In \cite{Alhazov13} several non-cooperative variants with either promoters or inhibitors were studied. Maximally parallel and asynchronous modes was shown to be universal. They also defined the deterministic mode (only for accepting case). The computation is accepted only if for each configuration there was at most one multiset of rules applicable. Such deterministic variant was shown to only accept the family of all finite languages.
+
+Another sequential model, but not a variant of P system, is Calculi of Looping Sequences. It is introduced in \cite{Barbuti07thecalculus} as a membrane model where objects are strings that can loop around forming a membrane. Rewriting rules are global and are executed sequentially. It is shown to be universal by directly simulating P systems.
+
+
+In this paper, we research other ways to obtain universality without maximal parallelism using only sequential asynchronous mode.
+
+Then, we introduce the concept of vacuum. In the common sense, vacuum represents a state of space with no or a little matter in it. Using vacuum in modelling frameworks can help express certain phenomena more easily.
+
+We define a new P system variant, which creates a special vacuum object in a region as soon as the region becomes empty. The vacuum is removed whenever some object interacts with it. After the interaction, there is vacuum no longer. This removal process is realized by allowing the vacuum object to be used only on the left side of rules.
+If we made the vacuum to be removed automatically when an object enters the region, there would be no difference with the variant without vacuum objects because of no interactions with it.
+
+We are interested in how the variant with the vacuum improves the computational power of a P system in comparison to the variant without the vacuum.
+
+\section{Preliminaries}
+
+Here we recall several notions from the classical theory of formal languages.
+
+An {\bf alphabet} is a finite nonempty set of symbols. Usually it is denoted by $\Sigma$ or $V$. A {\bf string} over an alphabet is a finite sequence of symbols from alphabet. We denote by $V^*$ the set of all strings over an alphabet $V$. By $V^+$ = $V^* - \{\eps\}$ we denote the set of all nonempty strings over V. A {\bf language} over the alphabet $V$ is any subset of $V^*$.
+
+The number of occurences of a given symbol $a\in V$ in the string $w\in V^*$ is denoted by $|w|_a$. $\Psi_V(w)=(|w|_{a_1},|w|_{a_2},\dots,|w|_{a_n})$ is called a Parikh vector associated with the string $w\in V^*$, where $V=\{a_1,a_2,\dots a_n\}$. For a language $L\subseteq V^*$, $\Psi_V(L)=\{\Psi_V(w)|w\in L\}$ is the Parikh mapping associated with $V$. If FL is a family of languages, by PsFL is denoted the family of Parikh images of languages in FL.
+
+A multiset over a set $X$ is a mapping $M: X\rightarrow \mathbb N$. We denote by $M(x), x\in X$ the multiplicity of $x$ in the multiset $M$. The {\bf support} of a multiset $M$ is the set $supp(M)=\{x\in X|M(x)\geq 1\}$. It is the set of items with at least one occurence. A multiset is {\bf empty} when it's support is empty. A multiset $M$ with finite support $X = \{x_1, x_2, \dots, x_n\}$ can be represented by the string $x_1^{M(x_1)}x_2^{M(x_2)}\dots x_n^{M(x_n)}$. We say that multiset $M_1$ is included in multiset $M_2$ if $M_1(x)\leq M_2(x)\forall x \in X$. We denote it by $M_1\subseteq M_2$. The {\bf union} of two multisets $M_1\cup M_2 : X\rightarrow \mathbb N$ is defined as $(M_1\cup M_2)(x)=M_1(x)+M_2(x)$. The {\bf difference} of two multisets $M_1-M_2 : X\rightarrow \mathbb N$ is defined as $(M_1-M_2)(x)=M_1(x)-M_2(x)$. Product of multiset $M$ with natural number $n\in \mathbb N$ is $(n\cdot M)(x)=n\cdot M(x)$.
+  
+\section{P-systems}
+
+%TODO: definovat simulaciu, krok, konfiguraciu, ...
+
+% Membrane structure
+
+The fundamental ingredient of a P system is the {\bf membrane structure} (see \cite{Paun2006Introduction}). It is a hierarchically arranged set of membranes, all contained in the {\bf skin membrane}. A membrane without any other membrane inside is said to be {\bf elementary}. Each membrane determines a compartment, also called region, the space delimited from above by it and from below by the membranes placed directly inside, if any exists. Clearly, the correspondence membrane–region is one-to-one, that is why we sometimes use interchangeably these terms.
+
+% Maximal parallelism
+
+Consider a finite set of symbols $V=\{a_1, a_2,\dots, a_n\}$. An arbitrary multiset rewriting rule is a pair $(u, v)$ of multisets over the set $V$ where $u$ is not empty. Such a rule is typically written as $u\rightarrow v$. For a multiset rewriting rule $r : u\rightarrow v$, let $left(r) = u$ and $right(r) = v$. Let $w$ be a multiset of symbols over $V$ and let $R=\{r_1, r_2,\dots, r_k\}$ be a set of multiset rewriting rules such that $r_i = u_i\rightarrow v_i$ with $u_i, v_i$ multisets over $V$. Denote by $R^{ap}_w\subseteq R$ the {\bf set of applicable multiset rewriting rules} to $w$, that is, $R^{ap}_w = \{r\in R|left(r)\subseteq w\}$. Denote by $R^{msap}_w: R\rightarrow \mathbb N$, a multiset over $R$ of {\bf maximal simultaneously applicable multiset rewriting rules} to $w$. $R^{msap}_w$ is any multiset such that $\displaystyle\bigcup_{r\in R} R^{msap}_w(r)\cdot left(r)\subseteq w$ and $\forall r' \left(\displaystyle\bigcup_{r\in R} R^{msap}_w(r)\cdot left(r)\right)\cup left(r')\nsubseteq w$. In other words, we use a multiset of rewriting rules such that no more rules can be applied simultaneously.
+
+% P system
+
+{\bf P system} is tuple $(V, \mu, w_1, w_2,\dots , w_m, R_1, R_2, \dots , R_m)$, where:
+\begin{itemize}
+  \item $V$ is the alphabet of symbols,
+  \item $\mu$ is a membrane structure consisting of $m$ membranes labeled with numbers $1,2,\dots,m$,
+  \item $w_1,w_2,\dots w_m$ are multisets of symbols present in the regions $1,2,\dots,m$ of the membrane structure,
+  \item $R_1,R_2,\dots R_m$ are finite sets of rewrite rules asssociated with the regions $1,2,\dots,m$ of the membrane structure.
+\end{itemize}
+  
+Each rewriting rule may specify for each symbol on the right side, whether it stays in the current region, moves through the membrane to the parent region or through membrane to one of the child regions. An example of such rule is the following: $abb\rightarrow (a,here)(b,in)(c,out)(c,here)$.
+
+% Configuration
+
+A {\bf configuration} of a P system is represented by it's membrane structure and the multisets of objects in the regions.
+
+% Step
+
+A {\bf computation step} of P system is a relation $\Rightarrow$ on the set of configurations such that $C_1 \Rightarrow C_2$ iff:
+
+For every region in $C_1$ (suppose it contains a multiset of objects $w$) the corresponding multiset in $C_2$ is the result of applying a multiset of maximal simultaneously applicable multiset rewriting rules in $R^{msap}_w$ to $w$.
+
+In other words, a maximal multiset of rules is applied in each region.
+
+For example, let's have two regions with multisets $aa$ and $b$. In the first region there is a rule $a\rightarrow b$ and in the second membrane there is a rule $b\rightarrow aa$. The only possible result of a computation step is $bb$, $aa$. The first rule was applied twice and the second rule once. No more object could be consumed by rewriting rules.
+
+% Computation
+
+{\bf Computation} of a P system consists of a sequence of steps. The step $S_i$ is appied to result of previous step $S_{i-1}$. So when $S_i = (C_j,C_{j+1})$, $S_{i-1} = (C_{j-1},C_j)$.
+
+Result of computation is multiset of symbols that left the skin membrane in the configuration after the last computation step. For one initial configuration there can be multiple possible results. It follows from the fact that there exist more than one maximal multiset of rules that can be applied in each step.
+
+P system defines a parikh image of a language: the set of possible results of computations.
+
+\section{P system variants}
+
+There are several variants of P systems. Each of them has slightly different definitions of the rewriting process.
+
+We study the power of new P system variants. Especially interesting are variants with power of the Turing machine. It is said they are computationally universal. Computational power for a model is usually proved by proving equivalance to other model with known power. The equivalence is usually proved through the simulation of one step of the computation.
+
+{\bf Sequential P systems} are variant where in each step only a single rule in a single region is applied. The membrane and the rule are chosen nondeterministically. In \cite{Ibarra:2005:SPS:2111772.2111880} it is shown that the sequential P systems are not universal.
+{\bf Cooperative P systems} have rules that have at most two symbols on the left side.
+{\bf Context-free P systems} have only rules that have only one symbol on the left side.
+{\bf Catalytic P systems} have catalysts as a specific subset of alphabet. There are two types of rules:
+
+\begin{enumerate}
+	\item $ca\rightarrow cw$, where $c$ is catalyst,
+	\item $a\rightarrow w$
+\end{enumerate}
+
+An object $a$ can be a {\bf promoter} (see \cite{Ionescu:jucs_10_5:on_p_systems_with}) for a rule $u\rightarrow v$, and we denote this by $u\rightarrow v|_a$, if the rule is active only in the presence of object $a$ in the same region. An object $b$ is {\bf inhibitor} for a rule $u\rightarrow v$, and we denote this by $u\rightarrow v|_{\neg b}$, if the rule is active only if the inhibitor $b$ is not present in the region.
+The difference between catalysts and promoters consists in the fact that the catalysts directly participate in rules, but are not modified by them, and they are counted as any other objects, so that the number of applications of a rule is as big as the number of copiesof the catalyst, while in the case of promoters, the presence of the promoter objects makes it possible to use the associated rule as many times as possible, without any restriction; moreover, the promoting objects do not necessarily directly participate in the rules. As a consequence, one can notice that the catalysts inhibits the parallelism of the system while the promoters/inhibitors only guide the computation process.
+
+\vspace*{\baselineskip}
+
+We propose a new variant: {\bf P system with vacuum}. The notion of vacuum is new in context of P systems.
+
+From the physical point of view, vacuum is space that is empty of matter. We will consider vacuum as state of a P system region with no objects that are defined in the P system. There still can be some other object present which are not of interest such as air, water, cytoplasm and which do not react with objects of P system.
+
+We will allow vacuum to act as a reactant in reactions. But there is a problem: when there is a vacuum in a region, there is no other object to react with. So what does the reaction with vacuum mean?
+
+The reaction can be also seen as "object entering the vakuum" - objects are facing low pressure and are sucked into the region. So when some object enters the region with the vacuum, the vacuum is not removed immediately. We will represent this behaviour with rewriting rules that can have vacuum on the left side of the rule. The vacuum cannot be on the right side of a rule. It is created automatically when the region becomes empty.
+
+From certain point of view, vacuum can be seen as a sort of inhibitor. For example food is often packed in vacuum packing in order to delay/inhibit food decay.
+
+\section{Trading maximal parallelism for inhibitor usage}
+The goal of this paper is to show that using inhibitors, the sequential P systems can achieve universality like maximal parallel variant. The proof is partially inspired by \cite{Barbuti07thecalculus}, where it is shown that Calculi of Looping Sequences (CLS) can simulate computation of a P system. CLS is a membrane model with string objects and sequential rules.
+
+\subsection{Inhibitor set}
+Original definition of P system with inhibitor (see \cite{Ionescu:jucs_10_5:on_p_systems_with}) have only a single inhibitor object per rule. P system with inhibitor set can have rules of type $u\rightarrow v|_{\neg B}$, where $B\subseteq V$. The rule $u\rightarrow v$ is active only if there is no occurence of any symbol from $B$.
+
+Lemma \ref{lemma:inhibitor_step} will establish equivalence of these two definitions of rewriting rule when special precondition is fulfilled - there is no empty region.
+
+\begin{lema}
+\label{lemma:inhibitor_step}
+  If there is at least one object present in each region of a P system, rewriting step in P system with inhibitor set can be simulated by multiple consecutive steps of P system with single inhibitor.
+\end{lema}
+
+\begin{dokaz}
+  Consider P system with alphabet $V$.
+  For each rule $u\rightarrow v|_{\neg B}$, where $B=\{b_1, b_2, \dots ,b_n\}$ we will have rules:
+  \begin{itemize}
+    \item $c \rightarrow c|GONE_{b}|_{\neg b}$ for all $ c\in V, b\in B$
+    \item $u|GONE_{b_1}|GONE_{b_2}|\dots|GONE_{b_n} \rightarrow v|GONE_{b_1}|GONE_{b_2}|\dots|GONE_{b_n}$
+  \end{itemize}
+\end{dokaz}
+
+% \begin{lema}
+%   Sequential P system with inhibitor can simulate clearing symbols in set $B = \{b_1, b_2, \dots, b_c\}$
+% \end{lema}
+
+% \begin{dokaz}
+%   When clearing should occur, the symbol $CLEAR_B$ should occur. Then, following rules will do the clearing:
+%   \begin{itemize}
+%     \item $CLEAR_B|b \rightarrow CLEAR_B$ for all $b \in B$.
+%     \item $CLEAR_B \rightarrow CLEAR_B|GONE_b|_{\neg b}$ for all $b \in B$.
+%     \item $GONE_{b_1}|GONE_{b_2}|\dots|GONE_{b_c}|CLEAR_B \rightarrow \lambda$.
+%   \end{itemize}
+% \end{dokaz}
+
+\begin{veta}
+% TODO: rozdelit na viac liem
+  The sequential P system with inhibitors defines the same parikh image of language as P system with maximal parallelism.
+\end{veta}
+
+\begin{dokaz}
+  We show that we can simulate maximal parallel step of P system with several steps of sequential P system with inhibitors.
+
+  \begin{itemize}
+    \item For every rule $r_i\in R$ such that $r_i = a_1^{M(a_1)}a_2^{M(a_2)}\dots a_n^{M(a_n)} \rightarrow a_1^{N(a_1)}a_2^{N(a_2)}\dots a_n^{N(a_n)}$ we will have the following rules:
+  
+    $a_1^{M(a_1)-m_1}\dot{a}_1^{m_1}a_2^{M(a_2)}\dot{a}_2^{m_2}\dots a_n^{M(a_n)}\dot{a}_n^{m_n}|RUN \rightarrow a_1^{\prime N(a_1)}a_2^{\prime N(a_2)}\dots a_n^{\prime N(a_n)}|RUN$
+
+    There will be such rule for each $0\leq m_i\leq M(a_i)$. It represents the idea that $\dot{a}$ can be used in rewriting in the same way as $a$. Right side of the rules contains symbols $a^\prime$, that prevents the symbols to be rewritten again.
+
+    \item For every symbol $a\in V$ we will have the following rules:
+
+    $a|RUN \rightarrow \dot{a}|RUN|_{\neg \dot{a}}$
+
+    There will be max one occurence of $\dot{a}$.
+
+    \item For every rule $r_i\in R$ there will be a rule that detects if the rule $r_i$ is not usable. According to left side of the rule $r_i$, symbol $UNUSABLE_i$ will be created when there is not enough objects to fire the rule $r_i$. It means that left side of rule $r_i$ requires more instances of some object than are present in membrane.
+
+    If the left side is of type:
+    \begin{itemize}
+      \item $a$: It is a context free rule. The rule can't be used if there is no occurence of $a$ nor $\dot{a}$.
+
+      $RUN \rightarrow UNUSABLE_i|RUN|_{\neg\{UNUSABLE_i, a, \dot{a}\}}$
+
+      \item $ab$: It is a cooperative rule with two distinct objects on the left side. The rule can't be used if there is one of them missing.
+
+      $RUN \rightarrow UNUSABLE_i|RUN|_{\neg\{UNUSABLE_i, a, \dot{a}\}}$
+
+      $RUN \rightarrow UNUSABLE_i|RUN|_{\neg\{UNUSABLE_i, b, \dot{b}\}}$
+
+      \item $a^2$: It is a cooperative rule with two same objects. The rule can't be used if there is at most one occurence of the symbol. That happens if there is no occurence of $a$. There can still be $\dot{a}$, but at most one occurence.
+
+      $RUN \rightarrow UNUSABLE_i|RUN|_{\neg\{UNUSABLE_i, a\}}$
+    \end{itemize}
+
+    
+
+    \item For every membrane with label $i$ there will be rule:
+
+    $UNUSABLE_1|UNUSABLE_2|\dots|UNUSABLE_m|RUN \rightarrow SYNCHRONIZE|SYNCTOKEN_i\uparrow$
+
+    If no rule can be used, maximal parallel step in the region is completed so it goes to synchronization phase and sends a synchronization token to the parent membrane.
+
+    \item For every membrane there will be a rule:
+
+    $SYNCHRONIZE|SYNCTOKEN_j \rightarrow SYNCHRONIZE|SYNCTOKEN_j\uparrow$
+
+    Membrane resends all sync token to parent membrane.
+
+    \item In skin membrane there is a rule which collects all the synchronization tokens from all membranes $1\dots k$ and then sends down signal that synchronization is complete. But before that, there can be some symbols that should be sent down, but they weren't, because the region below could have not started the rewriting phase that time. The result was just marked with $a^{\downarrow\prime}$.
+
+    $SYNCTOKEN_1|SYNCTOKEN_2|\dots|SYNCTOKEN_k|SYNCHRONIZE \rightarrow SENDDOWN$
+
+    \item Every membrane other than skin membrane have to recieve the signal to go to senddown phase:
+
+    $SYNCHRONIZE|SYNCED \rightarrow SENDDOWN$
+
+    \item Every membrane will have rules for every symbol $a\in V$ to send down all unsent object that should have been sent down:
+
+    $SENDDOWN|a^{\downarrow\prime} \rightarrow SENDDOWN|a^{\prime}\downarrow$
+
+    \item Every membrane will have rule for detecting when all such objects have been sent and it goes to restore phase:
+
+    $SENDDOWN \rightarrow RESTORE|_{\neg \{a_1^{\downarrow\prime}, a_n^{\downarrow\prime}, \dots, a_n^{\downarrow\prime}\}}$
+
+    \item In restore phase all symbols $a^{\prime}$ will be rewritten to $a$ in order to be able to be rewritten in next maximal parallel step:
+
+    $RESTORE|a^{\prime} \rightarrow RESTORE|a$
+
+    \item When restore phase ends, it sends down signal that all membranes have been synchronized and next phase of rewriting has began in upper membranes:
+
+    $RESTORE \rightarrow RUN|SYNCED\downarrow|_{\neg \{a_1^{\prime}, a_2^{\prime}, \dots, a_n^{\prime}\}}$
+  \end{itemize}
+
+  Every membrane of the P system will be in one of four phases:
+  \begin{itemize}
+    \item $RUN$: Rewriting occurs. Objects that are to be sent to parent membrane are directly sent because the parent membrane is already in $RUN$ or $SYNCHRONIZE$ phase, so the $a^{\prime}$ symbols that are sent don't break anything. But objects that are to be sent down, can't be sent immediately because child membranes can be in previous phase waiting to restore symbols from previous step. Current symbols could interfere with them and be rewrited twice in this step. Such objects are only marked as "to be sent down": $a^{\downarrow\prime}$
+
+    \item $SYNCHRONIZE$: Rewriting has ended and membrane is waiting to get signal $SYNCED$ from parent membrane to continue to next step.
+
+    \item $SENDDOWN$: Signal was caught and now all descendant membranes are in $SYNCHRONIZE$ phase so $a^{\downarrow\prime}$ can be sent down.
+
+    \item $RESTORE$: All $a^{\prime}$ symbols are restored to $a$, so the next step of rewriting can take place.
+  \end{itemize}
+
+  Phase of membrane is represented by object so the region is never empty and by the Lemma~\ref{lemma:inhibitor_step} the rules with set of inhibitors can be simulated by single inhibitors.
+\end{dokaz}
+
+\subsection{Register machines} % (fold)
+\label{sub:register_machines}
+  We will use in our paper the power of Minsky's register machine \cite{Ionescu:jucs_10_5:on_p_systems_with}, that is why we recall here this notion. Such a machine runs a program consisting of numbered instructions of several simple types. Several variants of register machines with different number of registers and different instructions sets were shown to be computationally universal (see \cite{Ibarra:2005:SPS:2111772.2111880} for some original definitions and \cite{Khrisna03threeuniversality} for the definition used in this paper).
+
+  \begin{definicia}
+    A {\bf $n$-register machine} is a tuple $M = (n,P,i,h)$, where:
+    \begin{itemize}
+      \item $n$ is the number of registers,
+      \item $P$ is a set of labeled instructions of the form $j : (op(r),k,l)$, where $op(r)$ is an operation on register $r$ of $M$, and $j$, $k$, $l$ are labels from the set $Lab(M)$ (which numbers the instructions in a one-to-one manner),
+      \item $i$ is the initial label, and
+      \item $h$ is the final label.
+    \end{itemize}
+  \end{definicia}
+
+  The machine is capable of the following instructions:
+  \begin{itemize}
+    \item $(add(r),k,l)$ : Add one to the contents of register $r$ and proceed to instruction $k$ or to instruction $l$; in the deterministic variants usually considered in the literature we demand $k = l$.
+    \item $(sub(r),k,l)$ : If register $r$ is not empty, then subtract one from its contents and go to instruction $k$, otherwise proceed to instruction $l$.
+    \item $halt$ : This instruction stops the machine. This additional instruction can only be assigned to the final label $h$.
+  \end{itemize}
+
+  A deterministic $m$-register machine can analyze an input $(n_1,\dots,n_m)\in N_0^m$ in registers 1 to $m$, which is recognized if the register machine finally stops by the halt instruction with all its registers being empty (this last requirement is not necessary). If the machine does not halt, the analysis was not successful.
+
+% subsection register_machines (end)
+
+\subsection{Accepting vs generating} % (fold)
+\label{sub:accepting_vs_generating}
+  According to \cite{Barbuti:2010:MSW:1946067.1946081}, a P system can be used either as an acceptor or as a generator of a multiset language over $\Sigma$. In the first case, a multiset over $\Sigma$ is inserted in the skin membrane of the P system and the result of its computations says whether such a multiset belongs to the multiset language accepted by the P system or not. In the second case the P system has a fixed initial configuration and can give as results (possibly in a non-deterministic way) all the possible multisets belonging to a given multiset language.
+
+% subsection accepting_vs_generating (end)
+
+\subsection{Universality results for accepting case} % (fold)
+\label{sub:universality_results_for_accepting_case}
+
+\begin{veta}
+  Sequential P system with inhibitors can simulate register machine and thus equals $PsRE$.
+\end{veta}
+
+
+\begin{dokaz}
+\label{proof:reg_by_inh}
+  Suppose we have a $n$-register machine $M = (n,P,i,h)$. In our simulation we will have a membrane structure consisting of one membrane and the contents of register $j$ will be represented by the multiplicity of the object $a_j$.
+
+  We will have P system $(V, \mu, w, R)$, where:
+  \begin{itemize}
+    \item $V$ is an alphabet consisting of symbols that represent registers $a_1,\dots a_n$ and instruction labels in $Lab(M)$,
+    \item $\mu$ is a membrane structure consiting of only one membrane,
+    \item $w$ is initial contents of the membrane. It contains symbols for the input for the machine $a_i^{n_i}$ where $n_i$ is initial state of register with label $i$ and initial instruction $e \in Lab(M)$.
+    \item $R$ is the set of rules in the skin membrane:
+    
+    For all instructions of type $(e : add(j), f)$ we will have rule:
+    \begin{itemize}
+      \item $e \rightarrow a_j|f$.
+    \end{itemize}
+    
+    For all instructions of type $(e : sub(j), f, z)$ we will have rules:
+    \begin{itemize}
+      \item $e|a_j \rightarrow f$ and
+      \item $e \rightarrow z|_{\neg a_j}$.
+    \end{itemize}
+
+    And finally halting rules:
+    \begin{itemize}
+      \item $h|a_j \rightarrow h|\#$ for all $a\leq j\leq n$,
+      \item $\# \rightarrow \#$,
+    \end{itemize}
+  \end{itemize}
+
+  When the halting instruction is reached, if there is an object present in the membrane, the hash symbol $\#$ is created and it will cycle forever. If there is no object present, there is no rule to apply and computation will halt. It corresponds to the condition that all registers should be empty when halting.
+\end{dokaz}
+
+% subsection universality_results_for_accepting_case (end)
+
+\section{Trading maximal parallelism for Vacuum}
+
+In this section we will research how the Vacuum object can help achieving universality.
+
+\begin{veta}
+  The sequential P system with Vacuum is universal.
+\end{veta}
+
+\begin{dokaz}
+  We can simulate the variant of P system where the only cooperative rule is of type $a|a \rightarrow b$. According to \cite{Ibarra04dang:the} the variant, where the only cooperative rule is when both objects are the same, is universal. If there is no rule $a \rightarrow b$, we can rewrite $a$ to $a^{\prime}$ so we can mark all present symbols. $a^{\prime}$ symbols are kept in special membrane so the Vacuum can be created in main membrane and we can synchronize.
+  
+  But we won't do this madness again.
+  
+  Instead, we will try to proove universality by simulating the register machine. We need to detect when the current register is empty. If there was a symbol for every register as in the proof~\ref{proof:reg_by_inh}, the Vacuum would be created only if all registers are empty. But the $sub()$ instruction need to detect when one concrete register is empty.
+  
+  We will have a membrane for each register. That membrane will be contained in the skin membrane. The number of objects in membrane $i$ will correspond to the value of register $i$.
+  
+  The alphabet will consist of instruction labels and register counter $a$. The skin membrane will only have an instruction label. It is sent to corresponding membrane where the instruction is executed. Then, the following instruction is sent back to the skin membrane.
+  
+  We will have following rules in the skin membrane:
+  
+  \begin{itemize}
+	\item $e \rightarrow e^{\downarrow_j}$ for an instruction of type $e : add(j), f$ or $e : sub(j), f, z$ and
+	\item $h \rightarrow h^{\downarrow}$ for a halting instruction h.
+  \end{itemize}
+  
+  And in non-skin membranes:
+  
+  \begin{itemize}
+	\item $e \rightarrow a|f^{\uparrow}$ instructions of type $e : add(j), f$,
+	\item $e|a \rightarrow f^{\uparrow}$ for instructions of type $e : sub(j), f, z$,
+	\item $e|VACUUM \rightarrow z^{\uparrow}$ for instructions of type $e : sub(j), f, z$, and
+	\item $h|a \rightarrow h|a$
+  \end{itemize}
+
+  When halting, if there is an nonempty register, it will cycle forever with the last rule. However, if all registers are empty, the halting instruction label will stay in all mmebranes and the computation will halt.
+  
+\end{dokaz}
+
+\section{Conclusion}
+We have studied several variants of sequential P systems in order to obtain universality without using maximal parallelism.
+A variant with rewriting rules that can use inhibitors was shown to be universal in both generating and accepting case. The generating model is able to simulate maximal parallel P system and the accepting model can simulate a register machine.
+
+In addition, we have defined a new notion of vacuum, which is immediately created in the region that becomes empty. A new P system variant was introduced, which allowed the vacuum to be used on the left side of P system rewriting rules. The accepting case of this variant was shown to be universal by direct implementation of a register machine.
+
+A lot of other variants deserve to be combined with the vacuum, so we suggest to research them more thoroughly(non-cooperative rules, rules with priorities, decaying objects, deterministic steps, \dots).
+
+\bibliography{inh}
+\end{document}
