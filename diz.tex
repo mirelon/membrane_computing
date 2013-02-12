@@ -82,8 +82,64 @@ Univerzita Komenského, Bratislava
 \mainmatter
 \include{uvod}
 
+\chapter{Preliminaries}
+
+\chapter{Membrane computing}
+
+Membranes intro
+
+Natural computing is a recent field of research wchi tries to imitate nature in the way it "computes", learning new computing models and computing paradigms experimented for billions of years by nature.
+
+Neural networks, genetic algorithms and DNA computing are already well established research fields.
+
+However, nature computes not only at the neural or genetic level, but also at the cellular level. In general, any non-trivial biological system has a hierarchical structure where objects and information flows between regions, what can be interpreted as a computation process.
+
+% The notion of membrane
+
+The regions are typically delimited by various types of membranes at different levels from cell membranes, through skin membrane to virtual membranes which delimits different parts of an ecosystem.
+This hierarchical system can be seen in other field such as distributed computing, where again well delimited computing units coexist and are hierarchically arranged in complex systems from single processors to the internet.
+
+Membranes keep together certain chemicals or information and selectively determines which of them may pass through.
+
+% The notion of membrane structure
+
+From these observations, Paun \cite{Paun98} introduces the notion of a membrane structure as a mathematical representation of hierarchical architectures composed of membranes. It is usually represented as a Venn diagram with all the considered sets being subsets of a unique set and not allowed to be intersected. Every two sets are either one the subset of the other, or disjoint.
+
+
+
+
+
+
+P systems
+
+In previous chapter we introduced the notions of membrane and membrane structure.
+
+% Place objects in the regions.
+
+The next step is to place certain objects in the regions delimited by the membranes. The objects are identified by their names, mathematically symbols from a given alphabet.
+
+% Multisets of objects.
+
+Several copies of the same object can appear in a region, so we will work with multisets of objects.
+
+% Evolution rules
+
+In order to obtain a computing device, we will allow the objects to evolve according to evolution rules. Any object, alone or together with another objects, can be transformed in other objects, can pass through a membrane, and can dissolve the membrane in which it is placed.
+
+% Parallelism
+
+All objects evolve at the same time, in parallel manner across all membranes.
+
+% Priorities
+
+The evolution rules are hierarchizes by a priority relation, which is a partial order.
+
+% P system
+
+These aspects all together forms a P system as introduced in \cite{Paun98}.
+
 \chapter{P systems}
-The concept of P systems was first introduced in a 1998 report by Gheorghe Păun in the report \cite{Paun:TUCS_208_98:Computing_with:98}.
+The concept of P systems was first introduced in a 1998 report by Gheorghe Păun in the report \cite{Paun98}.
 
 Some text about P systems. Gheorge Paun established this topic in 1998 with book Membrane Computing. There have been lot of research in this field of study.
 
