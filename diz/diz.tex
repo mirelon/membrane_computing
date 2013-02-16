@@ -13,7 +13,7 @@
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{makeidx}
-\input{../lib/vety.tex}
+\input{../lib/theorems.tex}
 \pagestyle{headings}
 
 \bibliographystyle{unsrt}
@@ -82,7 +82,106 @@ Univerzita Komenského, Bratislava
 \mainmatter
 \include{uvod}
 
-\chapter{Preliminaries}
+\chapter{Preliminaries} % (fold)
+\label{cha:preliminaries}
+
+\section{Formal languages theory} % (fold)
+\label{sec:formal_languages_theory}
+
+Our study is based on the classical theory of formal languages. We will recall some definitions:
+
+\begin{definition}
+An {\bf alphabet} is a finite nonempty set of symbols. Usually it is denoted by $\Sigma$ or $V$.
+\end{definition}
+
+\begin{definition}
+A {\bf string} over an alphabet is a finite sequence of symbols from alphabet.
+\end{definition}
+
+We denote by $V^*$ the set of all strings over an alphabet $V$. By $V^+$ = $V^* - \{\eps\}$ we denote the set of all nonempty strings over V.
+
+\begin{definition}
+A {\bf language} over the alphabet $V$ is any subset of $V^*$.
+\end{definition}
+
+% section formal_languages_theory (end)
+
+\section{Register machines} % (fold)
+\label{sec:register_machines}
+
+% We will use the notion of register machine as defined in our article
+
+\input{../inh/r-machine-definition}
+
+% section register_machines (end)
+
+\section{Multisets} % (fold)
+\label{sec:multisets}
+
+\begin{definition}
+A multiset over a set $X$ is a mapping $M: X\rightarrow \mathbb N$.
+\end{definition}
+
+We denote by $M(x), x\in X$ the multiplicity of $x$ in the multiset $M$.
+
+\begin{definition}
+The {\bf support} of a multiset $M$ is the set $supp(M)=\{x\in X|M(x)\geq 1\}$.
+\end{definition}
+
+It is the set of items with at least one occurence.
+
+\begin{definition}
+A multiset is {\bf empty} when it's support is empty.
+\end{definition}
+
+A multiset $M$ with finite support $X = \{x_1, x_2, \dots, x_n\}$ can be represented by the string $x_1^{M(x_1)}x_2^{M(x_2)}\dots x_n^{M(x_n)}$.
+
+\begin{definition}
+Multiset inclusion. We say that mutiset $M_1$ is included in multiset $M_2$ if $M_1(x)\leq M_2(x)\forall x \in X$. We denote it by $M_1\subseteq M_2$.
+\end{definition}
+
+\begin{definition}
+The {\bf union} of two multisets $M_1\cup M_2 : X\rightarrow \mathbb N$ is defined as $(M_1\cup M_2)(x)=M_1(x)+M_2(x)$.
+\end{definition}
+
+\begin{definition}
+The {\bf difference} of two multisets $M_1-M_2 : X\rightarrow \mathbb N$ is defined as $(M_1-M_2)(x)=M_1(x)-M_2(x)$.
+\end{definition}
+
+\begin{definition}
+Product of multiset $M$ with natural number $n\in \mathbb N$ is $(n\cdot M)(x)=n\cdot M(x)$.	
+\end{definition}
+
+% section multisets (end)
+
+\section{Multiset languages} % (fold)
+\label{sec:multiset_languages}
+
+The number of occurences of a given symbol $a\in V$ in the string $w\in V^*$ is denoted by $|w|_a$.
+
+\begin{definition}
+$\Psi_V(w)=(|w|_{a_1},|w|_{a_2},\dots,|w|_{a_n})$ is called a Parikh vector associated with the string $w\in V^*$, where $V=\{a_1,a_2,\dots a_n\}$.
+\end{definition}
+
+\begin{definition}
+For a language $L\subseteq V^*$, $\Psi_V(L)=\{\Psi_V(w)|w\in L\}$ is the Parikh mapping associated with $V$.
+\end{definition}
+
+\begin{example}
+Consider an alphabet $V=\{a,b\}$ and a language $L=\{a, ab, ba\}$.
+$\Psi_V(L)=\{(1,0), (1,1)\}$. Notice that Parikh image of $L$ has only 2 element while $L$ has 3 elements.
+\end{example}
+
+\begin{definition}
+If FL is a family of languages, by PsFL is denoted the family of Parikh images of languages in FL.
+\end{definition}
+
+
+% section multiset_languages (end)
+
+Parikh images
+
+% chapter preliminaries (end)
 
 \chapter{Membrane computing}
 
