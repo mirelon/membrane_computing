@@ -68,24 +68,43 @@ Current digital and bio technologies do not permit a direct implementation of a 
 There have been lot of research that consider rewriting rules with catalysts, promoters and inhibitors. However, they were only used to overcome the limitations brought by noncooperative rules. 
 In this paper we will use rewriting rules with inhibitors to overcome the limitations of sequential mode.
 
+% Related work
+
+% Max 1 instance of any rule
+
 In \cite{Ibarra04dang:the} they have a variant of P systems with maximal parallelism restricted to use at most one instance of any rule in a step.
 They show that for universality is sufficient non-cooperative variant where the only allowed cooperative rule with both symbols equal. For example rule $a|a\rightarrow b$. Also, catalytic rules are sufficient too.
 
+% Cooperative vs Context free
+
 In \cite{Sburlan05dragos} the author formally proves equality between classes of P systems and parikh images of classes in Chomski hierarchy. P systems with context-free rules are equal to $PsCF$ and P systems with cooperative rules are universal (equal to $PsRE$).
 
-%TODO: Computationally universal P systems without priorities: two catalysts are sufficient
+% Two catalysts are enough
+% One catalyst with promoters/inhibitors is enough
 
 The gap between is filled in \cite{Ionescu:jucs_10_5:on_p_systems_with}. Assumed P systems with context-free rules and maximal parallelism, there is a need for some context added to the rules. Cooperative or catalytic rules are sufficient for universality. The paper shows that two catalyst are enough. There was an open question whether one catalyst is enough. Then it was shown that it is not enough unless we allow promoters or inhibotors. Without them it has the power of Lindenmayer systems.
 
+% Inhibiting rules
+
 Rewriting controlled by inhibition is more thouroughly researched in \cite{Cavaliere:2004:IRP:2144633.2144648}. P systems with context-free rules and are enriched with rules with option to inhibit / de-inhibit another rule. This, with one catalyst is shown to be universal. Without catalyst and with only one membrane it is shown to have at least the power of Lindenmayer systems.
+
+% Context free with inhibitors
 
 However, \cite{doi:10.1142/S0129054106003772} shows that even if we have maximal parallel context-free rules with inhibitors, it is only equal to the family of Parikh sets of ET0L languages (PsET0L). If we have promoters instead of inhibitors, only the inclusion of the family PsET0L was proved. % it is stronger than PsET0L
 
+% Sequential with energies and priorities
+
 Several sequential variants of P systems were studied. In \cite{Freund:2004:SPS:2149813.2149831} membranes have been assigned energy values that can control rule rewriting. Each rule has energy that is consumed when the rule is applied. If we have rules with priorities, the system becomes universal.
+
+% Sequential not universal
 
 However, if we extend sequential P systems with cooperative rules as in \cite{Dang04onp} and restrict it to use only one membrane, it defines exactly semilinear sets and is not universal.
 
+% Deterministic, asynchronous context-free with inhibitors not universal
+
 In \cite{Alhazov13} several non-cooperative variants with either promoters or inhibitors were studied. Maximally parallel and asynchronous modes was shown to be universal. They also defined the deterministic mode (only for accepting case). The computation is accepted only if for each configuration there was at most one multiset of rules applicable. Such deterministic variant was shown to only accept the family of all finite languages.
+
+% CLS
 
 Another sequential model, but not a variant of P system, is Calculi of Looping Sequences. It is introduced in \cite{Barbuti07thecalculus} as a membrane model where objects are strings that can loop around forming a membrane. Rewriting rules are global and are executed sequentially. It is shown to be universal by directly simulating P systems.
 
