@@ -63,12 +63,32 @@ In addition, a new variant of P system is defined in this paper, where the empty
 \end{abstract}
 
 \section{Introduction}
+
+% Bio motivation
+
 Membrane systems (P systems) were introduced by Paun (see \cite{Paun2000108}) as distributed parallel computing devices inspired by the structure and functionality of cells.
-Current digital and bio technologies do not permit a direct implementation of a P system under the parallel semantics. 
-There have been lot of research that consider rewriting rules with catalysts, promoters and inhibitors. However, they were only used to overcome the limitations brought by noncooperative rules. 
-In this paper we will use rewriting rules with inhibitors to overcome the limitations of sequential mode.
+One of the objectives is to relax the condition of using the rules in a maximally parallel way in order to find more realistic P systems from a biological point of view.
+In sequential systems, only one rewriting rule is used in each step of computation.
+
+% Our work
+
+We are looking for ways to obtain universality in this sequential mode.
+
+% Inhibitors
+
+At first, we consider inhibitors and show that using them we can simulate P system working in a maximally parallel way.
+
+% Vacuum
+
+Then, we introduce the concept of vacuum. In the common sense, vacuum represents a state of space with no or a little matter in it. Using vacuum in modelling frameworks can help express certain phenomena more easily.
+We define a new P system variant, which creates a special vacuum object in a region as soon as the region becomes empty. The vacuum is removed whenever some object interacts with it. After the interaction, there is vacuum no longer. This removal process is realized by allowing the vacuum object to be used only on the left side of rules.
+If we made the vacuum to be removed automatically when an object enters the region, there would be no difference with the variant without vacuum objects because of no interactions with it.
+We are interested in how the variant with the vacuum improves the computational power of a P system in comparison to the variant without the vacuum.
+
 
 % Related work
+
+There have been lot of research that consider rewriting rules with catalysts, promoters and inhibitors. However, they were only used to overcome the limitations brought by noncooperative rules, and still working in a maximal parallel manner.
 
 % Max 1 instance of any rule
 
@@ -108,15 +128,6 @@ In \cite{Alhazov13} several non-cooperative variants with either promoters or in
 
 Another sequential model, but not a variant of P system, is Calculi of Looping Sequences. It is introduced in \cite{Barbuti07thecalculus} as a membrane model where objects are strings that can loop around forming a membrane. Rewriting rules are global and are executed sequentially. It is shown to be universal by directly simulating P systems.
 
-
-In this paper, we research other ways to obtain universality without maximal parallelism using only sequential asynchronous mode.
-
-Then, we introduce the concept of vacuum. In the common sense, vacuum represents a state of space with no or a little matter in it. Using vacuum in modelling frameworks can help express certain phenomena more easily.
-
-We define a new P system variant, which creates a special vacuum object in a region as soon as the region becomes empty. The vacuum is removed whenever some object interacts with it. After the interaction, there is vacuum no longer. This removal process is realized by allowing the vacuum object to be used only on the left side of rules.
-If we made the vacuum to be removed automatically when an object enters the region, there would be no difference with the variant without vacuum objects because of no interactions with it.
-
-We are interested in how the variant with the vacuum improves the computational power of a P system in comparison to the variant without the vacuum.
 
 \section{Preliminaries}
 
