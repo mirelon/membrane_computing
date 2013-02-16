@@ -162,31 +162,22 @@ Consider a finite set of symbols $V=\{a_1, a_2,\dots, a_n\}$. An arbitrary multi
 
 % P system
 
-\include{p-system-definition}
+\input{p-system-definition}
   
 Each rewriting rule may specify for each symbol on the right side, whether it stays in the current region, moves through the membrane to the parent region or through membrane to one of the child regions. An example of such rule is the following: $abb\rightarrow (a,here)(b,in)(c,out)(c,here)$.
 
 % Configuration
 
-A {\bf configuration} of a P system is represented by it's membrane structure and the multisets of objects in the regions.
+\input{p-system-configuration}
 
 % Step
 
-A {\bf computation step} of P system is a relation $\Rightarrow$ on the set of configurations such that $C_1 \Rightarrow C_2$ iff:
-
-For every region in $C_1$ (suppose it contains a multiset of objects $w$) the corresponding multiset in $C_2$ is the result of applying a multiset of maximal simultaneously applicable multiset rewriting rules in $R^{msap}_w$ to $w$.
-
-In other words, a maximal multiset of rules is applied in each region.
-
-For example, let's have two regions with multisets $aa$ and $b$. In the first region there is a rule $a\rightarrow b$ and in the second membrane there is a rule $b\rightarrow aa$. The only possible result of a computation step is $bb$, $aa$. The first rule was applied twice and the second rule once. No more object could be consumed by rewriting rules.
+\input{p-system-step}
 
 % Computation
 
-{\bf Computation} of a P system consists of a sequence of steps. The step $S_i$ is appied to result of previous step $S_{i-1}$. So when $S_i = (C_j,C_{j+1})$, $S_{i-1} = (C_{j-1},C_j)$.
+\input{p-system-computation}
 
-Result of computation is multiset of symbols that left the skin membrane in the configuration after the last computation step. For one initial configuration there can be multiple possible results. It follows from the fact that there exist more than one maximal multiset of rules that can be applied in each step.
-
-P system defines a parikh image of a language: the set of possible results of computations.
 
 \section{P system variants}
 \label{sec:variants}
