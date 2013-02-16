@@ -63,6 +63,7 @@ In addition, a new variant of P system is defined in this paper, where the empty
 \end{abstract}
 
 \section{Introduction}
+\label{sec:introduction}
 
 % Bio motivation
 
@@ -130,6 +131,7 @@ Another sequential model, but not a variant of P system, is Calculi of Looping S
 
 
 \section{Preliminaries}
+\label{sec:preliminaries}
 
 Here we recall several notions from the classical theory of formal languages.
 
@@ -140,6 +142,7 @@ The number of occurences of a given symbol $a\in V$ in the string $w\in V^*$ is 
 A multiset over a set $X$ is a mapping $M: X\rightarrow \mathbb N$. We denote by $M(x), x\in X$ the multiplicity of $x$ in the multiset $M$. The {\bf support} of a multiset $M$ is the set $supp(M)=\{x\in X|M(x)\geq 1\}$. It is the set of items with at least one occurence. A multiset is {\bf empty} when it's support is empty. A multiset $M$ with finite support $X = \{x_1, x_2, \dots, x_n\}$ can be represented by the string $x_1^{M(x_1)}x_2^{M(x_2)}\dots x_n^{M(x_n)}$. We say that multiset $M_1$ is included in multiset $M_2$ if $M_1(x)\leq M_2(x)\forall x \in X$. We denote it by $M_1\subseteq M_2$. The {\bf union} of two multisets $M_1\cup M_2 : X\rightarrow \mathbb N$ is defined as $(M_1\cup M_2)(x)=M_1(x)+M_2(x)$. The {\bf difference} of two multisets $M_1-M_2 : X\rightarrow \mathbb N$ is defined as $(M_1-M_2)(x)=M_1(x)-M_2(x)$. Product of multiset $M$ with natural number $n\in \mathbb N$ is $(n\cdot M)(x)=n\cdot M(x)$.
   
 \section{P-systems}
+\label{sec:p-systems}
 
 %TODO: definovat simulaciu, krok, konfiguraciu, ...
 
@@ -186,6 +189,7 @@ Result of computation is multiset of symbols that left the skin membrane in the 
 P system defines a parikh image of a language: the set of possible results of computations.
 
 \section{P system variants}
+\label{sec:variants}
 
 There are several variants of P systems. Each of them has slightly different definitions of the rewriting process.
 
@@ -217,6 +221,7 @@ The reaction can be also seen as "object entering the vakuum" - objects are faci
 From certain point of view, vacuum can be seen as a sort of inhibitor. For example food is often packed in vacuum packing in order to delay/inhibit food decay.
 
 \section{Trading maximal parallelism for inhibitor usage}
+\label{sec:inhibitors}
 The goal of this paper is to show that using inhibitors, the sequential P systems can achieve universality like maximal parallel variant. The proof is partially inspired by \cite{Barbuti07thecalculus}, where it is shown that Calculi of Looping Sequences (CLS) can simulate computation of a P system. CLS is a membrane model with string objects and sequential rules.
 
 \subsection{Inhibitor set}
@@ -418,6 +423,7 @@ Lemma \ref{lemma:inhibitor_step} will establish equivalence of these two definit
 % subsection universality_results_for_accepting_case (end)
 
 \section{Trading maximal parallelism for Vacuum}
+\label{sec:vacuum}
 
 In this section we will research how the Vacuum object can help achieving universality.
 
@@ -457,6 +463,7 @@ In this section we will research how the Vacuum object can help achieving univer
 \end{dokaz}
 
 \section{Conclusion}
+\label{sec:conclusion}
 We have studied several variants of sequential P systems in order to obtain universality without using maximal parallelism.
 A variant with rewriting rules that can use inhibitors was shown to be universal in both generating and accepting case. The generating model is able to simulate maximal parallel P system and the accepting model can simulate a register machine.
 
