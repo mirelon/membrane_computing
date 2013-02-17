@@ -1,0 +1,42 @@
+We are interested in computation power of various variants of P systems. Especially those that are universal (Turing completeness).
+
+\subsection{Accepting vs generating} % (fold)
+\label{sub:accepting_vs_generating}
+
+% subsection accepting_vs_generating (end)
+
+\subsection{Active vs passive membranes} % (fold)
+\label{sub:active_vs_passive_membranes}
+
+% TODO: need citations
+Most of the studied P system variants assumes that the number of membranes can only decrease during a computation, by dissolving membranes as a result of applying evolution rules to the objects present in the system.
+A natural possibility is to let the number of membranes also to increase during a computation, for instance, by division, as it is well-known in biology. Actually, the membranes from biochemistry are not at all passive, like those in the models briefly described above.
+For example, the passing of a chemical compound through a membrane is often done by a direct interaction with the membrane itself (with the so-called protein channels or protein gates present in the membrane); during this interaction, the chemical compound which passes through membrane can be modified, while the membrane itself can in this way be modified (at least locally).
+
+In \cite{Paun99ActiveMembranes} Paun considers P systems with active membranes where the central role in the computation is played by the membranes: evolution rules are associated both with objects and membranes, while the communication through membranes is performed with the direct participation of the membranes; moreover, the membranes can not only be dissolved, but they also can multiply by division. An elementary membrane can be divided by means of an interaction with an object from that membrane.
+
+% Polarisation
+
+Each membrane is supposed to have an electrical polarization (we will say charge), one of the three possible: positive, negative, or neutral. If in a membrane we have two immediately lower membranes of opposite polarizations, one positive and one negative, then that membrane can also divide in such a way that the two membranes of opposite charge are separated; all membranes of neutral charge and all objects are duplicated and a copy of each of them is introduced in each of the two new membranes.
+The skin is never divided.
+If at the same time a membrane is divided and there are objects in this membrane which are being rewritten in the same step, then in the new copies of the membrane the result of the evolution is included.
+
+In this way, the number of membranes can grow, even exponentially. As expected, by making use of this increased parallelism we can compute faster.
+For example, the SAT problem, which is NP complete, can be solved in linear time, when we consider the steps of computation as the time units.
+Moreover, the model is shown to be computationally universal.
+
+% subsection active_vs_passive_membranes (end)
+
+\subsection{Parallelism options} % (fold)
+\label{sub:parallelism_options}
+
+Maximal parallelism, minimal parallelism, n-parallelism, sequential models.
+
+% subsection parallelism_options (end)
+
+\subsection{Contextivity rules}
+Context rules vs cooperational rules, catalytic rules, symmetric cooperational rules, catalytic rules, promoters, inhibitors, context-free rules.
+
+\subsection{Priority rules}
+\subsection{Energy of membranes}
+\subsection{Calculi of Looping Sequences}
