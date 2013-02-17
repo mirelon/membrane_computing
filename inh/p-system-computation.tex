@@ -1,5 +1,12 @@
 {\bf Computation} of a P system consists of a sequence of steps. The step $S_i$ is appied to result of previous step $S_{i-1}$. So when $S_i = (C_j,C_{j+1})$, $S_{i-1} = (C_{j-1},C_j)$.
 
-Result of computation is multiset of symbols that left the skin membrane in the configuration after the last computation step. For one initial configuration there can be multiple possible results. It follows from the fact that there exist more than one maximal multiset of rules that can be applied in each step.
+% Result of a computation
 
-P system defines a parikh image of a language: the set of possible results of computations.
+There are two possible ways of assigning a result of a computation:
+
+\begin{enumerate}
+    \item By considering the multiplicity of objects present in a designated membrane in a halting configuration. In this case we obtain a vector of natural numbers. We can also represent this vector as a multiset of objects or as Parikh image of a language.
+    \item By concatenating the symbols which leave the system, in the order they are sent out of the skin membrane (if several symbols are expelled at the same time, then any ordering of them is accepted). In this case we generate a language.
+\end{enumerate}
+
+The result of a computation is clearly only one multiset or a string, but for one initial configuration there can be multiple possible computations. It follows from the fact that there exist more than one maximal multiset of rules that can be applied in each step.
