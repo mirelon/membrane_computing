@@ -13,7 +13,7 @@ In the Chomsky hierarchy, there are language acceptors (finite automata, Turing 
 
 % Accepting grammars
 
-Bordhin in \cite{Bordihn99acceptingpure} extends grammars to allow for accepting languages by interchanging the left side with the right side of a rule. The mode will apply rewriting rules to an input word and accept it when it reaches the starting nonterminal. However, the input word consists of terminal symbols, which in original definition could not be rewritten, hence they consider the pure version of various grammar types where they give up the distinction between terminal and nonterminal symbols.
+Bordhin in \cite{Bordihn99acceptingpure} extends grammars to allow for accepting languages by interchanging the left side with the right side of a rule. The mode will apply rewriting rules to an input word and accept it when it reaches the starting nonterminal. However, the input word consists of terminal symbols, which could not be rewritten when using original definition, hence they consider the pure version of various grammar types where they give up the distinction between terminal and nonterminal symbols.
 
 % Accepting vs generating common results
 
@@ -49,16 +49,33 @@ Moreover, the model is shown to be computationally universal.
 
 % subsection active_vs_passive_membranes (end)
 
+\subsection{Contextivity rules} % (fold)
+\label{sub:contextivity_rules}
+
+Context rules vs cooperational rules, catalytic rules, symmetric cooperational rules, catalytic rules, promoters, inhibitors, context-free rules.
+
+% subsection contextivity_rules (end)
+
+\subsection{Rules with priorities} % (fold)
+\label{sub:rules_with_priorities}
+
+In the original definition of a P system \cite{Paun98}, a partial order relation over set of rewriting rules have been specified. The rule can be used only if no rule of a higher priority in the region can be applied at the same time.
+
+Sos\'ik in \cite{Sosik:2002:WithoutPriorities} showed that the priorities may be omitted from the model without loss of computational power.
+
+% subsection rules_with_priorities (end)
+
+\subsection{Energy of membranes} % (fold)
+\label{sub:energy_of_membranes}
+
+% subsection energy_of_membranes (end)
+
+\subsection{Calculi of Looping Sequences}
+
+
 \subsection{Parallelism options} % (fold)
 \label{sub:parallelism_options}
 
 Maximal parallelism, minimal parallelism, n-parallelism, sequential models.
 
 % subsection parallelism_options (end)
-
-\subsection{Contextivity rules}
-Context rules vs cooperational rules, catalytic rules, symmetric cooperational rules, catalytic rules, promoters, inhibitors, context-free rules.
-
-\subsection{Priority rules}
-\subsection{Energy of membranes}
-\subsection{Calculi of Looping Sequences}
