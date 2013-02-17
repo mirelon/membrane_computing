@@ -9,6 +9,22 @@ Besozzi in his PhD thesis (see \cite{Besozzi:PhD:2004}) formulates three criteri
 \subsection{Accepting vs generating} % (fold)
 \label{sub:accepting_vs_generating}
 
+In the Chomsky hierarchy, there are language acceptors (finite automata, Turing machines) and language generators (formal grammars).
+
+% Accepting grammars
+
+Bordhin in \cite{Bordihn99acceptingpure} extends grammars to allow for accepting languages by interchanging the left side with the right side of a rule. The mode will apply rewriting rules to an input word and accept it when it reaches the starting nonterminal. However, the input word consists of terminal symbols, which in original definition could not be rewritten, hence they consider the pure version of various grammar types where they give up the distinction between terminal and nonterminal symbols.
+
+% Accepting vs generating common results
+
+The regular, context-free, context-sensitive and recursively enumerable languages were shown to have equal power in accepting and generating mode.
+Some other grammars (programmed grammars with appearence checking) are shown to be more powerful in accepting mode than in generating mode.
+For deterministic Lindenmeyer systems, the generating and accepting mode are incomparable.
+
+% Accepting vs generating P system results
+
+It can be interesting to investigate accepting and generating mode also in P system variants. Barbuti in \cite{Barbuti:2010:AcceptingGenerating} shown that in the nondeterministic case, when either promoters or cooperative rules are allowed, acceptor P systems have shown to be universal. The same in known to hold for the corresponding classes of nondeterministic generator P systems. In the deterministic case, acceptor P systems have been shown to be universal only if cooperative rules are allowed. Universality has been shown not to hold for the corresponding classes of generator P systems.
+
 % subsection accepting_vs_generating (end)
 
 \subsection{Active vs passive membranes} % (fold)
