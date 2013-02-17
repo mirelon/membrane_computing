@@ -49,12 +49,39 @@ Moreover, the model is shown to be computationally universal.
 
 % subsection active_vs_passive_membranes (end)
 
-\subsection{Contextivity rules} % (fold)
-\label{sub:contextivity_rules}
+\subsection{Context in rules} % (fold)
+\label{sub:context_in_rules}
 
-Context rules vs cooperational rules, catalytic rules, symmetric cooperational rules, catalytic rules, promoters, inhibitors, context-free rules.
+% Cooperative / Non-cooperative
 
-% subsection contextivity_rules (end)
+Rewriting rules in P systems can be cooperative and non-cooperative, like in Chomsky's context-free and context-sensitive grammars. Non-cooperative rules are restricted to use only one object on the left side and cooperative rules do not have this restriction.
+P systems with cooperative rules are universal \cite{Paun98}, while P systems with non-cooperative rules only characterize parikh image of context-free languages ($PsCF$) \cite{Sburlan05dragos}.
+
+% Catalytic P systems
+
+Paun \cite{Paun98} also defines P systems with catalysts defined as a specified subset of the alphabet. Catalytic rewriting rules can contain catalysts, which are not modified by applying the rule. Suprisingly, P systems with catalytic rules are universal, actually two membranes in the P system are sufficient to achieve universality.
+
+In systems with only catalytic rules, three catalysts are enough. % TODO: need cite
+
+% Two catalysts
+
+Freund in \cite{Freund2005TwoCatalysts} shows that two catalysts are enough and raised an open problem whether one catalyst is sufficient. He conjectured that for computationally universal P systems the results obtained in this paper are optimal not only with respect to the number of membranes (2), but also with respect to the number of catalysts.
+
+% TODO: introduce promoters, inhibitors and compare them to catalysts
+
+% One catalyst with promoters/inhibitors
+
+Ionescu in \cite{Ionescu:jucs_10_5:on_p_systems_with} shows that P systems with non-cooperative catalytic rules with only one catalyst and with promoters/inhibitors are universal.
+
+% Zero catalysts with inhibitors
+
+Non-cooperative rules with no catalysts and with inhibitors were studied in \cite{Sburlan:2006:FurtherResultsPromotersInhibitors}, the equivalence with Lindenmeyer systems ($ET0L$) was proved.
+
+% Simple cooperative system
+
+Dang \cite{Ibarra04dang} proposes a simple cooperative system ($SCO$) as a P system where the only rules allowed are of the form $a\rightarrow v$ or of the form $aa\rightarrow v$, where $a$ is a symbol and $v$ is a (possibly null) string of symbols not containing $a$. This variant is investigated with various modes of parallelism, so their results will be mentioned in the subsection \ref{sub:parallelism_options}
+
+% subsection context_in_rules (end)
 
 \subsection{Rules with priorities} % (fold)
 \label{sub:rules_with_priorities}
