@@ -108,6 +108,18 @@ This variant is universal even in sequential mode if we allow priorities on the 
 
 % subsection energy_in_p_systems (end)
 
+\subsection{Symport/antiport rules} % (fold)
+\label{sub:symport_antiport_rules}
+
+Paun in \cite{Paun:2002:SymportAntiport} proposes a new way of communicating between membranes.
+
+Symports allow two chemicals to pass together through a membrane in the same direction using symport rules of type $(ab,in)$ or $(ab,out)$.
+Antiports allow two chemicals to pass simultaneously through a membrane in opposite directions using antiport rules of type $(a,in;b,out)$.
+
+Suprisingly, a P system variant, where only the symport/antiport rules are used are computationally complete. Five membranes are enough for this result. If more than two chemicals may collaborate when passing through membranes, two membranes are sufficient for universality. These results are proven in \cite{Paun:2002:SymportAntiport}.
+
+% subsection symport_antiport_rules (end)
+
 \subsection{Parallelism options} % (fold)
 \label{sub:parallelism_options}
 
@@ -116,7 +128,5 @@ Original definition of P system (see \cite{Paun98}) uses maximal parallelism whe
 Ciobanu in \cite{Ciobanu:2007:MinimalParallelism} proposes a minimal parallelism: for each region if at least one rule can be applied, then at least one rule will be applied. The symport/antiport rules variant and variant with active membranes were both shown to be universal.
 
 TODO: n-parallelism, sequential models, asynchronous models
-
-TODO: symport/antiport
 
 % subsection parallelism_options (end)
