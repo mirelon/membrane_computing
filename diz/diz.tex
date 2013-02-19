@@ -80,38 +80,22 @@ Univerzita Komenského, Bratislava
 \listoftables{}
 
 \mainmatter
-\include{uvod}
 
-\include{preliminaries}
+\chapter*{Introduction} % (fold)
+\label{cha:introduction}
+\input{uvod}
+
+% chapter introduction (end)
+
+\chapter{Preliminaries} % (fold)
+\label{cha:preliminaries}
+\input{preliminaries}
+
+% chapter preliminaries (end)
 
 \chapter{Membrane computing} % (fold)
 \label{cha:membrane_computing}
-
-Recently, an interdisciplinary research between the fields of Computer Science and Biology has been rapidly growing. 
-
-% Bioinformatics (slaves of biologists)
-
-Bioinformatic has undergone a fast evolving process, especially the areas of genomics and proteomics. Bioinformatics can be seen as the application of computing tools and techniques for the management of biological data. Just to mention a few, the design of efficient algorithms for sequence alignment, the investigation of methods for prediction of the 3D structure of molecules and proteins and the development of data structures to effectively store huge amount of structured data.
-
-% Natural computing (those inspired by nature)
-
-On the other hand, the birth of biologically inspired frameworks started the investigation of mathematical models and their properties and technological requirements for their implementation by biological hardware.
-Those frameworks are inspired by the nature in the way it "computes", and has gone through the evolution for billions of years.
-
-Neural networks, genetic algorithms and DNA computing are already well established research fields.
-
-However, nature computes not only at the neural or genetic level, but also at the cellular level. In general, any non-trivial biological system has a hierarchical structure where objects and information flows between regions, what can be interpreted as a computation process.
-
-% The notion of membrane
-
-The regions are typically delimited by various types of membranes at different levels from cell membranes, through skin membrane to virtual membranes which delimits different parts of an ecosystem.
-This hierarchical system can be seen in other field such as distributed computing, where again well delimited computing units coexist and are hierarchically arranged in complex systems from single processors to the internet.
-
-Membranes keep together certain chemicals or information and selectively determines which of them may pass through.
-
-% The notion of membrane structure
-
-From these observations, Paun \cite{Paun98} introduces the notion of a membrane structure as a mathematical representation of hierarchical architectures composed of membranes. It is usually represented as a Venn diagram with all the considered sets being subsets of a unique set and not allowed to be intersected. Every two sets are either one the subset of the other, or disjoint.
+\input{membranes}
 
 % chapter membrane_computing (end)
 
