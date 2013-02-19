@@ -111,6 +111,12 @@ This variant is universal even in sequential mode if we allow priorities on the 
 \subsection{Parallelism options} % (fold)
 \label{sub:parallelism_options}
 
-Maximal parallelism, minimal parallelism, n-parallelism, sequential models.
+Original definition of P system (see \cite{Paun98}) uses maximal parallelism when doing a step of computation. There is an obvious biological motivation relying on the assumption that ``if we wait long enough, then all reaction which may take place will take place''. This condition is rather powerful, because it decreases the non-determinism of the sysem's evolution. For various reasons ranging from looking for more realistic models to just the mathematical challenge, the maximal parallelism was questioned.
+
+Ciobanu in \cite{Ciobanu:2007:MinimalParallelism} proposes a minimal parallelism: for each region if at least one rule can be applied, then at least one rule will be applied. The symport/antiport rules variant and variant with active membranes were both shown to be universal.
+
+TODO: n-parallelism, sequential models, asynchronous models
+
+TODO: symport/antiport
 
 % subsection parallelism_options (end)
