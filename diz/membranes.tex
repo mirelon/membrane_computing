@@ -24,12 +24,24 @@ Membranes keep together certain chemicals or information and selectively determi
 
 From these observations, Paun \cite{Paun98} introduces the notion of a membrane structure as a mathematical representation of hierarchical architectures composed of membranes. It is usually represented as a Venn diagram with all the considered sets being subsets of a unique set and not allowed to be intersected. Every two sets are either one the subset of the other, or disjoint.
 
-Recently, several computational models based on the membrane structure have been created. P systems will be discussed in the chapter \ref{cha:p_systems}.
+% Membrane models
+
+Recently, several computational models based on the membrane structure have been created.
+
+% P systems
+
+P systems were introduced in 1998 as a system with membrane structure that contains multisets of objects and rewrite rules that are executed in a maximaly parallel manner. Since then, a huge amount of variants have been created with various computation powers. We have investigated the power of several such variants. Additionaly, we propose a new variant with a vacuum, where the rules can describe what will happen to an object that arrives to an empty membrane.
+
+P systems with existing and newly proposed variants will be discussed in the chapter \ref{cha:p_systems}.
+
+Aside from P systems, other models based on the membrane structure have been created such as the Calculus of Looping Sequences (CLS), which was inspired by P systems.
+
+% CLS
 
 \section{The Calculus of Looping Sequences} % (fold)
 \label{sec:calculus_of_looping_sequences}
 
-Barbuti in \cite{Barbuti07CLS} concluded that there is a need for a formalism having a simple notation, having the ability of describing biological systems at different levels of abstractions, having some notions of compositionality and being flexible enough to allow describing new kinds of phenomena as they are discovered, without being specialized to the description of a particular class of systems. The Calculus of Looping sequences (CLS) was introduced in \cite{Barbuti07CLS}.
+Barbuti in \cite{Barbuti07CLS} concluded that there is a need for a formalism having a simple notation, having the ability of describing biological systems at different levels of abstractions, having some notions of compositionality and being flexible enough to allow describing new kinds of phenomena as they are discovered, without being specialized to the description of a particular class of systems. The Calculus of Looping Sequences (CLS) was introduced in \cite{Barbuti07CLS}.
 
 The membrane structure in CLS is defined recursively, consisting of terms $T$ and sequences $S$:
 $$ T ::= S \mid (S)^L\rfloor T \mid T|T$$
