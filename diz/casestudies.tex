@@ -25,3 +25,23 @@ However, many simulators of P system are inefficient since they cannot handle th
 They compared it to the classical simulator and reported up to 94x of speedup for 256 literals in the formula. The major constraint of this parallel simulation is the GPU memory size, which can be overcome with a data partition on a cluster of GPUs. 
 
 % subsection solving_sat_in_linear_time (end)
+
+\subsection{Implementation of P systems in vitro} % (fold)
+\label{sub:implementation_of_p_systems_in_vitro}
+
+``In vitro'' are studies in experimental biology that uses components of an organism that have been isolated from their usual biological surroundings in order ot provide a more convenient analysis.
+
+% TODO: citation needed Research Topics Arising from the (Planned) P Systems Implementation Experiment in Technion
+There was a planned experiment of computing the Fibonacci sequence using P systems in vitro (see \cite{Gershoni:2008:InVitro}) using test tubes as membranes and DNA molecules as objects, evolving under the control of enzymes.
+Number of objects in a multiset was represented by a pre-defined ``mole'' of the substance and synchronization was obtained by ``waiting enough'', such that all reactions that can take place in a test tube actually take place. Hence, the variant where reactions don't cycle is required (Local loop-free P systems).
+Communication was done by moving all the relevant objects to the next tube in a mechanical way. The final result was read by spectrometry.
+
+The proposed framework has many difficulties. The notable ones are:
+
+\begin{itemize}
+  \item Is there any chance to solve NP-complete problems in this frameworks?
+  \item Are LL-free P systems universal?
+\end{itemize}
+
+
+% subsection implementation_of_p_systems_in_vitro (end)
