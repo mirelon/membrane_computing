@@ -6,6 +6,9 @@ Besozzi in his PhD thesis (see \cite{Besozzi:PhD:2004}) formulates three criteri
 	\item It should present mathematical minimality and elegance, to the aim of proposing an alternative framework for the analysis of computational models.
 \end{enumerate}
 
+In membrane computing, many models are equal in power with Turing machines. We should say they are Turing complete (or computationally complete), but because the proofs are always constructive, starting the constructions from these proofs from universal Turing machines or from equivalent devices, we obtain universal P systems (able
+to simulate any other P system of the given type). That is why we speak about universality results, and not about computational completeness.
+
 \subsection{Accepting vs generating} % (fold)
 \label{sub:accepting_vs_generating}
 
@@ -68,6 +71,9 @@ In systems with only catalytic rules (purely catalytic systems), three catalysts
 Freund in \cite{Freund2005TwoCatalysts} shows that two catalysts are enough and raised an open problem whether one catalyst is sufficient. He conjectured that for computationally universal P systems the results obtained in this paper are optimal not only with respect to the number of membranes (2), but also with respect to the number of catalysts.
 
 % TODO: introduce promoters, inhibitors and compare them to catalysts
+
+From some point of view, catalysts are way too powerful in restricting the parallelism - they directly participate in the rules, hence the number of catalytic rules that can be applied in one step, is bounded by number of catalysts.
+
 
 % One catalyst with promoters/inhibitors
 
