@@ -1,0 +1,127 @@
+\begin{lema}
+\label{lemma:inhibitor_step}
+  If there is at least one object present in each region of a P system, rewriting step in P system with inhibitor set can be simulated by multiple consecutive steps of P system with single inhibitor.
+\end{lema}
+
+\begin{dokaz}
+  Consider P system with alphabet $V$.
+  For each rule $u\rightarrow v|_{\neg B}$, where $B=\{b_1, b_2, \dots ,b_n\}$ we will have rules:
+  \begin{itemize}
+    \item $c \rightarrow c|GONE_{b}|_{\neg b}$ for all $ c\in V, b\in B$
+    \item $u|GONE_{b_1}|GONE_{b_2}|\dots|GONE_{b_n} \rightarrow v|GONE_{b_1}|GONE_{b_2}|\dots|GONE_{b_n}$
+  \end{itemize}
+\end{dokaz}
+
+% \begin{lema}
+%   Sequential P system with inhibitor can simulate clearing symbols in set $B = \{b_1, b_2, \dots, b_c\}$
+% \end{lema}
+
+% \begin{dokaz}
+%   When clearing should occur, the symbol $CLEAR_B$ should occur. Then, following rules will do the clearing:
+%   \begin{itemize}
+%     \item $CLEAR_B|b \rightarrow CLEAR_B$ for all $b \in B$.
+%     \item $CLEAR_B \rightarrow CLEAR_B|GONE_b|_{\neg b}$ for all $b \in B$.
+%     \item $GONE_{b_1}|GONE_{b_2}|\dots|GONE_{b_c}|CLEAR_B \rightarrow \lambda$.
+%   \end{itemize}
+% \end{dokaz}
+
+\begin{veta}
+% TODO: rozdelit na viac liem
+  The sequential P system with inhibitors defines the same parikh image of language as P system with maximal parallelism.
+\end{veta}
+
+\begin{dokaz}
+  We show that we can simulate maximal parallel step of P system with several steps of sequential P system with inhibitors. The proof is quite technical with some wokrarounds.
+
+  % Membrane states
+
+  It is important to note that in the maximal parallel step the rewriting occurs in all membranes, so we need to synchronize this process. Every membrane will have a state, represented as an object.
+
+  The RUN state represents that the rewriting still occurs. When there is no more rules to apply, the region has done it's maximal parallel step and proceeds to the state SYNCHRONIZE. Other states are just technical - we need to implement sending objects between membranes and preparing for the next maximal parallel step by unmarking newly created objects in the current maximal parallel step, which have been marked to prevent double rewriting in one step.
+
+  \begin{itemize}
+    \item $RUN$: Rewriting occurs. Objects that are to be sent to parent membrane are directly sent because the parent membrane is already in $RUN$ or $SYNCHRONIZE$ phase, so the $a^{\prime}$ symbols that are sent don't break anything. But objects that are to be sent down, can't be sent immediately because child membranes can be in previous phase waiting to restore symbols from previous step. Current symbols could interfere with them and be rewrited twice in this step. Such objects are only marked as ``to be sent down'': $a^{\downarrow\prime}$
+
+    \item $SYNCHRONIZE$: Rewriting has ended and membrane is waiting to get signal $SYNCED$ from parent membrane to continue to next step.
+
+    \item $SENDDOWN$: Signal was caught and now all descendant membranes are in $SYNCHRONIZE$ phase so $a^{\downarrow\prime}$ can be sent down.
+
+    \item $RESTORE$: All $a^{\prime}$ symbols are restored to $a$, so the next step of rewriting can take place.
+  \end{itemize}
+
+  % Rewriting rules
+
+  \begin{itemize}
+    \item For every rule $r_i\in R$ such that $r_i = a_1^{M(a_1)}a_2^{M(a_2)}\dots a_n^{M(a_n)} \rightarrow a_1^{N(a_1)}a_2^{N(a_2)}\dots a_n^{N(a_n)}$ we will have the following rules:
+  
+    $a_1^{M(a_1)-m_1}\dot{a}_1^{m_1}a_2^{M(a_2)}\dot{a}_2^{m_2}\dots a_n^{M(a_n)}\dot{a}_n^{m_n}|RUN \rightarrow a_1^{\prime N(a_1)}a_2^{\prime N(a_2)}\dots a_n^{\prime N(a_n)}|RUN$
+
+    There will be such rule for each $0\leq m_i\leq M(a_i)$. It represents the idea that $\dot{a}$ can be used in rewriting in the same way as $a$. Right side of the rules contains symbols $a^\prime$, that prevents the symbols to be rewritten again.
+
+    \item For every symbol $a\in V$ we will have the following rules:
+
+    $a|RUN \rightarrow \dot{a}|RUN|_{\neg \dot{a}}$
+
+    There will be max one occurence of $\dot{a}$.
+
+    \item For every rule $r_i\in R$ there will be a rule that detects if the rule $r_i$ is not usable. According to left side of the rule $r_i$, symbol $UNUSABLE_i$ will be created when there is not enough objects to fire the rule $r_i$. It means that left side of rule $r_i$ requires more instances of some object than are present in membrane.
+
+    If the left side is of type:
+    \begin{itemize}
+      \item $a$: It is a context free rule. The rule can't be used if there is no occurence of $a$ nor $\dot{a}$.
+
+      $RUN \rightarrow UNUSABLE_i|RUN|_{\neg\{UNUSABLE_i, a, \dot{a}\}}$
+
+      \item $ab$: It is a cooperative rule with two distinct objects on the left side. The rule can't be used if there is one of them missing.
+
+      $RUN \rightarrow UNUSABLE_i|RUN|_{\neg\{UNUSABLE_i, a, \dot{a}\}}$
+
+      $RUN \rightarrow UNUSABLE_i|RUN|_{\neg\{UNUSABLE_i, b, \dot{b}\}}$
+
+      \item $a^2$: It is a cooperative rule with two same objects. The rule can't be used if there is at most one occurence of the symbol. That happens if there is no occurence of $a$. There can still be $\dot{a}$, but at most one occurence.
+
+      $RUN \rightarrow UNUSABLE_i|RUN|_{\neg\{UNUSABLE_i, a\}}$
+    \end{itemize}
+
+    
+
+    \item For every membrane with label $i$ there will be rule:
+
+    $UNUSABLE_1|UNUSABLE_2|\dots|UNUSABLE_m|RUN \rightarrow SYNCHRONIZE|SYNCTOKEN_i\uparrow$
+
+    If no rule can be used, maximal parallel step in the region is completed so it goes to synchronization phase and sends a synchronization token to the parent membrane.
+
+    \item For every membrane there will be a rule:
+
+    $SYNCHRONIZE|SYNCTOKEN_j \rightarrow SYNCHRONIZE|SYNCTOKEN_j\uparrow$
+
+    Membrane resends all sync token to parent membrane.
+
+    \item In skin membrane there is a rule which collects all the synchronization tokens from all membranes $1\dots k$ and then sends down signal that synchronization is complete. But before that, there can be some symbols that should be sent down, but they weren't, because the region below could have not started the rewriting phase that time. The result was just marked with $a^{\downarrow\prime}$.
+
+    $SYNCTOKEN_1|SYNCTOKEN_2|\dots|SYNCTOKEN_k|SYNCHRONIZE \rightarrow SENDDOWN$
+
+    \item Every membrane other than skin membrane have to recieve the signal to go to senddown phase:
+
+    $SYNCHRONIZE|SYNCED \rightarrow SENDDOWN$
+
+    \item Every membrane will have rules for every symbol $a\in V$ to send down all unsent object that should have been sent down:
+
+    $SENDDOWN|a^{\downarrow\prime} \rightarrow SENDDOWN|a^{\prime}\downarrow$
+
+    \item Every membrane will have rule for detecting when all such objects have been sent and it goes to restore phase:
+
+    $SENDDOWN \rightarrow RESTORE|_{\neg \{a_1^{\downarrow\prime}, a_n^{\downarrow\prime}, \dots, a_n^{\downarrow\prime}\}}$
+
+    \item In restore phase all symbols $a^{\prime}$ will be rewritten to $a$ in order to be able to be rewritten in next maximal parallel step:
+
+    $RESTORE|a^{\prime} \rightarrow RESTORE|a$
+
+    \item When restore phase ends, it sends down signal that all membranes have been synchronized and next phase of rewriting has began in upper membranes:
+
+    $RESTORE \rightarrow RUN|SYNCED\downarrow|_{\neg \{a_1^{\prime}, a_2^{\prime}, \dots, a_n^{\prime}\}}$
+  \end{itemize}
+
+
+  Phase of membrane is represented by object so the region is never empty and by the Lemma~\ref{lemma:inhibitor_step} the rules with set of inhibitors can be simulated by single inhibitors.
+\end{dokaz}

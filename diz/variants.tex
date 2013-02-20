@@ -154,6 +154,11 @@ Sequential version of symport/antiport systems are equivalent to vector addition
 Investigation of the sequential mode continues in \cite{Dang:2005:Sequential}. Sequential P system without priorities with cooperative rules with rules for membrane dissolution are not universal by showing they can be simulated by vector addition systems with states (VASS).
 This holds even when the membrane creation is allowed for bounded number of created membranes. However, if any number of membranes are allowed to be created, the system becomes universal. This result was shown by simulation of the register machine (see section \ref{sec:register_machines}).
 
+%TODO: add reference
+
+We have further investigated this variant (sequential P system without priorities with cooperative rules) by allowing rules with inhibitors, which resulted in universality.
+
+
 % Restricting maximal parallelism
 
 Dang in \cite{Ibarra04dang} proposes several restricted versions of parallelism.
@@ -170,6 +175,19 @@ Ciobanu in \cite{Ciobanu:2007:MinimalParallelism} proposes a minimal parallelism
 
 Freund in \cite{Freund:2004:Async} studied the asynchronous mode of P systems, where in each step, arbitrary many rules can be applied. The application of rules is hence done in parallel way, but are not synchronized or somewhat controlled. In many cases the sequential and asynchronous modes were shown to be equivalent.
 
-TODO: n-parallelism, sequential models, asynchronous models
-
 % subsection parallelism_options (end)
+
+\subsection{Sequential P systems without priorities with cooperative rules and inhibitors} % (fold)
+\label{sub:sequential_p_systems_without_priorities_with_cooperative_rules_and_inhibitors}
+
+Original definition of P systems with inhibitors (see \cite{Ionescu:jucs_10_5:on_p_systems_with}) allow to use only one inhibitor pre rule, e.g. $u\rightarrow v|_{\neg i}$. Alternative definition (see \cite{Agrigoroaiei:2010:Dissolution}) allow to use whole inhibitor set in the rule like $u\rightarrow v|_{\neg B}$, where $B$ is a set of objects. Such a rule can be applied only if no element of $B$ is present in the region.
+
+For sequential P systems, the following lemma will show the equivalence of these definitions. However, special condition must be fulfilled, the regions with such rules cannot be empty.
+
+\input{../inh/seqinhproof}
+
+We have also reached this result in the accepting case by simulation of register machines.
+
+\input{../inh/seqinhaccproof}
+
+% subsection sequential_p_systems_without_priorities_with_cooperative_rules_and_inhibitors (end)

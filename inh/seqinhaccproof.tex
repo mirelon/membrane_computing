@@ -1,0 +1,36 @@
+\begin{veta}
+  Sequential P system with inhibitors can simulate register machine and thus equals $PsRE$.
+\end{veta}
+
+
+\begin{dokaz}
+\label{proof:reg_by_inh}
+  Suppose we have a $n$-register machine $M = (n,P,i,h)$. In our simulation we will have a membrane structure consisting of one membrane and the contents of register $j$ will be represented by the multiplicity of the object $a_j$.
+
+  We will have P system $(V, \mu, w, R)$, where:
+  \begin{itemize}
+    \item $V$ is an alphabet consisting of symbols that represent registers $a_1,\dots a_n$ and instruction labels in $Lab(M)$,
+    \item $\mu$ is a membrane structure consiting of only one membrane,
+    \item $w$ is initial contents of the membrane. It contains symbols for the input for the machine $a_i^{n_i}$ where $n_i$ is initial state of register with label $i$ and initial instruction $e \in Lab(M)$.
+    \item $R$ is the set of rules in the skin membrane:
+    
+    For all instructions of type $(e : add(j), f)$ we will have rule:
+    \begin{itemize}
+      \item $e \rightarrow a_j|f$.
+    \end{itemize}
+    
+    For all instructions of type $(e : sub(j), f, z)$ we will have rules:
+    \begin{itemize}
+      \item $e|a_j \rightarrow f$ and
+      \item $e \rightarrow z|_{\neg a_j}$.
+    \end{itemize}
+
+    And finally halting rules:
+    \begin{itemize}
+      \item $h|a_j \rightarrow h|\#$ for all $a\leq j\leq n$,
+      \item $\# \rightarrow \#$,
+    \end{itemize}
+  \end{itemize}
+
+  When the halting instruction is reached, if there is an object present in the membrane, the hash symbol $\#$ is created and it will cycle forever. If there is no object present, there is no rule to apply and computation will halt. It corresponds to the condition that all registers should be empty when halting.
+\end{dokaz}
