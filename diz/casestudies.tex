@@ -6,3 +6,22 @@ Vultures in Pyrenees, Scavangers of Pyrenees.
 Spanish researchers in \cite{Cardona:2009:Vultures} presented a model of an ecosystem related to the Bearded Vulture in Pyrenees in Spain by using P systems. They have constructed a simulator to validate the designed P system, which allows them to analyze the evolution under different initial conditions.
 
 % subsection vultures_in_pyrenees (end)
+
+\subsection{Cellular Signalling Pathways} % (fold)
+\label{sub:cellular_signalling_pathways}
+
+Perez in \cite{Perez06EGFR} proposed a model for EGFR Signalling Cascade. More than 60 proteins were included and 160 chemical reactions. Membrane structure consists of 3 regions: the environment, the cell surface and the cytoplasm. 
+
+% subsection cellular_signalling_pathways (end)
+
+\subsection{Solving SAT in linear time} % (fold)
+\label{sub:solving_sat_in_linear_time}
+
+
+Polynomial time solutions to NP-complete problems by means of P systems are achieved by trading time (number of computation steps) for space (number of membranes and objects). This is inspired by the capabililty of cells to produce an exponential number of new membranes in polynomial time.
+
+However, many simulators of P system are inefficient since they cannot handle the parallelism of these devices. Nowadays, we are witnessing the consolidation of the GPUs as a parallel framework to compute general purpose applications such as bitcoin mining. The simulation of P systems with active membranes using GPUs is analysed in \cite{Cecilia10SAT} and an efficient linear solution to the SAT problem is illustrated.
+
+They compared it to the classical simulator and reported up to 94x of speedup for 256 literals in the formula. The major constraint of this parallel simulation is the GPU memory size, which can be overcome with a data partition on a cluster of GPUs. 
+
+% subsection solving_sat_in_linear_time (end)
