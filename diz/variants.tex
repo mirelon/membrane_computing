@@ -191,3 +191,13 @@ We have also reached this result in the accepting case by simulation of register
 \input{../inh/seqinhaccproof}
 
 % subsection sequential_p_systems_without_priorities_with_cooperative_rules_and_inhibitors (end)
+
+\subsection{Vacuum} % (fold)
+\label{sub:vacuum}
+
+We propose a new variant of P system with vacuum. In the common sense, vacuum represents a state of space with no or a little matter in it. Using vacuum in modelling frameworks can help express certain phenomena more easily. We define a new P system variant, which creates a special vacuum object in a region as soon as the region becomes empty. The vacuum is removed whenever some object interacts with it. After the interaction, there is vacuum no longer. This removal process is realized by allowing the vacuum object to be used only on the left side of rules. If we made the vacuum to be removed automatically when an object enters the region, there would be no difference with the variant without vacuum objects because of no interactions with it.
+We are interested in how the variant with the vacuum improves the computation power of a sequential P system in comparison to the variant without using the vacuum.
+
+\input{../inh/vacuumproof}
+
+% subsection vacuum (end)

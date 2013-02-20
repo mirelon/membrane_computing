@@ -1,0 +1,34 @@
+\begin{veta}
+  The sequential P system with Vacuum is universal.
+\end{veta}
+
+\begin{dokaz}
+  We can simulate the variant of P system where the only cooperative rule is of type $a|a \rightarrow b$. According to \cite{Ibarra04dang} the variant, where the only cooperative rule is when both objects are the same, is universal. If there is no rule $a \rightarrow b$, we can rewrite $a$ to $a^{\prime}$ so we can mark all present symbols. $a^{\prime}$ symbols are kept in special membrane so the Vacuum can be created in main membrane and we can synchronize.
+  
+  But we won't do this madness again.
+  
+  Instead, we will try to proove universality by simulating the register machine. We need to detect when the current register is empty. If there was a symbol for every register as in the proof~\ref{proof:reg_by_inh}, the Vacuum would be created only if all registers are empty. But the $sub()$ instruction need to detect when one concrete register is empty.
+  
+  We will have a membrane for each register. That membrane will be contained in the skin membrane. The number of objects in membrane $i$ will correspond to the value of register $i$.
+  
+  The alphabet will consist of instruction labels and register counter $a$. The skin membrane will only have an instruction label. It is sent to corresponding membrane where the instruction is executed. Then, the following instruction is sent back to the skin membrane.
+  
+  We will have following rules in the skin membrane:
+  
+  \begin{itemize}
+  \item $e \rightarrow e^{\downarrow_j}$ for an instruction of type $e : add(j), f$ or $e : sub(j), f, z$ and
+  \item $h \rightarrow h^{\downarrow}$ for a halting instruction h.
+  \end{itemize}
+  
+  And in non-skin membranes:
+  
+  \begin{itemize}
+  \item $e \rightarrow a|f^{\uparrow}$ instructions of type $e : add(j), f$,
+  \item $e|a \rightarrow f^{\uparrow}$ for instructions of type $e : sub(j), f, z$,
+  \item $e|VACUUM \rightarrow z^{\uparrow}$ for instructions of type $e : sub(j), f, z$, and
+  \item $h|a \rightarrow h|a$
+  \end{itemize}
+
+  When halting, if there is an nonempty register, it will cycle forever with the last rule. However, if all registers are empty, the halting instruction label will stay in all mmebranes and the computation will halt.
+  
+\end{dokaz}
