@@ -2,18 +2,69 @@ Recently, an interdisciplinary research between the fields of Computer Science a
 
 % Bioinformatics (slaves of biologists)
 
-Bioinformatic has undergone a fast evolving process, especially the areas of genomics and proteomics. Bioinformatics can be seen as the application of computing tools and techniques for the management of biological data. Just to mention a few, the design of efficient algorithms for sequence alignment, the investigation of methods for prediction of the 3D structure of molecules and proteins and the development of data structures to effectively store huge amount of structured data.
+\section{Bioinformatics} % (fold)
+\label{sec:bioinformatics}
 
-% Natural computing (those inspired by nature)
+Bioinformatics has undergone a fast evolving process, especially the areas of genomics and proteomics. Bioinformatics can be seen as the application of computing tools and techniques for the management of biological data. Just to mention a few:
+\begin{itemize} 
+  \item the design of efficient algorithms for DNA sequence alignment,
+  \item the investigation of methods for prediction of the 3D structure of molecules and proteins,
+  \item the development of data structures to effectively store huge amount of structured data.
+\end{itemize}
+
+% section bioinformatics (end)
+
+\section{Biologically inspired computing models} % (fold)
+\label{sec:biologically_inspired_computing_models}
+
 
 On the other hand, the birth of biologically inspired frameworks started the investigation of mathematical models and their properties and technological requirements for their implementation by biological hardware.
 Those frameworks are inspired by the nature in the way it ``computes'', and has gone through the evolution for billions of years.
 
 Neural networks, genetic algorithms and DNA computing are already well established research fields.
 
+\subsection{Neural networks} % (fold)
+\label{sub:neural_networks}
+
+Inspired by the human brain, which contains on average 86 billions neurons \cite{Azevedo09NumberOfNeurons}, neurophysiologist Warren McCulloch in 1943 proposed a mathematical model of artificial neural network.
+
+A single perceptron computes a function $f(x)$, where $x$ is an input - a vector of real values.
+
+The perceptron can learn itself by modifying parameters used to compute the function. This learning can be performed in various ways, we will mention only the supervised learning. Imagine a function with
+\begin{itemize}
+  \item input: perceptron's parameters
+  \item output: error of the computed result $f(x)$
+\end{itemize}
+If the perceptron recieves a feedback in form of error (from the supervision, e.g. dataset used to train the perceptron), it can modify it's parameters such the error will be minimized in the future. This can be done through the gradient descent method, which is used to find a local minimum of a function.
+
+A single perceptron can only compute linear functions, so they are often connected with other perceptron to form a neural network. Often it is practically unusable to say what is the purpose of a single neuron in a more complex neural networks.
+
+Neural networks have broad applicability to real world problems and are best if the modelled system has some tolerance to error such as:
+\begin{itemize}
+  \item Image recognition: OCR, web search by image
+  \item Music recognition by voice sample
+  \item Time series forecast: weather, stock
+  \item Diagnosing of illnesses
+\end{itemize}
+
+% subsection neural_networks (end)
+
+\subsection{Genetic algorithms} % (fold)
+\label{sub:genetic_algorithms}
+
+% subsection genetic_algorithms (end)
+
+\subsection{DNA computing} % (fold)
+\label{sub:dna_computing}
+
+% subsection dna_computing (end)
+
 However, nature computes not only at the neural or genetic level, but also at the cellular level. In general, any non-trivial biological system has a hierarchical structure where objects and information flows between regions, what can be interpreted as a computation process.
 
-% The notion of membrane
+% Membranes
+
+\subsection{Membrane systems} % (fold)
+\label{sub:membrane_systems}
 
 The regions are typically delimited by various types of membranes at different levels from cell membranes, through skin membrane to virtual membranes which delimits different parts of an ecosystem.
 This hierarchical system can be seen in other field such as distributed computing, where again well delimited computing units coexist and are hierarchically arranged in complex systems from single processors to the internet.
@@ -28,7 +79,12 @@ From these observations, Paun \cite{Paun98} introduces the notion of a membrane 
 
 Recently, several computational models based on the membrane structure have been created.
 
+
+
 % P systems
+
+\subsubsection{P systems} % (fold)
+\label{subs:p_systems}
 
 P systems were introduced in 1998 as a system with membrane structure that contains multisets of objects and rewrite rules that are executed in a maximaly parallel manner. Since then, a huge amount of variants have been created with various computation powers. We have investigated the power of several such variants. Additionaly, we propose a new variant with a vacuum, where the rules can describe what will happen to an object that arrives to an empty membrane.
 
@@ -36,10 +92,13 @@ P systems with existing and newly proposed variants will be discussed in the cha
 
 Aside from P systems, other models based on the membrane structure have been created such as the Calculus of Looping Sequences (CLS), which was inspired by P systems.
 
+% subsubsection p_systems (end)
+
+
 % CLS
 
-\section{The Calculus of Looping Sequences} % (fold)
-\label{sec:calculus_of_looping_sequences}
+\subsubsection{The Calculus of Looping Sequences} % (fold)
+\label{subs:calculus_of_looping_sequences}
 
 Barbuti in \cite{Barbuti07CLS} concluded that there is a need for a formalism having a simple notation, having the ability of describing biological systems at different levels of abstractions, having some notions of compositionality and being flexible enough to allow describing new kinds of phenomena as they are discovered, without being specialized to the description of a particular class of systems. The Calculus of Looping Sequences (CLS) was introduced in \cite{Barbuti07CLS}.
 
@@ -53,4 +112,8 @@ Several extensions of the CLS have been proposed. In CLS+ the looping operator c
 CLS+ can be translated to CLS (see \cite{Barbuti07CLS}).
 Milazzo in his PhD thesis \cite{Milazzo07CLS} includes also a simulation of a P system using CLS. The major difficulty is simulating the maximal parallelism of rule application.
 
-% section calculus_of_looping_sequences (end)
+% subsubsection calculus_of_looping_sequences (end)
+
+% subsection membrane_systems (end)
+
+% section biologically_inspired_computing_models (end)
