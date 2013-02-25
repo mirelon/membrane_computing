@@ -57,9 +57,9 @@
 
 \begin{abstract}
 P systems are formal models of distributed parallel multiset processing.
-It is known that P systems with catalytic rules with only one catalyst are not unversal, but when using promoters and inhibitors, the universality is achieved.
+It is known that P systems with catalytic rules with only one catalyst are not universal, but when using promoters and inhibitors, the universality is achieved.
 The sequential variant of P system is also not universal and we will show how the computational universality can be reached by using sequential P systems with inhibitors. Both accepting and generating case are investigated.
-In addition, a new variant of P system is defined in this paper, where the emptyness of a region is represented by a special vacuum object. This variant is shown to be universal when operating in the sequential mode.
+In addition, a new variant of P system is defined in this paper, where the emptiness of a region is represented by a special vacuum object. This variant is shown to be universal when operating in the sequential mode.
 \end{abstract}
 
 \section{Introduction}
@@ -67,7 +67,7 @@ In addition, a new variant of P system is defined in this paper, where the empty
 
 % Bio motivation
 
-Membrane systems (P systems) were introduced by Paun (see \cite{Paun2000108}) as distributed parallel computing devices inspired by the structure and functionality of cells.
+Membrane systems (P systems) were introduced by P\u{a}un (see \cite{Paun2000108}) as distributed parallel computing devices inspired by the structure and functionality of cells.
 One of the objectives is to relax the condition of using the rules in a maximally parallel way in order to find more realistic P systems from a biological point of view.
 In sequential systems, only one rewriting rule is used in each step of computation.
 
@@ -89,7 +89,7 @@ We are interested in how the variant with the vacuum improves the computational 
 
 % Related work
 
-There have been lot of research that consider rewriting rules with catalysts, promoters and inhibitors. However, they were only used to overcome the limitations brought by noncooperative rules, and still working in a maximal parallel manner.
+There have been lot of research that consider rewriting rules with catalysts, promoters and inhibitors. However, they were only used to overcome the limitations brought by non-cooperative rules, and still working in a maximal parallel manner.
 
 % Max 1 instance of any rule
 
@@ -98,16 +98,16 @@ They show that for universality is sufficient non-cooperative variant where the 
 
 % Cooperative vs Context free
 
-In \cite{Sburlan05dragos} the author formally proves equality between classes of P systems and parikh images of classes in Chomski hierarchy. P systems with context-free rules are equal to $PsCF$ and P systems with cooperative rules are universal (equal to $PsRE$).
+In \cite{Sburlan05dragos} the author formally proves equality between classes of P systems and Parikh images of classes in Chomsky hierarchy. P systems with context-free rules are equal to $PsCF$ and P systems with cooperative rules are universal (equal to $PsRE$).
 
 % Two catalysts are enough
-% One catalyst with promoters/inhibitors is enough
+% One catalyst with promoters / inhibitors is enough
 
-The gap between is filled in \cite{Ionescu:jucs_10_5:on_p_systems_with}. Assumed P systems with context-free rules and maximal parallelism, there is a need for some context added to the rules. Cooperative or catalytic rules are sufficient for universality. The paper shows that two catalyst are enough. There was an open question whether one catalyst is enough. Then it was shown that it is not enough unless we allow promoters or inhibotors. Without them it has the power of Lindenmayer systems.
+The gap between is filled in \cite{Ionescu:jucs_10_5:on_p_systems_with}. Assumed P systems with context-free rules and maximal parallelism, there is a need for some context added to the rules. Cooperative or catalytic rules are sufficient for universality. The paper shows that two catalyst are enough. There was an open question whether one catalyst is enough. Then it was shown that it is not enough unless we allow promoters or inhibitors. Without them it has the power of Lindenmayer systems.
 
 % Inhibiting rules
 
-Rewriting controlled by inhibition is more thouroughly researched in \cite{Cavaliere:2004:IRP:2144633.2144648}. P systems with context-free rules and are enriched with rules with option to inhibit / de-inhibit another rule. This, with one catalyst is shown to be universal. Without catalyst and with only one membrane it is shown to have at least the power of Lindenmayer systems.
+Rewriting controlled by inhibition is more thoroughly researched in \cite{Cavaliere:2004:IRP:2144633.2144648}. P systems with context-free rules and are enriched with rules with option to inhibit / de-inhibit another rule. This, with one catalyst is shown to be universal. Without catalyst and with only one membrane it is shown to have at least the power of Lindenmayer systems.
 
 % Context free with inhibitors
 
@@ -134,7 +134,7 @@ In section~\ref{sec:preliminaries} we recall some fundamental notions which we w
 We introduce the notion of P system and define a computation of a P system in section~\ref{sec:p-systems}.
 Some existing P system variants are mentioned in section~\ref{sec:variants}. There is also introduced our new variant of P system with vacuum.
 In section~\ref{sec:inhibitors} we make a proof that sequential P systems with inhibitors are universal.
-Similar result, but for our new variant of P system with vacuum is achieved and prooved in section~\ref{sec:vacuum}.
+Similar result, but for our new variant of P system with vacuum is achieved and proven in section~\ref{sec:vacuum}.
 
 \section{Preliminaries}
 \label{sec:preliminaries}
@@ -143,9 +143,9 @@ Here we recall several notions from the classical theory of formal languages.
 
 An {\bf alphabet} is a finite nonempty set of symbols. Usually it is denoted by $\Sigma$ or $V$. A {\bf string} over an alphabet is a finite sequence of symbols from alphabet. We denote by $V^*$ the set of all strings over an alphabet $V$. By $V^+$ = $V^* - \{\eps\}$ we denote the set of all nonempty strings over V. A {\bf language} over the alphabet $V$ is any subset of $V^*$.
 
-The number of occurences of a given symbol $a\in V$ in the string $w\in V^*$ is denoted by $|w|_a$. $\Psi_V(w)=(|w|_{a_1},|w|_{a_2},\dots,|w|_{a_n})$ is called a Parikh vector associated with the string $w\in V^*$, where $V=\{a_1,a_2,\dots a_n\}$. For a language $L\subseteq V^*$, $\Psi_V(L)=\{\Psi_V(w)|w\in L\}$ is the Parikh mapping associated with $V$. If FL is a family of languages, by PsFL is denoted the family of Parikh images of languages in FL.
+The number of occurrences of a given symbol $a\in V$ in the string $w\in V^*$ is denoted by $|w|_a$. $\Psi_V(w)=(|w|_{a_1},|w|_{a_2},\dots,|w|_{a_n})$ is called a Parikh vector associated with the string $w\in V^*$, where $V=\{a_1,a_2,\dots a_n\}$. For a language $L\subseteq V^*$, $\Psi_V(L)=\{\Psi_V(w)|w\in L\}$ is the Parikh mapping associated with $V$. If FL is a family of languages, by PsFL is denoted the family of Parikh images of languages in FL.
 
-A multiset over a set $X$ is a mapping $M: X\rightarrow \mathbb N$. We denote by $M(x), x\in X$ the multiplicity of $x$ in the multiset $M$. The {\bf support} of a multiset $M$ is the set $supp(M)=\{x\in X|M(x)\geq 1\}$. It is the set of items with at least one occurence. A multiset is {\bf empty} when it's support is empty. A multiset $M$ with finite support $X = \{x_1, x_2, \dots, x_n\}$ can be represented by the string $x_1^{M(x_1)}x_2^{M(x_2)}\dots x_n^{M(x_n)}$. We say that multiset $M_1$ is included in multiset $M_2$ if $M_1(x)\leq M_2(x)\forall x \in X$. We denote it by $M_1\subseteq M_2$. The {\bf union} of two multisets $M_1\cup M_2 : X\rightarrow \mathbb N$ is defined as $(M_1\cup M_2)(x)=M_1(x)+M_2(x)$. The {\bf difference} of two multisets $M_1-M_2 : X\rightarrow \mathbb N$ is defined as $(M_1-M_2)(x)=M_1(x)-M_2(x)$. Product of multiset $M$ with natural number $n\in \mathbb N$ is $(n\cdot M)(x)=n\cdot M(x)$.
+A multiset over a set $X$ is a mapping $M: X\rightarrow \mathbb N$. We denote by $M(x), x\in X$ the multiplicity of $x$ in the multiset $M$. The {\bf support} of a multiset $M$ is the set $supp(M)=\{x\in X|M(x)\geq 1\}$. It is the set of items with at least one occurrence. A multiset is {\bf empty} when it's support is empty. A multiset $M$ with finite support $X = \{x_1, x_2, \dots, x_n\}$ can be represented by the string $x_1^{M(x_1)}x_2^{M(x_2)}\dots x_n^{M(x_n)}$. We say that multiset $M_1$ is included in multiset $M_2$ if $M_1(x)\leq M_2(x)\forall x \in X$. We denote it by $M_1\subseteq M_2$. The {\bf union} of two multisets $M_1\cup M_2 : X\rightarrow \mathbb N$ is defined as $(M_1\cup M_2)(x)=M_1(x)+M_2(x)$. The {\bf difference} of two multisets $M_1-M_2 : X\rightarrow \mathbb N$ is defined as $(M_1-M_2)(x)=M_1(x)-M_2(x)$. Product of multiset $M$ with natural number $n\in \mathbb N$ is $(n\cdot M)(x)=n\cdot M(x)$.
   
 \section{P-systems}
 \label{sec:p-systems}
@@ -154,7 +154,7 @@ A multiset over a set $X$ is a mapping $M: X\rightarrow \mathbb N$. We denote by
 
 % Membrane structure
 
-The fundamental ingredient of a P system is the {\bf membrane structure} (see \cite{Paun2006Introduction}). It is a hierarchically arranged set of membranes, all contained in the {\bf skin membrane}. A membrane without any other membrane inside is said to be {\bf elementary}. Each membrane determines a compartment, also called region, the space delimited from above by it and from below by the membranes placed directly inside, if any exists. Clearly, the correspondence membrane–region is one-to-one, that is why we sometimes use interchangeably these terms.
+The fundamental ingredient of a P system is the {\bf membrane structure} (see \cite{Paun2006Introduction}). It is a hierarchically arranged set of membranes, all contained in the {\bf skin membrane}. A membrane without any other membrane inside is said to be {\bf elementary}. Each membrane determines a compartment, also called region, the space delimited from above by it and from below by the membranes placed directly inside, if any exists. Clearly, the correspondence membrane – region is one-to-one, that is why we sometimes use interchangeably these terms.
 
 % Maximal parallelism
 
@@ -184,7 +184,7 @@ Each rewriting rule may specify for each symbol on the right side, whether it st
 
 There are several variants of P systems. They varies in the definition of the rewriting process.
 
-We study the power of new P system variants. Those with the power of the Turing machine are especially interesting, they are said to be computationally universal. Computational power for a model is usually proved by proving equivalance to other model with known power. The equivalence is usually proved through the simulation of a step of the computation.
+We study the power of new P system variants. Those with the power of the Turing machine are especially interesting, they are said to be computationally universal. Computational power for a model is usually proved by proving equivalence to other model with known power. The equivalence is usually proved through the simulation of a step of the computation.
 
 {\bf Sequential P systems} are variant where in each step only a single rule in a single region is applied. The membrane and the rule are chosen nondeterministically. In \cite{Ibarra:2005:SPS:2111772.2111880} it is shown that the sequential P systems are not universal.
 {\bf Cooperative P systems} have rules that have at most two symbols on the left side.
@@ -197,7 +197,7 @@ We study the power of new P system variants. Those with the power of the Turing 
 \end{enumerate}
 
 An object $a$ can be a {\bf promoter} (see \cite{Ionescu:jucs_10_5:on_p_systems_with}) for a rule $u\rightarrow v$, and we denote this by $u\rightarrow v|_a$, if the rule is active only in the presence of object $a$ in the same region. An object $b$ is {\bf inhibitor} for a rule $u\rightarrow v$, and we denote this by $u\rightarrow v|_{\neg b}$, if the rule is active only if the inhibitor $b$ is not present in the region.
-The difference between catalysts and promoters consists in the fact that the catalysts directly participate in rules, but are not modified by them, and they are counted as any other objects, so that the number of applications of a rule is as big as the number of copiesof the catalyst, while in the case of promoters, the presence of the promoter objects makes it possible to use the associated rule as many times as possible, without any restriction; moreover, the promoting objects do not necessarily directly participate in the rules. As a consequence, one can notice that the catalysts inhibits the parallelism of the system while the promoters/inhibitors only guide the computation process.
+The difference between catalysts and promoters consists in the fact that the catalysts directly participate in rules, but are not modified by them, and they are counted as any other objects, so that the number of applications of a rule is as big as the number of copies of the catalyst, while in the case of promoters, the presence of the promoter objects makes it possible to use the associated rule as many times as possible, without any restriction; moreover, the promoting objects do not necessarily directly participate in the rules. As a consequence, one can notice that the catalysts inhibits the parallelism of the system while the promoters / inhibitors only guide the computation process.
 
 \vspace*{\baselineskip}
 
@@ -207,16 +207,16 @@ From the physical point of view, vacuum is space that is empty of matter. We wil
 
 We will allow vacuum to act as a reactant in reactions. But there is a problem: when there is a vacuum in a region, there is no other object to react with. So what does the reaction with vacuum mean?
 
-The reaction can be also seen as ``object entering the vakuum'' - objects are facing low pressure and are sucked into the region. So when some object enters the region with the vacuum, the vacuum is not removed immediately. We will represent this behaviour with rewriting rules that can have vacuum on the left side of the rule. The vacuum cannot be on the right side of a rule. It is created automatically when the region becomes empty.
+The reaction can be also seen as ``object entering the vacuum'' - objects are facing low pressure and are sucked into the region. So when some object enters the region with the vacuum, the vacuum is not removed immediately. We will represent this behavior with rewriting rules that can have vacuum on the left side of the rule. The vacuum cannot be on the right side of a rule. It is created automatically when the region becomes empty.
 
-From certain point of view, vacuum can be seen as a sort of inhibitor. For example food is often packed in vacuum packing in order to delay/inhibit food decay.
+From certain point of view, vacuum can be seen as a sort of inhibitor. For example food is often packed in vacuum packing in order to delay / inhibit food decay.
 
 \section{Trading maximal parallelism for inhibitor usage}
 \label{sec:inhibitors}
 The goal of this paper is to show that using inhibitors, the sequential P systems can achieve universality like maximal parallel variant. The proof is partially inspired by \cite{Barbuti07thecalculus}, where it is shown that Calculi of Looping Sequences (CLS) can simulate computation of a P system. CLS is a membrane model with string objects and sequential rules.
 
 \subsection{Inhibitor set}
-Original definition of P system with inhibitor (see \cite{Ionescu:jucs_10_5:on_p_systems_with}) have only a single inhibitor object per rule. P system with inhibitor set can have rules of type $u\rightarrow v|_{\neg B}$, where $B\subseteq V$. The rule $u\rightarrow v$ is active only if there is no occurence of any symbol from $B$.
+Original definition of P system with inhibitor (see \cite{Ionescu:jucs_10_5:on_p_systems_with}) have only a single inhibitor object per rule. P system with inhibitor set can have rules of type $u\rightarrow v|_{\neg B}$, where $B\subseteq V$. The rule $u\rightarrow v$ is active only if there is no occurrence of any symbol from $B$.
 
 Lemma \ref{lemma:inhibitor_step} will establish equivalence of these two definitions of rewriting rule when special precondition is fulfilled - there is no empty region.
 
@@ -243,10 +243,10 @@ Lemma \ref{lemma:inhibitor_step} will establish equivalence of these two definit
 
 % subsection universality_results_for_accepting_case (end)
 
-\section{Trading maximal parallelism for Vacuum}
+\section{Trading maximal parallelism for vacuum}
 \label{sec:vacuum}
 
-In this section we will research how the Vacuum object can help achieving universality.
+In this section we will research how the vacuum object can help achieving universality.
 
 \input{vacuumproof}
 
