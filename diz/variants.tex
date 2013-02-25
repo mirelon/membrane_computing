@@ -64,11 +64,11 @@ P systems with cooperative rules are universal \cite{Paun98}, while P systems wi
 
 P\u{a}un \cite{Paun98} also defines P systems with catalysts where catalysts are a specified subset of the alphabet. Rewriting rules can contain catalysts, which are not modified by applying the rule. Surprisingly, P systems with catalytic rules are universal, actually two membranes in the P system are sufficient to achieve universality.
 
-In systems with only catalytic rules (purely catalytic systems), three catalysts are enough. % TODO: need cite
+In systems where only catalytic rules (purely catalytic systems \cite{Ibarra:03:Catalytic}), three catalysts are enough \cite{Freund2005TwoCatalysts}.
 
 % Two catalysts
 
-Freund in \cite{Freund2005TwoCatalysts} shows that two catalysts are enough and raised an open problem whether one catalyst is sufficient. He conjectured that for computationally universal P systems the results obtained in this paper are optimal not only with respect to the number of membranes (2), but also with respect to the number of catalysts.
+Freund in \cite{Freund2005TwoCatalysts} also shows that two catalysts and one membrane are enough and raised an open problem whether one catalyst is sufficient. He conjectured that for computationally universal P systems the results obtained in this paper are optimal not only with respect to the number of membranes (2), but also with respect to the number of catalysts.
 
 % Catalysts are too powerful
 
@@ -83,10 +83,7 @@ In the case of promoters, the rules are possible only in the presence of certain
 % Inhibitors
 
 An object $i$ is inhibitor for a rule $u\rightarrow v$ and we denote this by $u\rightarrow v|_{\neg i}$, if the rule is active only if inhibitor $i$ is not present in the region.
-
-% TODO: add reference
-
-One of our results uses inhibitors as a tool to achieve universality for sequential P systems.
+One of our results (see section \ref{sec:sequential_p_systems_without_priorities_with_cooperative_rules_and_inhibitors}) uses inhibitors as a tool to achieve universality for sequential P systems.
 
 
 % One catalyst with promoters / inhibitors
@@ -154,9 +151,7 @@ Sequential version of symport / antiport systems are equivalent to vector additi
 Investigation of the sequential mode continues in \cite{Dang:2005:Sequential}. Sequential P system without priorities with cooperative rules with rules for membrane dissolution are not universal by showing they can be simulated by vector addition systems with states (VASS).
 This holds even when the membrane creation is allowed for bounded number of created membranes. However, if any number of membranes are allowed to be created, the system becomes universal. This result was shown by simulation of the register machine (see section \ref{sec:register_machines}).
 
-%TODO: add reference
-
-We have further investigated this variant (sequential P system without priorities with cooperative rules) by allowing rules with inhibitors, which resulted in universality.
+We have further investigated this variant (sequential P system without priorities with cooperative rules) in section \ref{sec:sequential_p_systems_without_priorities_with_cooperative_rules_and_inhibitors} by allowing rules with inhibitors, which resulted in universality.
 
 
 % Restricting maximal parallelism
