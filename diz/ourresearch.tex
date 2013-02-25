@@ -8,7 +8,7 @@ We have studied several variants of sequential P systems in order to obtain univ
 \section{Sequential P systems without priorities with cooperative rules} % (fold)
 \label{sec:sequential_p_systems_without_priorities_with_cooperative_rules}
 
-A sequential variant without priorities and with cooperative rules is not univesal (see \cite{Ibarra04dang}). They have tried modifying the variant to make it universal and showed that with rules for membrane creation with unbounded number of membranes it became universal.
+A sequential variant without priorities and with cooperative rules is not universal (see \cite{Ibarra04dang}). They have tried modifying the variant to make it universal and showed that with rules for membrane creation with unbounded number of membranes it became universal.
 
 We tried other approach using rules with inhibitors. This variant is universal in both generating and accepting case and we don't even have to use membrane dissolution rules. In generative case the model is able to simulate maximal parallel P system and the accepting model can simulate a register machine.
 
@@ -33,7 +33,7 @@ In the future we will research other restriction for this variant such as non-co
 \section{Sequential P systems without priorities with cooperative rules and inhibitors} % (fold)
 \label{sec:sequential_p_systems_without_priorities_with_cooperative_rules_and_inhibitors}
 
-Original definition of P systems with inhibitors (see \cite{Ionescu:jucs_10_5:on_p_systems_with}) allow to use only one inhibitor pre rule, e.g. $u\rightarrow v|_{\neg i}$. Alternative definition (see \cite{Agrigoroaiei:2010:Dissolution}) allow to use whole inhibitor set in the rule like $u\rightarrow v|_{\neg B}$, where $B$ is a set of objects. Such a rule can be applied only if no element of $B$ is present in the region.
+Original definition of P systems with inhibitors (see \cite{Ionescu:jucs_10_5:on_p_systems_with}) allow to use only one inhibitor per rule, e.g. $u\rightarrow v|_{\neg i}$. Alternative definition (see \cite{Agrigoroaiei:2010:Dissolution}) allow to use whole inhibitor set in the rule like $u\rightarrow v|_{\neg B}$, where $B$ is a set of objects. Such a rule can be applied only if no element of $B$ is present in the region.
 
 For sequential P systems, the following lemma will show the equivalence of these definitions. However, special condition must be fulfilled, the regions with such rules cannot be empty.
 

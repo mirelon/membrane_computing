@@ -30,11 +30,11 @@ Note that symbols $GONE_b$ are created automatically when some object $c$ is pre
 
 \begin{veta}
 % TODO: rozdelit na viac liem
-  The sequential P system with inhibitors defines the same parikh image of language as P system with maximal parallelism.
+  The sequential P system with inhibitors defines the same Parikh image of language as P system with maximal parallelism.
 \end{veta}
 
 \begin{dokaz}
-  We show that we can simulate maximal parallel step of P system with several steps of sequential P system with inhibitors. The proof is quite technical with some wokrarounds.
+  We show that we can simulate maximal parallel step of P system with several steps of sequential P system with inhibitors. The proof is quite technical with some workarounds.
 
   % Membrane states
 
@@ -43,7 +43,7 @@ Note that symbols $GONE_b$ are created automatically when some object $c$ is pre
   The RUN state represents that the rewriting still occurs. When there is no more rules to apply, the region has done it's maximal parallel step and proceeds to the state SYNCHRONIZE. Other states are just technical - we need to implement sending objects between membranes and preparing for the next maximal parallel step by unmarking newly created objects in the current maximal parallel step, which have been marked to prevent double rewriting in one step.
 
   \begin{itemize}
-    \item $RUN$: Rewriting occurs. Objects that are to be sent to parent membrane are directly sent because the parent membrane is already in $RUN$ or $SYNCHRONIZE$ phase, so the $a^{\prime}$ symbols that are sent don't break anything. But objects that are to be sent down, can't be sent immediately because child membranes can be in previous phase waiting to restore symbols from previous step. Current symbols could interfere with them and be rewrited twice in this step. Such objects are only marked as ``to be sent down'': $a^{\downarrow\prime}$
+    \item $RUN$: Rewriting occurs. Objects that are to be sent to parent membrane are directly sent because the parent membrane is already in $RUN$ or $SYNCHRONIZE$ phase, so the $a^{\prime}$ symbols that are sent don't break anything. But objects that are to be sent down, can't be sent immediately because child membranes can be in previous phase waiting to restore symbols from previous step. Current symbols could interfere with them and be rewritten twice in this step. Such objects are only marked as ``to be sent down'': $a^{\downarrow\prime}$
 
     \item $SYNCHRONIZE$: Rewriting has ended and membrane is waiting to get signal $SYNCED$ from parent membrane to continue to next step.
 
@@ -73,13 +73,13 @@ Note that symbols $GONE_b$ are created automatically when some object $c$ is pre
 
     $a|RUN \rightarrow \dot{a}|RUN|_{\neg \dot{a}}$
 
-    There will be max one occurence of $\dot{a}$.
+    There will be max one occurrence of $\dot{a}$.
 
     \item For every rule $r_i\in R$ there will be a rule that detects if the rule $r_i$ is not usable. According to left side of the rule $r_i$, symbol $UNUSABLE_i$ will be created when there is not enough objects to fire the rule $r_i$. It means that left side of rule $r_i$ requires more instances of some object than are present in membrane.
 
     If the left side is of type:
     \begin{itemize}
-      \item $a$: It is a context free rule. The rule can't be used if there is no occurence of $a$ nor $\dot{a}$.
+      \item $a$: It is a context free rule. The rule can't be used if there is no occurrence of $a$ nor $\dot{a}$.
 
       $RUN \rightarrow UNUSABLE_i|RUN|_{\neg\{UNUSABLE_i, a, \dot{a}\}}$
 
@@ -89,7 +89,7 @@ Note that symbols $GONE_b$ are created automatically when some object $c$ is pre
 
       $RUN \rightarrow UNUSABLE_i|RUN|_{\neg\{UNUSABLE_i, b, \dot{b}\}}$
 
-      \item $a^2$: It is a cooperative rule with two same objects. The rule can't be used if there is at most one occurence of the symbol. That happens if there is no occurence of $a$. There can still be $\dot{a}$, but at most one occurence.
+      \item $a^2$: It is a cooperative rule with two same objects. The rule can't be used if there is at most one occurrence of the symbol. That happens if there is no occurrence of $a$. There can still be $\dot{a}$, but at most one occurrence.
 
       $RUN \rightarrow UNUSABLE_i|RUN|_{\neg\{UNUSABLE_i, a\}}$
     \end{itemize}
@@ -118,7 +118,7 @@ Note that symbols $GONE_b$ are created automatically when some object $c$ is pre
       \rightarrow &SENDDOWN
     \end{align*}
 
-    \item Every membrane other than skin membrane have to recieve the signal to go to senddown phase:
+    \item Every membrane other than skin membrane have to receive the signal to go to senddown phase:
 
     $SYNCHRONIZE|SYNCED \rightarrow SENDDOWN$
 

@@ -51,11 +51,11 @@ The perceptron can learn itself by modifying parameters used to compute the func
   \item input: perceptron's parameters
   \item output: error of the computed result $f(x)$
 \end{itemize}
-If the perceptron recieves a feedback in form of error (from the supervision, e.g. dataset used to train the perceptron), it can modify it's parameters such the error will be minimized in the future. This can be done through the gradient descent method, which is used to find a local minimum of a function.
+If the perceptron receives a feedback in form of error (from the supervision, e.g. dataset used to train the perceptron), it can modify it's parameters such the error will be minimized in the future. This can be done through the gradient descent method, which is used to find a local minimum of a function.
 
 A single perceptron can only compute linear functions, so they are often connected with other perceptron to form a neural network. Often it is practically unusable to say what is the purpose of a single neuron in a more complex neural networks.
 
-Neural networks have broad applicability to real world problems and are best if the modelled system has some tolerance to error such as:
+Neural networks have broad applicability to real world problems and are best if the modeled system has some tolerance to error such as:
 \begin{itemize}
   \item Image recognition: OCR, web search by image
   \item Music recognition by voice sample
@@ -88,7 +88,7 @@ Membranes keep together certain chemicals or information and selectively determi
 
 % The notion of membrane structure
 
-From these observations, Paun \cite{Paun98} introduces the notion of a membrane structure as a mathematical representation of hierarchical architectures composed of membranes. It is usually represented as a Venn diagram with all the considered sets being subsets of a unique set and not allowed to be intersected. Every two sets are either one the subset of the other, or disjoint. Outermost membrane (also called skin membrane) delimits the finite ``inside'' and the infinite ``outside''.
+From these observations, P\u{a}un \cite{Paun98} introduces the notion of a membrane structure as a mathematical representation of hierarchical architectures composed of membranes. It is usually represented as a Venn diagram with all the considered sets being subsets of a unique set and not allowed to be intersected. Every two sets are either one the subset of the other, or disjoint. Outermost membrane (also called skin membrane) delimits the finite ``inside'' and the infinite ``outside''.
 
 Hierarchical structures are usually represented by trees, but membrane structures are visually better viewed as Venn diagram as seen in the figure \ref{fig:membrane_structure}.
 
@@ -110,7 +110,7 @@ Recently, several computational models based on the membrane structure have been
 \subsubsection{P systems} % (fold)
 \label{subs:p_systems}
 
-P systems were introduced in 1998 as a system with membrane structure that contains multisets of objects and rewrite rules that are executed in a maximaly parallel manner. Since then, a huge amount of variants have been created with various computation powers. We have investigated the power of several such variants. Additionaly, we propose a new variant with a vacuum, where the rules can describe what will happen to an object that arrives to an empty membrane.
+P systems were introduced in 1998 as a system with membrane structure that contains multisets of objects and rewrite rules that are executed in a maximally parallel manner. Since then, a huge amount of variants have been created with various computation powers. We have investigated the power of several such variants. Additionally, we propose a new variant with a vacuum, where the rules can describe what will happen to an object that arrives to an empty membrane.
 
 P systems with existing and newly proposed variants will be discussed in the chapter \ref{cha:p_systems}.
 

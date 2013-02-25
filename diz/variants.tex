@@ -21,7 +21,7 @@ Bordhin in \cite{Bordihn99acceptingpure} extends grammars to allow for accepting
 % Accepting vs generating common results
 
 The regular, context-free, context-sensitive and recursively enumerable languages were shown to have equal power in accepting and generating mode.
-Some other grammars (programmed grammars with appearence checking) are shown to be more powerful in accepting mode than in generating mode.
+Some other grammars (programmed grammars with appearance checking) are shown to be more powerful in accepting mode than in generating mode.
 For deterministic Lindenmeyer systems, the generating and accepting mode are incomparable.
 
 % Accepting vs generating P system results
@@ -38,9 +38,9 @@ Most of the studied P system variants assumes that the number of membranes can o
 A natural possibility is to let the number of membranes also to increase during a computation, for instance, by division, as it is well-known in biology. Actually, the membranes from biochemistry are not at all passive, like those in the models briefly described above.
 For example, the passing of a chemical compound through a membrane is often done by a direct interaction with the membrane itself (with the so-called protein channels or protein gates present in the membrane); during this interaction, the chemical compound which passes through membrane can be modified, while the membrane itself can in this way be modified (at least locally).
 
-In \cite{Paun99ActiveMembranes} Paun considers P systems with active membranes where the central role in the computation is played by the membranes: evolution rules are associated both with objects and membranes, while the communication through membranes is performed with the direct participation of the membranes; moreover, the membranes can not only be dissolved, but they also can multiply by division. An elementary membrane can be divided by means of an interaction with an object from that membrane.
+In \cite{Paun99ActiveMembranes} P\u{a}un considers P systems with active membranes where the central role in the computation is played by the membranes: evolution rules are associated both with objects and membranes, while the communication through membranes is performed with the direct participation of the membranes; moreover, the membranes can not only be dissolved, but they also can multiply by division. An elementary membrane can be divided by means of an interaction with an object from that membrane.
 
-% Polarisation
+% Polarization
 
 Each membrane is supposed to have an electrical polarization (we will say charge), one of the three possible: positive, negative, or neutral. If in a membrane we have two immediately lower membranes of opposite polarizations, one positive and one negative, then that membrane can also divide in such a way that the two membranes of opposite charge are separated; all membranes of neutral charge and all objects are duplicated and a copy of each of them is introduced in each of the two new membranes.
 The skin is never divided.
@@ -58,13 +58,13 @@ Moreover, the model is shown to be computationally universal.
 % Cooperative / Non-cooperative
 
 Rewriting rules in P systems can be cooperative and non-cooperative, like in Chomsky's context-free and context-sensitive grammars. Non-cooperative rules are restricted to use only one object on the left side and cooperative rules do not have this restriction.
-P systems with cooperative rules are universal \cite{Paun98}, while P systems with non-cooperative rules only characterize parikh image of context-free languages ($PsCF$) \cite{Sburlan05dragos}.
+P systems with cooperative rules are universal \cite{Paun98}, while P systems with non-cooperative rules only characterize Parikh image of context-free languages ($PsCF$) \cite{Sburlan05dragos}.
 
 % Catalytic P systems
 
-Paun \cite{Paun98} also defines P systems with catalysts where catalysts are a specified subset of the alphabet. Rewriting rules can contain catalysts, which are not modified by applying the rule. Suprisingly, P systems with catalytic rules are universal, actually two membranes in the P system are sufficient to achieve universality.
+P\u{a}un \cite{Paun98} also defines P systems with catalysts where catalysts are a specified subset of the alphabet. Rewriting rules can contain catalysts, which are not modified by applying the rule. Surprisingly, P systems with catalytic rules are universal, actually two membranes in the P system are sufficient to achieve universality.
 
-In systems with only catalytic rules (purely catalytic systems), three catalysts are enough. <citation needed> % TODO: need cite
+In systems with only catalytic rules (purely catalytic systems), three catalysts are enough. % TODO: need cite
 
 % Two catalysts
 
@@ -74,7 +74,7 @@ Freund in \cite{Freund2005TwoCatalysts} shows that two catalysts are enough and 
 
 From some point of view, catalysts are way too powerful in restricting the parallelism - they directly participate in the rules, hence the number of catalytic rules that can be applied in one step, is bounded by number of catalysts.
 
-A variant with promoters and inhibotors have been proposed (see \cite{Ionescu:jucs_10_5:on_p_systems_with}).
+A variant with promoters and inhibitors have been proposed (see \cite{Ionescu:jucs_10_5:on_p_systems_with}).
 
 % Promoters
 
@@ -89,9 +89,9 @@ An object $i$ is inhibitor for a rule $u\rightarrow v$ and we denote this by $u\
 One of our results uses inhibitors as a tool to achieve universality for sequential P systems.
 
 
-% One catalyst with promoters/inhibitors
+% One catalyst with promoters / inhibitors
 
-Ionescu in \cite{Ionescu:jucs_10_5:on_p_systems_with} shows that P systems with non-cooperative catalytic rules with only one catalyst and with promoters/inhibitors are universal.
+Ionescu in \cite{Ionescu:jucs_10_5:on_p_systems_with} shows that P systems with non-cooperative catalytic rules with only one catalyst and with promoters / inhibitors are universal.
 
 % Zero catalysts with inhibitors
 
@@ -115,7 +115,7 @@ Sos\'ik in \cite{Sosik:2002:WithoutPriorities} showed that the priorities may be
 \subsection{Energy in P systems} % (fold)
 \label{sub:energy_in_p_systems}
 
-Various notions of energy has been proposed for use in P systems. Paun in \cite{Paun:2001:Energy} considers a P system where each evolution rule ``produces'' or ``consumes'' some quantity of energy, in amounts which are expressed as integer numbers. In each moment and in each membrane the total energy involved in an evolution step should be positive, but if ``Soo much'' energy is present in a membrane, then the membrane will be destroyed (dissolved). This variant was investigated in two cases, both were shown to be universal:
+Various notions of energy has been proposed for use in P systems. P\u{a}un in \cite{Paun:2001:Energy} considers a P system where each evolution rule ``produces'' or ``consumes'' some quantity of energy, in amounts which are expressed as integer numbers. In each moment and in each membrane the total energy involved in an evolution step should be positive, but if ``Too much'' energy is present in a membrane, then the membrane will be destroyed (dissolved). This variant was investigated in two cases, both were shown to be universal:
 
 \begin{enumerate}
 	\item when using only two membranes and unbounded amount of energy,
@@ -128,28 +128,28 @@ This variant is universal even in sequential mode if we allow priorities on the 
 
 % subsection energy_in_p_systems (end)
 
-\subsection{Symport/antiport rules} % (fold)
+\subsection{Symport / antiport rules} % (fold)
 \label{sub:symport_antiport_rules}
 
-Paun in \cite{Paun:2002:SymportAntiport} proposes a new way of communicating between membranes.
+P\u{a}un in \cite{Paun:2002:SymportAntiport} proposes a new way of communicating between membranes.
 
 Symports allow two chemicals to pass together through a membrane in the same direction using symport rules of type $(ab,in)$ or $(ab,out)$.
 Antiports allow two chemicals to pass simultaneously through a membrane in opposite directions using antiport rules of type $(a,in;b,out)$.
 
-Suprisingly, a P system variant, where only the symport/antiport rules are used are computationally complete. Five membranes are enough for this result. If more than two chemicals may collaborate when passing through membranes, two membranes are sufficient for universality. These results are proven in \cite{Paun:2002:SymportAntiport}.
+Surprisingly, a P system variant, where only the symport / antiport rules are used are computationally complete. Five membranes are enough for this result. If more than two chemicals may collaborate when passing through membranes, two membranes are sufficient for universality. These results are proven in \cite{Paun:2002:SymportAntiport}.
 
 % subsection symport_antiport_rules (end)
 
 \subsection{Parallelism options} % (fold)
 \label{sub:parallelism_options}
 
-Original definition of P system (see \cite{Paun98}) uses maximal parallelism when doing a step of computation. There is an obvious biological motivation relying on the assumption that ``if we wait long enough, then all reaction which may take place will take place''. This condition is rather powerful, because it decreases the non-determinism of the sysem's evolution. For various reasons ranging from looking for more realistic models to just the mathematical challenge, the maximal parallelism was questioned.
+Original definition of P system (see \cite{Paun98}) uses maximal parallelism when doing a step of computation. There is an obvious biological motivation relying on the assumption that ``if we wait long enough, then all reaction which may take place will take place''. This condition is rather powerful, because it decreases the non-determinism of the system's evolution. For various reasons ranging from looking for more realistic models to just the mathematical challenge, the maximal parallelism was questioned.
 
 % Sequential mode
 
 Dang in \cite{Dang04Sequential} investigates the sequential mode. In each step, from the set of applicable rules across all membrane one is nondeterministically chosen and applied. For purely catalytic systems with 1 membrane, the sequential mode generates only the semilinear sets and thus is strictly weaker than the maximally parallel version.
 % TODO: add semilinear sets
-Sequential version of symport/antiport systems are equivalent to vector addition systems making it strictly weaker than the original maximally parallel version.
+Sequential version of symport / antiport systems are equivalent to vector addition systems making it strictly weaker than the original maximally parallel version.
 
 Investigation of the sequential mode continues in \cite{Dang:2005:Sequential}. Sequential P system without priorities with cooperative rules with rules for membrane dissolution are not universal by showing they can be simulated by vector addition systems with states (VASS).
 This holds even when the membrane creation is allowed for bounded number of created membranes. However, if any number of membranes are allowed to be created, the system becomes universal. This result was shown by simulation of the register machine (see section \ref{sec:register_machines}).
@@ -165,11 +165,11 @@ Dang in \cite{Ibarra04dang} proposes several restricted versions of parallelism.
 $n${\bf -Max-Parallel} version nondeterministically selects a maximal subset of at most n rules to apply. It is proved that 9{\bf -Max-Parallel} SCO (defined in the subsection \ref{sub:context_in_rules}) is universal.
 $\leq n${\bf -Parallel} version is similar, but does not require the condition of a maximal subset of rules. It is shown to be weaker than $n${\bf -Max-Parallel} version.
 $n${\bf -Parallel} version requires the size of the subset of rules to apply to be exactly $n$.
-All three versions are equal to the sequential mode when $n=1$. For non-universality results, Dang used the proof technique by simulation by vector addition systems. Our future research may be inspired by this techniue.
+All three versions are equal to the sequential mode when $n=1$. For non-universality results, Dang used the proof technique by simulation by vector addition systems. Our future research may be inspired by this technique.
 
 % Minimal parallelism
 
-Ciobanu in \cite{Ciobanu:2007:MinimalParallelism} proposes a minimal parallelism: for each region if at least one rule can be applied, then at least one rule will be applied. The symport/antiport rules variant and variant with active membranes were both shown to be universal.
+Ciobanu in \cite{Ciobanu:2007:MinimalParallelism} proposes a minimal parallelism: for each region if at least one rule can be applied, then at least one rule will be applied. The symport / antiport rules variant and variant with active membranes were both shown to be universal.
 
 % Asynchronous
 
