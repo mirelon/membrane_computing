@@ -73,65 +73,14 @@ Since the first publication in 1998, huge amount of variants has been proposed. 
 Rewrite rules may contain inhibitors; their presence in the region prevents the application of the rule. We show that sequential P systems with inhibitors are Turing complete.
 
 
-     By introducing the product topology on  $R^{m \times m} \times
-R^{n \times n}$  with the induced inner product
-\begin{equation}
-\langle (A_{1},B_{1}), (A_{2},B_{2})\rangle := \langle A_{1},A_{2}\rangle 
-+ \langle B_{1},B_{2}\rangle,\label{eq2.10}
-\end{equation}
-we calculate the Fr\'{e}chet derivative of  $F$  as follows:
-\begin{eqnarray}
- F'(U,V)(H,K) &=& \langle R(U,V),H\Sigma V^{T} + U\Sigma K^{T}\nonumber\\
-             && - P(H\Sigma V^{T} + U\Sigma K^{T})\rangle \nonumber \\
-         &=& \langle R(U,V),H\Sigma V^{T} + U\Sigma K^{T}\rangle\nonumber \\
-&=& \langle R(U,V)V\Sigma^{T},H\rangle + \nonumber\\
-  &&    \langle \Sigma^{T}U^{T}R(U,V),K^{T}\rangle.    \label{eq2.11}
-\end{eqnarray}
+\mysection{SAT in linear time}
 
-In the middle line of (\ref{eq2.11}) we have used the fact that the range of
-$R$ is always perpendicular to the range of $P$.  The gradient $\nabla F$  of
-$F$, therefore,  may be interpreted as the
-pair of matrices:
-\begin{eqnarray}
- \nabla F(U,V) &=& (R(U,V)V\Sigma^{T},R(U,V)^{T}U\Sigma )\nonumber\\
- && \in R^{m \times m} \times R^{n \times n}.   \label{eq2.12}
-\end{eqnarray}
+Linear time solutions to NP-complete problems by means of P systems are achieved by trading time (number of computation steps) for space (number of membranes and objects). This is inspired by the capabililty of cells to produce an exponential number of new membranes in linear time.
 
-Thus, the vector field
-\begin{equation}
-\frac{d(U,V)}{dt} = -g(U,V) 	\label{eq2.15}
-\end{equation}
-defines a steepest descent flow on the manifold  ${\cal O} (m) \times
-{\cal O} (n)$ for the objective function  $F(U,V)$.
+However, many simulators of P system are inefficient since they cannot handle the parallelism of these devices. Nowadays, we are witnessing the consolidation of the GPUs as a parallel framework to compute general purpose applications. The simulation of P systems with active membranes using GPUs is analysed in \cite{Cecilia10} and an efficient linear solution to the SAT problem is illustrated.
 
-\columnbreak 
-
-\mysection{Numerical experiments} 
-
-We conducted numerical experiments 
-in computing inexact Newton steps for discretizations of a  
-{\em modified Bratu problem}, given by  
-\begin{eqnarray} 
-{\displaystyle \Delta w + c e^w + d{ {\partial w}\over{\partial x} } } 
-&=&{\displaystyle f \quad {\rm in}\ D, }\nonumber\\[-1.5ex]
-\label{bratu} \\[-1.5ex]
-{\displaystyle w }&=&{\displaystyle 0 \quad {\rm on}\ \partial D , } \nonumber
-\end{eqnarray} 
-where $c$ and $d$ are constants. The actual Bratu problem has $d=0$ and  
-$f \equiv0$.
-
-\def\gmres{{GMRES}} 
-\def\gmresm{{\rm GMRES($m$)}} 
-
-In our experiments, we took $D = [0,1]\times[0,1]$, $f \equiv0$, 
-$c=d=10$, and discretized (\ref{bratu}) using the usual second-order 
-centered differences over a $100\times100$ mesh of equally 
-spaced points in $D$. In \gmres($m$), we took $m=10$ and used fast  
-Poisson right preconditioning as before.
-
-\bigskip 
-\includegraphics[width=\columnwidth]{fig}
-\caption{Graph of the function $\sin(x)/x$.} 
+\includegraphics[width=\columnwidth]{paun}
+\caption{Inventor of P systems}
  
 
 %% zoznam literatury
