@@ -5,6 +5,8 @@
 \usepackage{multicol}
 \usepackage{color}
 \usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{arrows,backgrounds,fit,positioning}
 
 %% znaky s diakritikou
 \usepackage[utf8]{inputenc}
@@ -12,8 +14,8 @@
 % \usepackage[slovak]{babel} % slovenske delenie slov
 
 %% definicia farieb
-% \definecolor{mainCol}{rgb}{0.91,0.82,0.74} % farba pozadia posteru
-\definecolor{mainCol}{rgb}{1,1,1} % farba pozadia posteru
+\definecolor{mainCol}{rgb}{0.91,0.82,0.74} % farba pozadia posteru
+%\definecolor{mainCol}{rgb}{1,1,1} % farba pozadia posteru
 \definecolor{sectionCol}{rgb}{0,0,0} % farba nadpisu
 \definecolor{textCol}{rgb}{0.2,0,0} % farba hlavneho textu
 \definecolor{BoxCol}{rgb}{1,1,0.8} % farba boxu okolo nadpisov
@@ -42,20 +44,80 @@ FMFI UK, Mlynská Dolina, 842~48~Bratislava\\
 \begin{multicols*}{3}
 
 \mysection{Introduction}
-Well established computation models motivated by biology such as neural networks and evolutionary algorithms has already proven that it is worth to be inspired by biology. Other emerging areas are still awaiting for their more significant uses.
-
-One of them is the membrane computing. It is relatively young field of natural computing - in comparison: neural networks have been researched since 1943 and membrane systems since 1998\cite{Paun98}.
 
 
-\includegraphics[width=\columnwidth]{cell}
+Well established computation models motivated by biology such as neural networks and evolutionary algorithms has already proven that it is worth to be inspired by biology.
 
-\columnbreak
+\vspace{10mm}
+\includegraphics[width=0.3\columnwidth]{neural}
+\hspace{0.1\columnwidth}
+\includegraphics[width=0.6\columnwidth]{evolution}
+\vspace{10mm}
+
+Other emerging areas are still awaiting for their more significant uses. One of them is the membrane computing. It is relatively young field of natural computing - in comparison: neural networks have been researched since 1943 and membrane systems since 1998\cite{Paun98}.
+
+Membrane systems are distributed parallel computing devices inspired by the structure and functionality of cells. Recently, many variants have been developed in order to simulate cells more realistically or just to improve the computational power.
+
+\vspace{10mm}
+\includegraphics[width=\columnwidth]{wallpaper}
 
 \mysection{Membrane structure}
-
 Biological systems usually have hierarchical structure where objects and information flows between regions, what can be interpreted as a computation process.
 
-\includegraphics[width=\columnwidth]{membrane_structure}
+\vfill
+\columnbreak
+
+This hierarchical structure can be also interpreted as rooted tree as seen on the figures 1 and 2. The objects are stored in the tree nodes and can be sent through the edges.
+
+\vspace{10mm}
+
+\begin{tikzpicture}[node distance=2mm,-triangle 45,line width=1mm]
+  \tikzstyle{label of} = [above left=-5mm of #1]
+  \tikzstyle{membrane} = [draw,thick,rounded corners=1cm,minimum width=2cm,minimum height=2cm,rectangle]
+  \node [membrane,minimum height=55mm] (m2) {};
+  \node [label of=m2] (l2) {2};
+  \node [membrane,below=1cm of m2] (m3) {};
+  \node [label of=m3] (l3) {3};
+  
+  \node [membrane,right=3cm of m2] (m5) {};
+  \node [label of=m5] (l5) {5};  
+  \node [membrane,right=1cm of m5] (m7) {};
+  \node [label of=m7] (l7) {7};
+
+  \begin{pgfonlayer}{background}
+    \node [membrane,fit=(m5)(l5)(m7)(l7)] (m6) {};
+  \end{pgfonlayer}
+  \node [label of=m6] (l6) {6};
+
+  \node [membrane,right=2cm of m3,minimum width=6cm] (m8) {};
+  \node [label of=m8] (l8) {8};
+
+  \begin{pgfonlayer}{background}
+    \node [membrane,fit=(m6)(l6)(m8)(l8)] (m4) {};
+  \end{pgfonlayer}
+  \node [label of=m4] (l4) {4};
+  
+  \begin{pgfonlayer}{background}
+    \node [membrane,fit=(m2)(l2)(m3)(l3)(m4)(l4)] (m1) {};
+  \end{pgfonlayer}
+  \node [label of=m1] (l1) {1};
+
+  \node [above right=1cm of l1.north] (skin) {skin}
+    edge (m1);
+  \node [above=1cm of m1.north east] (elementary membrane) {elementary membrane}
+    edge (m1);
+  \node [right=1cm of m1.east] (membranes) {membranes}
+    edge (m6)
+    edge (m8)
+    edge (m1);
+  \node [below=1.5cm of m1] (figure) {Figure 1: A membrane structure};
+  \node [above left=1.5cm of m1.south west] (environment) {environment};
+  \node [below left=1.5cm of m1.north west] (regions) {regions}
+    edge (m2.center)
+    edge (m8.center);
+
+
+\end{tikzpicture}
 
 \includegraphics[width=\columnwidth]{membrane_tree}
 
@@ -67,14 +129,13 @@ This computing device is called P system\footnote{P in P systems stands for surn
 
 Next figure demonstrates a computation of a P system for Fibonacci numbers.
 
-
 \mysection{Variants}
 
 Since the first publication in 1998, huge amount of variants has been proposed. Some of them are Turing complete, others are not. Maximal parallelismus is one of the most questioned attribute. P systems in sequential mode are not Turing complete. Various combinations of variants have been studied and some of them have been shown Turing complete also in sequential mode.
 
 \mysection{Inhibitors}
 
-Rewrite rules may contain inhibitors; their presence in the region prevents the application of the rule. We show that sequential P systems with inhibitors are Turing complete.
+One of the variants is P system with inhibitors. Some of the objects (inhibitors) can be used in evolution rules such that their presence in the region prevents the application of the rule. One of our results is the proof that sequential P systems with inhibitors are Turing complete. It is proven by simulation of the maximally parallel P system, which is Turing complete. The challenging part was the simulation of maximally parallel step.
 
 
 \mysection{SAT in linear time}
@@ -85,7 +146,10 @@ However, many simulators of P system are inefficient since they cannot handle th
 
 \mysection{P system computing Fibonacci sequence}
 
+\vspace{10mm}
 \includegraphics[width=\columnwidth]{p_system_fibonacci}
+\vspace{10mm}
+
 
 %% zoznam literatury
 \bibliographystyle{apalike}
