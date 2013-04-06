@@ -6,7 +6,7 @@
 \usepackage{color}
 \usepackage{graphicx}
 \usepackage{tikz}
-\usetikzlibrary{arrows,backgrounds,fit,positioning}
+\usetikzlibrary{arrows,backgrounds,fit,positioning,trees}
 
 %% znaky s diakritikou
 \usepackage[utf8]{inputenc}
@@ -116,10 +116,30 @@ This hierarchical structure can be also interpreted as rooted tree as seen on th
     edge (m2.center)
     edge (m8.center);
 
-
 \end{tikzpicture}
 
-\includegraphics[width=\columnwidth]{membrane_tree}
+\begin{tikzpicture}[level distance=4cm,sibling distance=4cm]
+  \tikzstyle{every node} = [circle,draw]
+
+  \node (Root) {1}
+    child { node {2} }
+    child { node {3} }
+    child {
+      node {4}
+      child {
+        node {6}
+        child {
+          node (n5) {5}
+        }
+        child {
+          node {7}
+        }
+      }
+      child { node {8} }
+    };
+  \node [draw=none,rectangle,below=0.5cm of n5] {Figure 2: The tree describing the membrane structure from Figure 1};
+
+\end{tikzpicture}
 
 \mysection{P systems}
 
