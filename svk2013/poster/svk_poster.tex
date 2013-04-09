@@ -6,6 +6,7 @@
 \usepackage{color}
 \usepackage{graphicx}
 \usepackage{tikz}
+\usepackage{amsmath}
 \usetikzlibrary{arrows,backgrounds,fit,positioning,trees}
 
 %% znaky s diakritikou
@@ -59,17 +60,23 @@ Other emerging areas are still awaiting for their more significant uses. One of 
 Membrane systems are distributed parallel computing devices inspired by the structure and functionality of cells. Recently, many variants have been developed in order to simulate cells more realistically or just to improve the computational power.
 
 \vspace{10mm}
-\includegraphics[width=\columnwidth]{wallpaper}
 
 \mysection{Membrane structure}
 Biological systems usually have hierarchical structure where objects and information flows between regions, what can be interpreted as a computation process.
 
-\vfill
-\columnbreak
-
 This hierarchical structure can be also interpreted as rooted tree as seen on the figures 1 and 2. The objects are stored in the tree nodes and can be sent through the edges.
 
-\vspace{10mm}
+\mysection{P systems}
+
+Membranes and regions delimited by them has clearly 1:1 correspondence. Each region contains a multiset of objects. These objects can evolve according to evolution rules which are associated with membranes. Evolution rules are applied in a maximally parallel manner - in each step, a maximal multiset of rules is nondeterministically chosen and applied.
+
+This computing device is called P system\footnote{P in P systems stands for surname of it's founder Gheorghe P\u aun.} and is Turing complete.
+
+Figure 3 demonstrates a computation of a P system for Fibonacci numbers.
+
+\mysection{Variants}
+
+Since the first publication in 1998, huge amount of variants has been proposed. Some of them are Turing complete, others are not. Maximal parallelismus is one of the most questioned attribute. P systems in sequential mode are not Turing complete. Various combinations of variants have been studied and some of them have been shown Turing complete also in sequential mode.
 
 \begin{tikzpicture}[node distance=2mm,-triangle 45,line width=1mm]
   \tikzstyle{label of} = [above left=-5mm of #1]
@@ -141,22 +148,13 @@ This hierarchical structure can be also interpreted as rooted tree as seen on th
 
 \end{tikzpicture}
 
-\mysection{P systems}
-
-Membranes and regions delimited by them has clearly 1:1 correspondence. Each region contains a multiset of objects. These objects can evolve according to evolution rules which are associated with membranes. Evolution rules are applied in a maximally parallel manner - in each step, a maximal multiset of rules is nondeterministically chosen and applied.
-
-This computing device is called P system\footnote{P in P systems stands for surname of it's founder Gheorghe P\u aun.} and is Turing complete.
-
-Next figure demonstrates a computation of a P system for Fibonacci numbers.
-
-\mysection{Variants}
-
-Since the first publication in 1998, huge amount of variants has been proposed. Some of them are Turing complete, others are not. Maximal parallelismus is one of the most questioned attribute. P systems in sequential mode are not Turing complete. Various combinations of variants have been studied and some of them have been shown Turing complete also in sequential mode.
-
 \mysection{Inhibitors}
 
-One of the variants is P system with inhibitors. Some of the objects (inhibitors) can be used in evolution rules such that their presence in the region prevents the application of the rule. One of our results is the proof that sequential P systems with inhibitors are Turing complete. It is proven by simulation of the maximally parallel P system, which is Turing complete. The challenging part was the simulation of maximally parallel step.
+One of the variants we studied is P system with inhibitors. Some of the objects (inhibitors) can be used in evolution rules such that their presence in the region prevents the application of the rule. One of our results is the proof that sequential P systems with inhibitors are Turing complete. It is proven by simulation of the maximally parallel P system, which already is Turing complete. The challenging part was the simulation of maximally parallel step.
 
+\vspace{5mm}
+
+\includegraphics[width=\columnwidth]{wallpaper}
 
 \mysection{SAT in linear time}
 
@@ -167,7 +165,102 @@ However, many simulators of P system are inefficient since they cannot handle th
 \mysection{P system computing Fibonacci sequence}
 
 \vspace{10mm}
-\includegraphics[width=\columnwidth]{p_system_fibonacci}
+\begin{tikzpicture}
+  \tikzstyle{label of} = [above left=-5mm of #1]
+  \tikzstyle{membrane} = [draw,thick,rounded corners=1cm,minimum width=3cm,minimum height=2cm,rectangle]
+
+  \node[membrane] (m02) {
+    $\begin{aligned}
+      a& \\
+      a&\rightarrow c_{out} \\
+      b&\rightarrow d_{out}
+    \end{aligned}$
+  };
+  \node[label of=m02] (l02) {2};
+  \node[above=of m02] (c01) {
+    $\begin{aligned}
+      c &\rightarrow a_{in} b_{in} e_{out}\\
+      d &\rightarrow a_{in}
+    \end{aligned}$
+  };
+  \begin{pgfonlayer}{background}
+    \node[membrane,fit=(m02)(l02)(c01)] (m01) {};
+  \end{pgfonlayer}
+  \node[label of=m01] (l01) {1};
+  \node[above=of m01] (c00) {$e$};
+  \begin{pgfonlayer}{background}
+    \node[membrane,fit=(m01)(l01)(c00)] (m00) {};
+  \end{pgfonlayer}
+  \node[label of=m00] (l00) {0};
+
+
+  \node[membrane,right=6cm of m00] (m12) {};
+  \node[above=of m12] (c11) {$c$};
+  \begin{pgfonlayer}{background}
+    \node[membrane,fit=(m12)(c11)] (m11) {};
+  \end{pgfonlayer}
+  \node[above=of m11] (c10) {$e$};
+  \begin{pgfonlayer}{background}
+    \node[membrane,fit=(m11)(c10)] (m10) {};
+  \end{pgfonlayer}
+
+
+  \node[membrane,below right=8cm of m12.south] (m22) {$ab$};
+  \node[above=of m22] (c21) {};
+  \begin{pgfonlayer}{background}
+    \node[membrane,fit=(m22)(c21)] (m21) {};
+  \end{pgfonlayer}
+  \node[above=of m21] (c20) {$ee$};
+  \begin{pgfonlayer}{background}
+    \node[membrane,fit=(m21)(c20)] (m20) {};
+  \end{pgfonlayer}
+
+
+  \node[membrane,below left=7cm of m22] (m32) {};
+  \node[above=of m32] (c31) {$cd$};
+  \begin{pgfonlayer}{background}
+    \node[membrane,fit=(m32)(c31)] (m31) {};
+  \end{pgfonlayer}
+  \node[above=of m31] (c30) {$ee$};
+  \begin{pgfonlayer}{background}
+    \node[membrane,fit=(m31)(c30)] (m30) {};
+  \end{pgfonlayer}
+
+
+  \node[membrane,left=10cm of m32] (m42) {$aba$};
+  \node[above=of m42] (c41) {};
+  \begin{pgfonlayer}{background}
+    \node[membrane,fit=(m42)(c41)] (m41) {};
+  \end{pgfonlayer}
+  \node[above=of m41] (c40) {$eee$};
+  \begin{pgfonlayer}{background}
+    \node[membrane,fit=(m41)(c40)] (m40) {};
+  \end{pgfonlayer}
+
+  \draw[-triangle 45,line width=1mm] (m00) to node [auto] {$2:  a\rightarrow c_{out}$} (m00-|m10.west);
+  \draw[-triangle 45,line width=1mm] (m10) -- (m10-|m20.north)-| node[above] {$1:  c\rightarrow a_{in}b_{in}e_{out}$} (m20.north);
+  \draw[-triangle 45,line width=1mm] (m20) -- (m20-|m30.north)-| node[above] {
+    $\begin{aligned}
+      2: a&\rightarrow c_{out} \\
+      2: b&\rightarrow d_{out}
+    \end{aligned}$
+  } (m30.north);
+  \draw[-triangle 45,line width=1mm] (m30) to node [above] {
+    $\begin{aligned}
+      1: c&\rightarrow a_{in}b_{in}e_{out} \\
+      1: d&\rightarrow a_{in}
+    \end{aligned}$
+  } (m30-|m40.east);
+
+
+
+
+\end{tikzpicture}
+
+\begin{center}%
+  Figure 3: P system computing Fibonacci sequence
+\end{center}%
+
 \vspace{10mm}
 
 
