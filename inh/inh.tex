@@ -121,6 +121,13 @@ Several sequential variants of P systems were studied. In \cite{Freund:2004:SPS:
 
 However, if we extend sequential P systems with cooperative rules as in \cite{Dang04onp} and restrict it to use only one membrane, it defines exactly semilinear sets and is not universal.
 
+There is something fundamental that prevents the sequential systems to be universal. Unlike maximal parallel systems, the application of rules in sequential systems are not synchronized between membranes. Even inside one membrane an object can be rewritten multiple times while other objects are not rewritten at all.
+Maximal parallelism does not suffer from these issues.
+
+There is also a notion of minimal parallelism (\cite{Ciobanu:2007:PSM:1243519.1243811}), which forces all membranes to apply at least one rule if there is one that can be used. This approach solves the synchronization issue between membranes, but not the one inside one membrane. Nevertheless, P systems with minimal parallelism are universal.
+
+
+
 % Deterministic, asynchronous context-free with inhibitors not universal
 
 In \cite{Alhazov13} several non-cooperative variants with either promoters or inhibitors were studied. Maximally parallel and asynchronous modes was shown to be universal. They also defined the deterministic mode (only for accepting case). The computation is accepted only if for each configuration there was at most one multiset of rules applicable. Such deterministic variant was shown to only accept the family of all finite languages.
