@@ -89,9 +89,9 @@
 
     $UNUSABLE_1|UNUSABLE_2|\dots|UNUSABLE_m|RUN \rightarrow SYNCHRONIZE|SYNCTOKEN_i\uparrow$
 
-    If no rule can be used, maximal parallel step in the region is completed so it goes to synchronization phase and sends a synchronization token to the parent membrane.
+    If no rule can be used, maximal parallel step in the region is completed so it goes to synchronization phase and sends a synchronization token to the parent membrane. The objects $UNUSABLE_i$ are not consumed in other rules, so by Lemma \ref{lemma:context_rules} this rule can be written with set of cooperative rules.
 
-    \item For every membrane there will be a rule:
+    \item For every membrane other than the skin membrane, there will be a rule:
 
     $SYNCHRONIZE|SYNCTOKEN_j \rightarrow SYNCHRONIZE|SYNCTOKEN_j\uparrow$
 
@@ -100,6 +100,8 @@
     \item In skin membrane there is a rule which collects all the synchronization tokens from all membranes $1\dots k$ and then sends down signal that synchronization is complete. But before that, there can be some symbols that should be sent down, but they weren't, because the region below could have not started the rewriting phase that time. The result was just marked with $a^{\downarrow\prime}$.
 
     $SYNCTOKEN_1|SYNCTOKEN_2|\dots|SYNCTOKEN_k|SYNCHRONIZE \rightarrow SENDDOWN$
+
+    The objects $SYNCTOKEN_i$ are not consumed in other rules in the skin membrane, so by Lemma \ref{lemma:context_rules} this rule can be written with set of cooperative rules.
 
     \item Every membrane other than skin membrane have to receive the signal to go to senddown phase:
 
