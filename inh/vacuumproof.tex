@@ -16,16 +16,16 @@
   We will have following rules in the skin membrane:
   
   \begin{itemize}
-  \item $e \rightarrow e^{\downarrow_j}$ for an instruction of type $e : add(j), f$ or $e : sub(j), f, z$ and
-  \item $h \rightarrow h^{\downarrow}$ for a halting instruction h.
+  \item $e \rightarrow e\downarrow_j$ for an instruction of type $e : add(j), f$ or $e : sub(j), f, z$ and
+  \item $h \rightarrow h\downarrow$ for a halting instruction h.
   \end{itemize}
   
   And in non-skin membranes:
   
   \begin{itemize}
-  \item $e \rightarrow a|f^{\uparrow}$ instructions of type $e : add(j), f$,
-  \item $e|a \rightarrow f^{\uparrow}$ for instructions of type $e : sub(j), f, z$,
-  \item $e|VACUUM \rightarrow z^{\uparrow}$ for instructions of type $e : sub(j), f, z$, and
+  \item $e \rightarrow a|f\uparrow$ instructions of type $e : add(j), f$,
+  \item $e|a \rightarrow f\uparrow$ for instructions of type $e : sub(j), f, z$,
+  \item $e|VACUUM \rightarrow z\uparrow$ for instructions of type $e : sub(j), f, z$, and
   \item $h|a \rightarrow h|a$
   \end{itemize}
 
