@@ -13,7 +13,7 @@ An {\bf alphabet} is a finite nonempty set of symbols.
 A {\bf string} over an alphabet is a finite sequence of symbols from alphabet.
 \end{definition}
 
-We denote by $V^*$ the set of all strings over an alphabet $V$. By $V^+$ = $V^* - \{\eps\}$ we denote the set of all nonempty strings over V.
+The length of the string $s$ is denoted by $|s|$. We denote by $V^*$ the set of all strings over an alphabet $V$. By $V^+$ = $V^* - \{\eps\}$ we denote the set of all nonempty strings over V.
 
 \begin{definition}
 A {\bf language} over the alphabet $V$ is any subset of $V^*$.
@@ -72,7 +72,7 @@ In this section we introduce several well-known families of languages.
 \end{definition}
 
 \begin{definition}
-{\bf Context-sensitive grammar} is formal grammar, where rewriting rules are of the form $u\rightarrow v$, where $u\in N$ and $v\in (N\cup T)^*$.
+{\bf Context-sensitive grammar} is formal grammar, where rewriting rules are of the form $u\rightarrow v$, where $u\in (N\cup T)^*N(N\cup T)^*$, $v\in (N\cup T)^*$ and $|u| < |v|$.
 \end{definition}
 
 \begin{definition}
