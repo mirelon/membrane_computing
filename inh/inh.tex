@@ -1,4 +1,5 @@
-\documentclass[a4paper,10pt]{article}
+\documentclass[submission,copyright,creativecommons]{../lib/eptcs}
+\providecommand{\event}{ECAL 2013} % Name of the event you are submitting to
 
 \usepackage[utf8]{inputenc}
 \usepackage{lmodern}
@@ -21,37 +22,15 @@
 \def\goodgap{\hspace{\subfigcapskip}}
 \renewcommand\refname{References}
 
-% Page margins
-\addtolength{\oddsidemargin}{-.875in}
-\addtolength{\evensidemargin}{-.875in}
-\addtolength{\textwidth}{1.75in}
-
-\addtolength{\topmargin}{-.875in}
-\addtolength{\textheight}{1.75in}
-
 % Itemize bulet types
 \renewcommand{\labelitemi}{$\bullet$}
 \renewcommand{\labelitemii}{$\cdot$}
 
-% Compact itemize
-\newenvironment{itemize*}%
-  {\begin{itemize}%
-    \setlength{\itemsep}{0pt}%
-    \setlength{\parskip}{0pt}}%
-  {\end{itemize}}
-
-% Compact enumerate
-\newenvironment{enumerate*}%
-  {\begin{enumerate}%
-    \setlength{\itemsep}{0pt}%
-    \setlength{\parskip}{0pt}}%
-  {\end{enumerate}}
-
-
-
 \begin{document}
 \title{Inhibiting the parallelism in P systems}
+\def\titlerunning{Inhibiting the parallelism in P systems}
 \author{Michal Kováč}
+\def\authorrunning{Michal Kováč}
 \date{\today}
 \maketitle
 
