@@ -100,7 +100,7 @@
 
     \item Every membrane will have rule for detecting when all such objects have been sent and it goes to restore phase:
 
-    $SENDDOWN \rightarrow RESTORE|_{\neg \{a_1^{\downarrow\prime}, a_n^{\downarrow\prime}, \dots, a_n^{\downarrow\prime}\}}$
+    $SENDDOWN \rightarrow RESTORE|_{\neg \{a_i^{\downarrow\prime}|1\leq i\leq n\}}$
 
     \item In restore phase all symbols $a^{\prime}$ will be rewritten to $a$ in order to be able to be rewritten in next maximal parallel step:
 
@@ -112,7 +112,7 @@
 
     \item When restore phase ends, it sends down signal that all membranes have been synchronized and next phase of rewriting has began in upper membranes:
 
-    $RESTORE \rightarrow RUN|SYNCED\downarrow|_{\neg \{a_1^{\prime}, a_2^{\prime}, \dots, a_n^{\prime}\}\cup\{GONE_i|1\leq i\leq n\}}$
+    $RESTORE \rightarrow RUN|SYNCED\downarrow|_{\neg \{a_i^{\prime}|1\leq i\leq n\}\cup\{GONE_i|1\leq i\leq n\}}$
   \end{itemize}
 
 
