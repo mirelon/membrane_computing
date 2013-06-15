@@ -16,8 +16,8 @@ The last lemmas (\ref{lemma:context_rules} and \ref{lemma:inhibitor_step}) will 
 \begin{dokaz}
   We will prove the theorem by simulation.
   The proof is quite technical with some workarounds.
-  For every computation of the maximal parallel P system $\Pi$ we will find a computation of the sequential P system with inhibitors $\overline{\Pi}$ with the same result.
-  The computation to simulate is a sequence of maximal parallel steps.
+  For every maximal parallel P system $\Pi$ we will find a sequential P system with inhibitors $\overline{\Pi}$ such that for every computation of $\Pi$ there exists a computation of $\overline{\Pi}$ with the same result.
+  The computation of $\Pi$ is a sequence of maximal parallel steps.
   In each step of $\Pi$, a maximal multiset of rewriting rules are applied in each membrane.
   We simulate this maximal parallel step with several steps of sequential system $\overline{\Pi}$.
 
@@ -26,7 +26,7 @@ The last lemmas (\ref{lemma:context_rules} and \ref{lemma:inhibitor_step}) will 
   Every membrane will have a state, represented as an object.
   The most important states are $RUN$ and $SYNCHRONIZE$.
   In the $RUN$ state, rewriting rules of $\Pi$ are applied until there is no rule to be appied. Then, the membrane proceeds to the $SYNCHRONIZE$ state.
-  All the membranes in $SYNCHRONIZE$ step are waiting for other membranes to reach $SYNCHRONIZE$ step, so they all can proceed to the $RUN$ state of the next maximal parallel step of $\Pi$.
+  All the membranes in the $SYNCHRONIZE$ state are waiting for other membranes to reach $SYNCHRONIZE$ state, so they all can proceed to the $RUN$ state of the next maximal parallel step of $\Pi$.
 
   Other states are just technical - we need to implement sending objects between membranes and preparing for the next maximal parallel step by clearing temporary objects.
 
@@ -36,17 +36,17 @@ The last lemmas (\ref{lemma:context_rules} and \ref{lemma:inhibitor_step}) will 
   \begin{itemize}
     \item $RUN$: Rewriting occurs.
     To prevent double rewriting, we mark the products of rules with $a^{\prime}$ instead of $a$.
-    Objects that are to be sent to the parent membrane are directly sent because the parent membrane is already in $RUN$ or $SYNCHRONIZE$ state, so the $a^{\prime}$ symbols that are sent don't break anything.
+    Objects that are to be sent to the parent membrane are directly sent because the parent membrane is already in $RUN$ or $SYNCHRONIZE$ state (see Figure~\ref{fig:possible_pairs_of_states_of_parent_and_child_membrane}), so the $a^{\prime}$ symbols that are sent don't break anything.
     
-    But objects that are to be sent down, can't be sent immediately because child membranes can be in the $RESTORE$ state restoring symbols from the previous maximal parallel step. Current symbols could interfere with them and be rewritten twice in this step. Such objects are only marked as ``to be sent down'': $a^{\downarrow\prime}$.
+    But objects that are to be sent down, can't be sent immediately because child membranes can be in the $RESTORE$ state restoring symbols from the previous maximal parallel step. Current symbols could interfere with them and they could be rewritten twice in this step. Such objects are only marked as ``to be sent down'': $a^{\downarrow\prime}$.
 
     When $RUN$ phase ends (in the membrane $i$), the $SYNCTOKEN_i$ is sent upwards to notify the skin membrane that the membrane $i$ is ready to be synchronized.
 
     \item $SYNCHRONIZE$: Rewriting has ended and membrane is waiting to get signal $SYNCED$ from the skin membrane to continue to the next state.
 
-    \item $SENDDOWN$: Signal was caught and now all descendant membranes are in $SYNCHRONIZE$ phase. So objects $a^{\downarrow\prime}$ can be sent down.
+    \item $SENDDOWN$: Signal $SYNCED$ has been caught and now all descendant membranes are in the $SYNCHRONIZE$ state. So objects $a^{\downarrow\prime}$ can be sent down.
 
-    \item $RESTORE$: All $a^{\prime}$ symbols are restored to $a$ and other temporary symbols are cleared, so the next step of rewriting can take place.
+    \item $RESTORE$: All $a^{\prime}$ symbols are restored to $a$ and other temporary symbols are cleared, so the next maximal parallel step can take place.
   \end{itemize}
 
   \begin{figure}
