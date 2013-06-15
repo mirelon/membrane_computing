@@ -1,5 +1,5 @@
-\subsubsection{Simulation of maximal parallel P system} % (fold)
-\label{ssub:simulation_of_maximal_parallel_p_system}
+\subsection{Simulation of maximal parallel P system} % (fold)
+\label{sub:simulation_of_maximal_parallel_p_system}
 
 The last lemmas (\ref{lemma:context_rules} and \ref{lemma:inhibitor_step}) will simplify the proof of the following theorem.
 
@@ -9,22 +9,39 @@ The last lemmas (\ref{lemma:context_rules} and \ref{lemma:inhibitor_step}) will 
 \end{veta}
 
 \begin{dokaz}
-  We show that we can simulate maximal parallel step of P system with several steps of sequential P system with inhibitors. The proof is quite technical with some workarounds.
+  We will prove the theorem by simulation.
+  The proof is quite technical with some workarounds.
+  For every computation of the maximal parallel P system $\Pi$ we will find a computation of the sequential P system with inhibitors $\overline{\Pi}$ with the same result.
+  The computation to simulate is a sequence of maximal parallel steps.
+  In each step of $\Pi$, a maximal multiset of rewriting rules are applied in each membrane.
+  We simulate this maximal parallel step with several steps of sequential system $\overline{\Pi}$.
 
-  % Membrane states
+  We must prevent rule applying from the next maximal parallel step as that would be an incorrect simulation.
+  Preventing this will be done with synchronization.
+  Every membrane will have a state, represented as an object.
+  The most important states are $RUN$ and $SYNCHRONIZE$.
+  In the $RUN$ state, rewriting rules of $\Pi$ are applied until there is no rule to be appied. Then, the membrane proceeds to the $SYNCHRONIZE$ state.
+  All the membranes in $SYNCHRONIZE$ step are waiting for other membranes to reach $SYNCHRONIZE$ step, so they all can proceed to the $RUN$ state of the next maximal parallel step of $\Pi$.
 
-  It is important to note that in the maximal parallel step the rewriting occurs in all membranes, so we need to synchronize this process. Every membrane will have a state, represented as an object.
+  Other states are just technical - we need to implement sending objects between membranes and preparing for the next maximal parallel step by clearing temporary objects.
 
-  The $RUN$ state represents that the rewriting still occurs. When there is no more rules to apply, the region has done its maximal parallel step and proceeds to the state $SYNCHRONIZE$. Other states are just technical - we need to implement sending objects between membranes and preparing for the next maximal parallel step by unmarking newly created objects in the current maximal parallel step, which have been marked to prevent double rewriting in one step.
+  More detailed description of states:
+  
 
   \begin{itemize}
-    \item $RUN$: Rewriting occurs. Objects that are to be sent to parent membrane are directly sent because the parent membrane is already in $RUN$ or $SYNCHRONIZE$ phase, so the $a^{\prime}$ symbols that are sent don't break anything. But objects that are to be sent down, can't be sent immediately because child membranes can be in previous phase waiting to restore symbols from previous step. Current symbols could interfere with them and be rewritten twice in this step. Such objects are only marked as ``to be sent down'': $a^{\downarrow\prime}$
+    \item $RUN$: Rewriting occurs.
+    To prevent double rewriting, we mark the products of rules with $a^{\prime}$ instead of $a$.
+    Objects that are to be sent to the parent membrane are directly sent because the parent membrane is already in $RUN$ or $SYNCHRONIZE$ state, so the $a^{\prime}$ symbols that are sent don't break anything.
+    
+    But objects that are to be sent down, can't be sent immediately because child membranes can be in the $RESTORE$ state restoring symbols from the previous maximal parallel step. Current symbols could interfere with them and be rewritten twice in this step. Such objects are only marked as ``to be sent down'': $a^{\downarrow\prime}$.
 
-    \item $SYNCHRONIZE$: Rewriting has ended and membrane is waiting to get signal $SYNCED$ from parent membrane to continue to next step.
+    When $RUN$ phase ends (in the membrane $i$), the $SYNCTOKEN_i$ is sent upwards to notify the skin membrane that the membrane $i$ is ready to be synchronized.
 
-    \item $SENDDOWN$: Signal was caught and now all descendant membranes are in $SYNCHRONIZE$ phase so $a^{\downarrow\prime}$ can be sent down.
+    \item $SYNCHRONIZE$: Rewriting has ended and membrane is waiting to get signal $SYNCED$ from the skin membrane to continue to the next state.
 
-    \item $RESTORE$: All $a^{\prime}$ symbols are restored to $a$, so the next step of rewriting can take place.
+    \item $SENDDOWN$: Signal was caught and now all descendant membranes are in $SYNCHRONIZE$ phase. So objects $a^{\downarrow\prime}$ can be sent down.
+
+    \item $RESTORE$: All $a^{\prime}$ symbols are restored to $a$ and other temporary symbols are cleared, so the next step of rewriting can take place.
   \end{itemize}
 
   % Rewriting rules
@@ -110,4 +127,4 @@ The last lemmas (\ref{lemma:context_rules} and \ref{lemma:inhibitor_step}) will 
   Phase of membrane is represented by object so the region is never empty and by the Lemma~\ref{lemma:inhibitor_step} the rules with set of inhibitors can be simulated by single inhibitors.
 \end{dokaz}
 
-% subsubsection simulation_of_maximal_parallel_p_system (end)
+% subsection simulation_of_maximal_parallel_p_system (end)
