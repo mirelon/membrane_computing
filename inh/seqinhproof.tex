@@ -74,12 +74,20 @@ The last lemmas (\ref{lemma:context_rules} and \ref{lemma:inhibitor_step}) will 
 
   % Rewriting rules
 
+  The rewriting rules in $\overline{\Pi}$ are firing in a sequential manner.
+  They must have at most two objects at the left side. If a rule has more than two objects at the left side, we recall the lemma \ref{lemma:context_rules} and discuss the preconditions.
+  They may contain inhibitors. Every time it contains more than one inhibitor, we recall the lemma \ref{lemma:inhibitor_step} and discuss the preconditions. 
+
+  Here follows the list of rules in $\overline{\Pi}$.
+
   \begin{itemize}
     \item For every rule $r_i\in R$ such that $r_i = a_1^{M(a_1)}a_2^{M(a_2)}\dots a_n^{M(a_n)} \rightarrow a_1^{N(a_1)}a_2^{N(a_2)}\dots a_n^{N(a_n)}$ we will have the following rules:
   
     $a_1^{M(a_1)-m_1}\dot{a}_1^{m_1}a_2^{M(a_2)-m_2}\dot{a}_2^{m_2}\dots a_n^{M(a_n)-m_n}\dot{a}_n^{m_n}|RUN \rightarrow a_1^{\prime N(a_1)}a_2^{\prime N(a_2)}\dots a_n^{\prime N(a_n)}|RUN$
 
-    There will be such rule for each $0\leq m_i\leq M(a_i)$. It represents the idea that $\dot{a}$ can be used in rewriting in the same way as $a$. Right side of the rules contains symbols $a^\prime$, that prevents the symbols to be rewritten again.
+    There will be such rule for each $0\leq m_j\leq M(a_j)$.
+    Right side of the rules contains symbols $a^\prime$, that prevents the symbols to be rewritten again.
+    Usage of symbols $\dot{a}$ in these rules represents the idea that they can be used in rewriting in the same way as $a$. Their purpose will be explained later in the proof.
 
     \item For every symbol $a\in V$ we will have the following rules:
 
@@ -118,9 +126,9 @@ The last lemmas (\ref{lemma:context_rules} and \ref{lemma:inhibitor_step}) will 
 
     $SYNCHRONIZE|SYNCTOKEN_j \rightarrow SYNCHRONIZE|SYNCTOKEN_j\uparrow$
 
-    Membrane resends all sync token to parent membrane.
+    Membrane forwards all sync token to parent membrane.
 
-    \item In skin membrane there is a rule which collects all the synchronization tokens from all membranes $1\dots k$ and then sends down signal that synchronization is complete. But before that, there can be some symbols that should be sent down, but they weren't, because the region below could have not started the rewriting phase that time. The result was just marked with $a^{\downarrow\prime}$.
+    \item In the skin membrane there is a rule which collects all the synchronization tokens from all membranes $1\dots k$ and then sends down signal that synchronization is complete. But before that, there can be some symbols that should be sent down, but they weren't, because the region below could have not started the rewriting phase that time. The result was just marked with $a^{\downarrow\prime}$.
 
     $SYNCTOKEN_1|SYNCTOKEN_2|\dots|SYNCTOKEN_k|SYNCHRONIZE \rightarrow SENDDOWN$
 
@@ -152,7 +160,7 @@ The last lemmas (\ref{lemma:context_rules} and \ref{lemma:inhibitor_step}) will 
   \end{itemize}
 
 
-  Phase of membrane is represented by object so the region is never empty and by the Lemma~\ref{lemma:inhibitor_step} the rules with set of inhibitors can be simulated by single inhibitors.
+  The regions are never empty, because they contain at least the object representing the state. Thus the rules with set of inhibitors can be simulated by single inhibitors due to the Lemma~\ref{lemma:inhibitor_step}.
 \end{dokaz}
 
 % subsection simulation_of_maximal_parallel_p_system (end)
