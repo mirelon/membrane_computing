@@ -57,7 +57,19 @@ The last lemmas (\ref{lemma:context_rules} and \ref{lemma:inhibitor_step}) will 
     \label{fig:possible_pairs_of_states_of_parent_and_child_membrane}
   \end{figure}
 
+  \begin{figure}
+    \def\svgwidth{\textwidth}
+    \input{snapshot_of_all_membrane_states_while_simulating.pdf_tex}
+    % \includegraphics[width=\textwidth]{snapshot_of_all_membrane_states_while_simulating}
+    \caption{Snapshot of all membrane states while simulating}
+    \label{fig:snapshot_of_all_membrane_states_while_simulating}
+  \end{figure}
+
   In the figure \ref{fig:possible_pairs_of_states_of_parent_and_child_membrane} the pairs of states of parent and child membrane are joined with possible transitions between two consecutive global synchronizations - after the maximal parallel steps $i$ and $i+1$.
+
+  In the figure \ref{fig:snapshot_of_all_membrane_states_while_simulating} the membrane structure is presented as hierarchical structure. Every region is in one of four states. It is obvious that the sending of the objects is performed in such states that the receiving region is in $RUN$ or $SYNCHRONIZE$ state, so the received objects (marked $a^{\prime}$) cannot interfere with rewriting.
+
+  It is important to note that when a region is in $SENDDOWN$ state and objects are sent through the child membrane, the receiving region is in the $SYNCHRONIZE$ state waiting for the $SYNCED$ signal, which will be sent to it when $SENDDOWN$ and $RESTORE$ phases finished.
   
 
   % Rewriting rules
