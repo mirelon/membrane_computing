@@ -27,8 +27,8 @@ Lemma \ref{lemma:inhibitor_step} will establish equivalence of these two definit
 \end{lema}
 
 \begin{dokaz}
-  Consider P system with alphabet $V$.
-  For each rule $u\rightarrow v|_{\neg B}$, where $B=\{b_1, b_2, \dots ,b_n\}$ we will have rules:
+  Consider P system with alphabet $V$ and a set of inhibitors $B=\{b_1, b_2, \dots ,b_n\}$.
+  For each rule $u\rightarrow v|_{\neg B}$ we will have rules:
   \begin{itemize}
     \item $c \rightarrow c|GONE_{b}|_{\neg b}$ for all $ c\in V, b\in B$
     \item $u|GONE_{b_1}|GONE_{b_2}|\dots|GONE_{b_n} \rightarrow v|GONE_{b_1}|GONE_{b_2}|\dots|GONE_{b_n}$
