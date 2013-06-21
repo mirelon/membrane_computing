@@ -56,15 +56,14 @@ Modely vznikajú s dvoma účelmi:
 \begin{frame}[t]\frametitle{Obsah membrány}
 \begin{itemize}
   \item multimnožina objektov
+  \begin{itemize}
+    \item $a\ |\ b\ |\ b$
+  \end{itemize}
   \item prepisovacie pravidlá
-\end{itemize}
-\end{frame}
-
-\begin{frame}[t]\frametitle{Prepisovacie pravidlá}
-\begin{itemize}
-  \item $r\in \mathbb{N}^V\times\mathbb{N}^{V\times(\{here,in,out\}\cup\{in_1,\dots in_m\})}$
-  \item $a\ |\ b\ |\ b\rightarrow a\ |\ a\downarrow\ |\ a\uparrow\ |\ b\downarrow_6$
-  \item $b \rightarrow a\ |\ \delta$
+  \begin{itemize}
+    \item $a\ |\ b\ |\ b\rightarrow a\ |\ a\downarrow\ |\ a\uparrow\ |\ b\downarrow_6$
+    \item $b \rightarrow a\ |\ \delta$
+  \end{itemize}
 \end{itemize}
 \end{frame}
 
@@ -74,8 +73,8 @@ P systém je štvorica $(V, \mu, w_1, w_2,\dots , w_m, R_1, R_2, \dots , R_m)$, 
 \begin{itemize}
   \item $V$ je abeceda objektov
   \item $\mu$ je membránová štruktúra
-  \item $w_1, w_2, \dots w_m$ sú počiatočné multimnožiny v membránach $1\dots m$
-  \item $R_1, R_2, \dots , R_m$ sú množiny prepisovacích pravidiel v membránach $1\dots m$.
+  \item $w_1, w_2, \dots w_m$ sú počiatočné multimnožiny v membránach $1\dots m$, $w_i\subseteq \mathbb{N}^V$
+  \item $R_1, R_2, \dots , R_m$ sú množiny prepisovacích pravidiel v membránach $1\dots m$, pričom $$R_i\subseteq(\mathbb{N}^V\setminus 0^V)\times\mathbb{N}^{V\times(\{here,in,out\}\cup\{in_1,\dots in_m\})}$$.
 \end{itemize}
 
 \end{frame}
