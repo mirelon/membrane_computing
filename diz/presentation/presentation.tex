@@ -92,10 +92,10 @@ P systém je štvorica $(V, \mu, w_1, w_2,\dots , w_m, R_1, R_2, \dots , R_m)$, 
   \onslide<2->{a\ |\ c\\\midrule
   a\ |\ a\ |\ c\ |\ c}
 \end{align*}
+\end{frame}
 
-
-
-
+\begin{frame}[t]\frametitle{Jazyk}
+TODO
 \end{frame}
 
 
@@ -116,25 +116,41 @@ P systém je štvorica $(V, \mu, w_1, w_2,\dots , w_m, R_1, R_2, \dots , R_m)$, 
 
 \begin{frame}[t]\frametitle{Varianty pravidiel}
 \begin{itemize}
-  \item kontextové
-  \item kooperatívne
+  \item kontextové (PsRE)
+  \item kooperatívne (PsRE)
   \item katalytické
-  \item bezkontextové
-  \item s inhibítormi / promótermi
-  \item inhibícia pravidiel
-  \item bez povolenia rozpúštania membrán
-  \item s vytváraním nových membrán
+  \begin{itemize}
+    \item s 2 katalyzátormi (PsRE) \cite{Freund2005TwoCatalysts}
+    \item s 1 katalyzátorom (otvorený problem)
+    \item s 1 katalyzátorom a inhibítormi (PsRE) \cite{Ionescu:jucs_10_5:on_p_systems_with}
+  \end{itemize}
+  \item bezkontextové (PsCF) \cite{Sburlan05dragos}
+  \item bezkontextové s inhibítormi (PsET0L) \cite{Ionescu:jucs_10_5:on_p_systems_with}
 \end{itemize}
 \end{frame}
 
 \begin{frame}[t]\frametitle{Varianty kroku výpočtu}
 \begin{itemize}
-  \item maximálny paralelizmus
-  \item sekvenčný
-  \item asynchrónny
-  \item minimálny paralelizmus
-  \item n-paralelizmus
-  \item bez priorít
+  \item maximálny paralelizmus (PsRE)
+  \item maximálny paralelizmus bez priorít (PsRE) \cite{Sosik:2002:WithoutPriorities}
+  \item sekvenčný (vieme simulovať pomocou VASS, \cite{Dang:2005:Sequential})
+  \item sekvenčný s prioritami (TODO)
+  \item asynchrónny (TODO)
+  \item minimálny paralelizmus (PsRE) \cite{Ciobanu:2007:MinimalParallelism}
+  \item n-paralelizmus, max-n-paralelizmus, \dots
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]\frametitle{Sekvenčné P systémy}
+\begin{itemize}
+  \item nie sú univerzálne
+  \item na univerzalitu treba:
+  \begin{itemize}
+    \item povoliť neobmedzené vytváranie membrán \cite{Dang:2005:Sequential}
+    \item inhibítory
+    \item iné rozšírenia (vacuum, ...)
+    \item inšpirácie z výsledkov iných formalizmov
+  \end{itemize}
 \end{itemize}
 \end{frame}
 
@@ -153,7 +169,7 @@ P systém je štvorica $(V, \mu, w_1, w_2,\dots , w_m, R_1, R_2, \dots , R_m)$, 
 
 \begin{frame}[t]\frametitle{Ďalšie plány}
 \begin{itemize}
-  \item Preskúmať možnosti kombinovania variantov P systémov z hľadiska výpočtovej sily
+  \item Preskúmať možnosti kombinovania ďalších variantov P systémov z hľadiska výpočtovej sily
   \item Porovnať s inými formalizmami, napríklad Petriho siete / reaction systems / CLS / ...
   \item Nájsť nové varianty
 \end{itemize}
@@ -174,18 +190,6 @@ P systém je štvorica $(V, \mu, w_1, w_2,\dots , w_m, R_1, R_2, \dots , R_m)$, 
 \end{itemize}
 \end{frame}
 
-\begin{frame}[t]\frametitle{Sekvenčné P systémy}
-\begin{itemize}
-  \item nie sú univerzálne
-  \item na univerzalitu treba:
-  \begin{itemize}
-    \item povoliť neobmedzené vytváranie membrán \cite{Dang:2005:Sequential}
-    \item inhibítory
-    \item iné rozšírenia (vacuum, ...)
-    \item inšpirácie z výsledkov iných formalizmov
-  \end{itemize}
-\end{itemize}
-\end{frame}
 
 \begin{frame}[t]\frametitle{Inšpirácie z výsledkov iných formalizmov}
 \begin{itemize}
