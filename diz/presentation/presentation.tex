@@ -1,5 +1,6 @@
 \documentclass{beamer}
 \usepackage[utf8]{inputenc}
+\usepackage{booktabs}
 \usetheme{Warsaw}
 \title{Biologicky motivované\\výpočtové modely}
 \author{Michal Kováč}
@@ -75,10 +76,17 @@ P systém je štvorica $(V, \mu, w_1, w_2,\dots , w_m, R_1, R_2, \dots , R_m)$, 
   \item krok výpočtu: maximálny paralelizmus
 \end{itemize}
 
-\begin{itemize}
-  \item $a\ |\ b\ |\ b\rightarrow a\ |\ a\downarrow\ |\ a\uparrow\ |\ b\downarrow_6$
-  \item $b \rightarrow a\ |\ \delta$
-\end{itemize}
+\begin{align*}
+  a\ |\ b\ |\ b&\rightarrow c\\
+  b &\rightarrow c\ |\ c\\
+  a\ |\ a\ |\ b\ |\ b\\\midrule
+  \onslide<2->{a\ |\ c\\\midrule
+  a\ |\ a\ |\ c\ |\ c}
+\end{align*}
+
+
+
+
 \end{frame}
 
 
