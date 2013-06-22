@@ -141,23 +141,39 @@ V tomto príklade sú teda dve maximálne multimnožiny pravidiel. O ďalšej ko
 
 \begin{frame}[t]\frametitle{Jazyk}
 \begin{itemize}
-  \item Parikhovo zobrazenie
-  \item alternatíva: worm objects \cite{Mate02}
+  \item výsledok výpočtu je multimnožina objektov, ktorá:
   \begin{itemize}
-    \item namiesto multimnožín objektov sú v membránach multimnožiny stringov
-    \item inšpirované DNA
+    \item počas výpočtu prešla cez vonkajšiu membránu
+    \item na konci ostane v špecifickej membráne
   \end{itemize}
-
-  \item generatívny mód
-  \item akceptačný mód
+  \item generatívny vs akceptačný mód
+  \item Parikhovo zobrazenie: PsRE
 \end{itemize}
 \end{frame}
-\note{}
+\note{Ak je postupnosť krokov výpočtu konečná, výpočet je úspešný a výsledok výpočtu je multimnožina objektov, ktorá prešla cez vonkajšiu membránu. Podobne by sa dal definovať aj ako multimnožina objektov, ktorá ostane v špecifickej membráne.
+
+V akceptačnom móde sa do špecifickej membrány vloží multimnožina objektov, pričom ostatné membrány sú prázdne. Ak výpočet zastaví, pôvodná multimnožina patrí do jazyka, inak nepatrí.
+
+Pre vačšinu známych modelov sú generatívny aj akceptačný mód rovnako silné, u P systémoch to nie je vždy tak, preto sa oplatí skúmať obidva módy.
+
+Všetky možné úspešné výpočty definujú jazyk nad multimnožinami. Z hľadiska výpočtovej sily sa triedy týchto jazykov porovnávajú s Parikhovým zobrazením známych tried jazykov. P systémom zodpovedá trieda jazykov PsRE, čo je Parikov obraz triedy rekurzívne vyčísliteľných jazykov.
+}
 
 % subsection p_systemy (end)
 
 \subsection{Varianty} % (fold)
 \label{sub:varianty}
+
+\begin{frame}[t]\frametitle{Varianty objektov}
+\begin{itemize}
+  \item alternatíva: worm objects \cite{Mate02}
+  \begin{itemize}
+    \item namiesto multimnožín objektov sú v membránach multimnožiny stringov
+    \item inšpirované DNA
+  \end{itemize}
+\end{itemize}
+\end{frame}
+\note{}
 
 \begin{frame}[t]\frametitle{Varianty pravidiel}
 \begin{itemize}
