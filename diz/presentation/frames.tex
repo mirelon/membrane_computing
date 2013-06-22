@@ -1,10 +1,6 @@
 \usepackage[utf8]{inputenc}
 \usepackage{booktabs}% for rules in equations = example of computation step
 \usepackage{slovak}
-\usepackage{pgfpages}
-\mode<handout>{
-  \pgfpagesuselayout{8 on 1}[a4paper,border shrink=1.5mm]
-}
 \usetheme{Warsaw}
 \title{Biologicky motivované \\výpočtové modely}
 \author{Michal Kováč}
@@ -15,7 +11,7 @@
 \begin{frame}[t]
 \titlepage
 \end{frame}
-\note{}
+\note{Vážená komisia, \dots}
 
 \section*{Outline}
 \begin{frame}
@@ -39,7 +35,10 @@ Modely vznikajú s dvoma účelmi:
   \item zdokonalenie informatických riešení
 \end{itemize}
 \end{frame}
-\note{}
+\note{Tieto modely majú dvojaké uplatnenie.
+Jednak v rámci biológie môžu slúžiť ako reálne modely správania sa živých systémov, na ktorých si možnosťami simulácie či verifikácie môžeme overovať správnosť nášho chápania ich biologickej činnosti, robiť virtuálne biologické experimenty.
+
+Na druhej strane môžu slúžiť ako nové inšpiratívne výpočtové modely otvárajúce rad teoretických informatických otázok (napr. výpočtová sila) alebo ako modely na popis aj iných ako biologických systémov.}
 
 \begin{frame}[t]\frametitle{Biologicky motivované \\výpočtové modely}
 \begin{itemize}
@@ -51,7 +50,7 @@ Modely vznikajú s dvoma účelmi:
   \item \dots
 \end{itemize}
 \end{frame}
-\note{}
+\note{Dlho skúmané modely ako neurónové siete, celulárne automaty, evolučné algoritmy, či L systémy, si už našli svoje uplatnenie v praxi, kým membránové systémy sú ešte len v začiatkoch svojho vývoja.}
 
 % subsection prehlad_modelov (end)
 
@@ -63,7 +62,7 @@ Modely vznikajú s dvoma účelmi:
 \hfill
 \includegraphics[width=0.3\textwidth]{membrane_tree.png}
 \end{frame}
-\note{}
+\note{Membránové systémy sú inšpirované bunkami. Základom je preto membránová štruktúra, ktorá pozostáva z regiónov, ktoré sú oddelené membránami. Tvorí to hierarchickú štruktúru, ktorá sa dá zobraziť ako strom.}
 
 \begin{frame}[t]\frametitle{Obsah membrány}
 \begin{itemize}
@@ -78,7 +77,11 @@ Modely vznikajú s dvoma účelmi:
   \end{itemize}
 \end{itemize}
 \end{frame}
-\note{}
+\note{V každej membráne je multimnožina objektov, ktorú zapisujeme takto.
+
+Každá membrána má aj množinu prepisovacích pravidiel. Ľavá aj pravá strana pravidla pozostáva z multimnožiny objektov, pričom ľavá strana nesmie byť prázdna.
+
+Posielanie objektov cez membránu sa uskutočňuje tak, že na pravej strane môžu mať objekty špecifikované, či ostanú v aktuálnom regióne, alebo pôjdu do rodiča, alebo do syna. Môže sa poslať do konkrétneho syna, alebo všetkým.}
 
 \begin{frame}[t]\frametitle{P systém}
 

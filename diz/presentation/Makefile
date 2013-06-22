@@ -1,5 +1,6 @@
-all: presentation.tex
+all: presentation.tex handout.tex
 	pdfcslatex presentation.tex
+	pdfcslatex handout.tex
 
 two: presentation.tex
 	pdfcslatex presentation.tex
