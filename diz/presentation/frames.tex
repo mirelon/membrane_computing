@@ -1,6 +1,7 @@
 \usepackage[utf8]{inputenc}
-\usepackage{booktabs}% for rules in equations = example of computation step
 \usepackage{slovak}
+\usepackage{tikz}
+\usetikzlibrary{arrows,positioning}
 \usetheme{Warsaw}
 \title{Biologicky motivované \\výpočtové modely}
 \author{Michal Kováč}
@@ -98,23 +99,45 @@ P systém definujeme ako $\Pi = (V, \mu, w_1, w_2,\dots , w_m, R_1, R_2, \dots ,
 \end{itemize}
 
 \end{frame}
-\note{}
+\note{P systém sa definuje ako konštrukt pozostávajúci z abecedy objektov, membránovej štruktúry, počiatočnej multimnožiny objektov a prepisovacích pravidiel}
 
 \begin{frame}[t]\frametitle{Konfigurácia a krok výpočtu}
 \begin{itemize}
   \item konfigurácia = membránová štruktúra + obsahy membrán
   \item krok výpočtu: maximálny paralelizmus
 \end{itemize}
-
-\begin{align*}
-  a\ |\ b\ |\ b&\rightarrow c\\
-  b &\rightarrow c\ |\ c\\
-  a\ |\ a\ |\ b\ |\ b\\\midrule
-  \onslide<2->{a\ |\ c\\\midrule
-  a\ |\ a\ |\ c\ |\ c}
-\end{align*}
+\tikzstyle{mybox} = [draw=black,very thick, rectangle, rounded corners, inner sep=10pt]
+\begin{tikzpicture}
+  \onslide<2->{
+    \node [mybox] (box){%
+      \begin{minipage}{0.50\textwidth}
+        \vspace{0pt}
+        \begin{align}
+          \tag{$r_1$}a\ |\ b\ |\ b&\rightarrow c\\
+          \tag{$r_2$}b &\rightarrow c\ |\ c
+        \end{align}
+        $a\ |\ a\ |\ b\ |\ b$
+      \end{minipage}
+    };
+  }
+  \onslide<3->{
+    \node [mybox,below=3cm of box.west,anchor=west] (box2) {$a\ |\ c$};
+    \path[-triangle 45] (box) edge [left] node {$r_1$} (box2);
+  }
+  \onslide<4->{
+    \node [mybox,below=3cm of box.east,anchor=east] (box3){$a\ |\ a\ |\ c\ |\ c\ |\ c\ |\ c$};
+    \path[-triangle 45] (box) edge [right] node {$2*r_2$} (box3);
+  }
+\end{tikzpicture}
 \end{frame}
-\note{}
+\note{Konfigurácia P systému v sebe zahŕňa membránovú štruktúru a obsahy jednotlivých membrán. P systém má globálny časovač, v každom kroku, každá membrána aplikuje maximálnu multimnožinu pravidiel.
+
+V tomto príklade máme dve jednoduché pravidlá a multimnožinu aabb. Ak sa použije prvé pravidlo, žiadne ďalšie sa už v tomto kroku použiť nemôže, preto je to maximálna multimnožina.
+
+Ak sa použije druhé pravidlo, musí sa použiť dvakrát, aby to bola maximálna multimnožina.
+
+V tomto príklade sú teda dve maximálne multimnožiny pravidiel. O ďalšej konfigurácii sa rozhodne nedeterministicky.
+}
 
 \begin{frame}[t]\frametitle{Jazyk}
 \begin{itemize}
