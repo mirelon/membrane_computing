@@ -10,3 +10,6 @@ bib: presentation.tex presentation.bib
 	bibtex presentation
 	pdfcslatex presentation.tex
 	pdfcslatex presentation.tex
+
+handout: handout.tex
+	pdfcslatex handout.tex
