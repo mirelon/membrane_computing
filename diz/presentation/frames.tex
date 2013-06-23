@@ -154,8 +154,8 @@ V tomto príklade sú teda dve maximálne multimnožiny pravidiel. O ďalšej ko
     \item počas výpočtu prešla cez vonkajšiu membránu
     \item na konci ostane v špecifickej membráne
   \end{itemize}
-  \item generatívny vs akceptačný mód
-  \item Parikhovo zobrazenie: PsRE
+  \onslide<2->{\item generatívny vs akceptačný mód}
+  \onslide<3->{\item Parikhovo zobrazenie: PsRE}
 \end{itemize}
 \end{frame}
 \note{Ak je postupnosť krokov výpočtu konečná, výpočet je úspešný a výsledok výpočtu je multimnožina objektov, ktorá prešla cez vonkajšiu membránu. Podobne by sa dal definovať aj ako multimnožina objektov, ktorá ostane v špecifickej membráne.
@@ -187,15 +187,15 @@ Všetky možné úspešné výpočty definujú jazyk nad multimnožinami. Z hľa
 \begin{frame}[t]\frametitle{Varianty pravidiel}
 \begin{itemize}
   \item kontextové (PsRE)
-  \item kooperatívne (PsRE) \cite{Paun98}
-  \item katalytické
-  \begin{itemize}
-    \item s 2 katalyzátormi (PsRE) \cite{Freund2005TwoCatalysts}
-    \item s 1 katalyzátorom (otvorený problem)
-    \item s 1 katalyzátorom a inhibítormi (PsRE) \cite{Ionescu:jucs_10_5:on_p_systems_with}
+  \onslide<2->{\item kooperatívne (PsRE) \cite{Paun98}}
+  \onslide<3->{\item katalytické
+    \begin{itemize}
+      \item s 2 katalyzátormi (PsRE) \cite{Freund2005TwoCatalysts}
+      \item s 1 katalyzátorom (otvorený problem)
+      \item s 1 katalyzátorom a inhibítormi (PsRE) \cite{Ionescu:jucs_10_5:on_p_systems_with}}
   \end{itemize}
-  \item bezkontextové (PsCF) \cite{Sburlan05dragos}
-  \item bezkontextové s inhibítormi (PsET0L) \cite{Ionescu:jucs_10_5:on_p_systems_with}
+  \onslide<4->{\item bezkontextové (PsCF) \cite{Sburlan05dragos}}
+  \onslide<5->{\item bezkontextové s inhibítormi (PsET0L) \cite{Ionescu:jucs_10_5:on_p_systems_with}}
 \end{itemize}
 \end{frame}
 \note{Pôvodná definícia definovala kontextové pravidlá. Ak by sme ľavú stranu obmedzili, že v nej môžu byť maximálne 2 objekty, sú to kooperatívne pravidlá. O nich Paun v pôvodnom článku ukázal, že sú tiež univerzálne.
@@ -211,9 +211,9 @@ Bezkontextové pravidlá majú na ľavej strane práve jeden objekt. Výpočtov�
 \begin{frame}[t]\frametitle{Varianty kroku výpočtu}
 \begin{itemize}
   \item maximálny paralelizmus (PsRE)
-  \item sekvenčný (vieme simulovať pomocou VASS, \cite{Dang:2005:Sequential})
-  \item asynchrónny (väčšinou $\sim$ sekvenčný) \cite{Freund:2004:APS:2144633.2144637}
-  \item minimálny paralelizmus (PsRE) \cite{Ciobanu:2007:MinimalParallelism}
+  \onslide<2->{\item sekvenčný (vieme simulovať pomocou VASS, \cite{Dang:2005:Sequential})}
+  \onslide<3->{\item asynchrónny (väčšinou $\sim$ sekvenčný) \cite{Freund:2004:APS:2144633.2144637}}
+  \onslide<4->{\item minimálny paralelizmus (PsRE) \cite{Ciobanu:2007:MinimalParallelism}}
   % \item n-paralelizmus, max-n-paralelizmus, \dots
 \end{itemize}
 \end{frame}
@@ -240,14 +240,14 @@ V minimálnom paralelizme pre každú membránu platí, že ak sa môže použi�
 \begin{frame}[t]\frametitle{Aktuálne riešené problémy}
 \begin{itemize}
   \item maximálny paralelizmus je veľmi silná featura\dots
-  \item ako sa dá rozšíriť sekvenčný mód?
-  \item na univerzalitu treba:
+  \onslide<2->{\item ako sa dá rozšíriť sekvenčný mód?}
+  \onslide<3->{\item na univerzalitu treba:
   \begin{itemize}
-    \item pravidlá s prioritami \cite{Dang:2005:Sequential}
-    \item povoliť neobmedzené vytváranie membrán \cite{Dang:2005:Sequential}
-    \item {\bf inhibítory \cite[submitted]{Kovac13}}
-    \item iné rozšírenia (pravidlá s detekciu prázdnych membrán, \dots)
-    \item inšpirácie z výsledkov iných formalizmov
+      \item pravidlá s prioritami \cite{Dang:2005:Sequential}
+      \item povoliť neobmedzené vytváranie membrán \cite{Dang:2005:Sequential}}
+      \onslide<4->{\item {\bf inhibítory \cite[submitted]{Kovac13}}}
+      \onslide<5->{\item iné rozšírenia (pravidlá s detekciu prázdnych membrán, \dots)
+    \item inšpirácie z výsledkov iných formalizmov}
   \end{itemize}
 \end{itemize}
 \end{frame}
@@ -323,11 +323,11 @@ A mal by byť iredundantný, čiže definícia by mala byť dostatočne jednoduc
     \item s inhibítormi áno
     \item iné rozšírenia Petriho sietí
   \end{itemize}
-  \item CLS (Calculi of Looping Sequences)
-  \begin{itemize}
-    \item sekvenčný model, vie simulovať P systémy \cite{Barbuti07CLS}
-  \end{itemize}
-  \item reaction systems [Rozenberg, 2007]
+  \onslide<2->{\item CLS (Calculi of Looping Sequences)
+    \begin{itemize}
+      \item sekvenčný model, vie simulovať P systémy \cite{Barbuti07CLS}
+    \end{itemize}}
+  \onslide<3->{\item reaction systems [Rozenberg, 2007]}
 \end{itemize}
 \end{frame}
 \note{Ďalšie plány zahŕňajú aj porovnanie s výsledkami iných formalizmov napríklad Petriho sietí, reaction systems, či CLS.
