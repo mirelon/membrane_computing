@@ -234,7 +234,7 @@ V minimálnom paralelizme pre každú membránu platí, že ak sa môže použi�
   \begin{itemize}
     \item pravidlá s prioritami \cite{Dang:2005:Sequential}
     \item povoliť neobmedzené vytváranie membrán \cite{Dang:2005:Sequential}
-    \item inhibítory \cite[submitted]{Kovac13}
+    \item {\bf inhibítory \cite[submitted]{Kovac13}}
     \item iné rozšírenia (pravidlá s detekciu prázdnych membrán, \dots)
     \item inšpirácie z výsledkov iných formalizmov
   \end{itemize}
@@ -260,19 +260,51 @@ Skúmam aj ďalšie rozšírenia, napríklad pravidlá s detekciu prázdnych mem
 \begin{itemize}
   \item Preskúmať možnosti kombinovania ďalších variantov P systémov z hľadiska výpočtovej sily
   \begin{itemize}
-    \item priestorové P systémy
     \item rozpadajúce sa objekty
     \item energie
+    \item symport / antiport
+    \item priestorové P systémy
+    \item \dots
   \end{itemize}
-  \item Porovnať s inými formalizmami, napríklad Petriho siete / reaction systems / CLS / ...
-  \item Nájsť nové varianty
 \end{itemize}
 \end{frame}
-\note{}
+\note{Medzi ďalšie plány patrí preskúmanie, ako pomôže kombinovanie s ďalšími variantami z hľadiska výpočtovej sily.
+
+Zaujímavé rozšírenia sú napríklad rozpadajúce sa objekty, kde má každý objekt určený čas rozpadu, a po danom počte krokov objekt zanikne.
+
+Takisto inšpiratívne ja aj použitie energií. Každá reakcia spotrebuje nejakú energiu a po odpálení sa nejaká energia môže naspäť uvoľniť.
+
+Pri symport / antiport pravidlách komunikácia medzi membránami je vždy párova, pričom vždy idú dva objekty buď súbežne, alebo oproti sebe.
+
+Priestorové P systémy zavádzajú pre objekty pozíciu v priestore.
+
+Variantov je veľké množstvo, no stále sa oplatí hľadať aj nové.
+}
+
+\begin{frame}[t]\frametitle{Nové varianty}
+\begin{itemize}
+  \item Nájsť nové varianty
+  \item Besozzi \cite{Besozzi:PhD:2004}: Dobrý variant by mal byť:
+  \begin{itemize}
+    \item realistický
+    \item univerzálny
+    \item iredundantný
+  \end{itemize}
+\end{itemize}
+\end{frame}
+\note{Zaujímavú definíciu dobrého variantu uvádza Besozzi vo svojej PhD práci.
+
+Mal by byť dostatočne realistický, vychádzať z reálnych pozorovaní biologických javov. 
+
+Mal by byť dostatočne silný z výpočtového hľadiska, ideálne univerzálny.
+
+A mal by byť iredundantný, čiže definícia by mala byť dostatočne jednoduchá, nemala by obsahovať nič navyše.
+}
 
 
 \begin{frame}[t]\frametitle{Inšpirácie z výsledkov iných formalizmov}
 \begin{itemize}
+  \item Porovnať s inými formalizmami, napríklad Petriho siete / reaction systems / CLS / ...
   \item Petriho siete
   \begin{itemize}
     \item nie sú univerzálne
@@ -284,16 +316,6 @@ Skúmam aj ďalšie rozšírenia, napríklad pravidlá s detekciu prázdnych mem
     \item sekvenčný model, vie simulovať P systémy \cite{Barbuti07CLS}
   \end{itemize}
   \item Reakčné (alebo reaktívne?) systémy
-\end{itemize}
-\end{frame}
-\note{}
-
-\begin{frame}[t]\frametitle{Nové varianty}
-Besozzi \cite{Besozzi:PhD:2004}: Dobrý variant by mal byť:
-\begin{itemize}
-  \item realistický
-  \item univerzálny
-  \item iredundantný
 \end{itemize}
 \end{frame}
 \note{}
