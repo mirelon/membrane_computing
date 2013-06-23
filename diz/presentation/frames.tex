@@ -156,7 +156,7 @@ V akceptačnom móde sa do špecifickej membrány vloží multimnožina objektov
 
 Pre vačšinu známych modelov sú generatívny aj akceptačný mód rovnako silné, u P systémoch to nie je vždy tak, preto sa oplatí skúmať obidva módy.
 
-Všetky možné úspešné výpočty definujú jazyk nad multimnožinami. Z hľadiska výpočtovej sily sa triedy týchto jazykov porovnávajú s Parikhovým zobrazením známych tried jazykov. P systémom zodpovedá trieda jazykov PsRE, čo je Parikov obraz triedy rekurzívne vyčísliteľných jazykov.
+Všetky možné úspešné výpočty definujú jazyk nad multimnožinami. Z hľadiska výpočtovej sily sa triedy týchto jazykov porovnávajú s Parikhovým zobrazením známych tried jazykov. P systémom zodpovedá trieda jazykov PsRE, čo je Parikov obraz triedy rekurzívne vyčísliteľných jazykov. Voláme ich univerzálne, lebo podľa Turingovej tézy nimi vieme simulovať akýkoľvek iný model, ktorý je algoritmicky simulovateľný.
 }
 
 % subsection p_systemy (end)
@@ -173,12 +173,12 @@ Všetky možné úspešné výpočty definujú jazyk nad multimnožinami. Z hľa
   \end{itemize}
 \end{itemize}
 \end{frame}
-\note{Aby sme mohli definovať priamo jazyky nad stringami, Mate navrhol variant P systems with worm objects. V membránach sú rovno multimnožiny stringov, čo je inšpirované reťazcami DNA. Takto sa dostal priamo k triede rekurzívne vyčísliteľných jazykov.}
+\note{Aby sme mohli definovať priamo jazyky nad stringami, Mate navrhol variant P systems with worm objects. V membránach sú rovno multimnožiny stringov, čo je inšpirované reťazcami DNA. Takto dostal tiež univerzálny model.}
 
 \begin{frame}[t]\frametitle{Varianty pravidiel}
 \begin{itemize}
   \item kontextové (PsRE)
-  \item kooperatívne (PsRE)
+  \item kooperatívne (PsRE) \cite{Paun98}
   \item katalytické
   \begin{itemize}
     \item s 2 katalyzátormi (PsRE) \cite{Freund2005TwoCatalysts}
@@ -189,7 +189,13 @@ Všetky možné úspešné výpočty definujú jazyk nad multimnožinami. Z hľa
   \item bezkontextové s inhibítormi (PsET0L) \cite{Ionescu:jucs_10_5:on_p_systems_with}
 \end{itemize}
 \end{frame}
-\note{}
+\note{Pôvodná definícia definovala kontextové pravidlá. Ak by sme ľavú stranu obmedzili, že v nej môžu byť maximálne 2 objekty, sú to kooperatívne pravidlá. O nich Paun v pôvodnom článku ukázal, že sú tiež univerzálne.
+
+Katalyzátory sa definujú ako podmnožina objektov. Keď sa katalyzátor nachádza na ľavej strane pravidla, musí sa aj na pravej strane. OKrem katalyzátorov sa na ľavej strane nachádza práve jeden objekt, ktorý nie je katalyzátor.
+Séria článkov skúmala, koľko minimálne katalyzátorov treba na univerzálnosť. Až v roku 2005 Freund ukázal, že stačia 2 a nastolil otvorený problém, ako je to s 1 katalyzátorom. Jediné, na čo sa prišlo, je, že keď sa použijú navyše inhibítory, tak je to univerzálne.
+
+Bezkontextové pravidlá majú na ľavej strane práve jeden objekt. Výpočtová sila zodpovedá bezkontextovým jazykom. A veľmi ani inhibítory nepomôžu, bude to zodpovedať len špeciálnej triede L systémov, ktoré nie sú univerzálne.
+}
 
 \begin{frame}[t]\frametitle{Varianty kroku výpočtu}
 \begin{itemize}
