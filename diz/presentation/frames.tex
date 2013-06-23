@@ -12,7 +12,7 @@
 \begin{frame}[t]
 \titlepage
 \end{frame}
-\note{Vážená komisia, \dots}
+\note{Vážená komisia, \dots, chcel by som vám prezentovať moje pokroky v dizertačnej práci.}
 
 \section*{Outline}
 \begin{frame}
@@ -202,13 +202,25 @@ Bezkontextové pravidlá majú na ľavej strane práve jeden objekt. Výpočtov�
   \item maximálny paralelizmus (PsRE)
   \item maximálny paralelizmus bez priorít (PsRE) \cite{Sosik:2002:WithoutPriorities}
   \item sekvenčný (vieme simulovať pomocou VASS, \cite{Dang:2005:Sequential})
-  \item sekvenčný s prioritami (TODO)
-  \item asynchrónny (TODO)
+  \item sekvenčný s prioritami (PsRE) \cite{Dang:2005:Sequential}
+  \item asynchrónny (väčšinou $\sim$ sekvenčný) \cite{Freund:2004:APS:2144633.2144637}
   \item minimálny paralelizmus (PsRE) \cite{Ciobanu:2007:MinimalParallelism}
-  \item n-paralelizmus, max-n-paralelizmus, \dots
+  % \item n-paralelizmus, max-n-paralelizmus, \dots
 \end{itemize}
 \end{frame}
-\note{}
+\note{Podobne existuje množstvo variantov spôsobu aplikácie pravidiel v jednom kroku výpočtu.
+
+Pre maximálnom paralelizme je jedno, či máme pravidlá s prioritami, alebo nie.
+
+TODO: mozno chcem dat do povodnej definicie priority
+
+Pri sekvenčnom móde sa v každom kroku nedeterministicky vyberie pravidlo, ktoré sa raz aplikuje. Ibarra ukázal, že sekvenčné P systémy sa dajú simulovať pomocou vector addition systems, čiže nie sú univerzálne. Tiež ukázal, že s prioritami to uz je univerzálne.
+
+V asynchrónnom móde sa v každom kroku vyberie ľubovoľná multimnožina pravidiel, ktorá sa aplikuje. Aspoň v jednej membráne táto multimnožina nesmie byť prázdna.
+Vo väčšine prípadov dáva asynchrónny mód rovnaké výsledky ako sekvenčný.
+
+V minimálnom paralelizme pre každú membránu platí, že ak sa môže použiť aspoň jedno pravidlo, tak sa aspoň jedno musí použiť. Je to akoby odľahčenie podmienky v maximálnom paralelizme, pričom sa zachováva univerzalita.
+}
 
 % subsection varianty (end)
 
