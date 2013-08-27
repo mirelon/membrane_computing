@@ -21,7 +21,7 @@ The last lemmas (\ref{lemma:context_rules} and \ref{lemma:inhibitor_step}) will 
   In each step of $\Pi$, a maximal multiset of rewriting rules are applied in each membrane.
   We simulate this maximal parallel step with several steps of sequential system $\overline{\Pi}$.
 
-  We must prevent rule applying from the next maximal parallel step as that would be an incorrect simulation.
+  We must prevent rule application from the next maximal parallel step as that would be an incorrect simulation.
   Preventing this will be done with synchronization.
   Every membrane will have a state, represented as an object.
   The most important states are $RUN$ and $SYNCHRONIZE$.
