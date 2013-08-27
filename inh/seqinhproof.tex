@@ -25,7 +25,7 @@ The last lemmas (\ref{lemma:context_rules} and \ref{lemma:inhibitor_step}) will 
   Preventing this will be done with synchronization.
   Every membrane will have a state, represented as an object.
   The most important states are $RUN$ and $SYNCHRONIZE$.
-  In the $RUN$ state, rewriting rules of $\Pi$ are applied until there is no rule to be appied. Then, the membrane proceeds to the $SYNCHRONIZE$ state.
+  In the $RUN$ state, rewriting rules of $\Pi$ are applied until there is no rule to be applied. Then, the membrane proceeds to the $SYNCHRONIZE$ state.
   All the membranes in the $SYNCHRONIZE$ state are waiting for other membranes to reach $SYNCHRONIZE$ state, so they all can proceed to the $RUN$ state of the next maximal parallel step of $\Pi$.
 
   Other states are just technical - we need to implement sending objects between membranes and preparing for the next maximal parallel step by clearing temporary objects.
@@ -74,7 +74,7 @@ The last lemmas (\ref{lemma:context_rules} and \ref{lemma:inhibitor_step}) will 
 
   % Rewriting rules
 
-  The rewriting rules in $\overline{\Pi}$ are firing in a sequential manner.
+  The rewriting rules in $\overline{\Pi}$ fire in a sequential manner.
   They must have at most two objects at the left side. If a rule has more than two objects at the left side, we recall the lemma \ref{lemma:context_rules} and discuss the preconditions.
   They may contain inhibitors. Every time it contains more than one inhibitor, we recall the lemma \ref{lemma:inhibitor_step} and discuss the preconditions. 
 
