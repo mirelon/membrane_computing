@@ -56,24 +56,23 @@ We are looking for ways to obtain universality in this sequential mode.
 
 % Inhibitors
 
-At first, we consider inhibitors and show that using them we can simulate P system working in a maximally parallel way.
+At first, we consider inhibitors and show that using them we can simulate P systems working in a maximally parallel way.
 
 % Vacuum
 
-Then, we introduce the concept of vacuum. In the common sense, vacuum represents a state of space with no or a little matter in it. Using vacuum in modelling frameworks can help express certain phenomena more easily.
-We define a new P system variant, which creates a special vacuum object in a region as soon as the region becomes empty. The vacuum is removed whenever some object interacts with it. After the interaction, there is vacuum no longer. This removal process is realized by allowing the vacuum object to be used only on the left side of rules.
+Then, we introduce the concept of vacuum. In the common sense, vacuum represents a space with no or a little matter in it. Using vacuum in modelling frameworks can help express certain phenomena more easily.
+We define a new P system variant, which creates a special vacuum object in a region as soon as the region becomes empty. The vacuum is removed whenever some object interacts with it. This removal process is realized by allowing the vacuum object to be used only on the left side of rules.
 If we made the vacuum to be removed automatically when an object enters the region, there would be no difference with the variant without vacuum objects because of no interactions with it.
 We are interested in how the variant with the vacuum improves the computational power of a P system in comparison to the variant without the vacuum.
 
 
 % Related work
 
-There have been lot of research that consider rewriting rules with catalysts, promoters and inhibitors. However, they were only used to overcome the limitations brought by non-cooperative rules, and still working in a maximal parallel manner.
+There has been lot of research that considers rewriting rules with catalysts, promoters and inhibitors. However, they were only used to overcome the limitations brought by non-cooperative rules, and still working in a maximal parallel manner.
 
 % Max 1 instance of any rule
 
-In \cite{Ibarra04dang} they have a variant of P systems with maximal parallelism restricted to use at most one instance of any rule in a step.
-They show that for universality is sufficient non-cooperative variant where the only allowed cooperative rule with both symbols equal. For example rule $a|a\rightarrow b$. Also, catalytic rules are sufficient too.
+In \cite{Ibarra04dang}, a variant of P systems with maximal parallelism restricted to use at most one instance of any rule in a step. It is shown that for universality is sufficient non-cooperative variant where the only allowed cooperative rule with both symbols equal. For example rule $a|a\rightarrow b$. Also, catalytic rules are sufficient too.
 
 % Cooperative vs Context free
 
@@ -82,11 +81,11 @@ In \cite{Sburlan05dragos} the author formally proves equality between classes of
 % Two catalysts are enough
 % One catalyst with promoters / inhibitors is enough
 
-The gap between is filled in \cite{Ionescu:jucs_10_5:on_p_systems_with}. Assumed P systems with context-free rules and maximal parallelism, there is a need for some context added to the rules. Cooperative or catalytic rules are sufficient for universality. The paper shows that two catalyst are enough. There was an open question whether one catalyst is enough. Then it was shown that it is not enough unless we allow promoters or inhibitors. Without them it has the power of Lindenmayer systems.
+The gap between is filled in \cite{Ionescu:jucs_10_5:on_p_systems_with}. For P systems with context-free rules and maximal parallelism, there is a need for some context added to the rules. Cooperative or catalytic rules are sufficient for universality. The paper shows that two catalyst are enough. There was an open question whether one catalyst is enough. Then it was shown that it is not enough unless we allow promoters or inhibitors. Without them it has the power of Lindenmayer systems.
 
 % Inhibiting rules
 
-Rewriting controlled by inhibition is more thoroughly researched in \cite{Cavaliere:2004:IRP:2144633.2144648}. P systems with context-free rules and are enriched with rules with option to inhibit / de-inhibit another rule. This, with one catalyst is shown to be universal. Without catalyst and with only one membrane it is shown to have at least the power of Lindenmayer systems.
+Rewriting controlled by inhibition is more thoroughly researched in \cite{Cavaliere:2004:IRP:2144633.2144648}. P systems with context-free rules are extended with rules with option to inhibit / de-inhibit another rule. This, with one catalyst is shown to be universal. Without catalyst and with only one membrane it is shown to have at least the power of Lindenmayer systems.
 
 % Context free with inhibitors
 
@@ -98,9 +97,9 @@ Several sequential variants of P systems were studied. In \cite{Freund:2004:SPS:
 
 % Sequential not universal
 
-However, if we extend sequential P systems with cooperative rules as in \cite{Dang04onp} and restrict it to use only one membrane, it defines exactly semilinear sets and is not universal.
+However, if we extend sequential P systems with cooperative rules as in \cite{Dang04onp} and restrict them to use only one membrane, they define exactly semilinear sets and are not universal.
 
-There is something fundamental that prevents the sequential systems to be universal. Unlike maximal parallel systems, the application of rules in sequential systems are not synchronized between membranes. Even inside one membrane an object can be rewritten multiple times while other objects are not rewritten at all.
+There is something fundamental that prevents the sequential systems to be universal. Unlike maximal parallel systems, the application of rules in sequential systems is not synchronized between membranes. Even inside one membrane an object can be rewritten multiple times while other objects are not rewritten at all.
 Maximal parallelism does not suffer from these issues.
 
 There is also a notion of minimal parallelism (\cite{Ciobanu:2007:PSM:1243519.1243811}), which forces all membranes to apply at least one rule if there is one that can be used. This approach solves the synchronization issue between membranes, but not the one inside one membrane. Nevertheless, P systems with minimal parallelism are universal.
@@ -109,11 +108,11 @@ There is also a notion of minimal parallelism (\cite{Ciobanu:2007:PSM:1243519.12
 
 % Deterministic, asynchronous context-free with inhibitors not universal
 
-In \cite{Alhazov13} several non-cooperative variants with either promoters or inhibitors were studied. Maximally parallel and asynchronous modes was shown to be universal. They also defined the deterministic mode (only for accepting case). The computation is accepted only if for each configuration there was at most one multiset of rules applicable. Such deterministic variant was shown to only accept the family of all finite languages.
+In \cite{Alhazov13} several non-cooperative variants with either promoters or inhibitors were studied. Maximally parallel and asynchronous modes were shown to be universal. They also defined the deterministic mode (only for accepting case). The computation is accepted only if for each configuration there was at most one multiset of rules applicable. Such deterministic variant was shown to only accept the family of finite languages.
 
 % CLS
 
-Another sequential model, but not a variant of P system, is Calculi of Looping Sequences. It is introduced in \cite{Barbuti07thecalculus} as a membrane model where objects are strings that can loop around forming a membrane. Rewriting rules are global and are executed sequentially. It is shown to be universal by directly simulating P systems.
+Another sequential model, but not a variant of P systems, is Calculi of Looping Sequences. It is introduced in \cite{Barbuti07thecalculus} as a membrane model where objects are strings that can loop around forming a membrane. Rewriting rules are global and are executed sequentially. It is shown to be universal by directly simulating P systems.
 
 
 In section~\ref{sec:preliminaries} we recall some fundamental notions which we will use through the rest of the paper.
