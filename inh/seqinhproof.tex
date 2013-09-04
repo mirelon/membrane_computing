@@ -25,6 +25,7 @@ The last lemmas (\ref{lemma:context_rules} and \ref{lemma:inhibitor_step}) will 
   Preventing this will be done with synchronization.
   Every membrane will have a state, represented as an object.
   The most important states are $RUN$ and $SYNCHRONIZE$.
+  The simulation starts with every membrane containing an object representing $RUN$ state.
   In the $RUN$ state, rewriting rules of $\Pi$ are applied until there is no rule to be applied. Then, the membrane proceeds to the $SYNCHRONIZE$ state.
   All the membranes in the $SYNCHRONIZE$ state are waiting for other membranes to reach $SYNCHRONIZE$ state, so they all can proceed to the $RUN$ state of the next maximal parallel step of $\Pi$.
 
