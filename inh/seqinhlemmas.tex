@@ -1,9 +1,9 @@
 \subsection{Context rules instead of cooperative rules}
   In the proof, we use cooperative rules, but for the convenience, we will write more than two objects at the left side of some rules.
-  \begin{lema}
+  \begin{lemma}
   \label{lemma:context_rules}
     For sequential P system, the variant with cooperative rules and the variant with context rules are equal if at most one reactant in the context rule is consumed in all other rewrite rules.
-  \end{lema}
+  \end{lemma}
   \begin{dokaz}
     Consider rule $a_1|a_2|\dots|a_n \rightarrow v$, where $a_1,\dots a_n$ are objects and $v$ is a product of the rule, which may include sending object up/down through the membrane.
     This rule can be simulated with multiple sequential steps:
@@ -21,10 +21,10 @@ Original definition of P system with inhibitors (see \cite{Ionescu:jucs_10_5:on_
 
 Lemma \ref{lemma:inhibitor_step} will establish equivalence of these two definitions of rewriting rule when special precondition is fulfilled - there is no empty region.
 
-\begin{lema}
+\begin{lemma}
 \label{lemma:inhibitor_step}
   If there is at least one object present in each region of a P system, rewriting step in P system with inhibitor set can be simulated by multiple consecutive steps of P system with single inhibitor.
-\end{lema}
+\end{lemma}
 
 \begin{dokaz}
   Consider P system with alphabet $V$ and a set of inhibitors $B=\{b_1, b_2, \dots ,b_n\}$.

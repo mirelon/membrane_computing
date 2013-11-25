@@ -223,10 +223,10 @@ The goal of this paper is show that with some help of inhibitors, the sequential
 \subsection{Inhibitor set}
 Original definition of P system with inhibitor have only a single inhibitor object per rule. P system with inhibitor set can have rules of type $u\rightarrow v|_{\neg B}$, where $B\subseteq V$. The rule $u\rightarrow v$ is active only if there is no occurence of any symbol from $B$.
 
-\begin{lema}
+\begin{lemma}
 \label{lemma:inhibitor_step}
   Rewriting step in P system with inhibitor set can be simulated by P system with single inhibitor when no region is empty.
-\end{lema}
+\end{lemma}
 
 \begin{dokaz}
   Consider P system with alphabet $V$.
@@ -237,9 +237,9 @@ Original definition of P system with inhibitor have only a single inhibitor obje
   \end{itemize}
 \end{dokaz}
 
-% \begin{lema}
+% \begin{lemma}
 %   Sequential P system with inhibitor can simulate clearing symbols in set $B = \{b_1, b_2, \dots, b_c\}$
-% \end{lema}
+% \end{lemma}
 
 % \begin{dokaz}
 %   When clearing should occur, the symbol $CLEAR_B$ should occur. Then, following rules will do the clearing:
