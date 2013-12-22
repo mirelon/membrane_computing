@@ -1,0 +1,250 @@
+\documentclass[llncs,submission,copyright,creativecommons]{../lib/lncs/llncs}
+\providecommand{\event}{ECAL 2013} % Name of the event you are submitting to
+
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{color}
+
+\usepackage{fontenc}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{makeidx}
+\pagestyle{headings}
+\bibliographystyle{../lib/eptcs}
+
+\def\eps{\varepsilon}
+\def\goodgap{\hspace{\subfigcapskip}}
+\renewcommand\refname{References}
+
+% Itemize bulet types
+\renewcommand{\labelitemi}{$\bullet$}
+\renewcommand{\labelitemii}{$\cdot$}
+
+\begin{document}
+\title{Inhibiting the Parallelism in P Systems}
+\author{Michal Kováč}
+\institute{Faculty of Mathematics, Physics and Informatics, Comenius University}
+\date{\today}
+\maketitle
+
+\begin{abstract}
+P systems are formal models of distributed parallel multiset processing. Many variants make use of the maximal parallelism to achieve universality.
+It is known that P systems with catalytic rules with only one catalyst are not universal, but when using promoters and inhibitors, the universality is achieved.
+The sequential variant of P system is also not universal and we will show how the computational universality can be reached by using sequential P systems with inhibitors. Both accepting and generating case are investigated.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:introduction}
+
+% Bio motivation
+
+Membrane systems (P systems) were introduced by P\u{a}un (see \cite{Paun2000108}) as distributed parallel computing devices inspired by the structure and functionality of cells.
+One of the objectives is to relax the condition of using the rules in a maximally parallel way in order to find more realistic P systems from a biological point of view.
+In sequential systems, only one rewriting rule is used in each step of computation.
+
+% Our work
+
+We are looking for ways to obtain universality in this sequential mode.
+
+% Inhibitors
+
+At first, we consider inhibitors and show that using them we can simulate P systems working in a maximally parallel way.
+
+
+% Related work
+
+There has been lot of research that considers rewriting rules with catalysts, promoters and inhibitors. However, they are working in a maximal parallel manner and are only used to overcome the limitation of allowing only one object on the left side of rules (also called non-cooperative or context-free rules).
+
+% Max 1 instance of any rule
+
+In \cite{Ibarra04dang}, a variant of P systems with maximal parallelism restricted to use at most one instance of any rule in a step. It is shown that for universality is sufficient non-cooperative variant where the only allowed cooperative rule with both symbols equal. For example rule $a|a\rightarrow b$. Also, catalytic rules are sufficient too.
+
+% Cooperative vs Context free
+
+In \cite{Sburlan05dragos} the author formally proves equality between classes of P systems and Parikh images of classes in Chomsky hierarchy. P systems with context-free rules are equal to $PsCF$ and P systems with cooperative rules are universal (equal to $PsRE$).
+
+% Two catalysts are enough
+% One catalyst with promoters / inhibitors is enough
+
+The gap between is filled in \cite{Ionescu:jucs_10_5:on_p_systems_with}. For P systems with context-free rules and maximal parallelism, there is a need for some context added to the rules. Cooperative or catalytic rules are sufficient for universality. The paper shows that two catalyst are enough. There was an open question whether one catalyst is enough. Then it was shown that it is not enough unless we allow promoters or inhibitors. Without them it has the power of Lindenmayer systems.
+
+% Inhibiting rules
+
+Rewriting controlled by inhibition is more thoroughly researched in \cite{Cavaliere:2004:IRP:2144633.2144648}. P systems with context-free rules are extended with rules with option to inhibit / de-inhibit another rule. This, with one catalyst is shown to be universal. Without catalyst and with only one membrane it is shown to have at least the power of Lindenmayer systems.
+
+% Context free with inhibitors
+
+However, \cite{doi:10.1142/S0129054106003772} shows that even if we have maximal parallel context-free rules with inhibitors, it is only equal to the family of Parikh sets of ET0L languages (PsET0L). If we have promoters instead of inhibitors, only the inclusion of the family PsET0L was proved. % it is stronger than PsET0L
+
+% Sequential with energies and priorities
+
+Several sequential variants of P systems were studied. In \cite{Freund:2004:SPS:2149813.2149831} membranes have been assigned energy values that can control rule rewriting. Each rule has energy that is consumed when the rule is applied. If we have rules with priorities, the system becomes universal.
+
+% Sequential not universal
+
+However, if we extend sequential P systems with cooperative rules as in \cite{Dang04onp} and restrict them to use only one membrane, they define exactly semilinear sets and are not universal.
+
+There is something fundamental that prevents the sequential systems to be universal. Unlike maximal parallel systems, the application of rules in sequential systems is not synchronized between membranes. Even inside one membrane an object can be rewritten multiple times while other objects are not rewritten at all.
+Maximal parallelism does not suffer from these issues.
+
+There is also a notion of minimal parallelism (\cite{Ciobanu:2007:PSM:1243519.1243811}), which forces all membranes to apply at least one rule if there is one that can be used. This approach solves the synchronization issue between membranes, but not the one inside one membrane. Nevertheless, P systems with minimal parallelism are universal.
+
+
+
+% Deterministic, asynchronous context-free with inhibitors not universal
+
+In \cite{Alhazov13} several non-cooperative variants with either promoters or inhibitors were studied. Maximally parallel and asynchronous modes were shown to be universal. They also defined the deterministic mode (only for accepting case). The computation is accepted only if for each configuration there was at most one multiset of rules applicable. Such deterministic variant was shown to only accept the family of finite languages.
+
+% CLS
+
+Another sequential model, but not a variant of P systems, is Calculi of Looping Sequences. It is introduced in \cite{Barbuti07thecalculus} as a membrane model where objects are strings that can loop around forming a membrane. Rewriting rules are global and are executed sequentially. It is shown to be universal by directly simulating P systems.
+
+
+In section~\ref{sec:preliminaries} we recall some fundamental notions which we will use through the rest of the paper.
+We introduce the notion of P system and define a computation of a P system in section~\ref{sec:p-systems}.
+Some existing P system variants are mentioned in section~\ref{sec:variants}.
+In section~\ref{sec:inhibitors} we make a proof that sequential P systems with inhibitors are universal.
+
+\section{Preliminaries}
+\label{sec:preliminaries}
+
+Here we recall several notions from the classical theory of formal languages.
+
+An {\bf alphabet} is a finite nonempty set of symbols. Usually it is denoted by $\Sigma$ or $V$. A {\bf string} over an alphabet is a finite sequence of symbols from alphabet. We denote by $V^*$ the set of all strings over an alphabet $V$. By $V^+$ = $V^* - \{\eps\}$ we denote the set of all nonempty strings over V. A {\bf language} over the alphabet $V$ is any subset of $V^*$.
+
+The number of occurrences of a given symbol $a\in V$ in the string $w\in V^*$ is denoted by $|w|_a$. $\Psi_V(w)=(|w|_{a_1},|w|_{a_2},\dots,|w|_{a_n})$ is called a Parikh vector associated with the string $w\in V^*$, where $V=\{a_1,a_2,\dots a_n\}$. For a language $L\subseteq V^*$, $\Psi_V(L)=\{\Psi_V(w)|w\in L\}$ is the Parikh mapping associated with $V$. If FL is a family of languages, by PsFL is denoted the family of Parikh images of languages in FL.
+
+A multiset over a set $X$ is a mapping $M: X\rightarrow \mathbb N$.
+We denote by $M(x), x\in X$ the multiplicity of $x$ in the multiset $M$.
+The {\bf support} of a multiset $M$ is the set $supp(M)=\{x\in X|M(x)\geq 1\}$.
+It is the set of items with at least one occurrence.
+A multiset is {\bf empty} when its support is empty.
+A multiset $M$ with finite support $X = \{x_1, x_2, \dots, x_n\}$ can be represented by the string $x_1^{M(x_1)}x_2^{M(x_2)}\dots x_n^{M(x_n)}$.
+As elements of a multiset can also be strings, we separate them with the pipe symbol, e.g. $element|element|other\_element$.
+We say that multiset $M_1$ is included in multiset $M_2$ if $\forall x \in X: M_1(x)\leq M_2(x)$.
+We denote it by $M_1\subseteq M_2$.
+If $M_1\subseteq M_2$, the {\bf difference} of two multisets $M_2-M_1$ is defined as a multiset where $\forall x \in X: (M_2-M_1)(x)=\max(M_2(x)-M_1(x),0)$.
+The {\bf union} of two multisets $M_1\cup M_2$ is a multiset where $\forall x \in X: (M_1\cup M_2)(x)=M_1(x)+M_2(x)$.
+Product of multiset $M$ with natural number $n\in \mathbb N$ is a multiset where $\forall x \in X: (n\cdot M)(x)=n\cdot M(x)$.
+  
+\section{P-systems}
+\label{sec:p-systems}
+
+%TODO: definovat simulaciu, ...
+
+% Membrane structure
+
+The fundamental ingredient of a P system is the {\bf membrane structure} (see \cite{Paun2006Introduction}). It is a hierarchically arranged set of membranes, all contained in the {\bf skin membrane}. A membrane without any other membrane inside is said to be {\bf elementary}. Each membrane determines a compartment, also called region, the space delimited from above by it and from below by the membranes placed directly inside, if any exists. Clearly, the correspondence membrane – region is one-to-one, that is why we sometimes use interchangeably these terms.
+
+% Maximal parallelism
+
+Consider a finite set of symbols $V=\{a_1, a_2,\dots, a_n\}$. An arbitrary multiset rewriting rule is a pair $(u, v)$ of multisets over the set $V$ where $u$ is not empty. Such a rule is typically written as $u\rightarrow v$. For a multiset rewriting rule $r : u\rightarrow v$, let $left(r) = u$ and $right(r) = v$. Let $w$ be a multiset of symbols over $V$ and let $R=\{r_1, r_2,\dots, r_k\}$ be a set of multiset rewriting rules such that $r_i = u_i\rightarrow v_i$ with $u_i, v_i$ multisets over $V$. Denote by $R^{ap}_w\subseteq R$ the {\bf set of applicable multiset rewriting rules} to $w$, that is, $R^{ap}_w = \{r\in R|left(r)\subseteq w\}$. Denote by $R^{msap}_w: R\rightarrow \mathbb N$, a multiset over $R$ of {\bf maximal simultaneously applicable multiset rewriting rules} to $w$. $R^{msap}_w$ is any multiset such that $\displaystyle\bigcup_{r\in R} R^{msap}_w(r)\cdot left(r)\subseteq w$ and $\forall r' \left(\displaystyle\bigcup_{r\in R} R^{msap}_w(r)\cdot left(r)\right)\cup left(r')\nsubseteq w$. In other words, we use a multiset of rewriting rules such that no more rules can be applied simultaneously.
+
+% P system
+
+\input{p-system-definition}
+  
+Each rewriting rule may specify for each symbol on the right side,
+whether it stays in the current region,
+moves through the membrane to the parent region ($\uparrow$)
+or through membrane to all of the child regions ($\downarrow$)
+or to a specific child region ($\downarrow_m$, where $m$ is a label of a membrane).
+We denote these transfers with arrows immediately after the symbol.
+An example of such rule is the following: $a|b|b\rightarrow a|b\downarrow |c\uparrow|c$.
+
+% Configuration
+
+\input{p-system-configuration}
+
+% Step
+
+\input{p-system-step}
+
+% Computation
+
+\input{p-system-computation}
+
+
+\section{P system variants}
+\label{sec:variants}
+
+There are several variants of P systems. They vary in the definition of the rewriting process.
+
+We study the power of new P system variants. Those with the power of the Turing machine are especially interesting, they are said to be computationally universal. Computational power for a model is usually proved by proving equivalence to other model with known power. The equivalence is usually proved through the simulation of a step of the computation.
+
+{\bf Sequential P systems} are variant where in each step only a single rule in a single region is applied. The membrane and the rule are chosen nondeterministically. In \cite{Ibarra:2005:SPS:2111772.2111880} it is shown that the sequential P systems can be simulated by vector addition systems and are not universal. However, if we allow rules with membrane creation with unbounded number of mebranes, they become universal.
+{\bf Cooperative P systems} have rules that have at most two symbols on the left side.
+{\bf Context-free P systems} have only rules that have only one symbol on the left side.
+{\bf Catalytic P systems} have catalysts as a specific subset of alphabet. There are two types of rules:
+
+\begin{enumerate}
+	\item $c|a\rightarrow c|w$, where $c$ is catalyst,
+	\item $a\rightarrow w$
+\end{enumerate}
+
+An object $a$ can be a {\bf promoter} (see \cite{Ionescu:jucs_10_5:on_p_systems_with}) for a rule $u\rightarrow v$, and we denote this by $u\rightarrow v|_a$, if the rule is active only in the presence of object $a$ in the same region. An object $b$ is {\bf inhibitor} for a rule $u\rightarrow v$, and we denote this by $u\rightarrow v|_{\neg b}$, if the rule is active only if the inhibitor $b$ is not present in the region.
+The difference between catalysts and promoters consists in the fact that the catalysts directly participate in rules, but are not modified by them, and they are counted as any other objects, so that the number of applications of a rule is as big as the number of copies of the catalyst, while in the case of promoters, the presence of the promoter objects makes it possible to use the associated rule as many times as possible, without any restriction; moreover, the promoting objects do not necessarily directly participate in the rules. As a consequence, one can notice that the catalysts inhibits the parallelism of the system while the promoters / inhibitors only guide the computation process.
+
+\section{Trading maximal parallelism for inhibitor usage}
+\label{sec:inhibitors}
+The goal of this paper is to show that using inhibitors, the sequential P systems can achieve universality like maximal parallel variant. The proof is partially inspired by \cite{Barbuti07thecalculus}, where it is shown that Calculi of Looping Sequences (CLS) can simulate computation of a P system. CLS is a membrane model with string objects and sequential rules.
+
+
+
+\subsection{Simulation of maximal parallel P system} % (fold)
+\label{sub:simulation_of_maximal_parallel_p_system}
+
+\begin{theorem}
+\label{theorem:inhibitors_generative_universal}
+% TODO: rozdelit na viac liem
+  The sequential P system with inhibitors defines the same Parikh image of language as P system with maximal parallelism.
+\end{theorem}
+
+\begin{proof}
+  Full proof is available in the appendix \ref{sec:appendix}.
+\end{proof}
+
+\subsection{Register machines} % (fold)
+\label{sub:register_machines}
+  We will use in our paper the power of Minsky's register machine \cite{Ionescu:jucs_10_5:on_p_systems_with}, that is why we recall here this notion. Such a machine runs a program consisting of numbered instructions of several simple types. Several variants of register machines with different number of registers and different instructions sets were shown to be computationally universal (see \cite{Ibarra:2005:SPS:2111772.2111880} for some original definitions and \cite{Khrisna03threeuniversality} for the definition used in this paper).
+
+\input{r-machine-definition}
+  
+% subsection register_machines (end)
+
+\subsection{Accepting vs generating} % (fold)
+\label{sub:accepting_vs_generating}
+  According to \cite{Barbuti:2010:MSW:1946067.1946081}, a P system can be used either as an acceptor or as a generator of a multiset language over $\Sigma$. In the first case, a multiset over $\Sigma$ is inserted in the skin membrane of the P system and the result of its computations says whether such a multiset belongs to the multiset language accepted by the P system or not. In the second case the P system has a fixed initial configuration and can give as results (possibly in a non-deterministic way) all the possible multisets belonging to a given multiset language.
+
+% subsection accepting_vs_generating (end)
+
+\subsection{Universality results for accepting case} % (fold)
+\label{sub:universality_results_for_accepting_case}
+
+\input{seqinhaccproof}
+
+% subsection universality_results_for_accepting_case (end)
+
+\section{Conclusion}
+\label{sec:conclusion}
+We have studied several variants of sequential P systems in order to obtain universality without using maximal parallelism.
+A variant with rewriting rules that can use inhibitors was shown to be universal in both generating and accepting case. The generating model is able to simulate maximal parallel P system and the accepting model can simulate a register machine.
+
+\bibliography{cie}
+\section{Appendix} % (fold)
+\label{sec:appendix}
+
+In order to simplify the proof of the theorem \ref{theorem:inhibitors_generative_universal}, we will use following two lemmas.
+
+\input{seqinhlemmas}
+The last lemmas (\ref{lemma:context_rules} and \ref{lemma:inhibitor_step}) will simplify the proof of the following theorem.
+\input{seqinhproof}
+
+% section appendix (end)
+
+\end{document}
