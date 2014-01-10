@@ -16,7 +16,6 @@
 \usepackage{hyperref}
 \usepackage{makeidx}
 \pagestyle{headings}
-% \bibliographystyle{../lib/eptcs}
 \bibliographystyle{../lib/lncs/splncs}
 
 \def\eps{\varepsilon}
@@ -113,7 +112,7 @@ Another sequential model, but not a variant of P systems, is Calculi of Looping 
 In section~\ref{sec:preliminaries} we recall some fundamental notions which we will use through the rest of the paper.
 We introduce the notion of P system and define a computation of a P system in section~\ref{sec:p-systems}.
 Some existing P system variants are mentioned in section~\ref{sec:variants}.
-In section~\ref{sec:inhibitors} we make a proof that sequential P systems with inhibitors are universal.
+In section~\ref{sec:inhibitors} we formulate the main theorem which states that sequential P systems with inhibitors are universal. Both accepting and generating case are examined. Full proof of the generating case is in the appendix~\ref{sec:appendix}.
 
 \section{Preliminaries}
 \label{sec:preliminaries}
@@ -247,13 +246,13 @@ A variant with rewriting rules that can use inhibitors was shown to be universal
 Sequential variants are promising alternative to traditional maximal parallel variants and will be good subject for the further research. We plan to expand the study also with other improvements instead of the inhibitors.
 
 \bibliography{cie}
-\section{Appendix} % (fold)
+\section{Appendix: Full proof of the main theorem} % (fold)
 \label{sec:appendix}
 
 In order to simplify the proof of the theorem \ref{theorem:inhibitors_generative_universal}, we will use following two lemmas.
 
 \input{seqinhlemmas}
-The last lemmas (\ref{lemma:context_rules} and \ref{lemma:inhibitor_step}) will simplify the proof of the following theorem.
+We can use the last two lemmas (\ref{lemma:context_rules} and \ref{lemma:inhibitor_step}) to simplify the proof of the main theorem \ref{theorem:inhibitors_generative_universal}.
 \input{seqinhproof}
 
 % section appendix (end)
