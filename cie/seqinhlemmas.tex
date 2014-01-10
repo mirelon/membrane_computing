@@ -26,8 +26,8 @@ Lemma \ref{lemma:inhibitor_step} will establish equivalence of these two definit
   If there is at least one object present in each region of a P system, rewriting step in P system with inhibitor set can be simulated by multiple consecutive steps of P system with single inhibitor.
 \end{lemma}
 
-\begin{proof}
-  Consider P system with alphabet $V$ and a set of inhibitors $B=\{b_1, b_2, \dots ,b_n\}$.
+\begin{proof}\sloppy
+  Consider P system with alphabet $V$ and a set of inhibitors ${B=\{b_1, b_2, \dots ,b_n\}}$.
   We introduce new symbols $GONE_{b_1}, GONE_{b_2}, \dots , GONE_{b_n}$, where the presence of $GONE_{b_i}$ in a membrane means that there is no occurence of $b_i$.
   For each rule that use the inhibitor set $B$ such as $u\rightarrow v|_{\neg B}$ we will have rules:
   \begin{itemize}

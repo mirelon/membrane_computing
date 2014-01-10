@@ -1,3 +1,5 @@
+cie: cie/cie.tex
+	cd cie;make;cd ..
 inh: inh/*.tex
 	cd inh; pdfcslatex inh.tex; cd ..
 

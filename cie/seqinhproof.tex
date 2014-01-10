@@ -74,9 +74,13 @@
   Here follows the list of rules in $\overline{\Pi}$.
 
   \begin{itemize}
-    \item For every rule $r_i\in R$ such that $r_i = a_1^{M(a_1)}a_2^{M(a_2)}\dots a_n^{M(a_n)} \rightarrow a_1^{N(a_1)}a_2^{N(a_2)}\dots a_n^{N(a_n)}$ we will have the following rules:
+    \item For every rule $r_i\in R$ such that:
+      $$r_i = a_1^{M(a_1)}a_2^{M(a_2)}\dots a_n^{M(a_n)} \rightarrow a_1^{N(a_1)}a_2^{N(a_2)}\dots a_n^{N(a_n)}$$ we will have the following rules:
   
-    $a_1^{M(a_1)-m_1}\dot{a}_1^{m_1}a_2^{M(a_2)-m_2}\dot{a}_2^{m_2}\dots a_n^{M(a_n)-m_n}\dot{a}_n^{m_n}|RUN \rightarrow a_1^{\prime N(a_1)}a_2^{\prime N(a_2)}\dots a_n^{\prime N(a_n)}|RUN$
+      \begin{align*}
+        & a_1^{M(a_1)-m_1}\dot{a}_1^{m_1}a_2^{M(a_2)-m_2}\dot{a}_2^{m_2}\dots a_n^{M(a_n)-m_n}\dot{a}_n^{m_n}|RUN \\
+        \rightarrow& a_1^{\prime N(a_1)}a_2^{\prime N(a_2)}\dots a_n^{\prime N(a_n)}|RUN
+      \end{align*}
 
     There will be such rule for each $0\leq m_j\leq M(a_j)$.
     Right side of the rules contains symbols $a^\prime$, that prevents the symbols to be rewritten again.
@@ -111,19 +115,28 @@
 
     \item For every membrane with label $i$ there will be rule:
 
-    $UNUSABLE_1|\dots|UNUSABLE_m|RUN \rightarrow SYNCHRONIZE|SYNCTOKEN_i\uparrow$
+    \begin{align*}
+      &UNUSABLE_1|\dots|UNUSABLE_m|RUN \\
+      \rightarrow &SYNCHRONIZE|SYNCTOKEN_i\uparrow
+    \end{align*}
 
     If no rule can be used, maximal parallel step in the region is completed so it goes to synchronization phase and sends a synchronization token to the parent membrane. The objects $UNUSABLE_i$ are not consumed in other rules, so by Lemma \ref{lemma:context_rules} this rule can be written with set of cooperative rules.
 
     \item For every membrane other than the skin membrane, there will be a rule:
 
-    $SYNCHRONIZE|SYNCTOKEN_j \rightarrow SYNCHRONIZE|SYNCTOKEN_j\uparrow$
+    \begin{align*}
+      &SYNCHRONIZE|SYNCTOKEN_j \\
+      \rightarrow &SYNCHRONIZE|SYNCTOKEN_j\uparrow
+    \end{align*}
 
     Membrane forwards all sync token to parent membrane.
 
     \item In the skin membrane there is a rule which collects all the synchronization tokens from all membranes $1\dots k$ and then sends down signal that synchronization is complete. But before that, there can be some symbols that should be sent down, but they weren't, because the region below could have not started the rewriting phase that time. The result was just marked with $a^{\downarrow\prime}$.
 
-    $SYNCTOKEN_1|\dots|SYNCTOKEN_k|SYNCHRONIZE \rightarrow SENDDOWN$
+    \begin{align*}
+      &SYNCTOKEN_1|\dots|SYNCTOKEN_k|SYNCHRONIZE \\
+      \rightarrow &SENDDOWN
+    \end{align*}
 
     The objects $SYNCTOKEN_i$ are not consumed in other rules in the skin membrane, so by Lemma \ref{lemma:context_rules} this rule can be written with set of cooperative rules.
 
