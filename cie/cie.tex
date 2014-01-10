@@ -211,22 +211,27 @@ The goal of this paper is to show that using inhibitors, the sequential P system
 \end{theorem}
 
 \begin{proof}
-  Full proof is available in the appendix \ref{sec:appendix}.
+  We will prove the theorem by simulation. For every maximal parallel P system $\Pi$ we will find a sequential P system with inhibitors $\overline{\Pi}$ such that for every computation of $\Pi$ there exists a computation of $\overline{\Pi}$ with the same result.
+  The computation of $\Pi$ is a sequence of maximal parallel steps.
+  In each step of $\Pi$, a maximal multiset of rewriting rules are applied in each membrane.
+  We simulate this maximal parallel step with several steps of sequential system $\overline{\Pi}$.
+
+  The simulation is quite technical with some workarounds and full version is available in the appendix \ref{sec:appendix}.
 \end{proof}
-
-\subsection{Register machines} % (fold)
-\label{sub:register_machines}
-  We will use in our paper the power of Minsky's register machine \cite{Ionescu:jucs_10_5:on_p_systems_with}, that is why we recall here this notion. Such a machine runs a program consisting of numbered instructions of several simple types. Several variants of register machines with different number of registers and different instructions sets were shown to be computationally universal (see \cite{Ibarra:2005:SPS:2111772.2111880} for some original definitions and \cite{Khrisna03threeuniversality} for the definition used in this paper).
-
-\input{r-machine-definition}
-  
-% subsection register_machines (end)
 
 \subsection{Accepting vs generating} % (fold)
 \label{sub:accepting_vs_generating}
   According to \cite{Barbuti:2010:MSW:1946067.1946081}, a P system can be used either as an acceptor or as a generator of a multiset language over $\Sigma$. In the first case, a multiset over $\Sigma$ is inserted in the skin membrane of the P system and the result of its computations says whether such a multiset belongs to the multiset language accepted by the P system or not. In the second case the P system has a fixed initial configuration and can give as results (possibly in a non-deterministic way) all the possible multisets belonging to a given multiset language.
 
 % subsection accepting_vs_generating (end)
+
+\subsection{Register machines} % (fold)
+\label{sub:register_machines}
+  As a referential universal language acceptor we will use Minsky's register machine \cite{Ionescu:jucs_10_5:on_p_systems_with}, that is why we recall here this notion. Such a machine runs a program consisting of numbered instructions of several simple types. Several variants of register machines with different number of registers and different instructions sets were shown to be computationally universal (see \cite{Ibarra:2005:SPS:2111772.2111880} for some original definitions and \cite{Khrisna03threeuniversality} for the definition used in this paper).
+
+\input{r-machine-definition}
+  
+% subsection register_machines (end)
 
 \subsection{Universality results for accepting case} % (fold)
 \label{sub:universality_results_for_accepting_case}
