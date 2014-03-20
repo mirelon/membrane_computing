@@ -29,9 +29,9 @@
   \begin{itemize}
     \item $RUN$: Rewriting occurs.
     To prevent double rewriting, we mark the products of rules with $a^{\prime}$ instead of $a$.
-    Objects that are to be sent to the parent membrane are directly sent because the parent membrane is already in $RUN$ or $SYNCHRONIZE$ state (see Figure~\ref{fig:possible_pairs_of_states_of_parent_and_child_membrane}), so the $a^{\prime}$ symbols that are sent don't break anything.
+    Objects that are to be sent to the parent membrane are directly sent because the parent membrane is already in $RUN$ or $SYNCHRONIZE$ state (see Figure~\ref{fig:possible_pairs_of_states_of_parent_and_child_membrane}), so the $a^{\prime}$ symbols that are sent do not break anything.
     
-    But objects that are to be sent down, can't be sent immediately because child membranes can be in the $RESTORE$ state restoring symbols from the previous maximal parallel step. Current symbols could interfere with them and they could be rewritten twice in this step. Such objects are only marked as ``to be sent down'': $a^{\downarrow\prime}$.
+    But objects that are to be sent down, cannot be sent immediately because child membranes can be in the $RESTORE$ state restoring symbols from the previous maximal parallel step. Current symbols could interfere with them and they could be rewritten twice in this step. Such objects are only marked as ``to be sent down'': $a^{\downarrow\prime}$.
 
     When $RUN$ phase ends (in the membrane $i$), the $SYNCTOKEN_i$ is sent upwards to notify the skin membrane that the membrane $i$ is ready to be synchronized.
 
@@ -96,17 +96,17 @@
 
     If the left side is of type:
     \begin{itemize}
-      \item $a$: It is a context free rule. The rule can't be used if there is no occurrence of $a$ nor $\dot{a}$.
+      \item $a$: It is a context free rule. The rule cannot be used if there is no occurrence of $a$ nor $\dot{a}$.
 
       $RUN \rightarrow UNUSABLE_i|RUN|_{\neg\{UNUSABLE_i, a, \dot{a}\}}$
 
-      \item $ab$: It is a cooperative rule with two distinct objects on the left side. The rule can't be used if there is one of them missing.
+      \item $ab$: It is a cooperative rule with two distinct objects on the left side. The rule cannot be used if there is one of them missing.
 
       $RUN \rightarrow UNUSABLE_i|RUN|_{\neg\{UNUSABLE_i, a, \dot{a}\}}$
 
       $RUN \rightarrow UNUSABLE_i|RUN|_{\neg\{UNUSABLE_i, b, \dot{b}\}}$
 
-      \item $a^2$: It is a cooperative rule with two same objects. The rule can't be used if there is at most one occurrence of the symbol. That happens if there is no occurrence of $a$. There can still be $\dot{a}$, but at most one occurrence.
+      \item $a^2$: It is a cooperative rule with two same objects. The rule cannot be used if there is at most one occurrence of the symbol. That happens if there is no occurrence of $a$. There can still be $\dot{a}$, but at most one occurrence.
 
       $RUN \rightarrow UNUSABLE_i|RUN|_{\neg\{UNUSABLE_i, a\}}$
     \end{itemize}

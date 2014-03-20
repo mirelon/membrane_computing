@@ -1,11 +1,11 @@
 \begin{theorem}
-  Sequential P systems with inhibitors can simulate register machines and thus equal $PsRE$.
+  Sequential P systems with inhibitors can simulate register machines and thus the class of languages accepted by them equals $PsRE$.
 \end{theorem}
 
 
 \begin{proof}
 \label{proof:reg_by_inh}
-  Suppose we have a $n$-register machine $M = (n,P,i,h)$. In our simulation we will have a membrane structure consisting of one membrane and the contents of register $j$ will be represented by the multiplicity of the object $a_j$.
+  Suppose we have an $n$-register machine $M = (n,P,i,h)$. In our simulation we will have a membrane structure consisting of one membrane and the contents of register $j$ will be represented by the multiplicity of the object $a_j$.
 
   We will have P system $(V, \mu, w, R)$, where:
   \begin{itemize}
