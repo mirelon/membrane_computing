@@ -29,7 +29,7 @@
   \begin{itemize}
     \item $RUN$: Rewriting occurs.
     To prevent double rewriting, we mark the products of rules with $a^{\prime}$ instead of $a$.
-    Objects that are to be sent to the parent membrane are directly sent because the parent membrane is already in $RUN$ or $SYNCHRONIZE$ state (see Figure~\ref{fig:possible_pairs_of_states_of_parent_and_child_membrane}), so the $a^{\prime}$ symbols that are sent do not break anything.
+    Objects that are to be sent to the parent membrane are directly sent because the parent membrane is already in $RUN$ or $SYNCHRONIZE$ state (see Figure~\ref{fig:possible_pairs_of_states_of_parent_and_child_membrane}), so the $a^{\prime}$ symbols that are sent will not interfere with rewriting.
     
     But objects that are to be sent down, cannot be sent immediately because child membranes can be in the $RESTORE$ state restoring symbols from the previous maximal parallel step. Current symbols could interfere with them and they could be rewritten twice in this step. Such objects are only marked as ``to be sent down'': $a^{\downarrow\prime}$.
 
