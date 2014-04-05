@@ -173,6 +173,11 @@ An example of such rule is the following: $a|b|b\rightarrow a|b\downarrow |c\upa
 
 \input{p-system-computation}
 
+\subsection{Accepting vs generating} % (fold)
+\label{sub:accepting_vs_generating}
+  According to \cite{Barbuti:2010:MSW:1946067.1946081}, a P system can be used either as an acceptor or as a generator of a multiset language over $\Sigma$. In the first case, a multiset over $\Sigma$ is inserted in the skin membrane of the P system and the result of its computations says whether such a multiset belongs to the multiset language accepted by the P system or not. In the second case the P system has a fixed initial configuration and can give as results (possibly in a non-deterministic way) all the possible multisets belonging to a given multiset language.
+
+% subsection accepting_vs_generating (end)
 
 \section{P system variants}
 \label{sec:variants}
@@ -196,9 +201,12 @@ The difference between catalysts and promoters consists in the fact that the cat
 
 \section{Trading maximal parallelism for inhibitor usage}
 \label{sec:inhibitors}
-The goal of this paper is to show that using inhibitors, the sequential P systems can achieve universality like maximal parallel variant. The proof is partially inspired by \cite{Barbuti07thecalculus}, where it is shown that Calculi of Looping Sequences (CLS) can simulate computation of a P system. CLS is a membrane model with string objects and sequential rules.
-
-
+The goal of this paper is to show that using inhibitors, the sequential P systems can achieve universality like maximal parallel variant.
+Both generating and accepting cases are investigated.
+The proof of the generating case is partially inspired by \cite{Barbuti07thecalculus}, where it is shown that Calculi of Looping Sequences (CLS) can simulate a computation of a P system. CLS is a membrane model with string objects and sequential rules.
+% TODO: another usage of the simulation
+The proof of the accepting case in section \ref{sub:universality_results_for_accepting_case} is more straightforward and correspond to a known result for Petri nets.
+% TODO: need cite
 
 \subsection{Simulation of maximal parallel P system} % (fold)
 \label{sub:simulation_of_maximal_parallel_p_system}
@@ -206,23 +214,17 @@ The goal of this paper is to show that using inhibitors, the sequential P system
 \begin{theorem}
 \label{theorem:inhibitors_generative_universal}
 % TODO: rozdelit na viac liem
-  The sequential P system with inhibitors defines the same Parikh image of language as P system with maximal parallelism.
+  The sequential P system with inhibitors used as a multiset language generator defines the same Parikh image of language as P system with maximal parallelism.
 \end{theorem}
 
 \begin{proof}
-  We will prove the theorem by simulation. For every maximal parallel P system $\Pi$ we will find a sequential P system with inhibitors $\overline{\Pi}$ such that for every computation of $\Pi$ there exists a computation of $\overline{\Pi}$ with the same result.
+  We will prove the theorem by simulation. For every maximal parallel P system $\Pi$ we will find a sequential P system with inhibitors $\overline{\Pi}$ such that for every computation of $\Pi$ there exists a computation of $\overline{\Pi}$ with the same generated language.
   The computation of $\Pi$ is a sequence of maximal parallel steps.
   In each step of $\Pi$, a maximal multiset of rewriting rules are applied in each membrane.
   We simulate this maximal parallel step with several steps of sequential system $\overline{\Pi}$.
 
   The simulation is quite technical with some workarounds and full version is available in the appendix \ref{sec:appendix}.
-\end{proof}f
-
-\subsection{Accepting vs generating} % (fold)
-\label{sub:accepting_vs_generating}
-  According to \cite{Barbuti:2010:MSW:1946067.1946081}, a P system can be used either as an acceptor or as a generator of a multiset language over $\Sigma$. In the first case, a multiset over $\Sigma$ is inserted in the skin membrane of the P system and the result of its computations says whether such a multiset belongs to the multiset language accepted by the P system or not. In the second case the P system has a fixed initial configuration and can give as results (possibly in a non-deterministic way) all the possible multisets belonging to a given multiset language.
-
-% subsection accepting_vs_generating (end)
+\end{proof}
 
 \subsection{Register machines} % (fold)
 \label{sub:register_machines}
