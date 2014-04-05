@@ -205,7 +205,7 @@ The goal of this paper is to show that using inhibitors, the sequential P system
 Both generating and accepting cases are investigated.
 The proof of the generating case is partially inspired by \cite{Barbuti07thecalculus}, where it is shown that Calculi of Looping Sequences (CLS) can simulate a computation of a P system. CLS is a membrane model with string objects and sequential rules.
 % TODO: another usage of the simulation
-The proof of the accepting case in section \ref{sub:universality_results_for_accepting_case} is more straightforward and correspond to a known result for Petri nets.
+The proof of the accepting case in section \ref{sub:universality_results_for_accepting_case} is more straightforward and correspond to a known result for Petri nets (\cite{Agerwala74}).
 % TODO: need cite
 
 \subsection{Simulation of maximal parallel P system} % (fold)
@@ -236,6 +236,12 @@ The proof of the accepting case in section \ref{sub:universality_results_for_acc
 
 \subsection{Universality results for accepting case} % (fold)
 \label{sub:universality_results_for_accepting_case}
+
+The proof for the accepting case is more straightforward and uses approach similar to the one used for Petri nets with inhibitor arcs (\cite{Agerwala74}).
+
+\begin{theorem}
+  Sequential P systems with inhibitors can simulate register machines and thus the class of languages accepted by them equals $PsRE$.
+\end{theorem}
 
 \input{seqinhaccproof}
 
