@@ -182,13 +182,11 @@ An example of such rule is the following: $a|b|b\rightarrow a|b\downarrow |c\upa
 \section{P system variants}
 \label{sec:variants}
 
-There are several variants of P systems. They vary in the definition of the rewriting process.
-
 We study the power of new P system variants. Those with the power of the Turing machine are especially interesting, they are said to be computationally universal. A computational power for a model is usually proved by proving equivalence to other known model. The equivalence is usually proved through the simulation of a step of the computation.
 
-{\bf Sequential P systems} are variant where in each step only a single rule in a single region is applied. The membrane and the rule are chosen nondeterministically. In \cite{Ibarra:2005:SPS:2111772.2111880} it is shown that the sequential P systems can be simulated by vector addition systems and are not universal. However, if we allow rules with membrane creation with unbounded number of membranes, they become universal.
-{\bf Cooperative P systems} have rules that have at most two symbols on the left side.
-{\bf Context-free P systems} have only rules that have only one symbol on the left side.
+One group of variants consists of defining various constraints on rewriting rules. The original P systems use {\bf context rules} with any nonempty multiset on the left side and any multiset on the right side.  
+{\bf Cooperative P systems} have only {\bf cooperative rules} that have at most two symbols on the left side.
+{\bf Context-free P systems} have only {\bf context-free rules} that have only one symbol on the left side.
 {\bf Catalytic P systems} have catalysts as a specific subset of alphabet. There are two types of rules:
 
 \begin{enumerate}
@@ -198,6 +196,9 @@ We study the power of new P system variants. Those with the power of the Turing 
 
 An object $a$ can be a {\bf promoter} (see \cite{Ionescu:jucs_10_5:on_p_systems_with}) for a rule $u\rightarrow v$, and we denote this by $u\rightarrow v|_a$, if the rule is active only in the presence of object $a$ in the same region. An object $b$ is {\bf inhibitor} for a rule $u\rightarrow v$, and we denote this by $u\rightarrow v|_{\neg b}$, if the rule is active only if the inhibitor $b$ is not present in the region.
 The difference between catalysts and promoters consists in the fact that the catalysts directly participate in rules, but are not modified by them, and they are counted as any other objects, so that the number of applications of a rule is as big as the number of copies of the catalyst, while in the case of promoters, the presence of the promoter objects makes it possible to use the associated rule as many times as possible, without any restriction; moreover, the promoting objects do not necessarily directly participate in the rules. As a consequence, one can notice that the catalysts inhibit the parallelism of the system while the promoters / inhibitors only guide the computation process.
+
+Another group of variants consists of defining various manners of using the rewriting rules. The original P systems that use maximal parallelism are called maximal parallel P systems.
+{\bf Sequential P systems} are variants where in each step only a single rule in a single region is applied. The membrane and the rule are chosen nondeterministically. In \cite{Ibarra:2005:SPS:2111772.2111880} it is shown that the sequential P systems can be simulated by vector addition systems and are not universal. However, if we allow rules with membrane creation with unbounded number of membranes, they become universal.
 
 \section{Trading maximal parallelism for inhibitor usage}
 \label{sec:inhibitors}
