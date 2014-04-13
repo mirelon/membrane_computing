@@ -2,10 +2,10 @@
   In the proof, we use cooperative rules, but for the convenience, we will write more than two objects at the left side of some rules.
   \begin{lemma}
   \label{lemma:context_rules}
-    For sequential P system, the variant with cooperative rules and the variant with context rules are equal if at most one  object at the left side of a context rewriting rule is consumed in all other rewriting rules.
+    For sequential P system, the variant with cooperative rules is equal to the variant with context rules if at most one  object at the left side of a context rewriting rule is consumed in all other rewriting rules.
   \end{lemma}
   \begin{proof}
-    Consider rule $a_1|a_2|\dots|a_n \rightarrow v$, where $a_1,\dots a_n$ are objects and $v$ is a product of the rule, which may include sending object up/down through the membrane.
+    Consider a context rule $a_1|a_2|\dots|a_n \rightarrow v$, where $n>2$, $a_1,\dots a_n$ are objects and $v$ is a product of the rule, which may include sending object up/down through the membrane.
     This rule can be simulated with multiple sequential steps:
     \begin{itemize}
       \item $a_1|a_2 \rightarrow a_{1,2}$
@@ -14,7 +14,7 @@
       \item $a_{1,2,\dots n-1}|a_n \rightarrow v$
     \end{itemize}    
   \end{proof}
-  There could be a problem with a case when these multiple sequential steps would be interrupted in the middle and the rewriting would be left incomplete. Therefore, we have the additional condition of having at most one object at the left side of a rewriting rule being used and consumed in other rule. That object will be referred as $a_1$. So after the first step is executed, there is no way to be interrupted.
+  There could be a problem with a case when these multiple sequential steps would be interrupted in the middle and the rewriting would be left incomplete. Therefore, we have the additional condition of having at most one object at the left side of a rewriting rule being used and consumed in other rule. That object will be referred as $a_1$. So after the first step is executed, there is no way to be interrupted and the atomicity will be preserved.
 
 \subsection{Inhibitor set}
 In the original definition of P system with inhibitors (see \cite{Ionescu:jucs_10_5:on_p_systems_with}), each rule has only a single inhibitor object. P systems with inhibitor set can have rules of type $u\rightarrow v|_{\neg B}$, where $B\subseteq V$. The rule $u\rightarrow v$ is active only if there is no occurrence of any symbol from $B$.
