@@ -219,13 +219,22 @@ Following theorem is valuable not only for the universality, but also can be see
   The sequential P system with inhibitors used as a multiset language generator defines the same Parikh image of language as P system with maximal parallelism.
 \end{theorem}
 
-\begin{proof}
-  We will prove the theorem by simulation. For every maximal parallel P system $\Pi$ we will find a sequential P system with inhibitors $\overline{\Pi}$ such that for every computation of $\Pi$ there exists a computation of $\overline{\Pi}$ with the same generated language.
+\begin{proof} (Outline)
+  We will prove the theorem by simulation. For every maximal parallel P system $\Pi = (V, \mu, w_1, w_2,\dots , w_m, R_1, R_2, \dots , R_m)$ we will find a sequential P system with inhibitors $\overline{\Pi} = (\overline{V}, \mu, \overline{w_1}, \overline{w_2},\dots , \overline{w_m}, \overline{R_1}, \overline{R_2}, \dots , \overline{R_m})$ such that for every computation of $\Pi$ there exists a computation of $\overline{\Pi}$ with the same generated language.
   The computation of $\Pi$ is a sequence of maximal parallel steps.
   In each step of $\Pi$, a maximal multiset of rewriting rules are applied in each membrane.
-  We simulate this maximal parallel step with several steps of sequential system $\overline{\Pi}$.
+  We simulate this maximal parallel step with several steps of sequential system $\overline{\Pi}$. This sequence of steps will be referred to as \"macro-step\".
 
-  The simulation is quite technical with some workarounds and full version is available in the appendix \ref{sec:appendix}.
+  The key ideas of the simulation are following:
+  \begin{enumerate}
+    \item {\bf Prevent the product of the rewriting rule to be rewritten again in the same macro-step}
+
+      We solve this by extending the alphabet with new symbols that represent objects already rewritten. $\forall a \in V: a^{\prime} \in \overline{V}$
+    \item {\bf Allow the simulation to proceed to the next macro-step}
+
+      We need to detect when there is no more rules applicable. For every rule $r_i\in R_k$ we will have a corresponding symbol $UNUSABLE_i$. The presence of this symbol in a membrane $k$ means that the rule $r_i$ is not firable. There will be an additional rule which takes all the $UNUSABLE_i$ symbols and proceeds the membrane to the next macro-step. The creation of the $UNUSABLE_i$ symbols can be handled by inhibitors.
+  \end{enumerate}
+  Full version of the proof is available in the appendix \ref{sec:appendix}.
 \end{proof}
 
 \subsection{Register machines} % (fold)
