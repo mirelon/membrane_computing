@@ -1,0 +1,23 @@
+\begin{definition}
+  A {\bf state transition system} is a pair $(S, \rightarrow)$, where $S$ is a set of states and $\rightarrow\subseteq S\times S$ is a binary transition relation over $S$.
+\end{definition}
+  If $p,q\in S$, then $(p,q)\in \rightarrow$ is usually written as $p\rightarrow q$. This represents the fact that there is a transition from state $p$ to state $q$.
+
+\begin{definition}
+  A {\bf labelled state transition system} (LTS) is a tuple $(S, A, \rightarrow)$, where $S$ is a set of states, $A$ is a set of labels and $\rightarrow\subseteq S\times A\times S$ is a ternary transition relation.
+\end{definition}
+  If $p,q\in S$ and $a\in A$, then $(p,a,q)\in \rightarrow$ is usually written as $p\xrightarrow{a} q$. This represents the fact that there is a transition from state $p$ to state $q$ with a label $a$.
+
+\begin{definition}
+  Let $(S_1, A, \rightarrow)$ and $(S_2, A, \rightarrow)$ be two labelled transition systems.
+  A {\bf simulation} is a binary relation $R\subseteq S_1\times S_2$ such that if $(s_1,s_2)\in R$ then for each $s_1\xrightarrow{a} t_1$ there is some $s_2\xrightarrow{a} t_2$ such that $(t_1, t_2)\in R$.
+\end{definition}
+
+\begin{definition}
+  Let $(S_1, A, \rightarrow)$ and $(S_2, A, \rightarrow)$ be two labelled transition systems.
+  A {\bf bisimulation} is a binary relation $R\subseteq S_1\times S_2$ such that if $(s_1,s_2)\in R$ then:
+  \begin{enumerate}
+    \item for each $s_1\xrightarrow{a} t_1$ there is some $s_2\xrightarrow{a} t_2$ such that $(t_1, t_2)\in R$,
+    \item for each $s_2\xrightarrow{a} t_2$ there is some $s_1\xrightarrow{a} t_1$ such that $(t_1, t_2)\in R$.
+  \end{enumerate}
+\end{definition}
