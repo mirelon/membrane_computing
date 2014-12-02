@@ -1,0 +1,7 @@
+A {\bf computation step} of P system is a relation $\Rightarrow$ on the set of configurations such that $C_1 \Rightarrow C_2$ iff:
+
+For every region in $C_1$ (suppose it contains a multiset of objects $w$) the multiset in corresponding region in $C_2$ is the result of applying a multiset of simultaneously applicable multiset rewriting rules to $w$.
+
+In the default P system, which works in maximal parallel mode, a maximal multiset of these rules is applied in each step and region.
+
+For example, let us have two regions with multisets $a|a$ and $b$. In the first region there is a rule $a\rightarrow b$ and in the second membrane there is a rule $b\rightarrow a|a$. The only possible result of a computation step is $b|b$, $a|a$. The first rule was applied twice and the second rule once. No more object could be consumed by rewriting rules.
