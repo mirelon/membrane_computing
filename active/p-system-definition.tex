@@ -1,26 +1,29 @@
-{\bf P system with active objects} is a tuple $(V, \mu, w_1, w_2,\dots , w_m, R_1, R_2, \dots , R_m)$, where:
+{\bf P system with active objects} is a tuple $(V, \mu, R_1, R_2, \dots , R_m)$, where:
 \begin{itemize}
   \item $V$ is the alphabet of symbols,
-  \item $\mu$ is a membrane structure consisting of $m$ membranes labeled with numbers $1,2,\dots,m$,
-  \item $w_1,w_2,\dots w_m$ are multisets of symbols present in the regions $1,2,\dots,m$ of the membrane structure,
-  \item $R_1,R_2,\dots R_m$ are finite sets of rewriting rules associated with the regions $1,2,\dots,m$ of the membrane structure. $R_i\in V^+\times\dots$
+  \item $\mu$ is initial membrane structure containing multisets of objects from $V$, defined recursively as:
+  \begin{align*}
+    &[_1 M]_1 \\
+    &M ::= \eps | M a | M [_j M]_j\text{, where }a\in V\text{ and } 1\leq j\leq m
+  \end{align*}
+  \item $R_1,R_2,\dots R_m$ are finite sets of rewriting rules associated with the membranes labeled $1,2,\dots,m$ and can be of forms:
+  \begin{itemize}
+    \item $u\rightarrow v$, where $u\in V^+$, $v\in (V\times\{\cdot, \uparrow, \downarrow_j\})$ and $1\leq j\leq m$
+    \item $u\rightarrow v\delta$, where $u\in V^+$, $v\in (V\times\{\cdot, \uparrow, \downarrow_j\})$ and $1\leq j\leq m$
+    \item $u\rightarrow [_j w]_j$, where $w\in V^*$ and $1\leq j\leq m$
+  \end{itemize}
 \end{itemize}
 
-Each rewriting rule may specify for each symbol on the right side, whether it stays in the current region, moves through the membrane to the parent region ($\uparrow$)
-or through membrane to all of the child regions ($\downarrow$)
+Each rewriting rule may specify for each symbol on the right side, whether it stays in the current region (we will omit the symbol $\cdot$), moves through the membrane to the parent region ($\uparrow$)
 or to a specific child region ($\downarrow_m$, where $m$ is a label of a membrane).
 We denote these transfers with arrows immediately after the symbol.
-An example of such rule is the following: $a|b|b\rightarrow a|b\downarrow |c\uparrow|c$.
+An example of such rule is the following: $abb\rightarrow ab\downarrow_2 c\uparrow c$.
+
+Symbol $\delta$ at the end of the rule means that after application of the rule, the membrane is dissolved and it's contents (objects, child membranes) are propagated to the parent membrane.
 
 A {\bf configuration} of a P system is represented by its membrane structure and the multisets of objects in the regions.
 
-A {\bf computation step} of P system is a relation $\Rightarrow$ on the set of configurations such that $C_1 \Rightarrow C_2$ iff:
-
-For every region in $C_1$ (suppose it contains a multiset of objects $w$) the multiset in corresponding region in $C_2$ is the result of applying a multiset of simultaneously applicable multiset rewriting rules to $w$.
-
-In the default P system, which works in maximal parallel mode, a maximal multiset of these rules is applied in each step and region.
-
-For example, let us have two regions with multisets $a|a$ and $b$. In the first region there is a rule $a\rightarrow b$ and in the second membrane there is a rule $b\rightarrow a|a$. The only possible result of a computation step is $b|b$, $a|a$. The first rule was applied twice and the second rule once. No more object could be consumed by rewriting rules.
+A {\bf computation step} of P system is a relation $\Rightarrow$ on the set of configurations such that $C_1 \Rightarrow C_2$ iff there is an applicable rule in a membrane in $C_1$ such that applying that rule would result in $C_2$.
 
 A {\bf computation} of a P system consists of a sequence of steps. The step $S_i$ is applied to result of previous step $S_{i-1}$. So when $S_i = (C_j,C_{j+1})$, $S_{i-1} = (C_{j-1},C_j)$.
 
