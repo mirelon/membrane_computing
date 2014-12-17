@@ -1,27 +1,32 @@
-{\bf P system with active objects} is a tuple $(V, \mu, R_1, R_2, \dots , R_m)$, where:
+Let $O$ be a set of objects. Recall that $\mathbb N^O$ contains all multisets of objects from $O$. {\bf Membrane configuration} is a tuple $(T, l, c)$, where:
 \begin{itemize}
-  \item $V$ is the alphabet of symbols,
-  \item $\mu$ is initial membrane structure containing multisets of objects from $V$, defined recursively as:
-  \begin{align*}
-    &[_1 M]_1 \\
-    &M ::= \eps | M a | M [_j M]_j\text{, where }a\in V\text{ and } 1\leq j\leq m
-  \end{align*}
-  \item $R_1,R_2,\dots R_m$ are finite sets of rewriting rules associated with the membranes labeled $1,2,\dots,m$ and can be of forms:
+  \item $T$ is a rooted tree,
+  \item $l\in\mathbb N^{V(T)}$ is a mapping that assigns for each node of $T$ a number (label), where $l(r_T)=1$,
+  \item $c\in(\mathbb N^O)^{V(T)}$ is a mapping that assigns for each node of $T$ a multiset of objects from $O$.
+\end{itemize}
+
+{\bf Active P system} is a tuple $(O, C_0, R_1, R_2, \dots , R_m)$, where:
+\begin{itemize}
+  \item $O$ is a set of objects,
+  \item $C_0$ is initial membrane configuration,
+  \item $R_1,R_2,\dots R_m$ are finite sets of rewriting rules associated with the labels $1,2,\dots,m$ and can be of forms:
   \begin{itemize}
-    \item $u\rightarrow v$, where $u\in V^+$, $v\in (V\times\{\cdot, \uparrow, \downarrow_j\})$ and $1\leq j\leq m$
-    \item $u\rightarrow v\delta$, where $u\in V^+$, $v\in (V\times\{\cdot, \uparrow, \downarrow_j\})$ and $1\leq j\leq m$
-    \item $u\rightarrow [_j w]_j$, where $w\in V^*$ and $1\leq j\leq m$
+    \item $u\rightarrow w$, where $u\in O^+$, $w\in (O\times\{\cdot, \uparrow, \downarrow_j\})^*$ and $1\leq j\leq m$
+    \item $u\rightarrow w\delta$, where $u\in O^+$, $w\in (O\times\{\cdot, \uparrow, \downarrow_j\})^*$ and $1\leq j\leq m$
+    \item $u\rightarrow [_j v]_j$, where $u\in O^+, v\in O^*$ and $1\leq j\leq m$
   \end{itemize}
 \end{itemize}
 
-Each rewriting rule may specify for each symbol on the right side, whether it stays in the current region (we will omit the symbol $\cdot$), moves through the membrane to the parent region ($\uparrow$)
-or to a specific child region ($\downarrow_m$, where $m$ is a label of a membrane).
-We denote these transfers with arrows immediately after the symbol.
+Although rewriting rules are defined as strings, $u,v$ and $w$ represent multisets of objects from $O$. For the first two forms, each rewriting rule may specify for each objects on the right side, whether it stays in the current region (we will omit the symbol $\cdot$), moves through the membrane to the parent region ($\uparrow$)
+or to a specific child region ($\downarrow_j$, where $j$ is a label of a membrane).
+We denote these transfers with an arrow immediately after the symbol.
 An example of such rule is the following: $abb\rightarrow ab\downarrow_2 c\uparrow c$.
+Symbol $\delta$ at the end of the rule means that after the application of the rule, the membrane is dissolved and its contents (objects, child membranes) are propagated to the parent membrane.
+Active P systems differs from classical (passive) P systems in ability to create new membranes by rules of the third form.
 
-Symbol $\delta$ at the end of the rule means that after application of the rule, the membrane is dissolved and it's contents (objects, child membranes) are propagated to the parent membrane.
+% TODO applicable rule definition
 
-A {\bf configuration} of a P system is represented by its membrane structure and the multisets of objects in the regions.
+% TODO with limit on the total number of membranes definition
 
 A {\bf computation step} of P system is a relation $\Rightarrow$ on the set of configurations such that $C_1 \Rightarrow C_2$ iff there is an applicable rule in a membrane in $C_1$ such that applying that rule would result in $C_2$.
 

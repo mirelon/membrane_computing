@@ -65,25 +65,29 @@ The {\bf support} of a multiset $M$ is the set $supp(M)=\{x\in X|M(x)\geq 1\}$.
 It is the set of items with at least one occurrence.
 A multiset is {\bf empty} when its support is empty.
 A multiset $M$ with finite support $X = \{x_1, x_2, \dots, x_n\}$ can be represented by the string $x_1^{M(x_1)}x_2^{M(x_2)}\dots x_n^{M(x_n)}$.
-As elements of a multiset can also be strings, we separate them with the pipe symbol, e.g. $element|element|other\_element$.
 We say that multiset $M_1$ is included in multiset $M_2$ if $\forall x \in X: M_1(x)\leq M_2(x)$.
 We denote it by $M_1\subseteq M_2$.
 If $M_1\subseteq M_2$, the {\bf difference} of two multisets $M_2-M_1$ is defined as a multiset where $\forall x \in X: (M_2-M_1)(x)=\max(M_2(x)-M_1(x),0)$.
 The {\bf union} of two multisets $M_1\cup M_2$ is a multiset where $\forall x \in X: (M_1\cup M_2)(x)=M_1(x)+M_2(x)$.
 The product of multiset $M$ with natural number $n\in \mathbb N$ is a multiset where $\forall x \in X: (n\cdot M)(x)=n\cdot M(x)$.
+
+Next, we recall notions from graph theory.
+
+A {\bf rooted tree} is a tree, in which a particular node is distinguished from the others and called the root node.
+Let $T$ be a rooted tree. We will denote its root node by $r_T$.
+Let $t$ be a node of $T\setminus\{r_T\}$. The node adjacent to $t$ on the only path from $t$ to $r_T$ is called a {\bf parent node} of $t$ and is denoted by $parent(t)$.
+We will denote the set of nodes of $T$ by $V(T)$ and set of its edges by $E(T)$.
+Let $T_1, T_2$ be rooted trees. A bijection $f: V(T_1)\rightarrow V(T_2)$ is an {\bf isomorphism} only if $\{(f(u),f(v))|(u,v)\in E(V(T_1))\} = E(V(T_2))$. 
+
   
 \section{Active P systems}
 \label{sec:p systems}
 
-%TODO: definovat simulaciu, ...
-
 % Membrane structure
 
 The fundamental ingredient of a P system is the {\bf membrane structure} (see \cite{Paun2006Introduction}). It is a hierarchically arranged set of membranes, all contained in the {\bf skin membrane}. Each membrane determines a compartment, also called region, which is the space delimited from above by it and from below by the membranes placed directly inside, if any exists. Clearly, the correspondence membrane – region is one-to-one, that is why we sometimes use interchangeably these terms.
+Membrane structure can be also viewed as a rooted tree with the skin membrane as the root node.
 
-% Maximal parallelism
-
-Consider a finite set of symbols $V=\{a_1, a_2,\dots, a_n\}$. An arbitrary multiset rewriting rule is a pair $(u, v)$ of multisets over the set $V$ where $u$ is not empty. Such a rule is typically written as $u\rightarrow v$. For a multiset rewriting rule $r : u\rightarrow v$, let $left(r) = u$ and $right(r) = v$. Let $w$ be a multiset of symbols over $V$ and let $R=\{r_1, r_2,\dots, r_k\}$ be a set of multiset rewriting rules such that $r_i = u_i\rightarrow v_i$ with multisets $u_i, v_i$ over $V$. Denote by $R^{ap}_w\subseteq R$ the {\bf set of applicable multiset rewriting rules} to $w$, that is, $R^{ap}_w = \{r\in R|left(r)\subseteq w\}$.
 % P system
 
 \input{p-system-definition}
