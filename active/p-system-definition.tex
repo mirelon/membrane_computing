@@ -1,23 +1,23 @@
-Let $O$ be a set of objects. Recall that $\mathbb N^O$ contains all multisets of objects from $O$. {\bf Membrane configuration} is a tuple $(T, l, c)$, where:
+Let $\Sigma$ be a set of objects. Recall that $\mathbb N^\Sigma$ contains all multisets of objects from $\Sigma$. {\bf Membrane configuration} is a tuple $(T, l, c)$, where:
 \begin{itemize}
   \item $T$ is a rooted tree,
-  \item $l\in\mathbb N^{V(T)}$ is a mapping that assigns for each node of $T$ a number (label), where $l(r_T)=1$,
-  \item $c\in(\mathbb N^O)^{V(T)}$ is a mapping that assigns for each node of $T$ a multiset of objects from $O$.
+  \item $l\in\mathbb N^{V(T)}$ is a mapping that assigns for each node of $T$ a number (label), where $l(r_T)=1$, so the skin membrane is always labeled with 1,
+  \item $c\in(\mathbb N^\Sigma)^{V(T)}$ is a mapping that assigns for each node of $T$ a multiset of objects from $\Sigma$, so it represents the contents of the membrane.
 \end{itemize}
 
-{\bf Active P system} is a tuple $(O, C_0, R_1, R_2, \dots , R_m)$, where:
+{\bf Active P system} is a tuple $(\Sigma, C_0, R_1, R_2, \dots , R_m)$, where:
 \begin{itemize}
-  \item $O$ is a set of objects,
+  \item $\Sigma$ is a set of objects,
   \item $C_0$ is initial membrane configuration,
   \item $R_1,R_2,\dots R_m$ are finite sets of rewriting rules associated with the labels $1,2,\dots,m$ and can be of forms:
   \begin{itemize}
-    \item $u\rightarrow w$, where $u\in O^+$, $w\in (O\times\{\cdot, \uparrow, \downarrow_j\})^*$ and $1\leq j\leq m$
-    \item $u\rightarrow w\delta$, where $u\in O^+$, $w\in (O\times\{\cdot, \uparrow, \downarrow_j\})^*$ and $1\leq j\leq m$
-    \item $u\rightarrow [_j v]_j$, where $u\in O^+, v\in O^*$ and $1\leq j\leq m$
+    \item $u\rightarrow w$, where $u\in \Sigma^+$, $w\in (\Sigma\times\{\cdot, \uparrow, \downarrow_j\})^*$ and $1\leq j\leq m$
+    \item $u\rightarrow w\delta$, where $u\in \Sigma^+$, $w\in (\Sigma\times\{\cdot, \uparrow, \downarrow_j\})^*$ and $1\leq j\leq m$
+    \item $u\rightarrow [_j v]_j$, where $u\in \Sigma^+, v\in \Sigma^*$ and $1\leq j\leq m$
   \end{itemize}
 \end{itemize}
 
-Although rewriting rules are defined as strings, $u,v$ and $w$ represent multisets of objects from $O$. For the first two forms, each rewriting rule may specify for each objects on the right side, whether it stays in the current region (we will omit the symbol $\cdot$), moves through the membrane to the parent region ($\uparrow$)
+Although rewriting rules are defined as strings, $u,v$ and $w$ represent multisets of objects from $\Sigma$. For the first two forms, each rewriting rule may specify for each objects on the right side, whether it stays in the current region (we will omit the symbol $\cdot$), moves through the membrane to the parent region ($\uparrow$)
 or to a specific child region ($\downarrow_j$, where $j$ is a label of a membrane).
 We denote these transfers with an arrow immediately after the symbol.
 An example of such rule is the following: $abb\rightarrow ab\downarrow_2 c\uparrow c$.
