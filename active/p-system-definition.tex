@@ -24,7 +24,16 @@ An example of such rule is the following: $abb\rightarrow ab\downarrow_2 c\uparr
 Symbol $\delta$ at the end of the rule means that after the application of the rule, the membrane is dissolved and its contents (objects, child membranes) are propagated to the parent membrane.
 Active P systems differs from classical (passive) P systems in ability to create new membranes by rules of the third form.
 
-% TODO applicable rule definition
+% applicable rule definition
+
+For active P system $(\Sigma, C_0, R_1, R_2, \dots , R_m)$, configuration $C = (T, l, c)$, membrane $d\in V(T)$ with label $j = l(d)$ the rule $r\in R_j$ is {\bf applicable} iff:
+\begin{itemize}
+  \item $r = u\rightarrow w$ and $u\subseteq c(d)$ and $\forall (a,\downarrow_k)\in w \exists d_2\in V(T): l(d_2)=k \wedge parent(d_2) = d$,
+  \item $r = u\rightarrow w\delta$ and $u\subseteq c(d)$ and $\forall (a,\downarrow_k)\in w \exists d_2\in V(T): l(d_2)=k \wedge parent(d_2) = d$ and $d\neq r_T$,
+  \item $r = u\rightarrow [_k v]_k$ and $u\subseteq c(d)$
+\end{itemize}
+
+% TODO result of the rule application
 
 % TODO with limit on the total number of membranes definition
 
