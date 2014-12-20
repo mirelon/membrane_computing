@@ -37,6 +37,10 @@ For active P system $(\Sigma, C_0, R_1, R_2, \dots , R_m)$, configuration $C = (
 
 % TODO with limit on the total number of membranes definition
 
+{\bf Active P system with a limit on total number of membranes} is a tuple $(\Sigma, L, C_0, R_1, R_2, \dots , R_m)$, where $(\Sigma, C_0, R_1, R_2, \dots , R_m)$ is an active P system and $L\in \mathbb N$ is a limit on total number of membranes. Anytime during the computation, a confuguration $(T, l, c)$ is not allowed to have more than $L$ membranes, so the following invariant holds: $|V(T)|\leq L$.
+
+This is achieved by adding a constraint for rule of the form $r = u\rightarrow [_k v]_k$, which is defined to be applicable iff $u\subseteq c(d)$ and $|V(T)|<L$. If the number of membranes is equal to $L$, there is no space for newly created membrane, so in that case such rule is not applicable.
+
 A {\bf computation step} of P system is a relation $\Rightarrow$ on the set of configurations such that $C_1 \Rightarrow C_2$ iff there is an applicable rule in a membrane in $C_1$ such that applying that rule would result in $C_2$.
 
 A {\bf computation} of a P system consists of a sequence of steps. The step $S_i$ is applied to result of previous step $S_{i-1}$. So when $S_i = (C_j,C_{j+1})$, $S_{i-1} = (C_{j-1},C_j)$.
