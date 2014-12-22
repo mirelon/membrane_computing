@@ -100,6 +100,62 @@ Membrane structure can be also viewed as a rooted tree with the skin membrane as
   
 % subsection register_machines (end)
 
+\section{Termination problems} % (fold)
+\label{sec:termination_problems}
+
+In this section we recall the halting problem for Turing machines. The problem is to determine, given a deterministic Turing machine and an input, whether the machine running on that input will halt. It is one of the first known undecidable problems. On the other hand, for non-deterministic machines, there are two possible meanings for halting. We could be interested either in:
+\begin{itemize}
+  \item whether there exists an infinite computation (the machine can run forever), or
+  \item whether there exists a finite computation (the machine can halt)
+\end{itemize}
+
+We will prove the (un)decidability of these problems on active P systems with limit on total number of membranes. The results are quite interesting, because:
+
+\begin{theorem}
+  Active P systems with limit on total number of membranes are universal.
+\end{theorem}
+
+\begin{proof}
+  The proof of this theorem for active P system in \cite{Ibarra05Active} uses simulation of register machines and during the simulation, every configuration has at most three membranes, hence the universality holds also for active P systems with limit on total number of membranes.
+\end{proof}
+
+\subsubsection{Existence of infinite computation} % (fold)
+\label{ssub:existence_of_infinite_computation}
+We will propose an algorithm for deciding existence of infinite computation. Basic idea is to consider the minimal coverability graph (\cite{Rozenberg93MinimalCoverabilityGraph}), where nodes are configurations and edge leads from the configuration $C_1$ to the configuration $C_2$, when there is a rule applicable in $C_1$, which results in $C_2$. The construction in \cite{Rozenberg93MinimalCoverabilityGraph} is performed on Petri nets, where the configuration consists just of a vector of natural numbers. The situation is the same for single-membrane sequential P systems. We need to modify the construction for active P systems.
+
+% TODO define covering order
+A configuration $C_1$ covers configuration $C_2$, iff ...
+
+% TODO state the rule applicability lemma
+\begin{lemma}
+  $C_1 \geq C_2$ with an isomorphism $f$, and
+\end{lemma}
+
+\begin{theorem}
+  Existence of infinite computation for active P systems with limit on total number of membranes is decidable.
+\end{theorem}
+
+\begin{proof}
+  From Dickson's lemma [citation needed] or from Karp-Miller reachability theorem [citation needed] implies that for a every inifite sequence of configurations there are two such that one covers the other.
+\end{proof}
+
+% subsubsection existence_of_infinite_computation (end)
+
+\subsubsection{Existence of finite computation} % (fold)
+\label{ssub:existence_of_finite_computation}
+
+\begin{theorem}
+  Existence of finite computation for active P systems with limit on total number of membranes is undecidable.
+\end{theorem}
+
+\begin{proof}
+  Either reduce it to detection of empty language or to reachability.
+\end{proof}
+
+% subsubsection existence_of_finite_computation (end)
+
+% section termination_problems (end)
+
 \section{Conclusion}
 \label{sec:conclusion}
 We have studied \dots
