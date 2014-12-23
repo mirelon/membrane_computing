@@ -112,11 +112,12 @@ In this section we recall the halting problem for Turing machines. The problem i
 We will prove the (un)decidability of these problems on active P systems with limit on total number of membranes. The results are quite interesting, because:
 
 \begin{theorem}
-  Active P systems with limit on total number of membranes are universal.
+  Sequential active P systems with limit on total number of membranes are universal.
 \end{theorem}
 
 \begin{proof}
-  The proof of this theorem for active P system in \cite{Ibarra05Active} uses simulation of register machines and during the simulation, every configuration has at most three membranes, hence the universality holds also for active P systems with limit on total number of membranes.
+  The proof of this theorem for sequential active P systems in \cite{Ibarra05Active} uses simulation of register machines and during the simulation, every configuration has at most three membranes, hence the universality holds also for sequential active P systems with limit on total number of membranes.
+  \qed
 \end{proof}
 
 \subsection{Existence of infinite computation} % (fold)
@@ -128,9 +129,9 @@ A configuration $C_2 = (T_2, l_2, c_2)$ {\bf covers} configuration $C_1 = (T_1, 
 
 We will denote this with $C_1\leq C_2$.
 
-% TODO state the rule applicability lemma
 \begin{lemma}
-  If $C_2 = (T_2, l_2, c_2)$ {\bf covers} configuration $C_1 = (T_1, l_1, c_1)$, then there is an isomorphism $f: T_1\rightarrow T_2$ such that if a rule $r$ is applicable in membrane $d\in T_1$, then $r$ is applicable in $f(d)$.
+\label{rule_applicability_lemma}
+  For sequential active P system with limit on total number of membranes, if $C_2 = (T_2, l_2, c_2)$ {\bf covers} configuration $C_1 = (T_1, l_1, c_1)$, then there is an isomorphism $f: T_1\rightarrow T_2$ such that if a rule $r$ is applicable in membrane $d\in T_1$, then $r$ is applicable in $f(d)$.
 \end{lemma}
 
 \begin{proof}
@@ -139,9 +140,39 @@ We will denote this with $C_1\leq C_2$.
   There are three possible forms of the rule $r$.
   \begin{itemize}
     \item If $r = u\rightarrow w$, then because $r$ is applicable in $d$, $\forall (a,\downarrow_k)\in w \exists d_2\in V(T_1): l_1(d_2)=k \wedge parent_{T_1}(d_2) = d$. Because $C_1\leq C_2$, then for $f(d_2)\in V(T_2)$ the following holds: $l_2(f(d_2)) = l_1(d_2) = k$ and $parent_{T_2}(f(d_2) = f(d)$. Hence $r$ is applicable in $f(d)$.
-    \item If $r = u\rightarrow w\delta$, then $d\neq r_{T_1}$. Because $f$ is an isomorphism, then also $f(d)\neq r_{T_2}$. Other properties follows from the previous case.
+    \item If $r = u\rightarrow w\delta$, then $d\neq r_{T_1}$. Since $f$ is an isomorphism, then also $f(d)\neq r_{T_2}$. Other properties follows from the previous case.
     \item If $r = u\rightarrow [_k v]_k$, then $|V(T_1)|<L$. Isomorphism preserves number of nodes, hence $|V(T_2)| = |V(T_1)| < L$ and $r$ is applicable in $f(d)$. \qed
   \end{itemize}
+\end{proof}
+
+Now, we will define the encoding of a configuration $C = (T, l, c)$ into a tuple of integers.
+
+A membrane $d\in T$ will be encoded as $n+m$-tuple $enc(d)\in\mathbb N^{(n+m)}$, where first $n$ numbers will be actual counts of objects: $enc(d)_i=c(d)(a_i)$ for $i\leq n$. Next $m$ numbers will encode the membrane label: $enc(d)_{n+j} = 0$ for $l(d)\neq j\leq m$ and $enc(d)_{n+l(d)} = 1$.
+
+The entire tree will be encoded into concatenated sequences of encoded nodes in the inorder traversal order. This sequence is then padded with zeroes to have length $(n+m)L$ as that is the maximal length of encoded tree. 
+
+Since there are only finitely many non-isomorphic trees with at most $L$ nodes (\cite{Cayley1881RootedTrees}), there is a constant $z$ such that we can uniquely assign the tree an order number $o(T) \leq z$.
+
+The configuration will be encoded in tuple which consists of $z$ parts. All but the part with index $o(T)$ will contain just zeros. The part with index $o(T)$ will contain the encoding of the tree.
+
+\begin{lemma}
+\label{encoding_lemma}
+  For configurations $C_1 = (T_1, l_1, c_1)$ and $C_2 = (T_2, l_2, c_2)$, $enc(C_1) \leq enc(C_2)\Rightarrow C_1\leq C_2$.
+\end{lemma}
+
+\begin{proof}
+  If the $enc(C_1)\leq enc(C_2)$, then $o(T_1)=o(T_2)$, so the trees are isomorphic. For every membrane $d\in T_1$, $l_1(d)=l_2(f(d))$ and $c_1(d)\subseteq c_2(f(d))$. Hence, $C_1\leq C_2$.
+  \qed
+\end{proof}
+
+\begin{lemma}
+\label{infinite_sequence_of_configurations_lemma}
+  For sequential active P system with limit on total number of membranes $L$ for every inifite sequence of configurations $\{C_i\}_{i=0}^\infty\exists i<j: C_i\leq C_j$.
+\end{lemma}
+
+\begin{proof}
+  Suppose an infinite sequence $\{enc(C_i)\}_{i=0}^\infty$. We use a variation of Dickson's lemma (\cite{Figueira11Dickson}): Every infinite sequence of tuples from $\mathbb N^k$ contains an increasing pair. Applied to our sequence, there are two positions $i<j: enc(C_i)\leq enc(C_j)$. From lemma \ref{encoding_lemma}, $C_i\leq C_2$.
+  \qed
 \end{proof}
 
 \begin{theorem}
@@ -149,7 +180,10 @@ We will denote this with $C_1\leq C_2$.
 \end{theorem}
 
 \begin{proof}
-  From Dickson's lemma [citation needed] or from Karp-Miller reachability theorem [citation needed] implies that for a every inifite sequence of configurations there are two such that one covers the other.
+  Algorithm for deciding the problem will traverse the reachability graph. When it encounters a configuration that covers another configuration, from lemma \ref{rule_applicability_lemma} follows that the same rules can be applied repeatedly, so the algorithm will halt with the answer YES.
+  Otherwise, the algorithm will answer NO.
+  Algorithm will always halt, because if there was an infinite computation, from lemma \ref{infinite_sequence_of_configurations_lemma} there would be two increasing configurations which is already covered in the YES case.
+  \qed
 \end{proof}
 
 % subsection existence_of_infinite_computation (end)
