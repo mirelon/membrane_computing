@@ -30,14 +30,15 @@
 \providecommand{\narrow}[1]{\scalebox{.8}[1.0]{#1}}
 
 \begin{document}
-\title{Decidability of the termination problem for sequential P systems with active membranes}
+\title{Decidability of termination problems for sequential P systems with active membranes}
 \author{Michal Kováč}
 \institute{Faculty of Mathematics, Physics and Informatics, Comenius University}
 \date{\today}
 \maketitle
 
 \begin{abstract}
-Abstract
+An universal variant of sequential P systems with active membranes is investigated and we show that existence of infinite computation is decidable. The standard construction of coverability tree is extended to provide an algorithm for detecting infinite loop.
+On the other hand, the existence of a halting computation is shown to be undecidable, as it can be reduced to reachability of register machines.
 \end{abstract}
 
 \section{Introduction}
@@ -48,6 +49,9 @@ Abstract
 Membrane systems (P systems) were introduced by P\u{a}un (see \cite{Paun2000108}) as distributed parallel computing devices inspired by the structure and functionality of cells.
 One of the objectives is to relax the condition of using the rules in a maximally parallel way in order to find more realistic P systems from a biological point of view.
 In sequential systems, only one rewriting rule is used in each step of computation.
+There are number of results for sequential P systems, without priorities they are equivalent to VAS \cite{Ibarra05Active}, hence not universal. However priorities, inhibitors and other modifications can increase the computation power. It seems there is a link between universality and ability to zero-check \cite{Alhazov12Properties}. But if we allow membranes to be created unlimited number of times, the universality can be achieved without the zero-check extension \cite{Ibarra05Active}. Such P systems are called active P systems.
+
+In section \ref{sec:preliminaries} we will recall some basic notions from formal languages, multisets and graph theory. Then in section \ref{sec:p systems} we will introduce membrane structure, formally define membrane configuration and active P system, because standard definitions were not convenient for the formal proofs. Section \ref{sec:termination_problems} contains main theorems with proofs.
 
 
 \section{Preliminaries}
