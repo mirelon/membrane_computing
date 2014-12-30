@@ -191,6 +191,14 @@ The configuration will be encoded in tuple which consists of $z$ parts. All but 
 \subsection{Existence of finite computation} % (fold)
 \label{sub:existence_of_finite_computation}
 
+We will reduce the problem of deciding existence of finite computation to the problem of reachability of a given configuration. For a given P system $\Pi$ and a target configuration $C$ we will construct a P system $\Pi^\prime$ such that there is a finite computation of $\Pi^\prime$ iff the $\Pi$ can reach configuration $C$.
+Suppose $\Pi = (\Sigma, C_0, R_1, \dots R_m)$ and $C = (T, l, c)$. Then $\Pi^\prime = (\Sigma^\prime, C_0^\prime, R_1^\prime, \dots R_m^\prime)$, where:
+\begin{itemize}
+  \item $\Sigma^\prime = \Sigma\cup\{\omega, \sigma\}\cup\{\xi_d|d\in V(T)\}$,
+  \item $C_0^\prime = (T, l, c^\prime)$, where $\forall d\in V(T)\setminus r_T: c^\prime(d) = c(d)$ and $c^\prime(r_T) = c(r_T)\cup\{\xi_{r_T}\}$,
+  \item $\forall i\in\{1\dots m\}: R_i^\prime = \{r|r\in R_i,r = u\rightarrow w\vee r = u\rightarrow w\delta\}\cup\linebreak\{u\rightarrow [_k v\omega]_k|u\rightarrow [_k v]_k\in R_i\}\cup\{a\rightarrow a|a\in\Sigma\}\cup\{\sigma\sigma\rightarrow\sigma\sigma,\omega\rightarrow\omega\}\cup\linebreak\{\xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}|d,d^\prime\in V(T),l(d)=i,parent(d^\prime)=d\}$
+\end{itemize}
+
 \begin{theorem}
   Existence of finite computation for active P systems with limit on total number of membranes is undecidable.
 \end{theorem}
