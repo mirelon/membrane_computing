@@ -188,10 +188,10 @@ The configuration will be encoded in tuple which consists of $z$ parts. All but 
 
 % subsection existence_of_infinite_computation (end)
 
-\subsection{Existence of finite computation} % (fold)
-\label{sub:existence_of_finite_computation}
+\subsection{Existence of halting computation} % (fold)
+\label{sub:existence_of_halting_computation}
 
-We will reduce the problem of deciding existence of finite computation to the problem of reachability of a given configuration. For a given P system $\Pi$ and a target configuration $C$ we will construct a P system $\Pi^\prime$ such that there is a finite computation of $\Pi^\prime$ iff the $\Pi$ can reach configuration $C$.
+We will reduce the problem of deciding existence of halting computation to the problem of reachability of a given configuration. For a given P system $\Pi$ and a target configuration $C$ we will construct a P system $\Pi^\prime$ such that there is a halting computation of $\Pi^\prime$ iff the $\Pi$ can reach configuration $C$.
 Suppose $\Pi = (\Sigma, C_0, R_1, \dots R_m)$ and $C = (T, l, c)$. Then $\Pi^\prime = (\Sigma^\prime, C_0^\prime, R_1^\prime, \dots R_m^\prime)$, where:
 \begin{itemize}
   \item $\Sigma^\prime = \Sigma\cup\{\omega, \sigma\}\cup\{\xi_d|d\in V(T)\}$,
@@ -199,15 +199,62 @@ Suppose $\Pi = (\Sigma, C_0, R_1, \dots R_m)$ and $C = (T, l, c)$. Then $\Pi^\pr
   \item $\forall i\in\{1\dots m\}: R_i^\prime = \{r|r\in R_i,r = u\rightarrow w\vee r = u\rightarrow w\delta\}\cup\linebreak\{u\rightarrow [_k v\omega]_k|u\rightarrow [_k v]_k\in R_i\}\cup\{a\rightarrow a|a\in\Sigma\}\cup\{\sigma\sigma\rightarrow\sigma\sigma,\omega\rightarrow\omega\}\cup\linebreak\{\xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}|d,d^\prime\in V(T),l(d)=i,parent(d^\prime)=d\}$
 \end{itemize}
 
+\begin{lemma}
+\label{if_reachable_then_halting_lemma}
+  If $C$ is reachable for $\Pi$ then there is a halting computation of $\Pi^\prime$.
+\end{lemma}
+
+\begin{proof}
+  Consider sequence of steps applied in $\Pi$ that will result in the configuration $C$. The corresponding sequence of steps in $\Pi^\prime$ will result in a configuration, where in every membrane $d$, the contents will be $\omega c(d)$, and the skin membrane will contain an additional $\xi_{r_T}$. Then the cascade of applications of rule $\xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$ can be applied, starting in the skin membrane and cascading down to children until all the membranes applied that rule. The objects $\omega c(d)$ will be replaced by $\sigma$ and the computation will halt. \qed
+\end{proof}
+
+The other direction of the theorem \ref{existence_of_halting_theorem} is more complicated, so the proof is split into several lemmas. 
+
+\begin{lemma}
+\label{no_dissolving_after_check_lemma}
+  For all halting computations of $\Pi^\prime$ there is no rule of form $u\rightarrow w\delta$ applied in the membrane $d^\prime$ after the application of rule $\xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$ in membrane $d=parent(d^\prime)$.
+\end{lemma}
+
+\begin{proof}
+  After the application of rule $\xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$, the object $\sigma$ remains in the membrane. There is no interaction of $\sigma$ with other objects, only with another $\sigma$. If a child membrane $d^\prime$ is dissolved with a rule $u\rightarrow w\delta$, then two symbols $\sigma$ will meet in the membrane $d$ and the computation will not halt, which contradicts the fact that the computation is halting. \qed
+\end{proof}
+
+\begin{lemma}
+  For all halting computations of $\Pi^\prime$ there is no rule of form $u\rightarrow [_k v\omega]_k$ applied in the membrane $d^\prime$ after the application of rule $\xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$.
+\end{lemma}
+
+\begin{proof}
+  After the application of rule $r = \xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$ in membrane $d$, there won't be any of $\xi$ symbols present in the membrane, because they are only sent into child membranes, which cannot be dissolved because of lemma \ref{no_dissolving_after_check_lemma}. So there will be no more of rule $r$ applied in membrane $d$. The newly created membrane will never receive any of $\xi$ objects, so the object $\omega$ will never be erased and the computation will not halt, which contradicts the fact that the computation is halting. \qed
+\end{proof}
+
+\begin{lemma}
+\label{check_at_last_lemma}
+  For all halting computations of $\Pi^\prime$ there is a halting computation, where for every membrane $d$ the last rule used is $r = \xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$.
+\end{lemma}
+
+\begin{proof}
+  Consider membrane $d$: let $C_1$ be the configuration before the application of $r$, $C_2$ the configuration after the application of $r$ and $C_3$ the halting configuration. The sequence of steps from $C_2$ to $C_3$ cannot use $\sigma$, so the same sequence can be applied starting from $C_1$ instead of $C_2$. It would result in a configuration $C_4$, where contents of $d$ is exactly $\xi_d\omega c(d)$. So the rule $r = \xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$ can be applied, resulting in configuration, where $d$ contains exactly one $\sigma$ and nothing else, so no more rule will be applied in $d$. \qed
+\end{proof}
+
+\begin{lemma}
+\label{if_halting_then_reachable_lemma}
+  If there is a halting computation of $\Pi^\prime$ then $C$ is reachable for $\Pi$.
+\end{lemma}
+
+\begin{proof}
+  According to lemma \ref{check_at_last_lemma} there is also a halting computation $C_4$ where in every membrane $d$ the last used rule is $r = \xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$. So the corresponding computation in $\Pi$ will result in the configuration $C_5$, where every membrane $d$ contains exactly $c(d)$. If $C_5$ contains a membrane not present in $C$, it will contain the object $\omega$, which won't be reached by any of objects $\xi$ so the computation will not halt. If $C$ contains a membrane $d^\prime$ not present in $C_5$, then in $d = parent(d^\prime)$ at $C_5$ still contains $\omega$ because the rule $r = \xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$ could not be applied due to lack of a child membrane $d^\prime$. Hence $C = C_5$ and there is a computation of $\Pi$ that will result in $C$. \qed
+\end{proof}
+
 \begin{theorem}
-  Existence of finite computation for active P systems with limit on total number of membranes is undecidable.
+\label{existence_of_halting_theorem}
+  Existence of halting computation for active P systems with limit on total number of membranes is undecidable.
 \end{theorem}
 
 \begin{proof}
-  Either reduce it to detection of empty language or to reachability.
+  For a given P system $\Pi$ and a target configuration $C$ we have constructed a P system $\Pi^\prime$ such that there is a halting computation of $\Pi^\prime$ iff the $\Pi$ can reach configuration $C$. The two directions of the equivalence have been proven in lemmas \ref{if_reachable_then_halting_lemma} and \ref{if_halting_then_reachable_lemma}. Using this construction, we can reduce the existence of halting computation to reachability of register machines \cite{Ibarra05Active}, which is known to be undecidable. \qed
 \end{proof}
 
-% subsection existence_of_finite_computation (end)
+% subsection existence_of_halting_computation (end)
 
 % section termination_problems (end)
 
