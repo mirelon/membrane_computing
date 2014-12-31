@@ -41,9 +41,13 @@ For active P system $(\Sigma, C_0, R_1, R_2, \dots , R_m)$, configuration $C = (
 
 This is achieved by adding a constraint for rule of the form $r = u\rightarrow [_k v]_k$, which is defined to be applicable iff $u\subseteq c(d)$ and $|V(T)|<L$. If the number of membranes is equal to $L$, there is no space for newly created membrane, so in that case such rule is not applicable.
 
-A {\bf computation step} of P system is a relation $\Rightarrow$ on the set of configurations such that $C_1 \Rightarrow C_2$ iff there is an applicable rule in a membrane in $C_1$ such that applying that rule would result in $C_2$.
+A {\bf computation step} of P system is a relation $\Rightarrow$ on the set of configurations such that $C_1 \Rightarrow C_2$ holds iff there is an applicable rule in a membrane in $C_1$ such that applying that rule would result in $C_2$.
 
-A {\bf computation} of a P system consists of a sequence of steps. The step $S_i$ is applied to result of previous step $S_{i-1}$. So when $S_i = (C_j,C_{j+1})$, $S_{i-1} = (C_{j-1},C_j)$.
+An {\bf infinite computation} of a P system is an infinite sequence of configurations $\{C_i\}_{i=0}^\infty$, where $\forall i: C_i\Rightarrow C_{i+1}$.
+
+A {\bf finite computation} of a P system is a finite sequence of configurations $\{C_i\}_{i=0}^n$, where $\forall i: C_i\Rightarrow C_{i+1}$.
+
+A {\bf halting computation} of a P systems is a finite computation $\{C_i\}_{i=0}^n$, where there is no applicable rule in the last configuration $C_n$.
 
 % Result of a computation
 
@@ -54,4 +58,4 @@ There are two possible ways of assigning a result of a computation:
     \item By concatenating the symbols which leave the system, in the order they are sent out of the skin membrane (if several symbols are expelled at the same time, then any ordering of them is considered). In this case we generate a language.
 \end{enumerate}
 
-The result of a computation is clearly only one multiset or a string, but for one initial configuration there can be multiple possible computations. It follows from the fact that there exist more than one maximal multiset of rules that can be applied in each step.
+The result of a single computation is clearly only one multiset or a string, but for one initial configuration there can be multiple possible computations. It follows from the fact that there can be more than one applicable rule in each configuration.

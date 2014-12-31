@@ -37,7 +37,7 @@
 \maketitle
 
 \begin{abstract}
-An universal variant of sequential P systems with active membranes is investigated and we show that existence of infinite computation is decidable. The standard construction of coverability tree is extended to provide an algorithm for detecting infinite loop.
+An universal variant of sequential P systems with active membranes is investigated and we show that existence of infinite computation is decidable. The standard construction of coverability tree is extended to provide an algorithm for detecting infinite loops.
 On the other hand, the existence of a halting computation is shown to be undecidable, as it can be reduced to reachability of register machines.
 \end{abstract}
 
@@ -48,10 +48,9 @@ On the other hand, the existence of a halting computation is shown to be undecid
 
 Membrane systems (P systems) were introduced by P\u{a}un (see \cite{Paun2000108}) as distributed parallel computing devices inspired by the structure and functionality of cells.
 One of the objectives is to relax the condition of using the rules in a maximally parallel way in order to find more realistic P systems from a biological point of view.
-In sequential systems, only one rewriting rule is used in each step of computation.
-There are number of results for sequential P systems, without priorities they are equivalent to VAS \cite{Ibarra05Active}, hence not universal. However priorities, inhibitors and other modifications can increase the computation power. It seems there is a link between universality and ability to zero-check \cite{Alhazov12Properties}. But if we allow membranes to be created unlimited number of times, the universality can be achieved without the zero-check extension \cite{Ibarra05Active}. Such P systems are called active P systems.
+In sequential P systems, only one rewriting rule is used in each step of computation. Without priorities, they are equivalent to vector addition systems \cite{Ibarra05Active}, hence not universal. However priorities, inhibitors and other modifications can increase the computation power. It seems that there is a link between universality and ability to zero-check \cite{Alhazov12Properties}. But there are also variants, where universality can be achieved without checking for zero, i.e. if we allow membranes to be created unlimited number of times \cite{Ibarra05Active}. Such P systems are called active P systems. Contrary, if we place a limit on number of times a membrane is created, such active P system is still equivalent to vector addition systems.
 
-In section \ref{sec:preliminaries} we will recall some basic notions from formal languages, multisets and graph theory. Then in section \ref{sec:p systems} we will introduce membrane structure, formally define membrane configuration and active P system, because standard definitions were not convenient for the formal proofs. Section \ref{sec:termination_problems} contains main theorems with proofs.
+In section \ref{sec:preliminaries} we will recall some basic notions from formal languages, multisets and graph theory. Then in section \ref{sec:p systems} we will introduce membrane structure, formally define membrane configuration and active P system, because standard definitions are not convenient for our formal proofs. Section \ref{sec:termination_problems} contains main theorems with proofs.
 
 
 \section{Preliminaries}
@@ -107,7 +106,7 @@ Membrane structure can be also viewed as a rooted tree with the skin membrane as
 \section{Termination problems} % (fold)
 \label{sec:termination_problems}
 
-In this section we recall the halting problem for Turing machines. The problem is to determine, given a deterministic Turing machine and an input, whether the machine running on that input will halt. It is one of the first known undecidable problems. On the other hand, for non-deterministic machines, there are two possible meanings for halting. We could be interested either in:
+In this section we recall the halting problem for Turing machines. The problem is to determine, given a deterministic Turing machine and an input, whether the Turing machine running on that input will halt. It is one of the first known undecidable problems. On the other hand, for non-deterministic machines, there are two possible meanings for halting. We could be interested either in:
 \begin{itemize}
   \item whether there exists an infinite computation (the machine can run forever), or
   \item whether there exists a finite computation (the machine can halt)
@@ -129,7 +128,7 @@ We will prove the (un)decidability of these problems on active P systems with li
 
 We will propose an algorithm for deciding existence of infinite computation. Basic idea is to consider the minimal coverability graph (\cite{Rozenberg93MinimalCoverabilityGraph}), where nodes are configurations and edge leads from the configuration $C_1$ to the configuration $C_2$, whenever there is a rule applicable in $C_1$, which results in $C_2$. The construction in \cite{Rozenberg93MinimalCoverabilityGraph} is performed on Petri nets, where the configuration consists just of a vector of natural numbers. The situation is the same for single-membrane sequential P systems. We need to modify the construction for active P systems.
 
-A configuration $C_2 = (T_2, l_2, c_2)$ {\bf covers} configuration $C_1 = (T_1, l_1, c_1)$ iff $\exists$ isomorphism $f: T_1\rightarrow T_2$ such that $\forall d\in T_1$ the following properties hold: $l_1(d)=l_2(f(d))\wedge c_1(d)\subseteq c_2(f(d))$.
+A configuration $C_2 = (T_2, l_2, c_2)$ {\bf covers} configuration $C_1 = (T_1, l_1, c_1)$ iff $\exists$ isomorphism $f: T_1\rightarrow T_2$ preserving membrane labels and contents: $\forall d\in T_1$ the following properties hold: $l_1(d)=l_2(f(d))\wedge c_1(d)\subseteq c_2(f(d))$.
 
 We will denote this with $C_1\leq C_2$.
 
@@ -139,7 +138,7 @@ We will denote this with $C_1\leq C_2$.
 \end{lemma}
 
 \begin{proof}
-  Suppose $r$ is applicable in $d$. Then left side of the rule is contained within the contents of the membrane $u\subseteq c_1(d)$. Because $C_1\leq C_2$, then $c_1(d)\subseteq c_2(f(d))$ and then $u\subseteq c_2(f(d))$.
+  Suppose $r$ is applicable in $d$. Then the left side $u$ of the rule $r$ is contained within the contents of the membrane $u\subseteq c_1(d)$. Because $C_1\leq C_2$, then there is an isomorphism $f:T_1\rightarrow T_2$ such that $c_1(d)\subseteq c_2(f(d))$ and then $u\subseteq c_2(f(d))$.
 
   There are three possible forms of the rule $r$.
   \begin{itemize}
@@ -151,13 +150,17 @@ We will denote this with $C_1\leq C_2$.
 
 Now, we will define the encoding of a configuration $C = (T, l, c)$ into a tuple of integers.
 
-A membrane $d\in T$ will be encoded as $n+m$-tuple $enc(d)\in\mathbb N^{(n+m)}$, where first $n$ numbers will be actual counts of objects: $enc(d)_i=c(d)(a_i)$ for $i\leq n$. Next $m$ numbers will encode the membrane label: $enc(d)_{n+j} = 0$ for $l(d)\neq j\leq m$ and $enc(d)_{n+l(d)} = 1$.
+A membrane $d\in T$ will be encoded as $(n+m)$-tuple $enc(d)\in\mathbb N^{(n+m)}$, where first $n$ numbers will be actual counts of objects: $enc(d)_i=c(d)(a_i)$ for $i\leq n$. Next $m$ numbers will encode the membrane label: $enc(d)_{n+j} = 0$ for $l(d)\neq j\leq m$ and $enc(d)_{n+l(d)} = 1$.
 
-The entire tree will be encoded into concatenated sequences of encoded nodes in the inorder traversal order. This sequence is then padded with zeroes to have length $(n+m)L$ as that is the maximal length of encoded tree. 
+The entire tree will be encoded into concatenated sequences of encoded nodes in the preorder traversal order. This sequence is then padded with zeroes to have length $(n+m)L$ as that is the maximal length of encoded tree.
+
+\begin{example}
+  Suppose skin membrane with label 1 and contents $a_1^2a_2$ with a child membrane with label 2 and contents $a_2^2$. Then the encoding will be 21100201 
+\end{example} 
 
 Since there are only finitely many non-isomorphic trees with at most $L$ nodes (\cite{Cayley1881RootedTrees}), there is a constant $z$ such that we can uniquely assign the tree an order number $o(T) \leq z$.
 
-The configuration will be encoded in tuple which consists of $z$ parts. All but the part with index $o(T)$ will contain just zeros. The part with index $o(T)$ will contain the encoding of the tree.
+The entire configuration will be encoded in tuple which consists of $z$ parts. All but the part with index $o(T)$ will contain just zeros. The part with index $o(T)$ will contain the encoding of the tree.
 
 \begin{lemma}
 \label{encoding_lemma}
@@ -199,9 +202,12 @@ We will reduce the problem of deciding existence of halting computation to the p
 Suppose $\Pi = (\Sigma, C_0, R_1, \dots R_m)$ and $C = (T, l, c)$. Then $\Pi^\prime = (\Sigma^\prime, C_0^\prime, R_1^\prime, \dots R_m^\prime)$, where:
 \begin{itemize}
   \item $\Sigma^\prime = \Sigma\cup\{\omega, \sigma\}\cup\{\xi_d|d\in V(T)\}$,
-  \item $C_0^\prime = (T, l, c^\prime)$, where $\forall d\in V(T)\setminus r_T: c^\prime(d) = c(d)$ and $c^\prime(r_T) = c(r_T)\cup\{\xi_{r_T}\}$,
+  \item $C_0^\prime = (T, l, c^\prime)$, where $\forall d\in V(T)\setminus r_T: c^\prime(d) = c(d)\cup\{\omega\}$ and $c^\prime(r_T) = c(r_T)\cup\{\omega\xi_{r_T}\}$,
   \item $\forall i\in\{1\dots m\}: R_i^\prime = \{r|r\in R_i,r = u\rightarrow w\vee r = u\rightarrow w\delta\}\cup\linebreak\{u\rightarrow [_k v\omega]_k|u\rightarrow [_k v]_k\in R_i\}\cup\{a\rightarrow a|a\in\Sigma\}\cup\{\sigma\sigma\rightarrow\sigma\sigma,\omega\rightarrow\omega\}\cup\linebreak\{\xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}|d,d^\prime\in V(T),l(d)=i,parent(d^\prime)=d\}$
 \end{itemize}
+
+At the start, every membrane contains an additional $\omega$ and a rule $\omega\rightarrow\omega$, so the computation will halt only if these $\omega$s are erased.
+The $\xi_{r_T}$ object is called verifier, it verifies if the contents of each membrane corresponds to the contents in the target configuration $C$. After this verification it descends down into child membranes for the verification of other parts of the membrane structure. It also replaces $\omega$ with $\sigma$, which stands as a trace symbol, meaning that the contents of this membrane has already been verified. $\sigma$ objects are used to eliminate dissolution of membranes when $\xi$ object has already verified the contents. Such dissolution would cause to two $\sigma$s to meet in the same membrane which would cause an infinite computation.
 
 \begin{lemma}
 \label{if_reachable_then_halting_lemma}
@@ -209,7 +215,7 @@ Suppose $\Pi = (\Sigma, C_0, R_1, \dots R_m)$ and $C = (T, l, c)$. Then $\Pi^\pr
 \end{lemma}
 
 \begin{proof}
-  Consider sequence of steps applied in $\Pi$ that will result in the configuration $C$. The corresponding sequence of steps in $\Pi^\prime$ will result in a configuration, where in every membrane $d$, the contents will be $\omega c(d)$, and the skin membrane will contain an additional $\xi_{r_T}$. Then the cascade of applications of rule $\xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$ can be applied, starting in the skin membrane and cascading down to children until all the membranes applied that rule. The objects $\omega c(d)$ will be replaced by $\sigma$ and the computation will halt. \qed
+  Consider computation $\Pi$ with $C$ as the last configuration. The corresponding computation of $\Pi^\prime$ will result in a configuration, where in every membrane $d$, the contents will be $\omega c(d)$, and the skin membrane will contain an additional $\xi_{r_T}$. Then the cascade of applications of rule $\xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$ can be applied, starting in the skin membrane and cascading down to children until all the membranes applied that rule. The objects $\omega c(d)$ will be replaced by $\sigma$ and the computation will halt. \qed
 \end{proof}
 
 The other direction of the theorem \ref{existence_of_halting_theorem} is more complicated, so the proof is split into several lemmas. 
@@ -264,7 +270,7 @@ The other direction of the theorem \ref{existence_of_halting_theorem} is more co
 
 \section{Conclusion}
 \label{sec:conclusion}
-We have studied the termination problems for active sequential P systems. Unlike in deterministic systems, the termination problems cannot be simply reduced to the halting problem. We have shown that active P systems with limit on number of membranes have decidable existence of infinite computation and undecidable existence of halting computation. It is currently unknown whether the same results apply also for a variant without the limit on the number of membranes, so it could be a subject for the future study.
+We have studied the termination problems for active sequential P systems. Unlike deterministic systems, the termination problems cannot be simply reduced to the halting problem. We have shown that active P systems with limit on number of membranes have decidable existence of infinite computation and undecidable existence of halting computation. It is currently unknown whether the same results apply also for a variant without the limit on the number of membranes, so it could be a subject for the future study.
 
 Regarding the open problem stated in \cite{Ibarra05Active} about sequential active P systems with hard membranes (without communication between membranes), it could be interesting to find a connection between the universality and decidability of these termination problems.
 
