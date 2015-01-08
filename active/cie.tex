@@ -109,7 +109,7 @@ Membrane structure can be also viewed as a rooted tree with the skin membrane as
 In this section we recall the halting problem for Turing machines. The problem is to determine, given a deterministic Turing machine and an input, whether the Turing machine running on that input will halt. It is one of the first known undecidable problems. On the other hand, for non-deterministic machines, there are two possible meanings for halting. We could be interested either in:
 \begin{itemize}
   \item whether there exists an infinite computation (the machine can run forever), or
-  \item whether there exists a finite computation (the machine can halt)
+  \item whether there exists a finite computation (the machine can halt).
 \end{itemize}
 
 We will prove the (un)decidability of these problems on active P systems with limit on total number of membranes. The results are quite interesting, because:
@@ -155,7 +155,7 @@ A membrane $d\in T$ will be encoded as $(n+m)$-tuple $enc(d)\in\mathbb N^{(n+m)}
 The entire tree will be encoded into concatenated sequences of encoded nodes in the preorder traversal order. This sequence is then padded with zeroes to have length $(n+m)L$ as that is the maximal length of encoded tree.
 
 \begin{example}
-  Suppose skin membrane with label 1 and contents $a_1^2a_2$ with a child membrane with label 2 and contents $a_2^2$. Then the encoding will be 21100201 
+  Suppose skin membrane with label 1 and contents $a_1^2a_2$ with a child membrane with label 2 and contents $a_2^2$. Then the encoding will be 21100201.
 \end{example} 
 
 Since there are only finitely many non-isomorphic trees with at most $L$ nodes (\cite{Cayley1881RootedTrees}), there is a constant $z$ such that we can uniquely assign the tree an order number $o(T) \leq z$.
@@ -203,7 +203,7 @@ Suppose $\Pi = (\Sigma, C_0, R_1, \dots R_m)$ and $C = (T, l, c)$. Then $\Pi^\pr
 \begin{itemize}
   \item $\Sigma^\prime = \Sigma\cup\{\omega, \sigma\}\cup\{\xi_d|d\in V(T)\}$,
   \item $C_0^\prime = (T, l, c^\prime)$, where $\forall d\in V(T)\setminus r_T: c^\prime(d) = c(d)\cup\{\omega\}$ and $c^\prime(r_T) = c(r_T)\cup\{\omega\xi_{r_T}\}$,
-  \item $\forall i\in\{1\dots m\}: R_i^\prime = \{r|r\in R_i,r = u\rightarrow w\vee r = u\rightarrow w\delta\}\cup\linebreak\{u\rightarrow [_k v\omega]_k|u\rightarrow [_k v]_k\in R_i\}\cup\{a\rightarrow a|a\in\Sigma\}\cup\{\sigma\sigma\rightarrow\sigma\sigma,\omega\rightarrow\omega\}\cup\linebreak\{\xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}|d,d^\prime\in V(T),l(d)=i,parent(d^\prime)=d\}$
+  \item $\forall i\in\{1\dots m\}: R_i^\prime = \{r|r\in R_i,r = u\rightarrow w\vee r = u\rightarrow w\delta\}\cup\linebreak\{u\rightarrow [_k v\omega]_k|u\rightarrow [_k v]_k\in R_i\}\cup\{a\rightarrow a|a\in\Sigma\}\cup\{\sigma\sigma\rightarrow\sigma\sigma,\omega\rightarrow\omega\}\cup\linebreak\{\xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}|d,d^\prime\in V(T),l(d)=i,parent(d^\prime)=d\}$.
 \end{itemize}
 
 At the start, every membrane contains an additional $\omega$ and a rule $\omega\rightarrow\omega$, so the computation will halt only if these $\omega$s are erased.

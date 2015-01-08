@@ -11,9 +11,9 @@ Let $\Sigma$ be a set of objects. Recall that $\mathbb N^\Sigma$ contains all mu
   \item $C_0$ is initial membrane configuration,
   \item $R_1,R_2,\dots R_m$ are finite sets of rewriting rules associated with the labels $1,2,\dots,m$ and can be of forms:
   \begin{itemize}
-    \item $u\rightarrow w$, where $u\in \Sigma^+$, $w\in (\Sigma\times\{\cdot, \uparrow, \downarrow_j\})^*$ and $1\leq j\leq m$
-    \item $u\rightarrow w\delta$, where $u\in \Sigma^+$, $w\in (\Sigma\times\{\cdot, \uparrow, \downarrow_j\})^*$ and $1\leq j\leq m$
-    \item $u\rightarrow [_j v]_j$, where $u\in \Sigma^+, v\in \Sigma^*$ and $1\leq j\leq m$
+    \item $u\rightarrow w$, where $u\in \Sigma^+$, $w\in (\Sigma\times\{\cdot, \uparrow, \downarrow_j\})^*$ and $1\leq j\leq m$,
+    \item $u\rightarrow w\delta$, where $u\in \Sigma^+$, $w\in (\Sigma\times\{\cdot, \uparrow, \downarrow_j\})^*$ and $1\leq j\leq m$,
+    \item $u\rightarrow [_j v]_j$, where $u\in \Sigma^+, v\in \Sigma^*$ and $1\leq j\leq m$.
   \end{itemize}
 \end{itemize}
 
@@ -30,7 +30,7 @@ For active P system $(\Sigma, C_0, R_1, R_2, \dots , R_m)$, configuration $C = (
 \begin{itemize}
   \item $r = u\rightarrow w$ and $u\subseteq c(d)$ and $\forall (a,\downarrow_k)\in w \exists d_2\in V(T): l(d_2)=k \wedge parent(d_2) = d$,
   \item $r = u\rightarrow w\delta$ and $u\subseteq c(d)$ and $\forall (a,\downarrow_k)\in w \exists d_2\in V(T): l(d_2)=k \wedge parent(d_2) = d$ and $d\neq r_T$,
-  \item $r = u\rightarrow [_k v]_k$ and $u\subseteq c(d)$
+  \item $r = u\rightarrow [_k v]_k$ and $u\subseteq c(d)$.
 \end{itemize}
 
 % TODO result of the rule application
