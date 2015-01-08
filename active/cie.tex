@@ -37,8 +37,10 @@
 \maketitle
 
 \begin{abstract}
-An universal variant of sequential P systems with active membranes is investigated and we show that existence of infinite computation is decidable. The standard construction of coverability tree is extended to provide an algorithm for detecting infinite loops.
-On the other hand, the existence of a halting computation is shown to be undecidable, as it can be reduced to reachability of register machines.
+We study variants of P systems that are working in the sequential mode. Basically, they are not universal, but there are possible extensions that can increase the computation power. Extensions that relate to a zero-check, are often universal.
+P systems with an ability to create new membranes are a rare exception as they are known to be universal even in the sequential mode without using a zero-check.
+In this paper we show somewhat surprising result that the existence of an infinite computation is decidable. The standard construction of coverability tree is extended to provide an algorithm for detecting infinite loops.
+In addition, we show that the existence of a halting computation is undecidable, as it can be reduced to reachability of register machines.
 \end{abstract}
 
 \section{Introduction}
@@ -48,9 +50,15 @@ On the other hand, the existence of a halting computation is shown to be undecid
 
 Membrane systems (P systems) were introduced by P\u{a}un (see \cite{Paun2000108}) as distributed parallel computing devices inspired by the structure and functionality of cells.
 One of the objectives is to relax the condition of using the rules in a maximally parallel way in order to find more realistic P systems from a biological point of view.
-In sequential P systems, only one rewriting rule is used in each step of computation. Without priorities, they are equivalent to vector addition systems \cite{Ibarra05Active}, hence not universal. However priorities, inhibitors and other modifications can increase the computation power. It seems that there is a link between universality and ability to zero-check \cite{Alhazov12Properties}. But there are also variants, where universality can be achieved without checking for zero, i.e. if we allow membranes to be created unlimited number of times \cite{Ibarra05Active}. Such P systems are called active P systems. Contrary, if we place a limit on number of times a membrane is created, such active P system is still equivalent to vector addition systems.
+In sequential P systems, only one rewriting rule is used in each step of computation. Without priorities, they are equivalent to vector addition systems \cite{Ibarra05Active}, hence not universal. However priorities, inhibitors and other modifications can increase the computation power. It seems that there is a link between universality and ability to zero-check \cite{Alhazov12Properties}.
 
-In section \ref{sec:preliminaries} we will recall some basic notions from formal languages, multisets and graph theory. Then in section \ref{sec:p systems} we will introduce membrane structure, formally define membrane configuration and active P system, because standard definitions are not convenient for our formal proofs. Section \ref{sec:termination_problems} contains main theorems with proofs.
+In this paper we study a variant, where universality can be achieved without checking for zero by allowing membranes to be created unlimited number of times \cite{Ibarra05Active}. Such P systems are called active P systems. Contrary, if we place a limit on number of times a membrane is created, such active P system is only equivalent to vector addition systems, hence not universal.
+
+In the section \ref{sec:preliminaries} we will recall some basic notions from formal languages, multisets and graph theory. Then in the section \ref{sec:p systems} we will introduce membrane structure, formally define membrane configuration and active P system, because standard definitions are not convenient for our formal proofs.
+
+The section \ref{sec:termination_problems} contains two main results. The existence of an infinite computation is surprisingly\footnote{Most behavioral properties are undecidable for most universal models %TODO citation needed
+} shown to be decidable.
+On the other hand, the existence of a halting computation is shown to be undecidable.
 
 
 \section{Preliminaries}
