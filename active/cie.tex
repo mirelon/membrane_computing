@@ -86,7 +86,9 @@ Next, we recall notions from graph theory.
 
 A {\bf rooted tree} is a tree, in which a particular node is distinguished from the others and called the root node.
 Let $T$ be a rooted tree. We will denote its root node by $r_T$.
-Let $d$ be a node of $T\setminus\{r_T\}$. The node adjacent to $d$ on the only path from $d$ to $r_T$ is called a {\bf parent node} of $d$ and is denoted by $parent_T(d)$.
+Let $d$ be a node of $T\setminus\{r_T\}$.
+As $T$ is a tree, there is a unique path from $d$ to $r_T$. 
+The node adjacent to $d$ on that path is also unique and is called a {\bf parent node} of $d$ and is denoted by $parent_T(d)$.
 We will denote the set of nodes of $T$ by $V(T)$ and set of its edges by $E(T)$.
 Let $T_1, T_2$ be rooted trees. A bijection $f: V(T_1)\rightarrow V(T_2)$ is an {\bf isomorphism} iff $\{(f(u),f(v))|(u,v)\in E(V(T_1))\} = E(V(T_2))$ and $f(r_{T_1}) = r_{T_2}$. 
 
