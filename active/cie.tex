@@ -213,8 +213,10 @@ The entire configuration will be encoded in tuple which consists of $z$ parts. A
 \subsection{Existence of halting computation} % (fold)
 \label{sub:existence_of_halting_computation}
 
-We will reduce the problem of deciding existence of halting computation to the problem of reachability of a given configuration. For a given P system $\Pi$ and a target configuration $C$ we will construct a P system $\Pi^\prime$ such that there is a halting computation of $\Pi^\prime$ iff the $\Pi$ can reach configuration $C$.
-Suppose $\Pi = (\Sigma, C_0, R_1, \dots R_m)$ and $C = (T, l, c)$. Then $\Pi^\prime = (\Sigma^\prime, C_0^\prime, R_1^\prime, \dots R_m^\prime)$, where:
+In this subsection we will focus on the opposite problem: whether there is a computation that is halting. Recall that halting computation has no applicable rule in the last configuration.
+
+First, we will reduce this problem to the reachability. It is a problem of determining, for a given configuration $C$, whether there exists a computation that contains $C$.
+For a given P system $\Pi$ and a target configuration $C$ we will construct a P system $\Pi^\prime$ such that there is a halting computation of $\Pi^\prime\Leftrightarrow\linebreak C$ is reachable for $\Pi$. Suppose $\Pi = (\Sigma, C_0, R_1, \dots R_m)$ and $C = (T, l, c)$. Then we will construct $\Pi^\prime = (\Sigma^\prime, C_0^\prime, R_1^\prime, \dots R_m^\prime)$, where:
 \begin{itemize}
   \item $\Sigma^\prime = \Sigma\cup\{\omega, \sigma\}\cup\{\xi_d|d\in V(T)\}$,
   \item $C_0^\prime = (T, l, c^\prime)$, where $\forall d\in V(T)\setminus r_T: c^\prime(d) = c(d)\cup\{\omega\}$ and $c^\prime(r_T) = c(r_T)\cup\{\omega\xi_{r_T}\}$,
