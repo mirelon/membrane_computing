@@ -17,37 +17,41 @@ Let $\Sigma$ be a set of objects. Recall that $\mathbb N^\Sigma$ contains all mu
   \end{itemize}
 \end{itemize}
 
-Although rewriting rules are defined as strings, $u,v$ and $w$ represent multisets of objects from $\Sigma$. For the first two forms, each rewriting rule may specify for each objects on the right side, whether it stays in the current region (we will omit the symbol $\cdot$), moves through the membrane to the parent region ($\uparrow$)
-or to a specific child region ($\downarrow_j$, where $j$ is a label of a membrane).
+Although rewriting rules are defined as strings, $u,v$ and $w$ represent multisets of objects from $\Sigma$. For the first two forms, each rewriting rule may specify for each object on the right side, whether it stays in the current region (we will omit the symbol $\cdot$), moves through the membrane to the parent region ($\uparrow$)
+or to a specific child region ($\downarrow_j$, where $j$ is a label of a membrane). If there are more child membranes with the same label, one is chosen nondeterministically.
 We denote these transfers with an arrow immediately after the symbol.
-An example of such rule is the following: $abb\rightarrow ab\downarrow_2 c\uparrow c$.
+An example of such rule is the following: $abb\rightarrow ab\downarrow_2 c\uparrow c\delta$.
 Symbol $\delta$ at the end of the rule means that after the application of the rule, the membrane is dissolved and its contents (objects, child membranes) are propagated to the parent membrane.
-Active P systems differs from classical (passive) P systems in ability to create new membranes by rules of the third form.
+Active P systems differs from classical (passive) P systems in ability to create new membranes by rules of the third form. Such rule will create new child membrane with a given label $j$ and a given multiset of objects $v$ as its contents.
 
 % applicable rule definition
 
-For active P system $(\Sigma, C_0, R_1, R_2, \dots , R_m)$, configuration $C = (T, l, c)$, membrane $d\in V(T)$ with label $j = l(d)$ the rule $r\in R_j$ is {\bf applicable} iff:
+For active P system $(\Sigma, C_0, R_1, R_2, \dots , R_m)$, configuration $C = (T, l, c)$, membrane $d\in V(T)$ the rule $r\in R_{l(d)}$ is {\bf applicable} iff:
 \begin{itemize}
   \item $r = u\rightarrow w$ and $u\subseteq c(d)$ and $\forall (a,\downarrow_k)\in w \exists d_2\in V(T): l(d_2)=k \wedge parent(d_2) = d$,
   \item $r = u\rightarrow w\delta$ and $u\subseteq c(d)$ and $\forall (a,\downarrow_k)\in w \exists d_2\in V(T): l(d_2)=k \wedge parent(d_2) = d$ and $d\neq r_T$,
-  \item $r = u\rightarrow [_k v]_k$ and $u\subseteq c(d)$.
+  \item $r = u\rightarrow [_j v]_j$ and $u\subseteq c(d)$.
 \end{itemize}
 
 % TODO result of the rule application
 
-For the simplicity of proofs it is convenient to introduce a variant with a global limit upon the membrane structure. We achieve this by restricting the rule application such that if the rule would result in a structure exceeding the limit, the rule will not be applicable.
+% Computation step
 
-{\bf Active P system with a limit on total number of membranes} is a tuple $(\Sigma, L, C_0, R_1, R_2, \dots , R_m)$, where $(\Sigma, C_0, R_1, R_2, \dots , R_m)$ is an active P system and $L\in \mathbb N$ is a limit on total number of membranes. Anytime during the computation, a confuguration $(T, l, c)$ is not allowed to have more than $L$ membranes, so the following invariant holds: $|V(T)|\leq L$.
-
-This is achieved by adding a constraint for rule of the form $r = u\rightarrow [_k v]_k$, which is defined to be applicable iff $u\subseteq c(d)$ and $|V(T)|<L$. If the number of membranes is equal to $L$, there is no space for newly created membrane, so in that case such rule is not applicable.
-
-A {\bf computation step} of P system is a relation $\Rightarrow$ on the set of configurations such that $C_1 \Rightarrow C_2$ holds iff there is an applicable rule in a membrane in $C_1$ such that applying that rule would result in $C_2$.
+A {\bf computation step} of P system is a relation $\Rightarrow$ on the set of configurations such that $C_1 \Rightarrow C_2$ holds iff there is an applicable rule in a membrane in $C_1$ such that applying that rule can result in $C_2$.
 
 An {\bf infinite computation} of a P system is an infinite sequence of configurations $\{C_i\}_{i=0}^\infty$, where $\forall i: C_i\Rightarrow C_{i+1}$.
 
 A {\bf finite computation} of a P system is a finite sequence of configurations $\{C_i\}_{i=0}^n$, where $\forall i: C_i\Rightarrow C_{i+1}$.
 
 A {\bf halting computation} of a P systems is a finite computation $\{C_i\}_{i=0}^n$, where there is no applicable rule in the last configuration $C_n$.
+
+% Global limit
+
+For the simplicity of proofs it is convenient to introduce a variant with a global limit upon the membrane structure. We achieve this by restricting the rule application such that if the rule would result in a structure exceeding the limit, the rule will not be applicable.
+
+{\bf Active P system with a limit on total number of membranes} is a tuple $(\Sigma, L, C_0, R_1, R_2, \dots , R_m)$, where $(\Sigma, C_0, R_1, R_2, \dots , R_m)$ is an active P system and $L\in \mathbb N$ is a limit on total number of membranes. Anytime during the computation, a confuguration $(T, l, c)$ is not allowed to have more than $L$ membranes, so the following invariant holds: $|V(T)|\leq L$.
+
+This is achieved by adding a constraint for rule of the form $r = u\rightarrow [_k v]_k$, which is defined to be applicable iff $u\subseteq c(d)$ and $|V(T)|<L$. If the number of membranes is equal to $L$, there is no space for newly created membrane, so in that case such rule is not applicable.
 
 % Result of a computation
 
