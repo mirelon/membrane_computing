@@ -207,16 +207,34 @@ The entire configuration will be encoded in tuple which consists of $z$ parts. A
 
 In this subsection we will focus on the opposite problem: whether there is a computation that is halting. Recall that halting computation has no applicable rule in the last configuration.
 
-First, we will reduce this problem to the reachability. It is a problem of determining, for a given configuration $C$, whether there exists a computation that contains $C$.
+First, we will reduce this problem to the reachability. It is a problem of determining, for a given configuration $C$, whether there exists a computation from $C_0$ to $C$.
 For a given P system $\Pi$ and a target configuration $C$ we will construct a P system $\Pi^\prime$ such that there is a halting computation of $\Pi^\prime\Leftrightarrow\linebreak C$ is reachable for $\Pi$. Suppose $\Pi = (\Sigma, C_0, R_1, \dots R_m)$ and $C = (T, l, c)$. Then we will construct $\Pi^\prime = (\Sigma^\prime, C_0^\prime, R_1^\prime, \dots R_m^\prime)$, where:
+
+\begin{itemize}
+  \item $\Sigma^\prime = \Sigma\cup\{\xi_d|d\in V(T)\}$,
+  \item $C_0^\prime = (T, l, c^\prime)$, where $\forall d\in V(T)\setminus r_T: c^\prime(d) = c(d)$ and $c^\prime(r_T) = c(r_T)\cup\{\xi_{r_T}\}$,
+  \item $\forall i\in\{1\dots m\}: R_i^\prime = R_i\cup\{\xi_d c(d)\rightarrow\xi_{d^\prime}\downarrow_{l(d^\prime)}|d,d^\prime\in V(T),l(d)=i,parent(d^\prime)=d\}$.
+\end{itemize}
+
+The $\xi_d$ objects are called verifiers, they are intended to verify if the contents of the membrane corresponds to the contents in the target configuration $C$. After this verification it descends down into child membranes for the verification of other parts of the membrane structure.
+Initially, there is an object $\xi_{r_T}$ in the skin membrane. Verification is performed in the rule $\xi_d c(d)\rightarrow\xi_{d^\prime}\downarrow_{l(d^\prime)}$, where on the right side there is $\xi_{d^\prime}$ object for every child membrane $d^\prime$ in the target configuration $C$.
+
+The construction is not complete. The system should not be able to halt unless the verification take place. That is why we introduce a new object $\omega$ to each membrane with a rule $\omega\rightarrow\omega$ and the verifier will erase them with rule $\xi_d\omega c(d)\rightarrow\xi_{d^\prime}\downarrow_{l(d^\prime)}$. We also need to ensure that newly created membranes contain the $\omega$ object, so we replace every rule for membrane creation $u\rightarrow [_k v]_k$ with $u\rightarrow [_k v\omega]_k$.
+
+There is still a problem that we actually check, whether a target configuration is contained within current configuration. If there are additional objects which cannot be erased, so $C$ cannot be reached, we need to ensure $\Pi^\prime$ will not halt. We will add a rule $a\rightarrow a$ to each membrane for each object $a\in\Sigma$, so $\Pi^\prime$ can halt only if all objects are erased.
+
+The last issue to solve in the dissolution. It is still possible that in the middle of the verifying, some of already verified membranes got dissolved and all yet unverified membranes will be successfully verified causing $\Pi^\prime$ to halt, althougn without that dissolution it would be unable to reach $C$. We need to ensure all dissolution happen before the verification take place.
+We will add a new object $\sigma$, which stands as a footprint symbol. It will be creating as a result of the verification rule $\xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$. If a membrane is dissolved after it is verified, then, because the parent membrane is also verified, two $\sigma$s will meet in the same membrane. We will add a rule $\sigma\sigma\rightarrow\sigma\sigma$ to prevent $\Pi^\prime$ from halting.
+
+The final construct is:
+
 \begin{itemize}
   \item $\Sigma^\prime = \Sigma\cup\{\omega, \sigma\}\cup\{\xi_d|d\in V(T)\}$,
-  \item $C_0^\prime = (T, l, c^\prime)$, where $\forall d\in V(T)\setminus r_T: c^\prime(d) = c(d)\cup\{\omega\}$ and $c^\prime(r_T) = c(r_T)\cup\{\omega\xi_{r_T}\}$,
+  \item $C_0^\prime = (T, l, c^\prime)$, where $\forall d\in V(T)\setminus r_T: c^\prime(d) = c(d)\cup\{\omega\}$ and $c^\prime(r_T) = c(r_T)\cup\{\omega,\xi_{r_T}\}$,
   \item $\forall i\in\{1\dots m\}: R_i^\prime = \{r|r\in R_i,r = u\rightarrow w\vee r = u\rightarrow w\delta\}\cup\linebreak\{u\rightarrow [_k v\omega]_k|u\rightarrow [_k v]_k\in R_i\}\cup\{a\rightarrow a|a\in\Sigma\}\cup\{\sigma\sigma\rightarrow\sigma\sigma,\omega\rightarrow\omega\}\cup\linebreak\{\xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}|d,d^\prime\in V(T),l(d)=i,parent(d^\prime)=d\}$.
 \end{itemize}
 
-At the start, every membrane contains an additional $\omega$ and a rule $\omega\rightarrow\omega$, so the computation will halt only if these $\omega$s are erased.
-The $\xi_{r_T}$ object is called verifier, it verifies if the contents of each membrane corresponds to the contents in the target configuration $C$. After this verification it descends down into child membranes for the verification of other parts of the membrane structure. It also replaces $\omega$ with $\sigma$, which stands as a trace symbol, meaning that the contents of this membrane has already been verified. $\sigma$ objects are used to eliminate dissolution of membranes when $\xi$ object has already verified the contents. Such dissolution would cause to two $\sigma$s to meet in the same membrane which would cause an infinite computation.
+We need to prove two implications in order to formally prove correctness of this construction.
 
 \begin{lemma}
 \label{if_reachable_then_halting_lemma}
@@ -227,7 +245,7 @@ The $\xi_{r_T}$ object is called verifier, it verifies if the contents of each m
   Consider computation $\Pi$ with $C$ as the last configuration. The corresponding computation of $\Pi^\prime$ will result in a configuration, where in every membrane $d$, the contents will be $\omega c(d)$, and the skin membrane will contain an additional $\xi_{r_T}$. Then the cascade of applications of rule $\xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$ can be applied, starting in the skin membrane and cascading down to children until all the membranes applied that rule. The objects $\omega c(d)$ will be replaced by $\sigma$ and the computation will halt. \qed
 \end{proof}
 
-The other direction of the theorem \ref{existence_of_halting_theorem} is more complicated, so the proof is split into several lemmas. 
+The other direction of the implication is more complicated, so following lemmas will state some properties about computations of $\Pi$ and $\Pi^\prime$.
 
 \begin{lemma}
 \label{no_dissolving_after_check_lemma}
@@ -235,10 +253,11 @@ The other direction of the theorem \ref{existence_of_halting_theorem} is more co
 \end{lemma}
 
 \begin{proof}
-  After the application of rule $\xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$, the object $\sigma$ remains in the membrane. There is no interaction of $\sigma$ with other objects, only with another $\sigma$. If a child membrane $d^\prime$ is dissolved with a rule $u\rightarrow w\delta$, then two symbols $\sigma$ will meet in the membrane $d$ and the computation will not halt, which contradicts the fact that the computation is halting. \qed
+  After the application of the rule $\xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$, the object $\sigma$ remains in the membrane. There is no possible interaction of $\sigma$ with other objects, only with another $\sigma$. If a child membrane $d^\prime$ is dissolved with a rule $u\rightarrow w\delta$, then two symbols $\sigma$ will meet in the membrane $d$ and the computation will not halt, which contradicts the fact that the computation is halting. \qed
 \end{proof}
 
 \begin{lemma}
+\label{no_creating_new_membrane_after_check_lemma}
   For all halting computations of $\Pi^\prime$ there is no rule of form $u\rightarrow [_k v\omega]_k$ applied in the membrane $d^\prime$ after the application of rule $\xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$.
 \end{lemma}
 
@@ -248,11 +267,19 @@ The other direction of the theorem \ref{existence_of_halting_theorem} is more co
 
 \begin{lemma}
 \label{check_at_last_lemma}
-  For all halting computations of $\Pi^\prime$ there is a halting computation, where for every membrane $d$ the last rule used is $r = \xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$.
+  If a halting computation of $\Pi^\prime$ exists then there is a halting computation, where for every membrane $d\in V(T)$ in the target configuration $C=(T,l,c)$ the last rule used is $r = \xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$.
 \end{lemma}
 
 \begin{proof}
-  Consider membrane $d$: let $C_1$ be the configuration before the application of $r$, $C_2$ the configuration after the application of $r$ and $C_3$ the halting configuration. The sequence of steps from $C_2$ to $C_3$ cannot use $\sigma$, so the same sequence can be applied starting from $C_1$ instead of $C_2$. It would result in a configuration $C_4$, where contents of $d$ is exactly $\xi_d\omega c(d)$. So the rule $r = \xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$ can be applied, resulting in configuration, where $d$ contains exactly one $\sigma$ and nothing else, so no more rule will be applied in $d$. \qed
+  Consider membrane $d$: let $C_1$ be the configuration before the application of $r$, $C_2$ the configuration after the application of $r$ and $C_3$ the halting configuration.
+
+  First consider elementary membranes, lets have a membrane $d$. As it has no child membranes, $C_2$ is contained within $C_1$ (with the exception of the $\sigma$ object). Therefore the sequence of steps from $C_2$ to $C_3$ can be applied starting from $C_1$ instead of $C_2$.
+  It would result in a configuration $C_4$, where contents of $d$ is exactly $\xi_d\omega c(d)$, assuming $d$ has not been dissolved, what is ensured by lemma \ref{no_dissolving_after_check_lemma}. So the rule $r = \xi_d\omega c(d)\rightarrow\sigma$ can be applied, resulting in configuration, where $d$ contains exactly one $\sigma$ and nothing else, so no more rule will be applied in $d$.
+
+  Consider a membrane $d$, which is not elementary, so it has child membranes. In $C_1$ the verifier is in $d$ and no child membrane contains the verifier. In $C_2$ every child membrane contains the verifier. We cannot use the same argument, because $C_2$ is not contained within $C_1$.
+
+  We will proceed by induction, starting from the elementary membranes to parent membranes. Assume the lemma holds for child membranes. Then we have a computation, which contains a configuration $C_5$, after which only verification rules are applied in child membranes. So the sequence of steps from $C_2$ to $C_5$ does not contain the verification rule in child membranes. Hence this sequence can be used starting from $C_1$ instead of $C_2$, resulting in a configuration $C_6$, where application of verification rule in $d$ results in $C_5$. So again, after $C_6$ only verification rules are applied.
+  \qed
 \end{proof}
 
 \begin{lemma}
@@ -261,7 +288,7 @@ The other direction of the theorem \ref{existence_of_halting_theorem} is more co
 \end{lemma}
 
 \begin{proof}
-  According to lemma \ref{check_at_last_lemma} there is also a halting computation $C_4$ where in every membrane $d$ the last used rule is $r = \xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$. So the corresponding computation in $\Pi$ will result in the configuration $C_5$, where every membrane $d$ contains exactly $c(d)$. If $C_5$ contains a membrane not present in $C$, it will contain the object $\omega$, which won't be reached by any of objects $\xi$ so the computation will not halt. If $C$ contains a membrane $d^\prime$ not present in $C_5$, then in $d = parent(d^\prime)$ at $C_5$ still contains $\omega$ because the rule $r = \xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$ could not be applied due to lack of a child membrane $d^\prime$. Hence $C = C_5$ and there is a computation of $\Pi$ that will result in $C$. \qed
+  According to lemma \ref{check_at_last_lemma} there is also a halting computation where in every membrane $d$ the last used rule is $r = \xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$. So the corresponding computation in $\Pi$ will result in the configuration $C_5$, where every membrane $d$ contains exactly $c(d)$. If $C_5$ contains a membrane not present in $C$, it will contain the object $\omega$, which won't be reached by any of objects $\xi$ so the computation will not halt. If $C$ contains a membrane $d^\prime$ not present in $C_5$, then the membrane $d = parent(d^\prime)$ will never get rid of $\omega$ because the rule $r = \xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$ cannot be applied due to lack of the child membrane $d^\prime$. Hence $C = C_5$ and there is a computation of $\Pi$ that will result in $C$. \qed
 \end{proof}
 
 \begin{theorem}
