@@ -242,7 +242,7 @@ We need to prove two implications in order to formally prove correctness of this
 \end{lemma}
 
 \begin{proof}
-  Consider computation $\Pi$ with $C$ as the last configuration. The corresponding computation of $\Pi^\prime$ will result in a configuration, where in every membrane $d$, the contents will be $\omega c(d)$, and the skin membrane will contain an additional $\xi_{r_T}$. Then the cascade of applications of rule $\xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$ can be applied, starting in the skin membrane and cascading down to children until all the membranes applied that rule. The objects $\omega c(d)$ will be replaced by $\sigma$ and the computation will halt. \qed
+  Consider computation $\Pi$ with $C$ as the last configuration. For $\Pi^\prime$ there is a corresponding computation as the rules of $\Pi$ are included in $\Pi^\prime$ with an exception of the rule $u\rightarrow [_k v]_k$, which has a corresponding rule with the same left side: $u\rightarrow [_k v\omega]_k$. The corresponding computation of $\Pi^\prime$ will result in a configuration, where in every membrane $d$, the contents will be $\omega c(d)$, and the skin membrane will contain an additional $\xi_{r_T}$. Then the cascade of applications of rule $\xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$ can be applied, starting in the skin membrane and cascading down to children until all the membranes applied that rule. The objects $\omega c(d)$ will be replaced by $\sigma$ and the computation will halt. \qed
 \end{proof}
 
 The other direction of the implication is more complicated, so following lemmas will state some properties about computations of $\Pi$ and $\Pi^\prime$.
