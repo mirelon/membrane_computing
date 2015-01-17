@@ -224,7 +224,7 @@ The construction is not complete. The system should not be able to halt unless t
 There is still a problem that we actually check, whether a target configuration is contained within current configuration. If there are additional objects which cannot be erased, so $C$ cannot be reached, we need to ensure $\Pi^\prime$ will not halt. We will add a rule $a\rightarrow a$ to each membrane for each object $a\in\Sigma$, so $\Pi^\prime$ can halt only if all objects are erased.
 
 The last issue to solve in the dissolution. It is still possible that in the middle of the verifying, some of already verified membranes got dissolved and all yet unverified membranes will be successfully verified causing $\Pi^\prime$ to halt, althougn without that dissolution it would be unable to reach $C$. We need to ensure all dissolution happen before the verification take place.
-We will add a new object $\sigma$, which stands as a footprint symbol. It will be creating as a result of the verification rule $\xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$. If a membrane is dissolved after it is verified, then, because the parent membrane is also verified, two $\sigma$s will meet in the same membrane. We will add a rule $\sigma\sigma\rightarrow\sigma\sigma$ to prevent $\Pi^\prime$ from halting.
+We will add a new object $\sigma$, which stands as a footprint object. It will be creating as a result of the verification rule $\xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$. If a membrane is dissolved after it is verified, then, because the parent membrane is also verified, two $\sigma$s will meet in the same membrane. We will add a rule $\sigma\sigma\rightarrow\sigma\sigma$ to prevent $\Pi^\prime$ from halting.
 
 The final construct is:
 
@@ -253,7 +253,7 @@ The other direction of the implication is more complicated, so following lemmas 
 \end{lemma}
 
 \begin{proof}
-  After the application of the rule $\xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$, the object $\sigma$ remains in the membrane. There is no possible interaction of $\sigma$ with other objects, only with another $\sigma$. If a child membrane $d^\prime$ is dissolved with a rule $u\rightarrow w\delta$, then two symbols $\sigma$ will meet in the membrane $d$ and the computation will not halt, which contradicts the fact that the computation is halting. \qed
+  After the application of the rule $\xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$, the object $\sigma$ remains in the membrane. There is no possible interaction of $\sigma$ with other objects, only with another $\sigma$. If a child membrane $d^\prime$ is dissolved with a rule $u\rightarrow w\delta$, then two objects $\sigma$ will meet in the membrane $d$ and the computation will not halt, which contradicts the fact that the computation is halting. \qed
 \end{proof}
 
 \begin{lemma}
@@ -262,7 +262,7 @@ The other direction of the implication is more complicated, so following lemmas 
 \end{lemma}
 
 \begin{proof}
-  After the application of rule $r = \xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$ in membrane $d$, there won't be any of $\xi$ symbols present in the membrane, because they are only sent into child membranes, which cannot be dissolved because of lemma \ref{no_dissolving_after_check_lemma}. So there will be no more of rule $r$ applied in membrane $d$. The newly created membrane will never receive any of $\xi$ objects, so the object $\omega$ will never be erased and the computation will not halt, which contradicts the fact that the computation is halting. \qed
+  After the application of rule $r = \xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$ in membrane $d$, there won't be any of $\xi$ objects present in the membrane, because they are only sent into child membranes, which cannot be dissolved because of lemma \ref{no_dissolving_after_check_lemma}. So there will be no more of rule $r$ applied in membrane $d$. The newly created membrane will never receive any of $\xi$ objects, so the object $\omega$ will never be erased and the computation will not halt, which contradicts the fact that the computation is halting. \qed
 \end{proof}
 
 \begin{lemma}
