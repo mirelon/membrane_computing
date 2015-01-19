@@ -181,7 +181,7 @@ The entire configuration will be encoded in tuple which consists of $z$ parts. A
 
 \begin{lemma}
 \label{infinite_sequence_of_configurations_lemma}
-  For sequential active P system with limit on total number of membranes $L$ for every inifite sequence of configurations $\{C_i\}_{i=0}^\infty\exists i<j: C_i\leq C_j$.
+  For sequential active P system with limit on total number of membranes $L$ for every infinite sequence of configurations $\{C_i\}_{i=0}^\infty\exists i<j: C_i\leq C_j$.
 \end{lemma}
 
 \begin{proof}
@@ -223,7 +223,7 @@ The construction is not complete. The system should not be able to halt unless t
 
 There is still a problem that we actually check, whether a target configuration is contained within current configuration. If there are additional objects which cannot be erased, so $C$ cannot be reached, we need to ensure $\Pi^\prime$ will not halt. We will add a rule $a\rightarrow a$ to each membrane for each object $a\in\Sigma$, so $\Pi^\prime$ can halt only if all objects are erased.
 
-The last issue to solve in the dissolution. It is still possible that in the middle of the verifying, some of already verified membranes got dissolved and all yet unverified membranes will be successfully verified causing $\Pi^\prime$ to halt, althougn without that dissolution it would be unable to reach $C$. We need to ensure all dissolution happen before the verification take place.
+The last issue to solve in the dissolution. It is still possible that in the middle of the verifying, some of already verified membranes got dissolved and all yet unverified membranes will be successfully verified causing $\Pi^\prime$ to halt, although without that dissolution it would be unable to reach $C$. We need to ensure all dissolution happen before the verification take place.
 We will add a new object $\sigma$, which stands as a footprint object. It will be creating as a result of the verification rule $\xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$. If a membrane is dissolved after it is verified, then, because the parent membrane is also verified, two $\sigma$s will meet in the same membrane. We will add a rule $\sigma\sigma\rightarrow\sigma\sigma$ to prevent $\Pi^\prime$ from halting.
 
 The final construct is:
