@@ -56,7 +56,7 @@ In this paper we study a variant, where universality can be achieved without che
 
 In the section \ref{sec:preliminaries} we will recall some basic notions from formal languages, multisets and graph theory. Then in the section \ref{sec:p systems} we will introduce membrane structure, formally define membrane configuration and active P system, because standard definitions are not convenient for our formal proofs.
 
-The section \ref{sec:termination_problems} contains two main results. The existence of an infinite computation is surprisingly\footnote{At first sight it seems to relate to the Rice's theorem} shown to be decidable.
+The section \ref{sec:termination_problems} contains two main results. The existence of an infinite computation is surprisingly\footnote{At first sight it seems to relate to the Rice's theorem, but it is not the case.} shown to be decidable.
 On the other hand, the existence of a halting computation is shown to be undecidable.
 
 
@@ -103,7 +103,7 @@ Membrane structure can be also viewed as a rooted tree with the skin membrane as
 A P system consists of a membrane structure with a multiset of objects and a set of rewriting rules in every membrane.
 Objects can be transformed into other objects and sent through a membrane according to given rules.
 
-In this paper we work with P systems with active membranes (Active P systems). The rules can modify the membrane structure by dissolving and creating new membranes. That's why we will define the configuration to include the membrane structure as well.
+In this paper we work with P systems with active membranes (Active P systems). The rules can modify the membrane structure by dissolving and creating new membranes. That is why we will define the configuration to include the membrane structure as well.
 
 % P system
 
@@ -261,7 +261,7 @@ The other direction of the implication is more complicated, so following lemmas 
 \end{lemma}
 
 \begin{proof}
-  After the application of rule $r = \xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$ in membrane $d$, there won't be any of $\xi$ objects present in the membrane, because they are only sent into child membranes, which cannot be dissolved because of lemma \ref{no_dissolving_after_check_lemma}. So there will be no more of rule $r$ applied in membrane $d$. The newly created membrane will never receive any of $\xi$ objects, so the object $\omega$ will never be erased and the computation will not halt, which contradicts the fact that the computation is halting. \qed
+  After the application of rule $r = \xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$ in membrane $d$, there will not be any of $\xi$ objects present in the membrane, because they are only sent into child membranes, which cannot be dissolved because of lemma \ref{no_dissolving_after_check_lemma}. So there will be no more of rule $r$ applied in membrane $d$. The newly created membrane will never receive any of $\xi$ objects, so the object $\omega$ will never be erased and the computation will not halt, which contradicts the fact that the computation is halting. \qed
 \end{proof}
 
 \begin{lemma}
@@ -287,7 +287,7 @@ The other direction of the implication is more complicated, so following lemmas 
 \end{lemma}
 
 \begin{proof}
-  According to lemma \ref{check_at_last_lemma} there is also a halting computation where in every membrane $d$ the last used rule is $r = \xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$. So the corresponding computation in $\Pi$ will result in the configuration $C_5$, where every membrane $d$ contains exactly $c(d)$. If $C_5$ contains a membrane not present in $C$, it will contain the object $\omega$, which won't be reached by any of objects $\xi$ so the computation will not halt. If $C$ contains a membrane $d^\prime$ not present in $C_5$, then the membrane $d = parent(d^\prime)$ will never get rid of $\omega$ because the rule $r = \xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$ cannot be applied due to lack of the child membrane $d^\prime$. Hence $C = C_5$ and there is a computation of $\Pi$ that will result in $C$. \qed
+  According to lemma \ref{check_at_last_lemma} there is also a halting computation where in every membrane $d$ the last used rule is $r = \xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$. So the corresponding computation in $\Pi$ will result in the configuration $C_5$, where every membrane $d$ contains exactly $c(d)$. If $C_5$ contains a membrane not present in $C$, it will contain the object $\omega$, which will not be reached by any of objects $\xi$ so the computation will not halt. If $C$ contains a membrane $d^\prime$ not present in $C_5$, then the membrane $d = parent(d^\prime)$ will never get rid of $\omega$ because the rule $r = \xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$ cannot be applied due to lack of the child membrane $d^\prime$. Hence $C = C_5$ and there is a computation of $\Pi$ that will result in $C$. \qed
 \end{proof}
 
 \begin{theorem}
