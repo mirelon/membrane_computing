@@ -213,8 +213,8 @@ The entire configuration will be encoded in tuple which consists of $z$ parts. A
 \label{sub:existence_of_halting_computation}
 
 In this subsection we will focus on the opposite problem: whether there is a computation that is halting. Recall that halting computation has no applicable rule in the last configuration.
+First, we will reduce this problem to the reachability. It is a problem of determining, for a given configuration $C$, whether there exists a computation from $C_0$ to $C$. The reachability of active P systems can be then reduced to the reachabililty of register machines, which is undecidable.
 
-First, we will reduce this problem to the reachability. It is a problem of determining, for a given configuration $C$, whether there exists a computation from $C_0$ to $C$.
 For a given P system $\Pi$ and a target configuration $C$ we will construct a P system $\Pi^\prime$ such that there is a halting computation of $\Pi^\prime\Leftrightarrow\linebreak C$ is reachable for $\Pi$. Suppose $\Pi = (\Sigma, C_0, R_1, \dots R_m)$ and $C = (T, l, c)$. Then we will construct $\Pi^\prime = (\Sigma^\prime, C_0^\prime, R_1^\prime, \dots R_m^\prime)$, where:
 
 \begin{itemize}
