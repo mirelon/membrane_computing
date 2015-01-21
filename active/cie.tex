@@ -156,7 +156,15 @@ We will denote this with $C_1\leq C_2$.
 
 Now, we will define the encoding of a configuration $C = (T, l, c)$ into a tuple of integers.
 
-A membrane $d\in T$ will be encoded as $(n+m)$-tuple $enc(d)\in\mathbb N^{(n+m)}$, where first $n$ numbers will be actual counts of objects: $enc(d)_i=c(d)(a_i)$ for $i\leq n$. Next $m$ numbers will encode the membrane label: $enc(d)_{n+j} = 0$ for $l(d)\neq j\leq m$ and $enc(d)_{n+l(d)} = 1$.
+A membrane $d\in T$ will be encoded as $(n+m)$-tuple $enc(d)\in\mathbb N^{(n+m)}$, where first $n$ numbers will be actual counts of objects and next $m$ numbers will encode the membrane label:
+\[
+  enc(d)_{i} =
+  \begin{cases}
+    c(d)(a_i) & \text{if}\ i\leq n\\
+    0 & \text{if}\ n<i\leq m\wedge i-n\neq l(d)\\
+    1 & \text{if}\ n<i\leq m\wedge i-n=l(d)
+  \end{cases}
+\].
 
 The entire tree will be encoded into concatenated sequences of encoded nodes in the preorder traversal order. This sequence is then padded with zeroes to have length $(n+m)L$ as that is the maximal length of encoded tree.
 
