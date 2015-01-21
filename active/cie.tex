@@ -182,7 +182,7 @@ The entire configuration will be encoded in tuple which consists of $z$ parts. A
 \end{lemma}
 
 \begin{proof}
-  If the $enc(C_1)\leq enc(C_2)$, then $o(T_1)=o(T_2)$, so the trees are isomorphic. For every membrane $d\in T_1$, $l_1(d)=l_2(f(d))$ and $c_1(d)\subseteq c_2(f(d))$. Hence, $C_1\leq C_2$.
+  Both $enc(C_1)$ and $enc(C_2)$ contains $z$ parts and exactly one part contains non-zero values. Non-zero part of $enc(C_1)$ must be non-zero also in $enc(C_2)$, because $enc(C_1)\leq enc(C_2)$. Then $o(T_1)=o(T_2)$, so the trees are isomorphic. Suppose there is an isomorphism $f:T_1\rightarrow T_2$. For every membrane $d\in T_1$, $l_1(d)=l_2(f(d))$ and $c_1(d)\subseteq c_2(f(d))$. Hence, $C_1\leq C_2$.
   \qed
 \end{proof}
 
