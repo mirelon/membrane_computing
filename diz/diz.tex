@@ -23,10 +23,10 @@
 % pekne pokope definujeme potrebne udaje
 \def\mftitlea{Biologically inspired computation models}
 \def\mftitle{\mftitlea}
-\def\mfthesistype{Written part of dissertation exam}
-\def\mfauthor{Michal Kováč}
+\def\mfthesistype{Dissertation thesis}
+\def\mfauthor{Mgr. Michal Kováč}
 \def\mfadvisor{doc. RNDr. Damas Gruska, PhD.}
-\def\mfplacedate{Bratislava, 2013}
+\def\mfplacedate{Bratislava, 2015}
 
 
 \ifx\pdfoutput\undefined\relax\else\pdfinfo{ /Title (\mftitle) /Author (\mfauthor) /Creator (PDFLaTeX) } \fi
@@ -88,9 +88,11 @@ Comenius University, Bratislava
 
 % chapter introduction (end)
 
-\part{Overview of the topic} % (fold)
-\label{part:overview_of_the_topic}
+\chapter{Natural computing} % (fold)
+\label{cha:natural_computing}
+\input{natural_computing}
 
+% chapter natural_computing (end)
 
 \chapter{Preliminaries} % (fold)
 \label{cha:preliminaries}
@@ -98,26 +100,28 @@ Comenius University, Bratislava
 
 % chapter preliminaries (end)
 
-\chapter{Natural computing} % (fold)
-\label{cha:natural_computing}
-\input{membranes}
-
-% chapter natural_computing (end)
-
 \chapter{P systems} % (fold)
 \label{cha:p_systems}
 \import{p-systems/}{main}
 
 % chapter p_systems (end)
 
-% part overview_of_the_topic(end)
+\chapter{On the edge of universality of sequential P systems} % (fold)
+\label{cha:on_the_edge_of_universality_of_sequential_p_systems}
 
-\part{Project proposal} % (fold)
-\label{prt:project_proposal}
+\import{edge/}{main}
 
-\input{ourresearch}
+% chapter on_the_edge_of_universality_of_sequential_p_systems (end)
 
-% part project_proposal (end)
+\chapter{Generating membrane structures} % (fold)
+\label{cha:generating_membrane_structures}
+CLS, CLS+, CLS++, CLS-
+% chapter generating_membrane_structures (end)
+
+\chapter{Maximal parallel P systems with context-free rules} % (fold)
+\label{cha:maximal_parallel_p_systems_with_context_free_rules}
+Notes about how inhibitors help, how determinism may help, how allowing only rules $a|a\rightarrow \_$ may help, how inhibiting other rules may help.
+% chapter maximal_parallel_p_systems_with_context_free_rules (end)
 
 \include{zaver}
 \backmatter
