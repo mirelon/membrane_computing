@@ -6,3 +6,6 @@ dizbib: diz.tex diz.bib
 	bibtex diz
 	pdfcslatex diz.tex
 	pdfcslatex diz.tex
+
+godzilla: diz.tex
+	pdfcslatex "\def\godzilla{1} \input{diz.tex}"

@@ -38,9 +38,17 @@
 \begin{document}
 \frontmatter
 \thispagestyle{empty}
-\begin{minipage}{0.20\textwidth}
-\includegraphics[width=0.9\textwidth]{img/comenius_half.png}
-\end{minipage}
+
+\ifdefined\godzilla
+  \begin{minipage}{0.40\textwidth}
+  \includegraphics[width=1.8\textwidth]{img/comenius_with_godzilla}
+  \end{minipage}
+  \vfill
+\else
+  \begin{minipage}{0.20\textwidth}
+  \includegraphics[width=0.9\textwidth]{img/comenius_new}
+  \end{minipage}
+\fi
 \begin{minipage}{0.79\textwidth}
 \begin{center}
 \sc Department of Applied Informatics \\
