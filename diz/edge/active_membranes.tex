@@ -93,6 +93,50 @@ In this subsection we recall the halting problem for Turing machines. The proble
   \item whether there exists a finite computation (the machine can halt).
 \end{itemize}
 
+We can ask the same questions for non-deterministic P systems.
+For example we can look at the P system from the figure \ref{fig:a_single_membrane_sample_p_system}. Its computation tree (figure \ref{fig:computation_tree}) contains an infinite branch, so there exists an infinite computation with rule $r_1$ applied in each step. There is also a finite branch, so there exists a finite computation, e.g. applying rule $r_2$ results in a halting configuration.
+
+\begin{figure}
+  \centering
+  \begin{minipage}{.4\textwidth}
+    \begin{tikzpicture}[node distance=2mm,-triangle 45,line width=1mm]
+      \tikzstyle{label of} = [above left=-5mm of #1]
+      \tikzstyle{membrane} = [draw,thick,rounded corners=1cm,minimum width=2cm,minimum height=2cm,rectangle]
+      \node [membrane] (m1) {
+        \begin{minipage}{.8\textwidth}
+          \begin{align*}
+            a\\
+            r_1: a\rightarrow a\\
+            r_2: a\rightarrow b\\
+          \end{align*}
+        \end{minipage}
+      };
+    \end{tikzpicture}
+    \captionof{figure}{A single-membrane sample P system}
+    \label{fig:a_single_membrane_sample_p_system}
+  \end{minipage}
+  \hspace{.08\textwidth}
+  \begin{minipage}{.5\textwidth}
+    \centering
+    \begin{tikzpicture}[level distance=2cm,sibling distance=4cm,-triangle 45]
+      \tikzstyle{every node} = [circle,draw]
+      \node (Root) {a}
+        child {
+          node {a}
+          child {
+            node [draw=none] {$\dots$}
+            edge from parent node [above left,draw=none] {$r_1$}
+          }
+          child { node {b} edge from parent node [above right,draw=none] {$r_2$} }
+          edge from parent node [above left,draw=none] {$r_1$}
+        }
+        child { node {b} edge from parent node [above right,draw=none] {$r_2$} };
+    \end{tikzpicture}  
+    \captionof{figure}{The computation tree of the P system from the figure \ref{fig:a_single_membrane_sample_p_system}}
+    \label{fig:computation_tree}
+  \end{minipage}
+\end{figure}
+
 We will prove the (un)decidability of these problems on active P systems with limit on total number of membranes. The results are quite interesting, because:
 
 \begin{veta}
