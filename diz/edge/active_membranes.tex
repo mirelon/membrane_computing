@@ -54,7 +54,10 @@ Active P systems differs from classic (passive) P systems in ability to create n
 
 In this section we assume only sequential systems, so in each step of the computation, there is one rule nondeterministically chosen among all applicable rules in all membranes to be applied as already stated in the definition \ref{def:computation_step_of_a_sequential_P_system}.
 
-% Global limit
+% subsection active_p_systems (end)
+
+\subsection{Active membranes with a limit on total number of membranes} % (fold)
+\label{sub:active_membranes_with_a_limit_on_total_number_of_membranes}
 
 For the simplicity of proofs it is convenient to introduce a variant with a global limit upon the membrane structure. We achieve this by restricting the rule application such that if the rule would result in a structure exceeding the limit, the rule will not be applicable.
 
@@ -69,7 +72,17 @@ For the simplicity of proofs it is convenient to introduce a variant with a glob
 Anytime during the computation, a confuguration $(T, l, c)$ is not allowed to have more than $L$ membranes, so the following invariant holds: $|V(T)|\leq L$.
 This is achieved by adding a constraint for rule of the form $r = u\rightarrow [_k v]_k$, which is defined to be applicable iff $u\subseteq c(d)$ and $|V(T)|<L$. If the number of membranes is equal to $L$, there is no space for newly created membrane, so in that case such rule is not applicable.
 
-% subsection active_p_systems (end)
+\begin{definition}
+  \label{def:applicable_rule_of_active_p_system_with_a_limit_on_total_number_of_membranes}
+  For active P system with a limit on total number of membranes $(\Sigma, L, C_0, R_1, R_2, \dots , R_m)$, configuration $C = (T, l, c)$, membrane $d\in V(T)$ the rule $r\in R_{l(d)}$ is {\bf applicable} iff:
+  \begin{itemize}
+    \item $r = u\rightarrow w$ and $u\subseteq c(d)$ and $\forall (a,\downarrow_k)\in w \exists d_2\in V(T): l(d_2)=k \wedge parent(d_2) = d$,
+    \item $r = u\rightarrow w\delta$ and $u\subseteq c(d)$ and $\forall (a,\downarrow_k)\in w \exists d_2\in V(T): l(d_2)=k \wedge parent(d_2) = d$ and $d\neq r_T$,
+    \item $r = u\rightarrow [_j v]_j$ and $u\subseteq c(d)$ and $|V(T)|<L$.
+  \end{itemize}
+\end{definition}
+
+% subsection active_membranes_with_a_limit_on_total_number_of_membranes (end)
 
 \subsection{Termination problems} % (fold)
 \label{sub:termination_problems}
