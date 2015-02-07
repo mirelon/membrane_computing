@@ -144,8 +144,13 @@ Original definition of P system (see \cite{Paun98}) uses maximal parallelism whe
 
 % Sequential mode
 
-Dang in \cite{Dang04Sequential} investigates the sequential mode. In each step, from the set of applicable rules across all membrane one is nondeterministically chosen and applied. For purely catalytic systems with 1 membrane, the sequential mode generates only the semilinear sets and thus is strictly weaker than the maximally parallel version.
-% TODO: add semilinear sets
+Dang in \cite{Dang04Sequential} investigates the sequential mode. In each step, from the set of applicable rules across all membrane one is nondeterministically chosen and applied.
+
+\begin{definition}
+  A {\bf computation step of a sequential P system} is a relation $\Rightarrow$ on the set of configurations such that $C_1 \Rightarrow C_2$ holds iff there is an applicable rule in a membrane in $C_1$ such that applying that rule can result in $C_2$.
+\end{definition}
+
+For purely catalytic systems with 1 membrane, the sequential mode generates only the semilinear sets and thus is strictly weaker than the maximally parallel version.
 Sequential version of symport / antiport systems are equivalent to vector addition systems making it strictly weaker than the original maximally parallel version.
 
 Investigation of the sequential mode continues in \cite{Ibarra05Active}. Sequential P system without priorities with cooperative rules with rules for membrane dissolution are not universal by showing they can be simulated by vector addition systems with states (VASS).
