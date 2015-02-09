@@ -153,9 +153,59 @@ We will prove the (un)decidability of these problems on active P systems with li
 
 We will propose an algorithm for deciding existence of infinite computation. Basic idea is to consider the minimal coverability graph (\cite{Rozenberg93MinimalCoverabilityGraph}), where nodes are configurations and edge leads from the configuration $C_1$ to the configuration $C_2$, whenever there is a rule applicable in $C_1$, which results in $C_2$. The construction in \cite{Rozenberg93MinimalCoverabilityGraph} is performed on Petri nets, where the configuration consists just of a vector of natural numbers. The situation is the same for single-membrane sequential P systems. We need to modify the construction for active P systems.
 
-A configuration $C_2 = (T_2, l_2, c_2)$ {\bf covers} configuration $C_1 = (T_1, l_1, c_1)$ iff $\exists$ isomorphism $f: T_1\rightarrow T_2$ preserving membrane labels and contents: $\forall d\in T_1$ the following properties hold: $l_1(d)=l_2(f(d))\wedge c_1(d)\subseteq c_2(f(d))$.
+\begin{definition}
+  A configuration $C_2 = (T_2, l_2, c_2)$ {\bf covers} configuration $C_1 = (T_1, l_1, c_1)$ iff $\exists$ isomorphism $f: T_1\rightarrow T_2$ preserving membrane labels and contents: $\forall d\in T_1$ the following properties hold: $l_1(d)=l_2(f(d))\wedge c_1(d)\subseteq c_2(f(d))$. We will denote this with $C_1\leq C_2$.
+\end{definition}
 
-We will denote this with $C_1\leq C_2$.
+\begin{figure}
+  \begin{tikzpicture}[node distance=2mm,line width=1mm]
+    \tikzstyle{label of} = [above left=-5mm of #1]
+    \tikzstyle{membrane} = [draw,thick,rounded corners=1cm,minimum width=2cm,minimum height=2cm,rectangle]
+    \node [membrane] (m1) {
+      \begin{minipage}{.44\textwidth}
+        \begin{align*}
+          a\\
+        \end{align*}
+      \end{minipage}
+    };
+    \node [label of=m1] (l1) {1};
+    \node [below=1mm of m1] (c1) {$C_1$};
+    \node [membrane,right=.08\textwidth of m1] (m2) {
+      \begin{minipage}{.44\textwidth}
+        \begin{align*}
+          a,b\\
+        \end{align*}
+      \end{minipage}
+    };
+    \node [label of=m2] (l2) {1};
+    \node [below=1mm of m2] (c2) {$C_2$};
+    \node [membrane,below=.08\textwidth of c1] (m3) {
+      \begin{minipage}{.44\textwidth}
+        \begin{align*}
+          a\\
+        \end{align*}
+      \end{minipage}
+    };
+    \node [label of=m3] (l3) {2};
+    \node [below=1mm of m3] (c3) {$C_3$};
+    \node [membrane,below=.08\textwidth of c2] (m4) {
+      \begin{tikzpicture}
+        \node (m4a) {$a$};
+        \tikzstyle{label of} = [above left=-15mm of #1]
+        \node [membrane,minimum width=3cm,right=1mm of m4a] (m5) {a};
+        \node [label of=m5] (l5) {1};
+      \end{tikzpicture}      
+    };
+    \node [label of=m4] (l4) {1};
+    \node [below=1mm of m4] (c4) {$C_4$};
+  \end{tikzpicture}
+  \caption{Sample membrane configurations}
+  \label{fig:sample_membrane_configurations}
+\end{figure}
+
+In the figure \ref{fig:sample_membrane_configurations} there are four membrane configuration. $C_1\leq C_2$, because the membrane structures consists of one membrane, so the corresponding trees are isomorphic. The label is the same and the contents of the membrane in $C_1$ is a subset of the contents of the membrane in $C_2$. It does not have to be a proper subset, i.e. $C_1\leq C_1$.$C_1$ and $C_3$ are incomparable, because the label is different, so neither $C_1\leq C_3$ nor $C_3\leq C_1$ holds. $C_1$ and $C_4$ are also incomparable, because the trees of their membrane structure are not isomorphic.
+
+We will now follow with a proof of an important property of the covering relation - that it maintains rule applicability.
 
 \begin{lemma}
 \label{rule_applicability_lemma}
