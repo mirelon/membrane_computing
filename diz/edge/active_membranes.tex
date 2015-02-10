@@ -203,7 +203,9 @@ We will propose an algorithm for deciding existence of infinite computation. Bas
   \label{fig:sample_membrane_configurations}
 \end{figure}
 
-In the figure \ref{fig:sample_membrane_configurations} there are four membrane configuration. $C_1\leq C_2$, because the membrane structures consists of one membrane, so the corresponding trees are isomorphic. The label is the same and the contents of the membrane in $C_1$ is a subset of the contents of the membrane in $C_2$. It does not have to be a proper subset, i.e. $C_1\leq C_1$.$C_1$ and $C_3$ are incomparable, because the label is different, so neither $C_1\leq C_3$ nor $C_3\leq C_1$ holds. $C_1$ and $C_4$ are also incomparable, because the trees of their membrane structure are not isomorphic.
+\begin{example}
+  In the figure \ref{fig:sample_membrane_configurations} there are four membrane configuration. $C_1\leq C_2$, because the membrane structures consists of one membrane, so the corresponding trees are isomorphic. The label is the same and the contents of the membrane in $C_1$ is a subset of the contents of the membrane in $C_2$. It does not have to be a proper subset, i.e. $C_1\leq C_1$.$C_1$ and $C_3$ are incomparable, because the label is different, so neither $C_1\leq C_3$ nor $C_3\leq C_1$ holds. $C_1$ and $C_4$ are also incomparable, because the trees of their membrane structure are not isomorphic.
+\end{example}
 
 We will now follow with a proof of an important property of the covering relation - that it maintains rule applicability.
 
@@ -237,13 +239,21 @@ A membrane $d\in T$ will be encoded as $(n+m)$-tuple $enc(d)\in\mathbb N^{(n+m)}
 
 The entire tree will be encoded into concatenated sequences of encoded nodes in the preorder traversal order. This sequence is then padded with zeroes to have length $(n+m)L$ as that is the maximal length of encoded tree.
 
-\begin{example}
-  Suppose skin membrane with label 1 and contents $a_1^2a_2$ with a child membrane with label 2 and contents $a_2^2$. Then the encoding will be 21100201.
-\end{example} 
-
 Since there are only finitely many non-isomorphic trees with at most $L$ nodes (\cite{Cayley1881RootedTrees}), there is a constant $z$ such that we can uniquely assign the tree an order number $o(T) \leq z$.
 
 The entire configuration will be encoded in tuple which consists of $z$ parts. All but the part with index $o(T)$ will contain just zeros. The part with index $o(T)$ will contain the encoding of the tree.
+
+\begin{example}
+  Consider $L=2$. There are just two rooted trees with at most 2 nodes. We can define $o(T)=1$ for the single-node tree and $o(T)=2$ for the tree with a root and one child. So the encodings of configurations from figure \ref{fig:sample_membrane_configurations} contain two parts. Configurations $C_1, C_2$, and $C_3$ consists of one membrane, so their $o(T)=1$ and the second part is filled with zeroes. Configuration $C_4$ contains two membranes, so its $o(T)=2$ and the first part of its encoding will be filled with zeroes. 
+  \begin{itemize}
+    \item $enc(C_1)=\overbrace{\underbrace{1}_{c(a)}\underbrace{0}_{c(b)}\underbrace{1}_{l=1?}\underbrace{0}_{l=2?}}^{\mathclap{\text{skin membrane encoded}}}\underbrace{0000}_\text{padding to fit $(n+m)L$}\overbrace{00000000}^{\mathclap{\text{second part filled with zeroes}}}$,
+    \item $end(C_2)=1110000000000000$,
+    \item $enc(C_3)=1001000000000000$,
+    \item $enc(C_4)=00000000\overbrace{1010}^{\mathclap{\text{skin membrane encoded}}}\underbrace{1010}_{\mathclap{\text{child membrane encoded}}}$
+  \end{itemize}
+\end{example} 
+
+We will now show that comparing two encodings corresponds to covering of two configurations. Recall that configurations are encoded into tuples of integers, so the comparison is performed position by position.
 
 \begin{lemma}
 \label{encoding_lemma}
