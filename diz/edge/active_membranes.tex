@@ -271,7 +271,7 @@ We will now show that comparing two encodings corresponds to covering of two con
 \end{lemma}
 
 \begin{dokaz}
-  Suppose an infinite sequence $\{enc(C_i)\}_{i=0}^\infty$. We use a variation of Dickson's lemma (\cite{Figueira11Dickson}): Every infinite sequence of tuples from $\mathbb N^k$ contains an increasing pair. Applied to our sequence, there are two positions $i<j: enc(C_i)\leq enc(C_j)$. From lemma \ref{encoding_lemma}, $C_i\leq C_2$.
+  Suppose an infinite sequence $\{enc(C_i)\}_{i=0}^\infty$. We use a variation of Dickson's lemma (\cite{Figueira11Dickson}): Every infinite sequence of tuples from $\mathbb N^k$ contains an increasing pair. Applied to our sequence, there are two positions $i<j: enc(C_i)\leq enc(C_j)$. From lemma \ref{encoding_lemma}, $C_i\leq C_j$.
   \qed
 \end{dokaz}
 
@@ -307,9 +307,267 @@ Initially, there is an object $\xi_{r_T}$ in the skin membrane. Verification is 
 
 The construction is not complete. The system should not be able to halt unless the verification take place. That is why we introduce a new object $\omega$ to each membrane with a rule $\omega\rightarrow\omega$ and the verifier will erase them with rule $\xi_d\omega c(d)\rightarrow\xi_{d^\prime}\downarrow_{l(d^\prime)}$. We also need to ensure that newly created membranes contain the $\omega$ object, so we replace every rule for membrane creation $u\rightarrow [_k v]_k$ with $u\rightarrow [_k v\omega]_k$.
 
-There is still a problem that we actually check, whether a target configuration is contained within current configuration. If there are additional objects which cannot be erased, so $C$ cannot be reached, we need to ensure $\Pi^\prime$ will not halt. We will add a rule $a\rightarrow a$ to each membrane for each object $a\in\Sigma$, so $\Pi^\prime$ can halt only if all objects are erased.
+\begin{figure}
+  \begin{tikzpicture}[node distance=2mm,line width=1mm]
+    \tikzstyle{label of} = [above left=-5mm of #1]
+    \tikzstyle{membrane} = [draw,thick,rounded corners=1cm,minimum width=2cm,minimum height=2cm,rectangle]
+    \node [membrane] (m1) {
+      \begin{minipage}{.2\textwidth}
+        \begin{align*}
+          a\\
+          a\rightarrow [a]_2\\
+        \end{align*}
+      \end{minipage}
+    };
+    \node [label of=m1] (l1) {1};
+    \node [below=1mm of m1] (pi1) {$\Pi_1$};
+    \node [membrane,right=.04\textwidth of m1] (m2) {$a$};
+    \node [label of=m2] (l2) {1};
+    \node [below=1mm of m2] (c0) {$C_0$};
+    \node [membrane,right=.04\textwidth of m2] (m3) {
+      \begin{tikzpicture}
+        \tikzstyle{label of} = [above left=-15mm of #1]
+        \node [membrane] (m4) {a};
+        \node [label of=m4] (l4) {2};
+      \end{tikzpicture}      
+    };
+    \node [label of=m3] (l3) {1};
+    \node [below=1mm of m3] (c) {$C_1$};
+    \node [membrane,right=.04\textwidth of m3] (m5) {
+      \begin{tikzpicture}
+        \tikzstyle{label of} = [above left=-15mm of #1]
+        \node [membrane] (m6) {};
+        \node [label of=m6] (l6) {2};
+      \end{tikzpicture}      
+    };
+    \node [label of=m5] (l5) {1};
+    \node [below=1mm of m5] (c) {$C_2$};
+  \end{tikzpicture}
+  \caption{Example P system $\Pi_1$}
+  \label{fig:example_p_system_pi_1}
+\end{figure}
 
-The last issue to solve in the dissolution. It is still possible that in the middle of the verifying, some of already verified membranes got dissolved and all yet unverified membranes will be successfully verified causing $\Pi^\prime$ to halt, although without that dissolution it would be unable to reach $C$. We need to ensure all dissolution happen before the verification take place.
+\begin{figure}
+  \begin{tikzpicture}[node distance=2mm,line width=1mm]
+    \tikzstyle{label of} = [above left=-5mm of #1]
+    \tikzstyle{membrane} = [draw,thick,rounded corners=1cm,minimum width=2cm,minimum height=2cm,rectangle]
+    \node [membrane] (m1) {
+      \begin{minipage}{.24\textwidth}
+        \begin{align*}
+          a\\
+        \end{align*}
+      \end{minipage}
+    };
+    \node [label of=m1] (l1) {1};
+    \node [below=1mm of m1] (c0) {$C_0$};
+    \node [membrane,right=.3\textwidth of m1] (m2) {
+      \begin{tikzpicture}
+        \tikzstyle{label of} = [above left=-15mm of #1]
+        \node [membrane] (m3) {a};
+        \node [label of=m3] (l3) {2};
+      \end{tikzpicture}      
+    };
+    \node [label of=m2] (l2) {1};
+    \draw (m1) edge [-triangle 45,thin,shorten >=3mm,shorten <=3mm] node [above] {$a\rightarrow [a]_2$} (m2);
+  \end{tikzpicture}
+  \caption{Computation of $\Pi_1$}
+  \label{fig:computation_of_pi_1}
+\end{figure}
+
+\begin{figure}
+  \begin{tikzpicture}[node distance=2mm,line width=1mm]
+    \tikzstyle{label of} = [above left=-5mm of #1]
+    \tikzstyle{membrane} = [draw,thick,rounded corners=1cm,minimum width=2cm,minimum height=2cm,rectangle]
+    \node [membrane] (m1) {$a\xi_{d_1}\omega$};
+    \node [label of=m1] (l1) {1};
+    \node [below=1mm of m1] (c0) {$C^\prime_0$};
+    \node [membrane,right=.3\textwidth of m1] (m2) {
+      \begin{tikzpicture}
+        \node (m4a) {$\xi_{d_1} \omega$};
+        \tikzstyle{label of} = [above left=-15mm of #1]
+        \node [membrane,minimum width=3cm,right=1mm of m4a] (m3) {$a\omega$};
+        \node [label of=m3] (l3) {2};
+      \end{tikzpicture}      
+    };
+    \node [label of=m2] (l2) {1};
+    \node [membrane,below=.2\textwidth of m1] (m4) {
+      \begin{tikzpicture}
+        \tikzstyle{label of} = [above left=-15mm of #1]
+        \node [membrane,minimum width=3cm] (m5) {$a\xi_{d_2}\omega$};
+        \node [label of=m5] (l5) {2};
+      \end{tikzpicture}      
+    };
+    \node [label of=m4] (l4) {1};
+    \node [membrane,right=.2\textwidth of m4] (m6) {
+      \begin{tikzpicture}
+        \tikzstyle{label of} = [above left=-15mm of #1]
+        \node [membrane,minimum width=3cm] (m7) {};
+        \node [label of=m7] (l7) {2};
+      \end{tikzpicture}      
+    };
+    \node [label of=m6] (l6) {1};
+    \draw (m1) edge [-triangle 45,thin,shorten >=3mm,shorten <=3mm] node [above] {$a\rightarrow [a\omega]_2$} (m2);
+    \draw (m2) edge [-triangle 45,thin,shorten >=3mm,shorten <=3mm] node [sloped,above] {$\xi_{d_1}\omega\rightarrow\xi_{d_2}\downarrow_2$} (m4);
+    \draw (m4) edge [-triangle 45,thin,shorten >=3mm,shorten <=3mm] node [above] {$\xi_{d_2}a\omega\rightarrow \eps$} (m6);
+  \end{tikzpicture}
+  \caption{Computation of $\Pi^\prime_1$}
+  \label{fig:computation_of_pi_prime_1}
+\end{figure}
+
+\begin{figure}
+  \begin{tikzpicture}[node distance=2mm,line width=1mm]
+    \tikzstyle{label of} = [above left=-5mm of #1]
+    \tikzstyle{membrane} = [draw,thick,rounded corners=1cm,minimum width=2cm,minimum height=2cm,rectangle]
+    \node [membrane] (m1) {$a\xi_{d_1}\omega$};
+    \node [label of=m1] (l1) {1};
+    \node [below=1mm of m1] (c0) {$C^\prime_0$};
+    \node [membrane,right=.3\textwidth of m1] (m2) {
+      \begin{tikzpicture}
+        \node (m4a) {$\xi_{d_1} \omega$};
+        \tikzstyle{label of} = [above left=-15mm of #1]
+        \node [membrane,minimum width=3cm,right=1mm of m4a] (m3) {$a\omega$};
+        \node [label of=m3] (l3) {2};
+      \end{tikzpicture}      
+    };
+    \node [label of=m2] (l2) {1};
+    \node [membrane,below=.2\textwidth of m1] (m4) {
+      \begin{tikzpicture}
+        \tikzstyle{label of} = [above left=-15mm of #1]
+        \node [membrane,minimum width=3cm] (m5) {$a\xi_{d_2}\omega$};
+        \node [label of=m5] (l5) {2};
+      \end{tikzpicture}      
+    };
+    \node [label of=m4] (l4) {1};
+    \node [membrane,right=.2\textwidth of m4] (m6) {
+      \begin{tikzpicture}
+        \tikzstyle{label of} = [above left=-15mm of #1]
+        \node [membrane,minimum width=3cm] (m7) {$a$};
+        \node [label of=m7] (l7) {2};
+      \end{tikzpicture}      
+    };
+    \node [label of=m6] (l6) {1};
+    \draw (m1) edge [-triangle 45,thin,shorten >=3mm,shorten <=3mm] node [above] {$a\rightarrow [a\omega]_2$} (m2);
+    \draw (m2) edge [-triangle 45,thin,shorten >=3mm,shorten <=3mm] node [sloped,above] {$\xi_{d_1}\omega\rightarrow\xi_{d_2}\downarrow_2$} (m4);
+    \draw (m4) edge [-triangle 45,thin,shorten >=3mm,shorten <=3mm] node [above] {$\xi_{d_2}\omega\rightarrow \eps$} (m6);
+  \end{tikzpicture}
+  \caption{Computation of $\Pi^\prime_2$}
+  \label{fig:computation_of_pi_prime_2}
+\end{figure}
+
+\begin{example}
+  An example P system $\Pi_1 = (\{a,b\}, C_0, \{a\rightarrow [a]_2\}, \{\})$ is depicted in the Figure \ref{fig:example_p_system_pi_1}. The target configuration $C_1$ with the membrane structure consisting of the root membrane $d_1$ with label $1$ and its child membrane $d_2$ with label $2$ can be easily reached by applying the rule $a\rightarrow [a]_2$ in the skin membrane. This computation is shown in the Figure \ref{fig:computation_of_pi_1}.
+
+  We will construct a corresponding P system $\Pi^\prime_1=(\{a,b,\xi_{d_1},\xi_{d_2},\omega\}, C^\prime_0, \linebreak\{a\rightarrow [a]_2,\xi_{d_1}\omega\rightarrow\xi_{d_2},\omega\rightarrow\omega\}, \{\xi_{d_2}a\omega\rightarrow\eps,\omega\rightarrow\omega\})$. The initial configuration $C^\prime_0$ is shown in the Figure \ref{fig:computation_of_pi_prime_1}. There is also a halting computation which corresponds to the computation of $\Pi_1$ that reaches the target configuration $C_1$.
+\end{example}
+
+\begin{example}
+There is still a problem that we actually check, whether a target configuration is contained within current configuration. If our target configuration is $C_2$ from the Figure \ref{fig:example_p_system_pi_1}, the resulting P system $\Pi^\prime_2=(\{a,b,\xi_{d_1},\xi_{d_2},\omega\}, C^\prime_0, \{a\rightarrow [a]_2,\xi_{d_1}\omega\rightarrow\xi_{d_2},\omega\rightarrow\omega\}, \{\xi_{d_2}\omega\rightarrow\eps,\omega\rightarrow\omega\})$ will have the same halting computation shown in the Figure \ref{fig:computation_of_pi_prime_2} although the configuration $C_2$ cannot be reached.  
+\end{example}
+
+If there are additional objects which cannot be erased, so the target configuration cannot be reached, we need to ensure $\Pi^\prime$ will not halt. We will add a rule $a\rightarrow a$ to each membrane for each object $a\in\Sigma$, so $\Pi^\prime$ can halt only if all objects are erased. This modification renders the computation in the Figure \ref{fig:computation_of_pi_prime_2} as not halting.
+
+The last issue to solve is the dissolution. It is still possible that in the middle of the verifying, some of already verified membranes got dissolved and all yet unverified membranes will be successfully verified causing $\Pi^\prime$ to halt, although without that dissolution it would be unable to reach $C$.
+
+\begin{figure}
+  \begin{tikzpicture}[node distance=2mm,line width=1mm]
+    \tikzstyle{label of} = [above left=-5mm of #1]
+    \tikzstyle{membrane} = [draw,thick,rounded corners=1cm,minimum width=2cm,minimum height=2cm,rectangle]
+    \node [membrane] (m1) {
+      \begin{tikzpicture}
+        \tikzstyle{label of} = [above left=-15mm of #1]
+        \node [membrane] (m2) {
+          \begin{minipage}{.2\textwidth}
+            \begin{align*}
+              a\\
+              a\rightarrow \delta\\
+            \end{align*}
+          \end{minipage}
+        };
+        \node [label of=m2] (l2) {2};
+      \end{tikzpicture}
+
+    };
+    \node [label of=m1] (l1) {1};
+    \node [below=1mm of m1] (pi1) {$\Pi_3$};
+    \node [membrane,right=.08\textwidth of m1] (m3) {$a$};
+    \node [label of=m3] (l3) {1};
+    \node [below=1mm of m3] (c0) {$C_0$};
+    \node [membrane,right=.08\textwidth of m3] (m4) {
+      \begin{tikzpicture}
+        \tikzstyle{label of} = [above left=-15mm of #1]
+        \node [membrane] (m5) {};
+        \node [label of=m5] (l5) {2};
+      \end{tikzpicture}      
+    };
+    \node [label of=m4] (l4) {1};
+    \node [below=1mm of m4] (c) {$C_3$};
+  \end{tikzpicture}
+  \caption{Example P system $\Pi_3$}
+  \label{fig:example_p_system_pi_3}
+\end{figure}
+
+\begin{figure}
+  \begin{tikzpicture}[node distance=2mm,line width=1mm]
+    \tikzstyle{label of} = [above left=-5mm of #1]
+    \tikzstyle{membrane} = [draw,thick,rounded corners=1cm,minimum width=2cm,minimum height=2cm,rectangle]
+    \node [membrane] (m1) {
+      \begin{tikzpicture}
+        \tikzstyle{label of} = [above left=-15mm of #1]
+        \node [membrane] (m2) {a};
+        \node [label of=m2] (l2) {2};
+      \end{tikzpicture} 
+    };
+    \node [label of=m1] (l1) {1};
+    \node [below=1mm of m1] (c0) {$C_0$};
+    \node [membrane,right=.3\textwidth of m1] (m3) {};
+    \node [label of=m3] (l3) {1};
+    \draw (m1) edge [-triangle 45,thin,shorten >=3mm,shorten <=3mm] node [above] {$a\rightarrow \delta$} (m3);
+  \end{tikzpicture}
+  \caption{Computation of $\Pi_3$}
+  \label{fig:computation_of_pi_3}
+\end{figure}
+
+\begin{figure}
+  \begin{tikzpicture}[node distance=2mm,line width=1mm]
+    \tikzstyle{label of} = [above left=-5mm of #1]
+    \tikzstyle{membrane} = [draw,thick,rounded corners=1cm,minimum width=2cm,minimum height=2cm,rectangle]
+    \node [membrane] (m1) {
+      \begin{tikzpicture}
+        \node (m1a) {$\xi_{d_1} \omega$};
+        \tikzstyle{label of} = [above left=-15mm of #1]
+        \node [membrane,minimum width=3cm,right=1mm of m1a] (m2) {$a\omega$};
+        \node [label of=m2] (l2) {1};
+      \end{tikzpicture}
+    };
+    \node [label of=m1] (l1) {1};
+    \node [below=1mm of m1] (c0) {$C^\prime_0$};
+    \node [membrane,right=.25\textwidth of m1] (m3) {
+      \begin{tikzpicture}
+        \tikzstyle{label of} = [above left=-15mm of #1]
+        \node [membrane,minimum width=3cm] (m4) {$a\xi_{d_2}\omega$};
+        \node [label of=m4] (l4) {1};
+      \end{tikzpicture}      
+    };
+    \node [label of=m3] (l3) {1};
+    \node [membrane,below=.2\textwidth of m1] (m5) {$\xi_{d_2}\omega$};
+    \node [label of=m5] (l5) {1};
+    \node [membrane,right=.35\textwidth of m5] (m6) {};
+    \node [label of=m6] (l6) {1};
+    \draw (m1) edge [-triangle 45,thin,shorten >=3mm,shorten <=3mm] node [above] {$\xi_{d_1}\omega\rightarrow\xi_{d_2}\downarrow_1$} (m3);
+    \draw (m3) edge [-triangle 45,thin,shorten >=3mm,shorten <=3mm] node [sloped,above] {$a\rightarrow \delta$} (m5);
+    \draw (m5) edge [-triangle 45,thin,shorten >=3mm,shorten <=3mm] node [above] {$\xi_{d_2}\omega\rightarrow \eps$} (m6);
+  \end{tikzpicture}
+  \caption{Computation of $\Pi^\prime_3$}
+  \label{fig:computation_of_pi_prime_3}
+\end{figure}
+
+\begin{example}
+  In the figure \ref{fig:example_p_system_pi_3} there is a P system $\Pi_3 = (\{a\}, C_0, \{a\rightarrow \delta\})$. The target configuration $C_3$ cannot be reached, because erasing $a$ will also dissolve the child membrane. We cannot keep the membrane while getting rid of $a$. The only possible computation is depicted in the Figure \ref{fig:computation_of_pi_3}.
+
+  The resulting P system will be $\Pi^\prime_3 = (\{a,\xi_{d_1},\xi_{d_2},\omega\}, C^\prime_0, \{a\rightarrow \delta, a\rightarrow a, \linebreak\xi_{d_1}\omega\rightarrow\xi_{d_2}, \xi_{d_2}\omega\rightarrow\eps, \omega\rightarrow\omega\})$. Its initial configuration $C^\prime_0$ and the halting computation are shown in the Figure \ref{fig:computation_of_pi_prime_3}.
+\end{example}
+
+We need to ensure all dissolution happen before the verification take place.
 We will add a new object $\sigma$, which stands as a footprint object. It will be created as a result of the verification rule $\xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$. If a membrane is dissolved after it was verified, then two $\sigma$s will meet in the same membrane, because the parent membrane also contains $\sigma$ as it had been verified before. We will add a rule $\sigma\sigma\rightarrow\sigma\sigma$ to prevent $\Pi^\prime$ from halting.
 
 The final construct is:
