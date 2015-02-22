@@ -169,11 +169,17 @@ Petri nets \cite{Petri62,Yen06PetriNets} were introduced by Carl Adam Petri in 1
   \end{itemize}
 \end{definition}
 
+The edges of the bipartite graph are annotated by either $\varphi(p,t)$ or $\varphi(t,p)$, where $p\in P$ and $t\in T$ are two endpoints of the arc. If $\varphi(p,t)=1$ or $\varphi(t,p)=1$, we usually omit the label.
+
 \begin{definition}
   A {\bf marking} is a mapping $\mu: P\rightarrow \mathbb N$.
 \end{definition}
 
-The mapping $\mu$ assigns tokens to each place of the net. The edges are annotated by either $\varphi(p,t)$ or $\varphi(t,p)$, where $p\in P$ and $t\in T$ are two endpoints of the arc. If $\varphi(p,t)=1$ or $\varphi(t,p)=1$, we usually omit the label.
+The mapping $\mu$ assigns certain number of tokens to each place of the net.
+
+\begin{definition}
+  A marking $\mu_1$ {\bf covers} marking $\mu_2$, when $\forall p\in P: \mu_1(p)\geq\mu_2(p)$ - in each place there is no less tokens in $\mu_1$ than in $\mu_2$. We denote it by $\mu_1\geq\mu_2$.
+\end{definition} 
 
 \begin{definition}
   A transition $t\in T$ is {\bf enabled} at a marking $\mu$ iff $\forall p\in P, \varphi(p,t)\leq\mu(p)$.
@@ -181,46 +187,104 @@ The mapping $\mu$ assigns tokens to each place of the net. The edges are annotat
 
 If a transition $t$ is enabled, it may fire by removing $\varphi(p,t)$ tokens from each input place $p$ and putting $\varphi(t,p^\prime)$ tokens in each output place $p^\prime$. We then write $\mu\xrightarrow{t} \mu^\prime$, where $\forall p\in P: \mu^\prime(p) = \mu(p)-\varphi(p,t)+\varphi(t,p)$.
 
-\begin{figure}
-  \centering
-  \begin{tikzpicture}
-    \tikzstyle{transition}=[rectangle,thick,fill=black,minimum height=8mm]
-    \node [place,tokens=3,label=above:$p_1$] (p1) {};
-    \node [transition,label=above:$t_1$] (t1) [right of=p1] {}
-      edge [pre] (p1);
-    \node [place,tokens=0,label=right:$p_3$] (p3) [right of=t1] {}
-      edge [pre] (t1);
-    \node [place,tokens=0,label=right:$p_2$] (p2) [above of=p3] {}
-      edge [pre] (t1);
-    \node [place,tokens=0,label=right:$p_4$] (p4) [below of=p3] {}
-      edge [pre] (t1);
-    \node [transition,label=below:$t_2$] (t2) [below of=t1] {}
-      edge [pre] (p4)
-      edge [post] (p1);
-  \end{tikzpicture}
-  \caption{Example Petri net}
-  \label{fig:example petri net}
-\end{figure}
-
 \begin{example}
   In the Figure \ref{fig:example petri net} the Petri net has four places and two transitions. At the current marking the transition $t_1$ is enabled and the transition $t_2$ is not enabled. Firing the transition $t_1$ takes one token from the place $p_1$ and produces one token to places $p_2, p_3$ and $p_4$. In the resulting marking both transitions $t_1$ and $t_2$ are enabled.
 \end{example}
-
-\begin{definition}
-  A sequence of transitions $\sigma = t_1\ldots t_n$ is a {\bf firing sequence} from $\mu_0$ iff $\mu_0\xrightarrow{t_1}\mu_1\xrightarrow{t_2}\ldots\xrightarrow{t_n}\mu_n$ for some markings $\mu_1,\ldots,\mu_n$. We also write $\mu_0\xrightarrow{\sigma}\mu_n$.
-\end{definition}
-
-We write $\mu_0\xrightarrow{\sigma}$ to denote that $\sigma$ is enabled and can be fired from $\mu_0$, i.e., $\mu_0\xrightarrow{\sigma}$ iff there exists a marking $\mu$ such that $\mu_0\xrightarrow{\sigma}\mu$.
-
-The notation $\mu_0\xrightarrow{*}\mu$ is used to denote the existence of a firing sequence $\sigma$ such that $\mu_0\xrightarrow{\sigma}\mu$.
 
 \begin{definition}
   A {\bf marked Petri net} is a tuple $(P,T,\varphi,\mu_0)$, where $(P,T,\varphi)$ is a Petri net and $\mu_0$ is called the initial marking.
 \end{definition}
 
 \begin{definition}
-  Let $\mathcal P = (P,T,\varphi,\mu_0)$ be a marked Petri net. The {\bf reachability set} of $\mathcal P$ je $R(\mathcal(P)) = \{\mu|\mu_0\xrightarrow{*}\mu\}$.
+  A sequence of transitions $\sigma = t_1\ldots t_n$ is a {\bf firing sequence} from $\mu_0$ iff $\mu_0\xrightarrow{t_1}\mu_1\xrightarrow{t_2}\ldots\xrightarrow{t_n}\mu_n$ for some markings $\mu_1,\ldots,\mu_n$. We also write $\mu_0\xrightarrow{\sigma}\mu_n$.
 \end{definition}
+
+We write $\mu_0\xrightarrow{\sigma}$ to denote that $\sigma$ is enabled and can be fired from $\mu_0$, i.e., $\mu_0\xrightarrow{\sigma}$ iff there exists a marking $\mu$ such that $\mu_0\xrightarrow{\sigma}\mu$.
+The notation $\mu_0\xrightarrow{*}\mu$ is used to denote the existence of a firing sequence $\sigma$ such that $\mu_0\xrightarrow{\sigma}\mu$.
+
+\begin{definition}
+  A marking $\mu$ is reachable for a marked Petri net $\mathcal P = (P,T,\varphi,\mu_0)$ iff $\mu_0\xrightarrow{*}\mu$.
+\end{definition}
+
+\begin{figure}
+  \centering
+  \begin{minipage}{.4\textwidth}
+    \begin{tikzpicture}
+      \tikzstyle{transition}=[rectangle,thick,fill=black,minimum height=8mm]
+      \node [place,tokens=3,label=above:$p_1$] (p1) {};
+      \node [transition,label=above:$t_1$] (t1) [right of=p1] {}
+        edge [pre] (p1);
+      \node [place,tokens=0,label=right:$p_3$] (p3) [right of=t1] {}
+        edge [pre] (t1);
+      \node [place,tokens=0,label=right:$p_2$] (p2) [above of=p3] {}
+        edge [pre] (t1);
+      \node [place,tokens=0,label=right:$p_4$] (p4) [below of=p3] {}
+        edge [pre] (t1);
+      \node [transition,label=below:$t_2$] (t2) [below of=t1] {}
+        edge [pre] (p4)
+        edge [post] (p1);
+    \end{tikzpicture}
+    \captionof{figure}{An example Petri net}
+    \label{fig:example petri net}
+  \end{minipage}
+  \hspace{.08\textwidth}
+  \begin{minipage}{.4\textwidth}
+    \begin{tikzpicture}[node distance=8mm,-triangle 45]
+      \tikzstyle{every node} = [rectangle,draw]
+      \tikzstyle{label} = [draw=none]
+      \node (1) {3,0,0,0};
+      \node [below= of 1] (2) {2,1,1,1};
+      \node [below= of 2] (3) {1,2,2,2};
+      \node [below= of 3] (4) {0,3,3,3};
+      \node [right= of 2] (5) {3,1,1,0};
+      \node [below= of 5] (6) {2,2,2,1};
+      \node [below= of 6] (7) {1,3,3,2};
+      \node [below= of 7] (8) {1,4,4,3};
+      \node [draw=none,right= of 6] (9) {$\ldots$};
+      \node [draw=none,right= of 7] (10) {$\ldots$};
+      \node [draw=none,right= of 8] (11) {$\ldots$};
+      \draw (1) edge node [label,right] {$t_1$} (2);
+      \draw (2) edge node [label,right] {$t_1$} (3);
+      \draw (3) edge node [label,right] {$t_1$} (4);
+      \draw (2) edge node [label,above] {$t_2$} (5);
+      \draw (3) edge node [label,above] {$t_2$} (6);
+      \draw (4) edge node [label,above] {$t_2$} (7);
+      \draw (5) edge node [label,right] {$t_1$} (6);
+      \draw (6) edge node [label,right] {$t_1$} (7);
+      \draw (7) edge node [label,right] {$t_1$} (8);
+      \draw (6) edge node [label,above] {$t_2$} (9);
+      \draw (7) edge node [label,above] {$t_2$} (10);
+      \draw (8) edge node [label,above] {$t_2$} (11);
+    \end{tikzpicture}
+    \captionof{figure}{An example reachability graph}
+    \label{fig:example reachability graph}
+  \end{minipage}
+\end{figure}
+
+\begin{definition}
+  Let $\mathcal P = (P,T,\varphi,\mu_0)$ be a marked Petri net. The {\bf reachability set} of $\mathcal P$ is $R(\mathcal(P)) = \{\mu|\mu_0\xrightarrow{*}\mu\}$.
+\end{definition}
+
+Analysis of several behavioral properties is studied and following decidability problems are of special importance:
+
+\begin{itemize}
+  \item The reachability problem: given a marked Petri net $\mathcal P$ and a marking $\mu$, deciding whether $\mu\in R(\mathcal P)$.
+  \item The boundedness problem: given a marked Petri net $\mathcal P$, deciding whether $|R(\mathcal P)|$ is finite.
+  \item The covering problem: given a marked Petri net $\mathcal P$ and a marking $\mu$, deciding whether there exists $\mu^\prime\in R(\mathcal P)$ such that $\mu^\prime\geq\mu$.
+  \item The equivalence problem: given two marked Petri nets $\mathcal P_1$ and $\mathcal P_2$, deciding whether $R(\mathcal P_1) = R(\mathcal P_2)$.
+  \item The containment problem: given two marked Petri nets $\mathcal P_1$ and $\mathcal P_2$, deciding whether $R(\mathcal P_1)\subseteq R(\mathcal P_2)$.
+  \item The liveness problem: given a marked Petri net $\mathcal P$, deciding whether for every $t\in T, \mu\in R(\mathcal P)$ there exists a sequence of transitions $\sigma$ such that $\mu\xrightarrow{\sigma t}$, i.e. $t$ is enabled after firing $\sigma$ from $\mu$.
+\end{itemize}
+
+A notion of reachability graph is helpful for these decidability problems as a tool for visualisation of structure of the reachability set.
+
+\begin{definition}
+  Let $\mathcal P = (P,T,\varphi,\mu_0)$ be a marked Petri net. The {\bf reachability graph} of $\mathcal P$ is a labelled graph whose nodes are the reachable markings and edge from $\mu_1$ to $\mu_2$ is labeled with a transition $t\in T$ iff $\mu_1\xrightarrow{t}\mu_2$.
+\end{definition}
+
+\begin{example}
+  Consider a Petri net $\mathcal P$ from the Figure \ref{fig:example petri net}. Its reachability graph is in the Figure \ref{fig:example reachability graph}. $\mathcal P$ is not bounded because by alternately firing transitions $t_1$ and $t_2$ we can reach infinitely many different markings. We can also easily see that it is live, because in every marking for every transition $t\in\{t_1, t_2\}$ there is a firing sequence ending with $t$.
+\end{example}
 
 % section petri_nets (end)
 
