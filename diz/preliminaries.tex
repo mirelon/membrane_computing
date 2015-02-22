@@ -155,15 +155,113 @@ It is known that $CF \subset E0L \subset ET0L \subset CS$ (see section \ref{sec:
 
 % section semilinear_sets (end)
 
-\section{Vector addition systems} % (fold)
-\label{sec:vector_addition_systems}
-
-% section vector_addition_systems (end)
-
 \section{Petri nets} % (fold)
 \label{sec:petri_nets}
 
+Petri nets \cite{Petri62,Yen06PetriNets} were introduced by Carl Adam Petri in 1962 in his PhD thesis. A Petri net is a graphical and mathematical tool for the modeling of concurrent processes and analysis of system behavior. A Petri net is usually drawn as a directed bipartite graph with two kind of nodes. Places are represented by circles within which each small black dot denotes a token. Transitions are represented by bars. Each edge is either from a place to a transition or vice versa.
+
+\begin{definition}
+  A {\bf Petri net} is a tuple $(P, T, \varphi)$, where:
+  \begin{itemize}
+    \item $P$ is a finite set of places,
+    \item $T$ is a finite set of transitions,
+    \item $\varphi: (P\times T)\cup(T\times P)\rightarrow \mathbb N$ is a flow function.
+  \end{itemize}
+\end{definition}
+
+\begin{definition}
+  A {\bf marking} is a mapping $\mu: P\rightarrow \mathbb N$.
+\end{definition}
+
+The mapping $\mu$ assigns tokens to each place of the net. The edges are annotated by either $\varphi(p,t)$ or $\varphi(t,p)$, where $p\in P$ and $t\in T$ are two endpoints of the arc. If $\varphi(p,t)=1$ or $\varphi(t,p)=1$, we usually omit the label.
+
+\begin{definition}
+  A transition $t\in T$ is {\bf enabled} at a marking $\mu$ iff $\forall p\in P, \varphi(p,t)\leq\mu(p)$.
+\end{definition}
+
+If a transition $t$ is enabled, it may fire by removing $\varphi(p,t)$ tokens from each input place $p$ and putting $\varphi(t,p^\prime)$ tokens in each output place $p^\prime$. We then write $\mu\xrightarrow{t} \mu^\prime$, where $\forall p\in P: \mu^\prime(p) = \mu(p)-\varphi(p,t)+\varphi(t,p)$.
+
+\begin{figure}
+  \centering
+  \begin{tikzpicture}
+    \tikzstyle{transition}=[rectangle,thick,fill=black,minimum height=8mm]
+    \node [place,tokens=3,label=above:$p_1$] (p1) {};
+    \node [transition,label=above:$t_1$] (t1) [right of=p1] {}
+      edge [pre] (p1);
+    \node [place,tokens=0,label=right:$p_3$] (p3) [right of=t1] {}
+      edge [pre] (t1);
+    \node [place,tokens=0,label=right:$p_2$] (p2) [above of=p3] {}
+      edge [pre] (t1);
+    \node [place,tokens=0,label=right:$p_4$] (p4) [below of=p3] {}
+      edge [pre] (t1);
+    \node [transition,label=below:$t_2$] (t2) [below of=t1] {}
+      edge [pre] (p4)
+      edge [post] (p1);
+  \end{tikzpicture}
+  \caption{Example Petri net}
+  \label{fig:example petri net}
+\end{figure}
+
+\begin{example}
+  In the Figure \ref{fig:example petri net} the Petri net has four places and two transitions. At the current marking the transition $t_1$ is enabled and the transition $t_2$ is not enabled. Firing the transition $t_1$ takes one token from the place $p_1$ and produces one token to places $p_2, p_3$ and $p_4$. In the resulting marking both transitions $t_1$ and $t_2$ are enabled.
+\end{example}
+
+\begin{definition}
+  A sequence of transitions $\sigma = t_1\dots t_n$ is a {\bf firing sequence} from $\mu_0$ iff $\mu_0\xrightarrow{t_1}\mu_1\xrightarrow{t_2}\dots\xrightarrow{t_n}\mu_n$ for some markings $\mu_1,\dots,\mu_n$. We also write $\mu_0\xrightarrow{\sigma}\mu_n$.
+\end{definition}
+
+We write $\mu_0\xrightarrow{\sigma}$ to denote that $\sigma$ is enabled and can be fired from $\mu_0$, i.e., $\mu_0\xrightarrow{\sigma}$ iff there exists a marking $\mu$ such that $\mu_0\xrightarrow{\sigma}\mu$.
+
+The notation $\mu_0\xrightarrow{*}\mu$ is used to denote the existence of a firing sequence $\sigma$ such that $\mu_0\xrightarrow{\sigma}\mu$.
+
+\begin{definition}
+  A {\bf marked Petri net} is a tuple $(P,T,\varphi,\mu_0)$, where $(P,T,\varphi)$ is a Petri net and $\mu_0$ is called the initial marking.
+\end{definition}
+
+\begin{definition}
+  Let $\mathcal P = (P,T,\varphi,\mu_0)$ be a marked Petri net. The {\bf reachability set} of $\mathcal P$ je $R(\mathcal(P)) = \{\mu|\mu_0\xrightarrow{*}\mu\}$.
+\end{definition}
+
 % section petri_nets (end)
+
+\section{Vector addition systems} % (fold)
+\label{sec:vector_addition_systems}
+
+Vector addition systems were introduced by Karp and Miller \cite{Karp69ParallelProgramSchemata}, and were later shown by Hack \cite{Hack74PetriVAS} to be equivalent to Petri nets.
+
+\begin{definition}
+  A {\bf vector addition system} (VAS) is a pair $G = (x, W)$, where $x\in \mathbb N^n$ is an initial vector and $W\subseteq \mathbb Z^n$ is a finite set of vectors, where $n>0$ is called the dimension of VAS.
+\end{definition}
+
+The initial vector is seen as the initial values of multiple counters and the vectors in $W$ are seen as actions that update the counters. These counters may never drop below zero. 
+
+\begin{definition}
+  The {\bf reachability set} of the VAS $G = (x,W)$ is the set \linebreak $R(G) = \{z | \exists v_1,\dots,v_j\in W: z=x+v_1+\dots+v_j \wedge \forall 1\leq i\leq j: x+v_1+\dots+v_i\geq 0\}$.
+\end{definition}
+
+\begin{definition}
+  A {\bf vector addition system with states} (VASS) is a tuple $G = (x, W, Q, T, p_0)$, where:
+  \begin{itemize}
+    \item $(x, W)$ is a vector addition system,
+    \item $Q$ is a finite set of states,
+    \item $T$ is a finite set of transitions of the form $p\rightarrow(q,v)$, where $v\in W$ and $p,q\in Q$ are states,
+    \item $p_0\in Q$ is the starting state.
+  \end{itemize}
+\end{definition}
+
+The transition $p\rightarrow(q,v)$ can be applied at vector $y$ in state $p$ and yields the vector $y+v$ in state $q$, provided that $y+v\geq 0$.
+
+\begin{example}
+  For the Petri net in the Figure \ref{fig:example petri net}, the corresponding VAS $(x,W)$ is:
+  \begin{itemize}
+    \item $x=(3,0,0,0)$,
+    \item $W=\{(-1,1,1,1),(1,0,0,-1)\}$.
+  \end{itemize}
+\end{example}
+
+It is known \cite{Hack74PetriVAS} that Petri nets, VAS and VASS are computationally equivalent.
+
+% section vector_addition_systems (end)
 
 \section{Büchi automaton} % (fold)
 \label{sec:buchi_automaton}
