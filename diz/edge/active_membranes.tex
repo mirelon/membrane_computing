@@ -20,11 +20,11 @@ On the other hand, the existence of a halting computation is shown to be undecid
 
 \begin{definition}
   \label{def:active_p_system}
-  An {\bf active P system} is a tuple $(\Sigma, C_0, R_1, R_2, \dots , R_m)$, where:
+  An {\bf active P system} is a tuple $(\Sigma, C_0, R_1, R_2, \ldots , R_m)$, where:
   \begin{itemize}
     \item $\Sigma$ is a set of objects,
     \item $C_0$ is initial membrane configuration,
-    \item $R_1,R_2,\dots R_m$ are finite sets of rewriting rules associated with the labels $1,2,\dots,m$ and can be of forms:
+    \item $R_1,R_2,\ldots R_m$ are finite sets of rewriting rules associated with the labels $1,2,\ldots,m$ and can be of forms:
     \begin{itemize}
       \item $u\rightarrow w$, where $u\in \Sigma^+$, $w\in (\Sigma\times\{\cdot, \uparrow, \downarrow_j\})^*$ and $1\leq j\leq m$,
       \item $u\rightarrow w\delta$, where $u\in \Sigma^+$, $w\in (\Sigma\times\{\cdot, \uparrow, \downarrow_j\})^*$ and $1\leq j\leq m$,
@@ -44,7 +44,7 @@ Active P systems differs from classic (passive) P systems in ability to create n
 
 \begin{definition}
   \label{def:applicable_rule_of_active_p_system}
-  For active P system $(\Sigma, C_0, R_1, R_2, \dots , R_m)$, configuration $C = (T, l, c)$, membrane $d\in V(T)$ the rule $r\in R_{l(d)}$ is {\bf applicable} iff:
+  For active P system $(\Sigma, C_0, R_1, R_2, \ldots , R_m)$, configuration $C = (T, l, c)$, membrane $d\in V(T)$ the rule $r\in R_{l(d)}$ is {\bf applicable} iff:
   \begin{itemize}
     \item $r = u\rightarrow w$ and $u\subseteq c(d)$ and $\forall (a,\downarrow_k)\in w \exists d_2\in V(T): l(d_2)=k \wedge parent(d_2) = d$,
     \item $r = u\rightarrow w\delta$ and $u\subseteq c(d)$ and $\forall (a,\downarrow_k)\in w \exists d_2\in V(T): l(d_2)=k \wedge parent(d_2) = d$ and $d\neq r_T$,
@@ -63,9 +63,9 @@ For the simplicity of proofs it is convenient to introduce a variant with a glob
 
 \begin{definition}
   \label{def:active_p_system_with_a_limit_on_total_number_of_membranes}
-  An {\bf active P system with a limit on total number of membranes} is a tuple $\Pi = (\Sigma, L, C_0, R_1, R_2, \dots , R_m)$, where:
+  An {\bf active P system with a limit on total number of membranes} is a tuple $\Pi = (\Sigma, L, C_0, R_1, R_2, \ldots , R_m)$, where:
   \begin{itemize}
-    \item $(\Sigma, C_0, R_1, R_2, \dots , R_m)$ is an active P system from the definition \ref{def:active_p_system},
+    \item $(\Sigma, C_0, R_1, R_2, \ldots , R_m)$ is an active P system from the definition \ref{def:active_p_system},
     \item $L\in \mathbb N$ is a limit on total number of membranes.
   \end{itemize}
 \end{definition}
@@ -74,7 +74,7 @@ This is achieved by adding a constraint for rule of the form $r = u\rightarrow [
 
 \begin{definition}
   \label{def:applicable_rule_of_active_p_system_with_a_limit_on_total_number_of_membranes}
-  For active P system with a limit on total number of membranes $(\Sigma, L, C_0, R_1, R_2, \dots , R_m)$, configuration $C = (T, l, c)$, membrane $d\in V(T)$ the rule $r\in R_{l(d)}$ is {\bf applicable} iff:
+  For active P system with a limit on total number of membranes $(\Sigma, L, C_0, R_1, R_2, \ldots , R_m)$, configuration $C = (T, l, c)$, membrane $d\in V(T)$ the rule $r\in R_{l(d)}$ is {\bf applicable} iff:
   \begin{itemize}
     \item $r = u\rightarrow w$ and $u\subseteq c(d)$ and $\forall (a,\downarrow_k)\in w \exists d_2\in V(T): l(d_2)=k \wedge parent(d_2) = d$,
     \item $r = u\rightarrow w\delta$ and $u\subseteq c(d)$ and $\forall (a,\downarrow_k)\in w \exists d_2\in V(T): l(d_2)=k \wedge parent(d_2) = d$ and $d\neq r_T$,
@@ -124,7 +124,7 @@ For example we can look at the P system from the figure \ref{fig:a_single_membra
         child {
           node {a}
           child {
-            node [draw=none] {$\dots$}
+            node [draw=none] {$\ldots$}
             edge from parent node [above left,draw=none] {$r_1$}
           }
           child { node {b} edge from parent node [above right,draw=none] {$r_2$} }
@@ -294,12 +294,12 @@ We will now show that comparing two encodings corresponds to covering of two con
 In this subsection we will focus on the opposite problem: whether there is a computation that is halting. Recall that halting computation has no applicable rule in the last configuration.
 First, we will reduce this problem to the reachability. It is a problem of determining, for a given configuration $C$, whether there exists a computation from $C_0$ to $C$. The reachability of active P systems can be then reduced to the reachabililty of register machines, which is undecidable.
 
-For a given P system $\Pi$ and a target configuration $C$ we will construct a P system $\Pi^\prime$ such that there is a halting computation of $\Pi^\prime\Leftrightarrow\linebreak C$ is reachable for $\Pi$. Suppose $\Pi = (\Sigma, C_0, R_1, \dots R_m)$ and $C = (T, l, c)$. Then we will construct $\Pi^\prime = (\Sigma^\prime, C_0^\prime, R_1^\prime, \dots R_m^\prime)$, where:
+For a given P system $\Pi$ and a target configuration $C$ we will construct a P system $\Pi^\prime$ such that there is a halting computation of $\Pi^\prime\Leftrightarrow\linebreak C$ is reachable for $\Pi$. Suppose $\Pi = (\Sigma, C_0, R_1, \ldots R_m)$ and $C = (T, l, c)$. Then we will construct $\Pi^\prime = (\Sigma^\prime, C_0^\prime, R_1^\prime, \ldots R_m^\prime)$, where:
 
 \begin{itemize}
   \item $\Sigma^\prime = \Sigma\cup\{\xi_d|d\in V(T)\}$,
   \item $C_0^\prime = (T, l, c^\prime)$, where $\forall d\in V(T)\setminus r_T: c^\prime(d) = c(d)$ and $c^\prime(r_T) = c(r_T)\cup\{\xi_{r_T}\}$,
-  \item $\forall i\in\{1\dots m\}: R_i^\prime = R_i\cup\{\xi_d c(d)\rightarrow\xi_{d^\prime}\downarrow_{l(d^\prime)}|d,d^\prime\in V(T),l(d)=i,parent(d^\prime)=d\}$.
+  \item $\forall i\in\{1\ldots m\}: R_i^\prime = R_i\cup\{\xi_d c(d)\rightarrow\xi_{d^\prime}\downarrow_{l(d^\prime)}|d,d^\prime\in V(T),l(d)=i,parent(d^\prime)=d\}$.
 \end{itemize}
 
 The $\xi_d$ objects are called verifiers, they are intended to verify if the contents of the membrane corresponds to the contents in the target configuration $C$. After this verification it descends down into child membranes for the verification of other parts of the membrane structure.
@@ -575,7 +575,7 @@ The final construct is:
 \begin{itemize}
   \item $\Sigma^\prime = \Sigma\cup\{\omega, \sigma\}\cup\{\xi_d|d\in V(T)\}$,
   \item $C_0^\prime = (T, l, c^\prime)$, where $\forall d\in V(T)\setminus r_T: c^\prime(d) = c(d)\cup\{\omega\}$ and $c^\prime(r_T) = c(r_T)\cup\{\omega,\xi_{r_T}\}$,
-  \item $\forall i\in\{1\dots m\}: R_i^\prime = \{r|r\in R_i,r = u\rightarrow w\vee r = u\rightarrow w\delta\}\cup\linebreak\{u\rightarrow [_k v\omega]_k|u\rightarrow [_k v]_k\in R_i\}\cup\{a\rightarrow a|a\in\Sigma\}\cup\{\sigma\sigma\rightarrow\sigma\sigma,\omega\rightarrow\omega\}\cup\linebreak\{\xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}|d,d^\prime\in V(T),l(d)=i,parent(d^\prime)=d\}$.
+  \item $\forall i\in\{1\ldots m\}: R_i^\prime = \{r|r\in R_i,r = u\rightarrow w\vee r = u\rightarrow w\delta\}\cup\linebreak\{u\rightarrow [_k v\omega]_k|u\rightarrow [_k v]_k\in R_i\}\cup\{a\rightarrow a|a\in\Sigma\}\cup\{\sigma\sigma\rightarrow\sigma\sigma,\omega\rightarrow\omega\}\cup\linebreak\{\xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}|d,d^\prime\in V(T),l(d)=i,parent(d^\prime)=d\}$.
 \end{itemize}
 
 We need to prove two implications in order to formally prove correctness of this construction.

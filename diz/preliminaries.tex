@@ -96,7 +96,7 @@ A {\bf matrix grammar} is a tuple $G = (N,T,M,\sigma)$, where:
 \end{definition}
 
 \begin{definition}
-A {\bf rewriting step} $x\Rightarrow y$ holds only if there is a matrix $(u_1\rightarrow v_1, u_2\rightarrow v_2, \dots, u_n\rightarrow v_n) \in M$ such that for each $1\leq i\leq n$ the following holds: $x_i = x_i^{\prime}u_ix_i^{\prime\prime}$ and $x_{i+1} = x_i^{\prime}v_ix_i^{\prime\prime}$, where $x_i, x_i^{\prime}, x_i^{\prime\prime} \in (N\cup T)^*$ and $x_1 = x$ and $x_{n+1} = y$.
+A {\bf rewriting step} $x\Rightarrow y$ holds only if there is a matrix $(u_1\rightarrow v_1, u_2\rightarrow v_2, \ldots, u_n\rightarrow v_n) \in M$ such that for each $1\leq i\leq n$ the following holds: $x_i = x_i^{\prime}u_ix_i^{\prime\prime}$ and $x_{i+1} = x_i^{\prime}v_ix_i^{\prime\prime}$, where $x_i, x_i^{\prime}, x_i^{\prime\prime} \in (N\cup T)^*$ and $x_1 = x$ and $x_{n+1} = y$.
 \end{definition}
 
 \begin{example}
@@ -134,7 +134,7 @@ It is assumed there is at least one rewriting rule for each letter of $\Sigma$. 
 
 \begin{example}
 Consider a $0L$ system with alphabet $\Sigma = \{a,b\}$, initial word $\omega = a$ and rewriting rules $P = \{a\rightarrow b, b\rightarrow ab\}$.
-Since in this system there is exactly one rule for every letter of the alphabet, the rewriting is thus deterministic and the generated words will be $\{a, b, ab, bab, abbab, \dots \}$. 
+Since in this system there is exactly one rule for every letter of the alphabet, the rewriting is thus deterministic and the generated words will be $\{a, b, ab, bab, abbab, \ldots \}$. 
 \end{example}
 
 $1L$ systems allows the rewriting rules to include context of size 1, so it allows for rules of type $yaz\rightarrow x$.
@@ -207,7 +207,7 @@ If a transition $t$ is enabled, it may fire by removing $\varphi(p,t)$ tokens fr
 \end{example}
 
 \begin{definition}
-  A sequence of transitions $\sigma = t_1\dots t_n$ is a {\bf firing sequence} from $\mu_0$ iff $\mu_0\xrightarrow{t_1}\mu_1\xrightarrow{t_2}\dots\xrightarrow{t_n}\mu_n$ for some markings $\mu_1,\dots,\mu_n$. We also write $\mu_0\xrightarrow{\sigma}\mu_n$.
+  A sequence of transitions $\sigma = t_1\ldots t_n$ is a {\bf firing sequence} from $\mu_0$ iff $\mu_0\xrightarrow{t_1}\mu_1\xrightarrow{t_2}\ldots\xrightarrow{t_n}\mu_n$ for some markings $\mu_1,\ldots,\mu_n$. We also write $\mu_0\xrightarrow{\sigma}\mu_n$.
 \end{definition}
 
 We write $\mu_0\xrightarrow{\sigma}$ to denote that $\sigma$ is enabled and can be fired from $\mu_0$, i.e., $\mu_0\xrightarrow{\sigma}$ iff there exists a marking $\mu$ such that $\mu_0\xrightarrow{\sigma}\mu$.
@@ -236,7 +236,7 @@ Vector addition systems were introduced by Karp and Miller \cite{Karp69ParallelP
 The initial vector is seen as the initial values of multiple counters and the vectors in $W$ are seen as actions that update the counters. These counters may never drop below zero. 
 
 \begin{definition}
-  The {\bf reachability set} of the VAS $G = (x,W)$ is the set \linebreak $R(G) = \{z | \exists v_1,\dots,v_j\in W: z=x+v_1+\dots+v_j \wedge \forall 1\leq i\leq j: x+v_1+\dots+v_i\geq 0\}$.
+  The {\bf reachability set} of the VAS $G = (x,W)$ is the set \linebreak $R(G) = \{z | \exists v_1,\ldots,v_j\in W: z=x+v_1+\ldots+v_j \wedge \forall 1\leq i\leq j: x+v_1+\ldots+v_i\geq 0\}$.
 \end{definition}
 
 \begin{definition}
@@ -297,7 +297,7 @@ It is the set of items with at least one occurrence.
 A multiset is {\bf empty} when its support is empty.
 \end{definition}
 
-A multiset $M$ with finite support $X = \{x_1, x_2, \dots, x_n\}$ can be represented by the string $x_1^{M(x_1)}x_2^{M(x_2)}\dots x_n^{M(x_n)}$.
+A multiset $M$ with finite support $X = \{x_1, x_2, \ldots, x_n\}$ can be represented by the string $x_1^{M(x_1)}x_2^{M(x_2)}\ldots x_n^{M(x_n)}$.
 As elements of a multiset can also be strings, we separate them with the pipe symbol, e.g. $element|element|other\_element$.
 
 \begin{definition}
@@ -324,7 +324,7 @@ Product of multiset $M$ with natural number $n\in \mathbb N$ is a multiset where
 The number of occurrences of a given symbol $a\in V$ in the string $w\in V^*$ is denoted by $|w|_a$.
 
 \begin{definition}
-$\Psi_V(w)=(|w|_{a_1},|w|_{a_2},\dots,|w|_{a_n})$ is called a Parikh vector associated with the string $w\in V^*$, where $V=\{a_1,a_2,\dots a_n\}$.
+$\Psi_V(w)=(|w|_{a_1},|w|_{a_2},\ldots,|w|_{a_n})$ is called a Parikh vector associated with the string $w\in V^*$, where $V=\{a_1,a_2,\ldots a_n\}$.
 \end{definition}
 
 \begin{definition}
