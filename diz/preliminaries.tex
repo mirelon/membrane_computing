@@ -153,6 +153,30 @@ It is known that $CF \subset E0L \subset ET0L \subset CS$ (see section \ref{sec:
 \section{Semilinear sets} % (fold)
 \label{sec:semilinear_sets}
 
+\begin{definition}
+  A {\bf linear set} $L(c,p_1,\ldots,p_r)$ is a subset $\{c+\sum\limits_{i=1}^r|k_i\in\mathbb N\}$ of $\mathbb N^n$, where $c,p_1,\ldots,p_r\in \mathbb N^n$.
+\end{definition}
+
+We call $c$ the constant and $p_1,\ldots,p_r$ the periods of the linear set.
+
+\begin{example}
+  For $n=1$ the linear set is a subset of $\mathbb N$. For $n=1$ and $r=1$ we get an arithmetic progression.
+\end{example}
+
+\begin{example}
+  $L((0,0),(0,1),(1,0))$ contains all pairs with one zero element and one non-negative element: $$\{(0,0), (1,0), (2,0), \ldots, (x,0), \ldots, (0,1), (0,2), \ldots, (0,y), \ldots\}$$.
+\end{example}
+
+\begin{definition}
+  A subset of $\mathbb N^n$ is called {\bf semilinear} if it is a finite union of linear sets.
+\end{definition}
+
+% TODO Parikh mapping
+
+% TODO Parikh's theorem
+
+An interesting result appeared in 1968 \cite{Ito69Semilinear} that every semilinear set is a finite union of disjoint linear sets.
+
 % section semilinear_sets (end)
 
 \section{Petri nets} % (fold)
