@@ -1,11 +1,15 @@
 diz: diz.tex
-	pdfcslatex diz.tex
+	pdflatex diz.tex
 
-dizbib: diz.tex diz.bib
-	pdfcslatex diz.tex
+bib: diz.tex diz.bib
+	pdflatex diz.tex
 	bibtex diz
-	pdfcslatex diz.tex
-	pdfcslatex diz.tex
+	pdflatex diz.tex
+	pdflatex diz.tex
 
 godzilla: diz.tex
-	pdfcslatex "\def\godzilla{1} \input{diz.tex}"
+	pdflatex "\def\godzilla{1} \input{diz.tex}"
+
+clean:
+	rm -f *.bbl *.blg *.log *.aux *.idx *.lof *.out *.toc *.log *.loa
+

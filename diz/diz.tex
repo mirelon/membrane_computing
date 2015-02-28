@@ -1,8 +1,10 @@
-\documentclass[a4paper,12pt,oneside,openany,pagenumber=footcenter]{book}
+\documentclass[a4paper,12pt,oneside,openany]{book}
 
+\usepackage{cmap}
 \usepackage[utf8]{inputenc}
 \usepackage{lmodern}
 \usepackage[T1]{fontenc}
+\usepackage[english]{babel}
 \usepackage{amsfonts}
 \usepackage{amsmath,amsthm}
 \usepackage{mathtools}
@@ -23,10 +25,13 @@
 \usepackage{varioref}
 \usepackage{makeidx}
 \usepackage[nouppercase]{scrpage2}
+\setlength{\headheight}{1.1\baselineskip}
 \pagestyle{scrheadings}
 \input{../lib/theorems.tex}
 
 \bibliographystyle{../lib/eptcs}
+\usepackage{etoolbox}
+\apptocmd{\thebibliography}{\raggedright}{}{}
 
 \def\indexname{Register}
 % pekne pokope definujeme potrebne udaje
