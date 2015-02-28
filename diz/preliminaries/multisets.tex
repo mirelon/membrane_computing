@@ -1,0 +1,34 @@
+\begin{definition}
+A multiset over a set $X$ is a mapping $M: X\rightarrow \mathbb N$.
+\end{definition}
+
+We denote by $M(x), x\in X$ the multiplicity of $x$ in the multiset $M$.
+
+\begin{definition}
+The {\bf support} of a multiset $M$ is the set $supp(M)=\{x\in X|M(x)\geq 1\}$.
+\end{definition}
+
+It is the set of items with at least one occurrence.
+
+\begin{definition}
+A multiset is {\bf empty} when its support is empty.
+\end{definition}
+
+A multiset $M$ with finite support $X = \{x_1, x_2, \ldots, x_n\}$ can be represented by the string $x_1^{M(x_1)}x_2^{M(x_2)}\ldots x_n^{M(x_n)}$.
+As elements of a multiset can also be strings, we separate them with the pipe symbol, e.g. $$element|element|other\_element$$.
+
+\begin{definition}
+Multiset inclusion. We say that multiset $M_1$ is included in multiset $M_2$ if $\forall x \in X: M_1(x)\leq M_2(x)$. We denote it by $M_1\subseteq M_2$.
+\end{definition}
+
+\begin{definition}
+The {\bf union} of two multisets $M_1\cup M_2$ is a multiset where $\forall x \in X: (M_1\cup M_2)(x)=M_1(x)+M_2(x)$.
+\end{definition}
+
+\begin{definition}
+The {\bf difference} of two multisets $M_1-M_2$ is a multiset where $\forall x \in X: (M_1-M_2)(x)=M_1(x)-M_2(x)$.
+\end{definition}
+
+\begin{definition}
+Product of multiset $M$ with natural number $n\in \mathbb N$ is a multiset where $\forall x \in X: (n\cdot M)(x)=n\cdot M(x)$.  
+\end{definition}

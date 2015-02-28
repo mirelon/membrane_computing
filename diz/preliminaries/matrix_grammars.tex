@@ -1,0 +1,20 @@
+\begin{definition}
+A {\bf matrix grammar} is a tuple $G = (N,T,M,\sigma)$, where:
+\begin{itemize}
+  \item $N, T$ are disjoint alphabets of non-terminal and terminal symbols,
+  \item $\sigma\in N$ is the initial non-terminal,
+  \item $M$ is a finite set of matrices, which are sequences of context-free rules of the form $u\rightarrow v$, where $u\in N$ and $v\in (N\cup T)^*$.
+\end{itemize}
+\end{definition}
+
+\begin{definition}
+A {\bf rewriting step} $x\Rightarrow y$ holds only if there is a matrix $(u_1\rightarrow v_1, u_2\rightarrow v_2, \ldots, u_n\rightarrow v_n) \in M$ such that for each $1\leq i\leq n$ the following holds: $x_i = x_i^{\prime}u_ix_i^{\prime\prime}$ and $x_{i+1} = x_i^{\prime}v_ix_i^{\prime\prime}$, where $x_i, x_i^{\prime}, x_i^{\prime\prime} \in (N\cup T)^*$ and $x_1 = x$ and $x_{n+1} = y$.
+\end{definition}
+
+\begin{example}
+Consider the matrix grammar $G=(\{\sigma, X,Y\}, \{ a,b,c\}, M, \sigma)$, where $M$ contains three matrices: $[S\rightarrow XY], [X\rightarrow aXb, Y\rightarrow cY], [X\rightarrow ab, Y\rightarrow c]$. There are only context-free rules, yet the grammar generate the context-sensitive language $\{a^nb^nc^n|n\geq 1\}$.
+\end{example}
+
+The family of matrix grammars is denoted $MAT$.
+
+It is known that $CF \subset MAT \subset RE$. Interestingly, $MAT \cap {a}^* \subset R$ (see \cite{Besozzi:PhD:2004}).
