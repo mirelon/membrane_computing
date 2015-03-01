@@ -209,3 +209,81 @@ Analysis of several behavioral properties is studied and following decidability 
 % subsubsection the_liveness_problem (end)
 
 % subsection analysis_of_behavioral_properties (end)
+
+\subsection{Backwards-compatible extensions} % (fold)
+\label{sub:backwards_compatible_extensions}
+
+Conventional Petri nets have several limitations such as the inability to test for zero tokens in a place. Models often tend to become large, with no support for structuring. To remedy these weaknesses, a number of extended Petri net models have been proposed in the literature. Some of these extensions only increase the modeling convenience by making the model more expressive while they do not actually increase the power of the basic model and are completely backwards-compatible, e.g. colored Petri nets.
+
+\subsubsection{Colored Petri nets} % (fold)
+\label{ssub:colored_petri_nets}
+
+A colored Petri net (CPN) has each token attached with a color, indicating the identity of the token. Moreover, each place and each transition has attached a set of colors. A transition can fire with respect to each of its colors. By firing a transition, tokens are removed from the input places and added to the output places in the same way as that in original Petri nets, except that a functional dependency is specified between the color of the transition firing and the colors of the involved tokens. The color attached to a token may be changed by a transition firing and it often represents a complex data-value. CPNs lead to compact net models by using of the concept of colors.
+
+% subsubsection colored_petri_nets (end)
+
+% subsection backwards_compatible_extensions (end)
+
+\subsection{Turing complete extensions} % (fold)
+\label{sub:turing_complete_extensions}
+
+The computational power of conventional or backwards-compatible Petri nets such as CPNs is strictly weaker than that of Turing machines \cite{Yen06PetriNets}. From a theoretical viewpoint, the limitation of Petri nets is precisely due to the lack of abilities to test potentially unbounded places for zero and then act accordingly. With zero-testing capabilities, it is fairly easy to show the equivalence to register machines, which are Turing equivalent. We will mention several extensions, which add properties that cannot be modeled in the original Petri net.
+
+\subsubsection{Petri nets with inhibitor arcs} % (fold)
+\label{ssub:petri_nets_with_inhibitor_arcs}
+
+The inhibitor arc connects an input place to a transition. The presence of an inhibitor arc connecting an input place to a transition changes the transition enabling conditions. In the presence of the inhibitor arc, a transition is regarded as enabled if each input place, connected to the transition by a normal arc, contains at least the number of tokens equal to the weight of the arc, and no tokens are present on each input place connected to the transition by the
+inhibitor arc. The transition firing rule is the same for normally connected places. The firing, however, does not change the marking in the inhibitor arc connected places. 
+
+% subsubsection petri_nets_with_inhibitor_arcs (end)
+
+\subsubsection{Time petri nets} % (fold)
+\label{ssub:time_petri_nets}
+
+Time Petri nets (TPN) are Petri nets in which each transition $t$ has attached two times $a\leq b$. Assuming that $t$ was last enabled at time $c$, then $t$ may fire only during the interval $[c+a, c+b]$ and must fire at time $c+b$ at the latest unless it is disabled before by the firing of another transition. Firing a transition takes no time.
+
+% subsubsection time_petri_nets (end)
+
+\subsubsection{Timed Petri nets} % (fold)
+\label{ssub:timed_petri_nets}
+
+Timed Petri nets (TdPN) are obtained from Petri nets by associating a firing time (delay) to each transition of the net. Moreover, each token has an age property, so the marking of a place $p$ is a finite multiset of ages. The precondition of a transition with input place $p$ is an interval. A transition is enabled if for every input place there exists an appropriate token, i.e. its age is included in the interval.
+
+% subsubsection timed_petri_nets (end)
+
+\subsubsection{Prioritized Petri nets} % (fold)
+\label{ssub:prioritized_petri_nets}
+
+Transactions in prioritized Petri nets have input arcs of two types: normal and prioritized. A place with a token and several transitions enabled from this place will fire the transition with a priority arc first. If there are more than one priority arc outgoing from a place which causes that more than one transition is enabled, then the firing choice is nondeterministic.
+
+% subsubsection prioritized_petri_nets (end)
+
+\subsubsection{Maximal parallel Petri nets} % (fold)
+\label{ssub:maximal_parallel_petri_nets}
+
+Under the maximal parallel semantics, maximal sets of simultaneously enabled rules are fired. They are of interest due to their close connections with the model of P systems.
+
+% subsubsection maximal_parallel_petri_nets (end)
+
+% subsection turing_complete_extensions (end)
+
+\subsection{Other extensions} % (fold)
+\label{sub:other_extensions}
+
+While the above extended Petri nets are powerful enough to simulate Turing machines, all nontrivial behavioral properties for such Petri nets become undecidable. A natural and interesting question to ask is: are there Petri nets whose powers lie between conventional Petri nets and Turing machines? As it turns out, the quest for such weaker extensions has attracted considerable attention in recent years.
+
+\subsubsection{Reset nets} % (fold)
+\label{ssub:reset_nets}
+
+A reset arc does not impose a precondition on firing, and empties the place when the transition fires. This makes reachability and boundedness undecidable, while some other properties, such as termination, coverability remain decidable.
+
+% subsubsection reset_nets (end)
+
+\subsubsection{Transfer nets} % (fold)
+\label{ssub:transfer_nets}
+
+Petri nets with transfer arcs (transfer nets) can contain transitions that can also consume all the tokens present in one place regardless of the actual number of tokens and move them to another place. The termination and coverability remain decidable and reachability undecidable, on the other hand, in this case the boundedness is decidable \cite{Dufourd98Reset}.
+
+% subsubsection transfer_nets (end)
+
+% subsection other_extensions (end)
