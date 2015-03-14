@@ -1,8 +1,8 @@
-In this section we study a variant of sequential systems where universality can be achieved without checking for zero by allowing membranes to be created unlimited number of times \cite{Ibarra05Active}. Such P systems are called active P systems. Contrary, if we place a limit on the number of times a membrane is created, such active P system is only equivalent to vector addition systems, hence not universal.
+In this section we study a variant of sequential systems where universality can be achieved without checking for zero by allowing membranes to be created unlimited number of times \cite{Ibarra05Active}. Such P systems are called active P systems. Contrary, if we place a limit on the number of times a membrane is created, we get a class of P systems which is only equivalent to vector addition systems, hence not universal.
 
-In the subsection \ref{sub:active_p_systems} we will introduce membrane structure and formally define membrane configuration and active P system because standard definitions are not convenient for our formal proofs.
+In Subsection \ref{sub:active_p_systems} we will introduce membrane structure and formally define membrane configuration and active P system, because standard definitions are not convenient for our formal proofs.
 
-The subsection \ref{sub:termination_problems} contains two main results. The existence of an infinite computation is surprisingly\footnote{At first sight it seems to relate to the Rice's theorem, but it is not the case.} shown to be decidable.
+The Subsection \ref{sub:termination_problems} contains two main results. The existence of an infinite computation is surprisingly\footnote{At first sight it seems to relate to the Rice's theorem, but it is not the case.} shown to be decidable.
 On the other hand, the existence of a halting computation is shown to be undecidable.
 
 \subsection{Active P systems} % (fold)
@@ -10,7 +10,7 @@ On the other hand, the existence of a halting computation is shown to be undecid
 
 \begin{definition}
   \label{def:membrane_structure}
-  Let $\Sigma$ be a set of objects. Recall that $\mathbb N^\Sigma$ contains all multisets of objects from $\Sigma$. A {\bf membrane configuration} is a tuple $(T, l, c)$, where:
+  Let $\Sigma$ be a set of objects. We denote by $\mathbb N^\Sigma$ a set of all mappings from $\Sigma$ to $\mathbb N$, so it contains all multisets of objects from $\Sigma$. A {\bf membrane configuration} is a tuple $(T, l, c)$, where:
   \begin{itemize}
     \item $T$ is a rooted tree,
     \item $l\in\mathbb N^{V(T)}$ is a mapping that assigns for each node of $T$ a number (label), where $l(r_T)=1$, so the skin membrane is always labeled with 1,
@@ -38,16 +38,16 @@ or to a specific child region ($\downarrow_j$, where $j$ is a label of a membran
 We denote these transfers with an arrow immediately after the symbol.
 An example of such rule is the following: $abb\rightarrow ab\downarrow_2 c\uparrow c\delta$.
 Symbol $\delta$ at the end of the rule means that after the application of the rule, the membrane is dissolved and its contents (objects, child membranes) are propagated to the parent membrane.
-Active P systems differs from classic (passive) P systems in ability to create new membranes by rules of the third form. Such rule will create new child membrane with a given label $j$ and a given multiset of objects $v$ as its contents.
+Active P systems differ from classic (passive) P systems in ability to create new membranes by rules of the third form. Such rule will create new child membrane with a given label $j$ and a given multiset of objects $v$ as its contents.
 
 % applicable rule definition
 
 \begin{definition}
   \label{def:applicable_rule_of_active_p_system}
-  For active P system $(\Sigma, C_0, R_1, R_2, \ldots , R_m)$, configuration $C = (T, l, c)$, membrane $d\in V(T)$ the rule $r\in R_{l(d)}$ is {\bf applicable} iff:
+  For an active P system $(\Sigma, C_0, R_1, R_2, \ldots , R_m)$, configuration $C = (T, l, c)$, membrane $d\in V(T)$ the rule $r\in R_{l(d)}$ is {\bf applicable} iff:
   \begin{itemize}
-    \item $r = u\rightarrow w$ and $u\subseteq c(d)$ and $\forall (a,\downarrow_k)\in w \exists d_2\in V(T): l(d_2)=k \wedge parent(d_2) = d$,
-    \item $r = u\rightarrow w\delta$ and $u\subseteq c(d)$ and $\forall (a,\downarrow_k)\in w \exists d_2\in V(T): l(d_2)=k \wedge parent(d_2) = d$ and $d\neq r_T$,
+    \item $r = u\rightarrow w$ and $u\subseteq c(d)$ and for all $(a,\downarrow_k)\in w$ there exists $d_2\in V(T)$ such that $l(d_2)=k \wedge parent(d_2) = d$,
+    \item $r = u\rightarrow w\delta$ and $u\subseteq c(d)$ and for all $(a,\downarrow_k)\in w$ there exists $d_2\in V(T)$ such that $l(d_2)=k \wedge parent(d_2) = d$ and $d\neq r_T$,
     \item $r = u\rightarrow [_j v]_j$ and $u\subseteq c(d)$.
   \end{itemize}
 \end{definition}
@@ -219,7 +219,7 @@ We will now follow with a proof of an important property of the covering relatio
 
   There are three possible forms of the rule $r$.
   \begin{itemize}
-    \item If $r = u\rightarrow w$, then because $r$ is applicable in $d$, $\forall (a,\downarrow_k)\in w \exists d_2\in V(T_1): l_1(d_2)=k \wedge parent_{T_1}(d_2) = d$. Because $C_1\leq C_2$, then for $f(d_2)\in V(T_2)$ the following holds: $l_2(f(d_2)) = l_1(d_2) = k$ and $parent_{T_2}(f(d_2) = f(d)$. Hence $r$ is applicable in $f(d)$.
+    \item If $r = u\rightarrow w$, then, because $r$ is applicable in $d$, $\forall (a,\downarrow_k)\in w \exists d_2\in V(T_1): l_1(d_2)=k \wedge parent_{T_1}(d_2) = d$. Because $C_1\leq C_2$, then for $f(d_2)\in V(T_2)$ the following holds: $l_2(f(d_2)) = l_1(d_2) = k$ and $parent_{T_2}(f(d_2) = f(d)$. Hence $r$ is applicable in $f(d)$.
     \item If $r = u\rightarrow w\delta$, then $d\neq r_{T_1}$. Since $f$ is an isomorphism, then also $f(d)\neq r_{T_2}$. Other properties follows from the previous case.
     \item If $r = u\rightarrow [_k v]_k$, then $|V(T_1)|<L$. Isomorphism preserves number of nodes, hence $|V(T_2)| = |V(T_1)| < L$ and $r$ is applicable in $f(d)$. \qed
   \end{itemize}
@@ -261,7 +261,7 @@ We will now show that comparing two encodings corresponds to covering of two con
 \end{lemma}
 
 \begin{dokaz}
-  Both $enc(C_1)$ and $enc(C_2)$ contains $z$ parts and exactly one part contains non-zero values. Non-zero part of $enc(C_1)$ must be non-zero also in $enc(C_2)$, because $enc(C_1)\leq enc(C_2)$. Then $o(T_1)=o(T_2)$, so the trees are isomorphic. Suppose there is an isomorphism $f:T_1\rightarrow T_2$. For every membrane $d\in T_1$, $l_1(d)=l_2(f(d))$ and $c_1(d)\subseteq c_2(f(d))$. Hence, $C_1\leq C_2$.
+  Both $enc(C_1)$ and $enc(C_2)$ contain $z$ parts and exactly one part which contains non-zero values. The non-zero part of $enc(C_1)$ must be non-zero also in $enc(C_2)$, because $enc(C_1)\leq enc(C_2)$. Then $o(T_1)=o(T_2)$, so the trees are isomorphic. Suppose there is an isomorphism $f:T_1\rightarrow T_2$. For every membrane $d\in T_1$, $l_1(d)=l_2(f(d))$ and $c_1(d)\subseteq c_2(f(d))$. Hence, $C_1\leq C_2$.
   \qed
 \end{dokaz}
 
@@ -292,7 +292,7 @@ We will now show that comparing two encodings corresponds to covering of two con
 \label{ssub:existence_of_halting_computation}
 
 In this subsection we will focus on the opposite problem: whether there is a computation that is halting. Recall that halting computation has no applicable rule in the last configuration.
-First, we will reduce this problem to the reachability. It is a problem of determining, for a given configuration $C$, whether there exists a computation from $C_0$ to $C$. The reachability of active P systems can be then reduced to the reachabililty of register machines, which is undecidable.
+First, we will reduce this problem to the reachability problem. It is a problem of determining, for a given configuration $C$, whether there exists a computation from $C_0$ to $C$. The reachability of active P systems can be then reduced to the reachabililty of register machines, which is undecidable.
 
 For a given P system $\Pi$ and a target configuration $C$ we will construct a P system $\Pi^\prime$ such that there is a halting computation of $\Pi^\prime\Leftrightarrow\linebreak C$ is reachable for $\Pi$. Suppose $\Pi = (\Sigma, C_0, R_1, \ldots R_m)$ and $C = (T, l, c)$. Then we will construct $\Pi^\prime = (\Sigma^\prime, C_0^\prime, R_1^\prime, \ldots R_m^\prime)$, where:
 
@@ -305,7 +305,7 @@ For a given P system $\Pi$ and a target configuration $C$ we will construct a P 
 The $\xi_d$ objects are called verifiers, they are intended to verify if the contents of the membrane corresponds to the contents in the target configuration $C$. After this verification it descends down into child membranes for the verification of other parts of the membrane structure.
 Initially, there is an object $\xi_{r_T}$ in the skin membrane. Verification is performed in the rule $\xi_d c(d)\rightarrow\xi_{d^\prime}\downarrow_{l(d^\prime)}$, where on the right side there is $\xi_{d^\prime}$ object for every child membrane $d^\prime$ in the target configuration $C$.
 
-The construction is not complete. The system should not be able to halt unless the verification takes place. That is why we introduce a new object $\omega$ to each membrane with a rule $\omega\rightarrow\omega$ and the verifier will erase them with rule $\xi_d\omega c(d)\rightarrow\xi_{d^\prime}\downarrow_{l(d^\prime)}$. We also need to ensure that newly created membranes contain the $\omega$ object, so we replace every rule for membrane creation $u\rightarrow [_k v]_k$ with $u\rightarrow [_k v\omega]_k$.
+The construction is not complete. The system should not be able to halt unless the verification takes place. That is why we introduce a new object $\omega$ to each membrane with a rule $\omega\rightarrow\omega$ and the verifier will erase them with rule $\xi_d\omega c(d)\rightarrow\xi_{d^\prime}\downarrow_{l(d^\prime)}$. One application of this rule will erase the $\omega$ object and propagate proper $\xi$ object to every child membrane. We also need to ensure that newly created membranes contain the $\omega$ object, so we replace every rule for membrane creation $u\rightarrow [_k v]_k$ with $u\rightarrow [_k v\omega]_k$.
 
 \begin{figure}
   \begin{tikzpicture}[node distance=2mm,line width=1mm]
@@ -461,12 +461,12 @@ The construction is not complete. The system should not be able to halt unless t
 \end{example}
 
 \begin{example}
-There is still a problem that we actually check, whether a target configuration is contained within the current configuration. If our target configuration is $C_2$ from the Figure \ref{fig:example_p_system_pi_1}, the resulting P system $\Pi^\prime_2=(\{a,b,\xi_{d_1},\xi_{d_2},\omega\}, C^\prime_0, \{a\rightarrow [a]_2,\xi_{d_1}\omega\rightarrow\xi_{d_2},\omega\rightarrow\omega\}, \{\xi_{d_2}\omega\rightarrow\eps,\omega\rightarrow\omega\})$ will have the same halting computation shown in the Figure \ref{fig:computation_of_pi_prime_2} although the configuration $C_2$ cannot be reached.  
+There is still a problem. We actually check, whether a target configuration is contained within the current configuration. If our target configuration is $C_2$ from the Figure \ref{fig:example_p_system_pi_1}, the resulting P system $\Pi^\prime_2=(\{a,b,\xi_{d_1},\xi_{d_2},\omega\}, C^\prime_0, \{a\rightarrow [a]_2,\xi_{d_1}\omega\rightarrow\xi_{d_2},\omega\rightarrow\omega\}, \{\xi_{d_2}\omega\rightarrow\eps,\omega\rightarrow\omega\})$ will have the same halting computation shown in the Figure \ref{fig:computation_of_pi_prime_2} although the configuration $C_2$ cannot be reached.  
 \end{example}
 
 If there are additional objects which cannot be erased, so the target configuration cannot be reached, we need to ensure $\Pi^\prime$ will not halt. We will add a rule $a\rightarrow a$ to each membrane for each object $a\in\Sigma$, so $\Pi^\prime$ can halt only if all objects are erased. This modification renders the computation in the Figure \ref{fig:computation_of_pi_prime_2} as not halting.
 
-The last issue to solve is that it is still possible that in the middle of the verifying, some of already verified membranes got dissolved and all yet unverified membranes will be successfully verified causing $\Pi^\prime$ to halt, although without that dissolution it would be unable to reach $C$.
+The last issue to solve is the dissolution. It is still possible that in the middle of the verifying, some of already verified membranes got dissolved and all yet unverified membranes will be successfully verified causing $\Pi^\prime$ to halt, although without that dissolution it would be unable to reach $C$.
 
 \begin{figure}
   \begin{tikzpicture}[node distance=2mm,line width=1mm]
@@ -586,10 +586,10 @@ We need to prove two implications in order to formally prove correctness of this
 \end{lemma}
 
 \begin{dokaz}
-  Consider computation $\Pi$ with $C$ as the last configuration. For $\Pi^\prime$ there is a corresponding computation as the rules of $\Pi$ are included in $\Pi^\prime$ with an exception of the rule $u\rightarrow [_k v]_k$, which has a corresponding rule with the same left side: $u\rightarrow [_k v\omega]_k$. The corresponding computation of $\Pi^\prime$ will result in a configuration, where in every membrane $d$, the contents will be $\omega c(d)$, and the skin membrane will contain an additional $\xi_{r_T}$. Then the cascade of applications of rule $\xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$ can be applied, starting in the skin membrane and cascading down to children until all the membranes applied that rule. The objects $\omega c(d)$ will be replaced by $\sigma$ and the computation will halt. \qed
+  Consider a computation $\Pi$ with $C$ as the last configuration. For $\Pi^\prime$ there is a corresponding computation as the rules of $\Pi$ are included in $\Pi^\prime$ with an exception of the rule $u\rightarrow [_k v]_k$, which has a corresponding rule with the same left side: $u\rightarrow [_k v\omega]_k$. The corresponding computation of $\Pi^\prime$ will result in a configuration, where in every membrane $d$, the contents will be $\omega c(d)$, and the skin membrane will contain an additional $\xi_{r_T}$. Then the cascade of applications of the rule $\xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$ can start in the skin membrane, cascading down from parents to children until all the membranes applied that rule. The objects $\omega c(d)$ will be replaced by $\sigma$ and the computation will halt. \qed
 \end{dokaz}
 
-The other direction of the implication is more complicated, so following lemmas will state some properties about computations of $\Pi$ and $\Pi^\prime$.
+The other direction of the implication is more complicated, so the following lemmas will state some properties about computations of $\Pi$ and $\Pi^\prime$.
 
 \begin{lemma}
 \label{no_dissolving_after_check_lemma}
@@ -606,7 +606,7 @@ The other direction of the implication is more complicated, so following lemmas 
 \end{lemma}
 
 \begin{dokaz}
-  After the application of rule $r = \xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$ in membrane $d$, there will not be any of $\xi$ objects present in the membrane, because they are only sent into child membranes, which cannot be dissolved because of lemma \ref{no_dissolving_after_check_lemma}. So there will be no more of rule $r$ applied in membrane $d$. The newly created membrane will never receive any of $\xi$ objects, so the object $\omega$ will never be erased and the computation will not halt, which contradicts the fact that the computation is halting. \qed
+  After the application of the rule $r = \xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$ in membrane $d$, there will not be any of $\xi$ objects present in the membrane, because they are only sent into child membranes, which cannot be dissolved, because of Lemma \ref{no_dissolving_after_check_lemma}. So there will be no more of rule $r$ applied in membrane $d$. The newly created membrane will never receive any of $\xi$ objects, so the object $\omega$ will never be erased and the computation will not halt, which contradicts the fact that the computation is halting. \qed
 \end{dokaz}
 
 \begin{lemma}
@@ -617,8 +617,8 @@ The other direction of the implication is more complicated, so following lemmas 
 \begin{dokaz}
   Consider membrane $d$: let $C_1$ be the configuration before the application of $r$, $C_2$ the configuration after the application of $r$ and $C_3$ the halting configuration.
 
-  First consider elementary membranes, lets have a membrane $d$. As it has no child membranes, $C_2$ is contained within $C_1$ (with the exception of the $\sigma$ object). Therefore the sequence of steps from $C_2$ to $C_3$ can be applied starting from $C_1$ instead of $C_2$.
-  It would result in a configuration $C_4$, where contents of $d$ is exactly $\xi_d\omega c(d)$, assuming $d$ has not been dissolved, what is ensured by lemma \ref{no_dissolving_after_check_lemma}. So the rule $r = \xi_d\omega c(d)\rightarrow\sigma$ can be applied, resulting in configuration, where $d$ contains exactly one $\sigma$ and nothing else, so no more rule will be applied in $d$.
+  First consider elementary membranes, let such a membrane be $d$. As it has no child membranes, $C_2$ is contained within $C_1$ (with the exception of the $\sigma$ object). Therefore the sequence of steps from $C_2$ to $C_3$ can be applied starting from $C_1$ instead of $C_2$.
+  It would result in a configuration $C_4$, where $d$ contains exactly the objects $\xi_d\omega c(d)$, assuming $d$ has not been dissolved, what is ensured by lemma \ref{no_dissolving_after_check_lemma}. So the rule $r = \xi_d\omega c(d)\rightarrow\sigma$ can be applied, resulting in configuration, where $d$ contains exactly one $\sigma$ and nothing else, so no more rule will be applied in $d$.
 
   Consider a membrane $d$, which is not elementary, so it has child membranes. In $C_1$ the verifier is in $d$ and no child membrane contains the verifier. In $C_2$ every child membrane contains the verifier. We cannot use the same argument, because $C_2$ is not contained within $C_1$.
 
@@ -632,7 +632,7 @@ The other direction of the implication is more complicated, so following lemmas 
 \end{lemma}
 
 \begin{dokaz}
-  According to lemma \ref{check_at_last_lemma} there is also a halting computation where in every membrane $d$ the last used rule is $r = \xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$. So the corresponding computation in $\Pi$ will result in the configuration $C_5$, where every membrane $d$ contains exactly $c(d)$. If $C_5$ contains a membrane not present in $C$, it will contain the object $\omega$, which will not be reached by any of objects $\xi$ so the computation will not halt. If $C$ contains a membrane $d^\prime$ not present in $C_5$, then the membrane $d = parent(d^\prime)$ will never get rid of $\omega$ because the rule $r = \xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$ cannot be applied due to lack of the child membrane $d^\prime$. Hence $C = C_5$ and there is a computation of $\Pi$ that will result in $C$. \qed
+  According to lemma \ref{check_at_last_lemma} there is also a halting computation where in every membrane $d$ the last used rule is $r = \xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$. So the corresponding computation in $\Pi$ will result in the configuration $C_5$, where every membrane $d$ contains exactly $c(d)$. If $C_5$ contains a membrane not present in $C$, it will contain the object $\omega$, which will not be reached by any of objects $\xi$ so the computation will not halt. If $C$ contains a membrane $d^\prime$ not present in $C_5$, then the membrane $d = parent(d^\prime)$ will never get rid of $\omega$, because the rule $r = \xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$ cannot be applied due to lack of the child membrane $d^\prime$. Hence $C = C_5$ and there is a computation of $\Pi$ that will result in $C$. \qed
 \end{dokaz}
 
 \begin{veta}
