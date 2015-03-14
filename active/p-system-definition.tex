@@ -9,7 +9,7 @@ An {\bf active P system} is a tuple $(\Sigma, C_0, R_1, R_2, \dots , R_m)$, wher
 \begin{itemize}
   \item $\Sigma$ is a set of objects,
   \item $C_0$ is initial membrane configuration,
-  \item $R_1,R_2,\dots R_m$ are finite sets of rewriting rules associated with the labels $1,2,\dots,m$ and can be of forms:
+  \item $R_1,R_2,\dots, R_m$ are finite sets of rewriting rules associated with the labels $1,2,\dots,m$ and can be of forms:
   \begin{itemize}
     \item $u\rightarrow w$, where $u\in \Sigma^+$, $w\in (\Sigma\times\{\cdot, \uparrow, \downarrow_j\})^*$ and $1\leq j\leq m$,
     \item a dissolving rule $u\rightarrow w\delta$, where $u\in \Sigma^+$, $w\in (\Sigma\times\{\cdot, \uparrow, \downarrow_j\})^*$ and $1\leq j\leq m$,
@@ -41,7 +41,7 @@ A {\bf computation step} of P system is a relation $\Rightarrow$ on the set of c
 
 An {\bf infinite computation} of a P system is an infinite sequence of configurations $\{C_i\}_{i=0}^\infty$, where $\forall i: C_i\Rightarrow C_{i+1}$.
 
-A {\bf finite computation} of a P system is a finite sequence of configurations $\{C_i\}_{i=0}^n$, where $\forall i: C_i\Rightarrow C_{i+1}$.
+A {\bf finite computation} of a P system is a finite sequence of configurations $\{C_i\}_{i=0}^n$, where for all $0\leq i<n: C_i\Rightarrow C_{i+1}$.
 
 A {\bf halting computation} of a P systems is a finite computation $\{C_i\}_{i=0}^n$, where there is no applicable rule in the last configuration $C_n$.
 
@@ -50,7 +50,7 @@ A {\bf halting computation} of a P systems is a finite computation $\{C_i\}_{i=0
 The P system can work in generating or in accepting mode. For the generating mode there are two possible ways of assigning a result of a computation:
 
 \begin{enumerate}
-    \item By considering the multiplicity of objects present in a designated membrane in a halting configuration. In this case we obtain a vector of natural numbers. We can also represent this vector as a multiset of objects or as Parikh image of a language.
+    \item By considering the multiplicity of objects present in a designated membrane in a halting configuration. In this case we obtain a vector of natural numbers. We can also represent this vector as a multiset of objects or as Parikh image of a string.
     \item By concatenating the objects which leave the system, in the order they are sent out of the skin membrane (if several symbols are expelled at the same time, then any ordering of them is considered). In this case we generate a language.
 \end{enumerate}
 

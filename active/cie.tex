@@ -67,7 +67,7 @@ Here we recall several notions from the classical theory of formal languages.
 
 An {\bf alphabet} is a finite nonempty set of symbols. Usually it is denoted by $\Sigma$. A {\bf string} over an alphabet is a finite sequence of symbols from the alphabet. We denote by $\Sigma^*$ the set of all strings over an alphabet $\Sigma$. By $\Sigma^+$ = $\Sigma^* - \{\eps\}$ we denote the set of all nonempty strings over $\Sigma$. A {\bf language} over the alphabet $\Sigma$ is any subset of $\Sigma^*$.
 
-The number of occurrences of a given symbol $a\in \Sigma$ in the string $w\in \Sigma^*$ is denoted by $|w|_a$. $\Psi_\Sigma(w)=(|w|_{a_1},|w|_{a_2},\dots,|w|_{a_n})$ is called a Parikh vector associated with the string $w\in \Sigma^*$, where $\Sigma=\{a_1,a_2,\dots a_n\}$. For a language $L\subseteq \Sigma^*$, $\Psi_\Sigma(L)=\{\Psi_\Sigma(w)|w\in L\}$ is the Parikh mapping associated with $L$. If FL is a family of languages, PsFL is denoted the family of Parikh images of languages in FL.
+The number of occurrences of a given symbol $a\in \Sigma$ in the string $w\in \Sigma^*$ is denoted by $|w|_a$. $\Psi_\Sigma(w)=(|w|_{a_1},|w|_{a_2},\dots,|w|_{a_n})$ is called a Parikh vector associated with the string $w\in \Sigma^*$, where $\Sigma=\{a_1,a_2,\dots, a_n\}$. For a language $L\subseteq \Sigma^*$, $\Psi_\Sigma(L)=\{\Psi_\Sigma(w)|w\in L\}$ is the Parikh image of $L$. If FL is a family of languages, PsFL denotes the family of Parikh images of languages in FL.
 
 A multiset over a set $\Sigma$ is a mapping $M: \Sigma\rightarrow \mathbb N$.
 We denote by $M(a), a\in \Sigma$ the multiplicity of $a$ in the multiset $M$.
@@ -77,7 +77,7 @@ A multiset is {\bf empty} when its support is empty.
 A multiset $M$ with finite support $\{a_1, a_2, \dots, a_n\}$ can be represented by the string $a_1^{M(a_1)}a_2^{M(a_2)}\dots a_n^{M(a_n)}$.
 We say that multiset $M_1$ is included in multiset $M_2$ if $\forall a \in supp(M_1): M_1(a)\leq M_2(a)$.
 We denote it by $M_1\subseteq M_2$.
-If $M_1\subseteq M_2$, the {\bf difference} of two multisets $M_2-M_1$ is defined as a multiset where $\forall a \in supp(M_2): (M_2-M_1)(a)=\max(M_2(a)-M_1(a),0)$.
+The {\bf difference} of two multisets $M_2-M_1$ is defined as a multiset where $\forall a \in supp(M_2): (M_2-M_1)(a)=\max(M_2(a)-M_1(a),0)$.
 The {\bf union} of two multisets $M_1\cup M_2$ is a multiset where $\forall a \in supp(M_1)\cup supp(M_2): (M_1\cup M_2)(a)=M_1(a)+M_2(a)$.
 The product of multiset $M$ with natural number $n\in \mathbb N$ is a multiset where $\forall a \in supp(M): (n\cdot M)(a)=n\cdot M(a)$.
 
@@ -89,7 +89,7 @@ Let $d$ be a node of $T\setminus\{r_T\}$.
 As $T$ is a tree, there is a unique path from $d$ to $r_T$. 
 The node adjacent to $d$ on that path is also unique and is called a {\bf parent node} of $d$ and is denoted by $parent_T(d)$.
 We will denote the set of nodes of $T$ by $V(T)$ and set of its edges by $E(T)$.
-Let $T_1, T_2$ be rooted trees. A bijection $f: V(T_1)\rightarrow V(T_2)$ is an {\bf isomorphism} iff $\{(f(u),f(v))|(u,v)\in E(V(T_1))\} = E(V(T_2))$ and $f(r_{T_1}) = r_{T_2}$. 
+Let $T_1, T_2$ be rooted trees. A bijection $f: V(T_1)\rightarrow V(T_2)$ is an {\bf isomorphism} iff $\{(f(u),f(v))|(u,v)\in E(T_1)\} = E(T_2)$ and $f(r_{T_1}) = r_{T_2}$. 
 
   
 \section{Active P systems}
@@ -155,7 +155,7 @@ We will denote this with $C_1\leq C_2$.
 
 Now, we will define the encoding of a configuration $C = (T, l, c)$ into a tuple of integers.
 
-A membrane $d\in T$ will be encoded as $(n+m)$-tuple $enc(d)\in\mathbb N^{(n+m)}$, where first $n$ numbers will be actual counts of objects and next $m$ numbers will encode the membrane label:
+A membrane $d\in T$ will be encoded as $(n+m)$-tuple $enc(d)\in\mathbb N^{(n+m)}$, where first $n$ numbers will be actual counts of objects and next $m$ numbers will encode the membrane label with $m-1$ zeros and one one:
 \[
   enc(d)_{i} =
   \begin{cases}
@@ -189,11 +189,11 @@ We will now show that comparing two encodings corresponds to covering of two con
 
 \begin{lemma}
 \label{infinite_sequence_of_configurations_lemma}
-  For sequential active P system with limit on the total number of membranes $L$ for every infinite sequence of configurations $\{C_i\}_{i=0}^\infty\exists i<j: C_i\leq C_j$.
+  For sequential active P system with limit on the total number of membranes $L$ for every infinite sequence of configurations $\{C_i\}_{i=0}^\infty$ there is a pair $i<j$ such that $C_i\leq C_j$.
 \end{lemma}
 
 \begin{proof}
-  Suppose an infinite sequence $\{enc(C_i)\}_{i=0}^\infty$. We use a variation of Dickson's lemma (\cite{Figueira11Dickson}): Every infinite sequence of tuples from $\mathbb N^k$ contains an increasing pair. Applied to our sequence, there are two positions $i<j: enc(C_i)\leq enc(C_j)$. From lemma \ref{encoding_lemma}, $C_i\leq C_j$.
+  Suppose an infinite sequence $\{enc(C_i)\}_{i=0}^\infty$. We use a variation of Dickson's lemma (\cite{Figueira11Dickson}): Every infinite sequence of tuples from $\mathbb N^k$ contains an increasing pair. Applied to our sequence, there are two positions $i<j$ such that $enc(C_i)\leq enc(C_j)$. From lemma \ref{encoding_lemma}, $C_i\leq C_j$.
   \qed
 \end{proof}
 
@@ -216,12 +216,12 @@ We will now show that comparing two encodings corresponds to covering of two con
 In this subsection we will focus on the opposite problem: whether there is a computation that is halting. Recall that halting computation has no applicable rule in the last configuration.
 First, we will reduce this problem to the reachability problem. It is a problem of determining, for a given configuration $C$, whether there exists a computation from $C_0$ to $C$. The reachability of active P systems can be then reduced to the reachabililty of register machines, which is undecidable.
 
-For a given P system $\Pi$ and a target configuration $C$ we will construct a P system $\Pi^\prime$ such that there is a halting computation of $\Pi^\prime\Leftrightarrow\linebreak C$ is reachable for $\Pi$. Suppose $\Pi = (\Sigma, C_0, R_1, \dots R_m)$ and $C = (T, l, c)$. Then we will construct $\Pi^\prime = (\Sigma^\prime, C_0^\prime, R_1^\prime, \dots R_m^\prime)$, where:
+For a given P system $\Pi$ and a target configuration $C$ we will construct a P system $\Pi^\prime$ such that there is a halting computation of $\Pi^\prime\Leftrightarrow\linebreak C$ is reachable for $\Pi$. Suppose $\Pi = (\Sigma, C_0, R_1, \dots, R_m)$ and $C = (T, l, c)$. Then we will construct $\Pi^\prime = (\Sigma^\prime, C_0^\prime, R_1^\prime, \dots, R_m^\prime)$, where:
 
 \begin{itemize}
   \item $\Sigma^\prime = \Sigma\cup\{\xi_d|d\in V(T)\}$,
   \item $C_0^\prime = (T, l, c^\prime)$, where $\forall d\in V(T)\setminus r_T: c^\prime(d) = c(d)$ and $c^\prime(r_T) = c(r_T)\cup\{\xi_{r_T}\}$,
-  \item $\forall i\in\{1\dots m\}: R_i^\prime = R_i\cup\{\xi_d c(d)\rightarrow\xi_{d^\prime}\downarrow_{l(d^\prime)}|d,d^\prime\in V(T),l(d)=i,parent(d^\prime)=d\}$.
+  \item $\forall i\in\{1,\dots, m\}: R_i^\prime = R_i\cup\{\xi_d c(d)\rightarrow\xi_{d^\prime}\downarrow_{l(d^\prime)}|d,d^\prime\in V(T),l(d)=i,parent(d^\prime)=d\}$.
 \end{itemize}
 
 The $\xi_d$ objects are called verifiers, they are intended to verify if the contents of the membrane corresponds to the contents in the target configuration $C$. After this verification it descends down into child membranes for the verification of other parts of the membrane structure.
@@ -239,7 +239,7 @@ The final construct is:
 \begin{itemize}
   \item $\Sigma^\prime = \Sigma\cup\{\omega, \sigma\}\cup\{\xi_d|d\in V(T)\}$,
   \item $C_0^\prime = (T, l, c^\prime)$, where $\forall d\in V(T)\setminus r_T: c^\prime(d) = c(d)\cup\{\omega\}$ and $c^\prime(r_T) = c(r_T)\cup\{\omega,\xi_{r_T}\}$,
-  \item $\forall i\in\{1\dots m\}: R_i^\prime = \{r|r\in R_i,r = u\rightarrow w\vee r = u\rightarrow w\delta\}\cup\linebreak\{u\rightarrow [_k v\omega]_k|u\rightarrow [_k v]_k\in R_i\}\cup\{a\rightarrow a|a\in\Sigma\}\cup\{\sigma\sigma\rightarrow\sigma\sigma,\omega\rightarrow\omega\}\cup\linebreak\{\xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}|d,d^\prime\in V(T),l(d)=i,parent(d^\prime)=d\}$.
+  \item $\forall i\in\{1,\dots, m\}: R_i^\prime = \{r|r\in R_i,r = u\rightarrow w\vee r = u\rightarrow w\delta\}\cup\linebreak\{u\rightarrow [_k v\omega]_k|u\rightarrow [_k v]_k\in R_i\}\cup\{a\rightarrow a|a\in\Sigma\}\cup\{\sigma\sigma\rightarrow\sigma\sigma,\omega\rightarrow\omega\}\cup\linebreak\{\xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}|d,d^\prime\in V(T),l(d)=i,parent(d^\prime)=d\}$.
 \end{itemize}
 
 We need to prove two implications in order to formally prove correctness of this construction.
