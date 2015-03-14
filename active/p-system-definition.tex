@@ -61,6 +61,6 @@ For the accepting mode the input multiset is inserted in the skin membrane and i
 
 For the simplicity of proofs it is convenient to introduce a variant with a global limit upon the membrane structure. We achieve this by restricting the rule application such that if the rule would result in a structure exceeding the limit, the rule will not be applicable.
 
-{\bf Active P system with a limit on total number of membranes} is a tuple $(\Sigma, L, C_0, R_1, R_2, \dots , R_m)$, where $(\Sigma, C_0, R_1, R_2, \dots , R_m)$ is an active P system and $L\in \mathbb N$ is a limit on total number of membranes. Anytime during the computation, a confuguration $(T, l, c)$ is not allowed to have more than $L$ membranes, so the following invariant holds: $|V(T)|\leq L$.
+{\bf Active P system with a limit on the total number of membranes} is a tuple $(\Sigma, L, C_0, R_1, R_2, \dots , R_m)$, where $(\Sigma, C_0, R_1, R_2, \dots , R_m)$ is an active P system and $L\in \mathbb N$ is a limit on the total number of membranes. Anytime during the computation, a configuration $(T, l, c)$ is not allowed to have more than $L$ membranes, so the following invariant holds: $|V(T)|\leq L$.
 
 This is achieved by adding a constraint for rule of the form $r = u\rightarrow [_k v]_k$, which is defined to be applicable iff $u\subseteq c(d)$ and $|V(T)|<L$. If the number of membranes is equal to $L$, there is no space for newly created membrane, so in that case such rule is not applicable.

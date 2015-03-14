@@ -39,7 +39,7 @@
 \begin{abstract}
 We study variants of P systems that are working in the sequential mode. Basically, they are not universal, but there are possible extensions that can increase the computation power. Extensions that relate to a zero-check, are often universal.
 P systems with an ability to create new membranes are a rare exception as they are known to be universal even in the sequential mode without using a zero-check.
-In this paper we show somewhat surprising result that the existence of an infinite computation is decidable. The standard construction of coverability tree is extended to provide an algorithm for detecting infinite loops.
+In this paper we show somewhat surprising result that the existence of an infinite computation for sequential P systems with active membranes is decidable. The standard construction of coverability tree is extended to provide an algorithm for detecting infinite loops.
 In addition, we show that the existence of a halting computation is undecidable as it can be reduced to reachability of register machines.
 \end{abstract}
 
@@ -52,7 +52,7 @@ Membrane systems (P systems) were introduced by P\u{a}un (see \cite{Paun2000108}
 One of the objectives is to relax the condition of using the rules in a maximally parallel way in order to find more realistic P systems from a biological point of view.
 In sequential P systems, only one rewriting rule is used in each step of computation. Without priorities, they are equivalent to vector addition systems \cite{Ibarra05Active}, hence not universal. However priorities, inhibitors and other modifications can increase the computation power. It seems that there is a link between universality and ability to zero-check \cite{Alhazov12Properties}.
 
-In this paper we study a variant where universality can be achieved without checking for zero by allowing membranes to be created unlimited number of times \cite{Ibarra05Active}. Such P systems are called active P systems. Contrary, if we place a limit on number of times a membrane is created, such active P system is only equivalent to vector addition systems, hence not universal.
+In this paper we study a variant where universality can be achieved without checking for zero by allowing membranes to be created unlimited number of times \cite{Ibarra05Active}. Such P systems are called active P systems. Contrary, if we place a limit on the number of times a membrane is created, such active P system is only equivalent to vector addition systems, hence not universal.
 
 In the section \ref{sec:preliminaries} we will recall some basic notions from formal languages, multisets and graph theory. Then in the section \ref{sec:p systems} we will introduce membrane structure and formally define membrane configuration and active P system because standard definitions are not convenient for our formal proofs.
 
@@ -65,7 +65,7 @@ On the other hand, the existence of a halting computation is shown to be undecid
 
 Here we recall several notions from the classical theory of formal languages.
 
-An {\bf alphabet} is a finite nonempty set of symbols. Usually it is denoted by $\Sigma$. A {\bf string} over an alphabet is a finite sequence of symbols from alphabet. We denote by $\Sigma^*$ the set of all strings over an alphabet $\Sigma$. By $\Sigma^+$ = $\Sigma^* - \{\eps\}$ we denote the set of all nonempty strings over $\Sigma$. A {\bf language} over the alphabet $\Sigma$ is any subset of $\Sigma^*$.
+An {\bf alphabet} is a finite nonempty set of symbols. Usually it is denoted by $\Sigma$. A {\bf string} over an alphabet is a finite sequence of symbols from the alphabet. We denote by $\Sigma^*$ the set of all strings over an alphabet $\Sigma$. By $\Sigma^+$ = $\Sigma^* - \{\eps\}$ we denote the set of all nonempty strings over $\Sigma$. A {\bf language} over the alphabet $\Sigma$ is any subset of $\Sigma^*$.
 
 The number of occurrences of a given symbol $a\in \Sigma$ in the string $w\in \Sigma^*$ is denoted by $|w|_a$. $\Psi_\Sigma(w)=(|w|_{a_1},|w|_{a_2},\dots,|w|_{a_n})$ is called a Parikh vector associated with the string $w\in \Sigma^*$, where $\Sigma=\{a_1,a_2,\dots a_n\}$. For a language $L\subseteq \Sigma^*$, $\Psi_\Sigma(L)=\{\Psi_\Sigma(w)|w\in L\}$ is the Parikh mapping associated with $L$. If FL is a family of languages, PsFL is denoted the family of Parikh images of languages in FL.
 
@@ -118,21 +118,21 @@ In this section we recall the halting problem for Turing machines. The problem i
   \item whether there exists a finite computation (the machine can halt).
 \end{itemize}
 
-We will prove the (un)decidability of these problems on active P systems with limit on total number of membranes. The results are quite interesting, because:
+We will prove the (un)decidability of these problems on active P systems with limit on the total number of membranes. The results are quite interesting, because:
 
 \begin{theorem}
-  Sequential active P systems with limit on total number of membranes are universal.
+  Sequential active P systems with limit on the total number of membranes are universal.
 \end{theorem}
 
 \begin{proof}
-  The proof of this theorem for sequential active P systems in \cite{Ibarra05Active} uses simulation of register machines and during the simulation, every configuration has at most three membranes. Hence the active P system with limit on total number of membranes exists (e.g. with $L=3$), so the universality holds.
+  The proof of this theorem for sequential active P systems in \cite{Ibarra05Active} uses simulation of register machines and during the simulation, every configuration has at most three membranes. Hence the active P system with limit on the total number of membranes exists (e.g. with $L=3$), so the universality holds.
   \qed
 \end{proof}
 
 \subsection{Existence of infinite computation} % (fold)
 \label{sub:existence_of_infinite_computation}
 
-We will propose an algorithm for deciding existence of infinite computation. Basic idea is to consider the minimal coverability graph (\cite{Rozenberg93MinimalCoverabilityGraph}), where nodes are configurations and edge leads from the configuration $C_1$ to the configuration $C_2$, whenever there is a rule applicable in $C_1$, which results in $C_2$. The construction in \cite{Rozenberg93MinimalCoverabilityGraph} is performed on Petri nets, where the configuration consists just of a vector of natural numbers. The situation is the same for single-membrane sequential P systems. We need to modify the construction for active P systems.
+We will propose an algorithm for deciding existence of infinite computation. Basic idea is to consider the minimal coverability graph (\cite{Rozenberg93MinimalCoverabilityGraph}), where nodes are configurations and an edge leads from the configuration $C_1$ to the configuration $C_2$, whenever there is a rule applicable in $C_1$, which results in $C_2$. The construction in \cite{Rozenberg93MinimalCoverabilityGraph} is performed on Petri nets, where the configuration consists just of a vector of natural numbers. The situation is the same for single-membrane sequential P systems. We need to modify the construction for active P systems.
 
 A configuration $C_2 = (T_2, l_2, c_2)$ {\bf covers} configuration $C_1 = (T_1, l_1, c_1)$ iff $\exists$ isomorphism $f: T_1\rightarrow T_2$ preserving membrane labels and contents: $\forall d\in T_1$ the following properties hold: $l_1(d)=l_2(f(d))\wedge c_1(d)\subseteq c_2(f(d))$.
 
@@ -140,7 +140,7 @@ We will denote this with $C_1\leq C_2$.
 
 \begin{lemma}
 \label{rule_applicability_lemma}
-  For sequential active P system with limit on total number of membranes, if $C_2 = (T_2, l_2, c_2)$ {\bf covers} configuration $C_1 = (T_1, l_1, c_1)$, then there is an isomorphism $f: T_1\rightarrow T_2$ such that if a rule $r$ is applicable in membrane $d\in T_1$, then $r$ is applicable in $f(d)$.
+  For sequential active P system with limit on the total number of membranes, if $C_2 = (T_2, l_2, c_2)$ {\bf covers} configuration $C_1 = (T_1, l_1, c_1)$, then there is an isomorphism $f: T_1\rightarrow T_2$ such that if a rule $r$ is applicable in membrane $d\in T_1$, then $r$ is applicable in $f(d)$.
 \end{lemma}
 
 \begin{proof}
@@ -188,20 +188,20 @@ The entire configuration will be encoded in tuple which consists of $z$ parts. A
 
 \begin{lemma}
 \label{infinite_sequence_of_configurations_lemma}
-  For sequential active P system with limit on total number of membranes $L$ for every infinite sequence of configurations $\{C_i\}_{i=0}^\infty\exists i<j: C_i\leq C_j$.
+  For sequential active P system with limit on the total number of membranes $L$ for every infinite sequence of configurations $\{C_i\}_{i=0}^\infty\exists i<j: C_i\leq C_j$.
 \end{lemma}
 
 \begin{proof}
-  Suppose an infinite sequence $\{enc(C_i)\}_{i=0}^\infty$. We use a variation of Dickson's lemma (\cite{Figueira11Dickson}): Every infinite sequence of tuples from $\mathbb N^k$ contains an increasing pair. Applied to our sequence, there are two positions $i<j: enc(C_i)\leq enc(C_j)$. From lemma \ref{encoding_lemma}, $C_i\leq C_2$.
+  Suppose an infinite sequence $\{enc(C_i)\}_{i=0}^\infty$. We use a variation of Dickson's lemma (\cite{Figueira11Dickson}): Every infinite sequence of tuples from $\mathbb N^k$ contains an increasing pair. Applied to our sequence, there are two positions $i<j: enc(C_i)\leq enc(C_j)$. From lemma \ref{encoding_lemma}, $C_i\leq C_j$.
   \qed
 \end{proof}
 
 \begin{theorem}
-  Existence of infinite computation for active P systems with limit on total number of membranes is decidable.
+  Existence of infinite computation for active P systems with limit on the total number of membranes is decidable.
 \end{theorem}
 
 \begin{proof}
-  Algorithm for deciding the problem will traverse the reachability graph. When it encounters a configuration that covers another configuration, from lemma \ref{rule_applicability_lemma} follows that the same rules can be applied repeatedly, so the algorithm will halt with the answer YES.
+  The algorithm for deciding the problem will traverse the reachability graph. When it encounters a configuration that covers another configuration, from lemma \ref{rule_applicability_lemma} follows that the same rules can be applied repeatedly, so the algorithm will halt with the answer YES.
   Otherwise, the algorithm will answer NO.
   Algorithm will always halt, because if there was an infinite computation, from lemma \ref{infinite_sequence_of_configurations_lemma} there would be two increasing configurations which is already covered in the YES case.
   \qed
@@ -226,11 +226,11 @@ For a given P system $\Pi$ and a target configuration $C$ we will construct a P 
 The $\xi_d$ objects are called verifiers, they are intended to verify if the contents of the membrane corresponds to the contents in the target configuration $C$. After this verification it descends down into child membranes for the verification of other parts of the membrane structure.
 Initially, there is an object $\xi_{r_T}$ in the skin membrane. Verification is performed in the rule $\xi_d c(d)\rightarrow\xi_{d^\prime}\downarrow_{l(d^\prime)}$, where on the right side there is $\xi_{d^\prime}$ object for every child membrane $d^\prime$ in the target configuration $C$.
 
-The construction is not complete. The system should not be able to halt unless the verification take place. That is why we introduce a new object $\omega$ to each membrane with a rule $\omega\rightarrow\omega$ and the verifier will erase them with rule $\xi_d\omega c(d)\rightarrow\xi_{d^\prime}\downarrow_{l(d^\prime)}$. We also need to ensure that newly created membranes contain the $\omega$ object, so we replace every rule for membrane creation $u\rightarrow [_k v]_k$ with $u\rightarrow [_k v\omega]_k$.
+The construction is not complete. The system should not be able to halt unless the verification takes place. That is why we introduce a new object $\omega$ to each membrane with a rule $\omega\rightarrow\omega$ and the verifier will erase them with rule $\xi_d\omega c(d)\rightarrow\xi_{d^\prime}\downarrow_{l(d^\prime)}$. We also need to ensure that newly created membranes contain the $\omega$ object, so we replace every rule for membrane creation $u\rightarrow [_k v]_k$ with $u\rightarrow [_k v\omega]_k$.
 
-There is still a problem that we actually check, whether a target configuration is contained within current configuration. If there are additional objects which cannot be erased, so $C$ cannot be reached, we need to ensure $\Pi^\prime$ will not halt. We will add a rule $a\rightarrow a$ to each membrane for each object $a\in\Sigma$, so $\Pi^\prime$ can halt only if all objects are erased.
+There is still a problem that we actually check, whether a target configuration is contained within the current configuration. If there are additional objects which cannot be erased, so $C$ cannot be reached, we need to ensure $\Pi^\prime$ will not halt. We will add a rule $a\rightarrow a$ to each membrane for each object $a\in\Sigma$, so $\Pi^\prime$ can halt only if all objects are erased.
 
-The last issue to solve in the dissolution. It is still possible that in the middle of the verifying, some of already verified membranes got dissolved and all yet unverified membranes will be successfully verified causing $\Pi^\prime$ to halt, although without that dissolution it would be unable to reach $C$. We need to ensure all dissolution happen before the verification take place.
+The last issue to solve is that it is still possible that in the middle of the verifying, some of already verified membranes got dissolved and all yet unverified membranes will be successfully verified causing $\Pi^\prime$ to halt, although without that dissolution it would be unable to reach $C$. We need to ensure all dissolution happen before the verification takes place.
 We will add a new object $\sigma$, which stands as a footprint object. It will be created as a result of the verification rule $\xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$. If a membrane is dissolved after it was verified, then two $\sigma$s will meet in the same membrane, because the parent membrane also contains $\sigma$ as it had been verified before. We will add a rule $\sigma\sigma\rightarrow\sigma\sigma$ to prevent $\Pi^\prime$ from halting.
 
 The final construct is:
@@ -300,7 +300,7 @@ The other direction of the implication is more complicated, so following lemmas 
 
 \begin{theorem}
 \label{existence_of_halting_theorem}
-  Existence of halting computation for active P systems with limit on total number of membranes is undecidable.
+  Existence of halting computation for active P systems with limit on the total number of membranes is undecidable.
 \end{theorem}
 
 \begin{proof}
@@ -313,7 +313,7 @@ The other direction of the implication is more complicated, so following lemmas 
 
 \section{Conclusion}
 \label{sec:conclusion}
-We have studied the termination problems for active sequential P systems. Unlike deterministic systems, the termination problems cannot be simply reduced to the halting problem. We have shown that active P systems with limit on number of membranes have decidable existence of infinite computation and undecidable existence of halting computation. It is currently unknown whether the same results apply also for a variant without the limit on the number of membranes, so it could be a subject for the future study.
+We have studied the termination problems for active sequential P systems. Unlike deterministic systems, the termination problems cannot be simply reduced to the halting problem. We have shown that active P systems with limit on the number of membranes have decidable existence of infinite computation and undecidable existence of halting computation. It is currently unknown whether the same results apply also for a variant without the limit on the number of membranes, so it could be a subject for the future study.
 
 Regarding the open problem stated in \cite{Ibarra05Active} about sequential active P systems with hard membranes (without communication between membranes), it could be interesting to find a connection between the universality and decidability of these termination problems.
 
