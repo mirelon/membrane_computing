@@ -15,6 +15,12 @@
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{makeidx}
+
+% Repeat the same theorem in the appendix
+\usepackage{thmtools, thm-restate}
+\let\theorem\relax
+\declaretheorem{theorem}
+
 \pagestyle{headings}
 \bibliographystyle{../lib/lncs/splncs}
 
@@ -242,7 +248,31 @@ The final construct is:
   \item $\forall i\in\{1,\dots, m\}: R_i^\prime = \{r|r\in R_i,r = u\rightarrow w\vee r = u\rightarrow w\delta\}\cup\linebreak\{u\rightarrow [_k v\omega]_k|u\rightarrow [_k v]_k\in R_i\}\cup\{a\rightarrow a|a\in\Sigma\}\cup\{\sigma\sigma\rightarrow\sigma\sigma,\omega\rightarrow\omega\}\cup\linebreak\{\xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}|d,d^\prime\in V(T),l(d)=i,parent(d^\prime)=d\}$.
 \end{itemize}
 
-We need to prove two implications in order to formally prove correctness of this construction.
+We can now state the main theorem.
+
+\begin{restatable}{theorem}{existenceofhaltingtheorem}
+\label{existence_of_halting_theorem}
+  Existence of halting computation for active P systems with limit on the total number of membranes is undecidable.
+\end{restatable}
+
+We need to prove that $C$ is reachable for $\Pi$ if and only if there is a halting computation of $\Pi^\prime$. We need to prove two implications in order to formally prove correctness of this construction. The proof is quite technical and is present in the appendix.
+
+% subsection existence_of_halting_computation (end)
+
+% section termination_problems (end)
+
+\section{Conclusion}
+\label{sec:conclusion}
+We have studied the termination problems for active sequential P systems. Unlike deterministic systems, the termination problems cannot be simply reduced to the halting problem. We have shown that active P systems with limit on the number of membranes have decidable existence of infinite computation and undecidable existence of halting computation. It is currently unknown whether the same results apply also for a variant without the limit on the number of membranes, so it could be a subject for the future study.
+
+Regarding the open problem stated in \cite{Ibarra05Active} about sequential active P systems with hard membranes (without communication between membranes), it could be interesting to find a connection between the universality and decidability of these termination problems.
+
+\bibliography{cie}
+
+\section*{Appendix} % (fold)
+\label{sec:appendix}
+
+Now we will prove that $C$ is reachable for $\Pi$ if and only if there is a halting computation of $\Pi^\prime$. The first implication is the easy one.
 
 \begin{lemma}
 \label{if_reachable_then_halting_lemma}
@@ -299,25 +329,12 @@ The other direction of the implication is more complicated, so the following lem
   According to lemma \ref{check_at_last_lemma} there is also a halting computation where in every membrane $d$ the last used rule is $r = \xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$. So the corresponding computation in $\Pi$ will result in the configuration $C_5$, where every membrane $d$ contains exactly $c(d)$. If $C_5$ contains a membrane not present in $C$, it will contain the object $\omega$, which will not be reached by any of objects $\xi$ so the computation will not halt. If $C$ contains a membrane $d^\prime$ not present in $C_5$, then the membrane $d = parent(d^\prime)$ will never get rid of $\omega$ because the rule $r = \xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}$ cannot be applied due to lack of the child membrane $d^\prime$. Hence $C = C_5$ and there is a computation of $\Pi$ that will result in $C$. \qed
 \end{proof}
 
-\begin{theorem}
-\label{existence_of_halting_theorem}
-  Existence of halting computation for active P systems with limit on the total number of membranes is undecidable.
-\end{theorem}
+\existenceofhaltingtheorem*
 
 \begin{proof}
   For a given P system $\Pi$ and a target configuration $C$ we have constructed a P system $\Pi^\prime$ such that there is a halting computation of $\Pi^\prime$ iff the $\Pi$ can reach configuration $C$. The two directions of the equivalence have been proven in lemmas \ref{if_reachable_then_halting_lemma} and \ref{if_halting_then_reachable_lemma}. Using this construction, we can reduce the existence of halting computation to reachability of register machines \cite{Ibarra05Active}, which is known to be undecidable. \qed
 \end{proof}
 
-% subsection existence_of_halting_computation (end)
-
-% section termination_problems (end)
-
-\section{Conclusion}
-\label{sec:conclusion}
-We have studied the termination problems for active sequential P systems. Unlike deterministic systems, the termination problems cannot be simply reduced to the halting problem. We have shown that active P systems with limit on the number of membranes have decidable existence of infinite computation and undecidable existence of halting computation. It is currently unknown whether the same results apply also for a variant without the limit on the number of membranes, so it could be a subject for the future study.
-
-Regarding the open problem stated in \cite{Ibarra05Active} about sequential active P systems with hard membranes (without communication between membranes), it could be interesting to find a connection between the universality and decidability of these termination problems.
-
-\bibliography{cie}
+% section appendix (end)
 
 \end{document}
