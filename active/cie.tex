@@ -219,7 +219,10 @@ We will now show that comparing two encodings corresponds to covering of two con
 \label{sub:existence_of_halting_computation}
 
 In this subsection we will focus on the opposite problem: whether there is a computation that is halting. Recall that halting computation has no applicable rule in the last configuration.
-First, we will reduce this problem to the reachability problem. It is a problem of determining, for a given configuration $C$, whether there exists a computation from $C_0$ to $C$. The reachability of active P systems can be then reduced to the reachabililty of register machines, which is undecidable.
+
+The existence of halting configuration seems to be related to the language emptyness problem, which is undecidable. It is the problem to decide, if there is an input that is accepted by the P system. On the other hand, our variant of the halting problem is defined for a given input. It remains an open problem, whether there is a direct reduction between these two problems. If this is the case, the proof could be much simpler.
+
+First, we will reduce this problem to the reachability problem. It is a problem of determining, for a given configuration $C$, whether there exists a computation from $C_0$ to $C$. Then, the reachability of active P systems can be then reduced to the reachabililty of register machines, which is undecidable.
 
 For a given P system $\Pi$ and a target configuration $C$ we will construct a P system $\Pi^\prime$ such that there is a halting computation of $\Pi^\prime\Leftrightarrow\linebreak C$ is reachable for $\Pi$. Suppose $\Pi = (\Sigma, C_0, R_1, \dots, R_m)$ and $C = (T, l, c)$. Then we will construct $\Pi^\prime = (\Sigma^\prime, C_0^\prime, R_1^\prime, \dots, R_m^\prime)$, where:
 
