@@ -21,7 +21,10 @@ Although rewriting rules are defined as strings, $u,v$ and $w$ represent multise
 or to a specific child region ($\downarrow_j$, where $j$ is a label of a membrane). If there are more child membranes with the same label, one is chosen nondeterministically.
 We denote these transfers with an arrow immediately after the symbol.
 An example of such rule is the following: $abb\rightarrow ab\downarrow_2 c\uparrow c\delta$.
-Symbol $\delta$ at the end of the rule means that after the application of the rule, the membrane is dissolved and its contents (objects, child membranes) are propagated to the parent membrane.
+
+By applying the rule we mean the removal of objects specified on the left side and the addition of the objects on the right side.
+Symbol $\delta\notin\Sigma$ does not represent an object. It may be present only at the end of the rule, which means that after the application of the rule, the membrane is dissolved and its contents (objects, child membranes) are propagated to the parent membrane.
+
 Active P systems differ from classic (passive) P systems in ability to create new membranes by rules of the third form. Such rule will create new child membrane with a given label $j$ and a given multiset of objects $v$ as its contents.
 
 % applicable rule definition
