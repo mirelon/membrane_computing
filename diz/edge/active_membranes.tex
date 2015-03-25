@@ -60,7 +60,7 @@ In this section we assume only sequential systems, so in each step of the comput
 \subsection{Active membranes with a limit on the total number of membranes} % (fold)
 \label{sub:active_membranes_with_a_limit_on_total_number_of_membranes}
 
-For the simplicity of proofs it is convenient to introduce a variant with a global limit upon the membrane structure. We achieve this by restricting the rule application such that if the rule would result in a structure exceeding the limit, the rule will not be applicable.
+We will now introduce a variant with a global limit upon the membrane structure. We achieve this by restricting the rule application such that if the rule would result in a structure exceeding the limit, the rule will not be applicable.
 
 \begin{definition}
   \label{def:active_p_system_with_a_limit_on_total_number_of_membranes}
@@ -148,6 +148,8 @@ We will prove the (un)decidability of these problems on active P systems with li
   The proof of this theorem for sequential active P systems in \cite{Ibarra05Active} uses simulation of register machines and during the simulation, every configuration has at most three membranes. Hence the active P system with limit on the total number of membranes exists (e.g. with $L=3$), so the universality holds.
   \qed
 \end{dokaz}
+
+This variant is not very realistic from biological point of view. Assuming membranes to know the number of membranes in the whole system is simply not plausible. Although we believe the results also hold for the variant without limit on the total number of membranes, due to technical difficulties it remains an open problem.
 
 \subsubsection{Existence of infinite computation} % (fold)
 \label{ssub:existence_of_infinite_computation}
