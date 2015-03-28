@@ -2,17 +2,17 @@
 Vector addition systems were introduced by Karp and Miller \cite{Karp69ParallelProgramSchemata}, and were later shown by Hack \cite{Hack74PetriVAS} to be equivalent to Petri nets.
 
 \begin{definition}
-  A {\bf vector addition system} (VAS) is a pair $G = (x, W)$, where $x\in \mathbb N^n$ is an initial vector and $W\subseteq \mathbb Z^n$ is a finite set of vectors, where $n>0$ is called the dimension of VAS.
+  A {\em vector addition system} (VAS) is a pair $G = (x, W)$, where $x\in \mathbb N^n$ is an initial vector and $W\subseteq \mathbb Z^n$ is a finite set of vectors, where $n>0$ is called the dimension of VAS.
 \end{definition}
 
 The initial vector is seen as the initial values of multiple counters and the vectors in $W$ are seen as actions that update the counters. These counters may never drop below zero. 
 
 \begin{definition}
-  The {\bf reachability set} of the VAS $G = (x,W)$ is the set \linebreak $R(G) = \{z | \exists v_1,\ldots,v_j\in W: z=x+v_1+\ldots+v_j \wedge \forall 1\leq i\leq j: x+v_1+\ldots+v_i\geq 0\}$.
+  The {\em reachability set} of the VAS $G = (x,W)$ is the set \linebreak $R(G) = \{z | \exists v_1,\ldots,v_j\in W: z=x+v_1+\ldots+v_j \wedge \forall 1\leq i\leq j: x+v_1+\ldots+v_i\geq 0\}$.
 \end{definition}
 
 \begin{definition}
-  A {\bf vector addition system with states} (VASS) is a tuple $G = (x, W, Q, T, p_0)$, where:
+  A {\em vector addition system with states} (VASS) is a tuple $G = (x, W, Q, T, p_0)$, where:
   \begin{itemize}
     \item $(x, W)$ is a vector addition system,
     \item $Q$ is a finite set of states,

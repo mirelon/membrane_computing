@@ -2,7 +2,7 @@
 Petri nets \cite{Petri62,Yen06PetriNets} were introduced by Carl Adam Petri in 1962 in his PhD thesis. A Petri net is a graphical and mathematical tool for the modeling of concurrent processes and analysis of system behavior. A Petri net is usually drawn as a directed bipartite graph with two kind of nodes. Places are represented by circles within which each small black dot denotes a token. Transitions are represented by bars. Each edge is either from a place to a transition or vice versa.
 
 \begin{definition}
-  A {\bf Petri net} is a tuple $(P, T, \varphi)$, where:
+  A {\em Petri net} is a tuple $(P, T, \varphi)$, where:
   \begin{itemize}
     \item $P$ is a finite set of places,
     \item $T$ is a finite set of transitions,
@@ -13,17 +13,17 @@ Petri nets \cite{Petri62,Yen06PetriNets} were introduced by Carl Adam Petri in 1
 The edges of the bipartite graph are annotated by either $\varphi(p,t)$ or $\varphi(t,p)$, where $p\in P$ and $t\in T$ are two endpoints of the arc. If $\varphi(p,t)=1$ or $\varphi(t,p)=1$, we usually omit the label.
 
 \begin{definition}
-  A {\bf marking} is a mapping $\mu: P\rightarrow \mathbb N$.
+  A {\em marking} is a mapping $\mu: P\rightarrow \mathbb N$.
 \end{definition}
 
 The mapping $\mu$ assigns certain number of tokens to each place of the net.
 
 \begin{definition}
-  A marking $\mu_1$ {\bf covers} marking $\mu_2$, when $\forall p\in P: \mu_1(p)\geq\mu_2(p)$ - in each place there is no less tokens in $\mu_1$ than in $\mu_2$. We denote it by $\mu_1\geq\mu_2$.
+  A marking $\mu_1$ {\em covers} marking $\mu_2$, when $\forall p\in P: \mu_1(p)\geq\mu_2(p)$ - in each place there is no less tokens in $\mu_1$ than in $\mu_2$. We denote it by $\mu_1\geq\mu_2$.
 \end{definition} 
 
 \begin{definition}
-  A transition $t\in T$ is {\bf enabled} at a marking $\mu$ iff $\forall p\in P, \varphi(p,t)\leq\mu(p)$.
+  A transition $t\in T$ is {\em enabled} at a marking $\mu$ iff $\forall p\in P, \varphi(p,t)\leq\mu(p)$.
 \end{definition}
 
 If a transition $t$ is enabled, it may fire by removing $\varphi(p,t)$ tokens from each input place $p$ and putting $\varphi(t,p^\prime)$ tokens in each output place $p^\prime$. We then write $\mu\xrightarrow{t} \mu^\prime$, where $\forall p\in P: \mu^\prime(p) = \mu(p)-\varphi(p,t)+\varphi(t,p)$.
@@ -33,11 +33,11 @@ If a transition $t$ is enabled, it may fire by removing $\varphi(p,t)$ tokens fr
 \end{example}
 
 \begin{definition}
-  A {\bf marked Petri net} is a tuple $(P,T,\varphi,\mu_0)$, where $(P,T,\varphi)$ is a Petri net and $\mu_0$ is called the initial marking.
+  A {\em marked Petri net} is a tuple $(P,T,\varphi,\mu_0)$, where $(P,T,\varphi)$ is a Petri net and $\mu_0$ is called the initial marking.
 \end{definition}
 
 \begin{definition}
-  A sequence of transitions $\sigma = t_1\ldots t_n$ is a {\bf firing sequence} from $\mu_0$ iff $\mu_0\xrightarrow{t_1}\mu_1\xrightarrow{t_2}\ldots\xrightarrow{t_n}\mu_n$ for some markings $\mu_1,\ldots,\mu_n$. We also write $\mu_0\xrightarrow{\sigma}\mu_n$.
+  A sequence of transitions $\sigma = t_1\ldots t_n$ is a {\em firing sequence} from $\mu_0$ iff $\mu_0\xrightarrow{t_1}\mu_1\xrightarrow{t_2}\ldots\xrightarrow{t_n}\mu_n$ for some markings $\mu_1,\ldots,\mu_n$. We also write $\mu_0\xrightarrow{\sigma}\mu_n$.
 \end{definition}
 
 We write $\mu_0\xrightarrow{\sigma}$ to denote that $\sigma$ is enabled and can be fired from $\mu_0$, i.e., $\mu_0\xrightarrow{\sigma}$ iff there exists a marking $\mu$ such that $\mu_0\xrightarrow{\sigma}\mu$.
@@ -48,13 +48,13 @@ The notation $\mu_0\xrightarrow{*}\mu$ is used to denote the existence of a firi
 \end{definition}
 
 \begin{definition}
-  Let $\mathcal P = (P,T,\varphi,\mu_0)$ be a marked Petri net. The {\bf reachability set} of $\mathcal P$ is $R(\mathcal(P)) = \{\mu|\mu_0\xrightarrow{*}\mu\}$.
+  Let $\mathcal P = (P,T,\varphi,\mu_0)$ be a marked Petri net. The {\em reachability set} of $\mathcal P$ is $R(\mathcal(P)) = \{\mu|\mu_0\xrightarrow{*}\mu\}$.
 \end{definition}
 
 A notion of reachability graph is helpful for analyzing the behavior of a Petri net as a tool for visualisation of the structure of the reachability set.
 
 \begin{definition}
-  Let $\mathcal P = (P,T,\varphi,\mu_0)$ be a marked Petri net. The {\bf reachability graph} of $\mathcal P$ is a labelled graph whose nodes are the reachable markings and edge from $\mu_1$ to $\mu_2$ is labeled with a transition $t\in T$ iff $\mu_1\xrightarrow{t}\mu_2$.
+  Let $\mathcal P = (P,T,\varphi,\mu_0)$ be a marked Petri net. The {\em reachability graph} of $\mathcal P$ is a labelled graph whose nodes are the reachable markings and edge from $\mu_1$ to $\mu_2$ is labeled with a transition $t\in T$ iff $\mu_1\xrightarrow{t}\mu_2$.
 \end{definition}
 
 \begin{figure}

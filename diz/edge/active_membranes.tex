@@ -11,7 +11,7 @@ On the other hand, the existence of a halting computation is shown to be undecid
 
 \begin{definition}
   \label{def:membrane_structure}
-  Let $\Sigma$ be a set of objects. We denote by $\mathbb N^\Sigma$ a set of all mappings from $\Sigma$ to $\mathbb N$, so it contains all multisets of objects from $\Sigma$. A {\bf membrane configuration} is a tuple $(T, l, c)$, where:
+  Let $\Sigma$ be a set of objects. We denote by $\mathbb N^\Sigma$ a set of all mappings from $\Sigma$ to $\mathbb N$, so it contains all multisets of objects from $\Sigma$. A {\em membrane configuration} is a tuple $(T, l, c)$, where:
   \begin{itemize}
     \item $T$ is a rooted tree,
     \item $l\in\mathbb N^{V(T)}$ is a mapping that assigns for each node of $T$ a number (label), where $l(r_T)=1$, so the skin membrane is always labeled with 1,
@@ -21,7 +21,7 @@ On the other hand, the existence of a halting computation is shown to be undecid
 
 \begin{definition}
   \label{def:active_p_system}
-  An {\bf active P system} is a tuple $(\Sigma, C_0, R_1, R_2, \ldots, R_m)$, where:
+  An {\em active P system} is a tuple $(\Sigma, C_0, R_1, R_2, \ldots, R_m)$, where:
   \begin{itemize}
     \item $\Sigma$ is a set of objects,
     \item $C_0$ is initial membrane configuration,
@@ -45,7 +45,7 @@ Active P systems differ from classic (passive) P systems in ability to create ne
 
 \begin{definition}
   \label{def:applicable_rule_of_active_p_system}
-  For an active P system $(\Sigma, C_0, R_1, R_2, \ldots, R_m)$, configuration $C = (T, l, c)$, membrane $d\in V(T)$ the rule $r\in R_{l(d)}$ is {\bf applicable} iff:
+  For an active P system $(\Sigma, C_0, R_1, R_2, \ldots, R_m)$, configuration $C = (T, l, c)$, membrane $d\in V(T)$ the rule $r\in R_{l(d)}$ is {\em applicable} iff:
   \begin{itemize}
     \item $r = u\rightarrow w$ and $u\subseteq c(d)$ and for all $(a,\downarrow_k)\in w$ there exists $d_2\in V(T)$ such that $l(d_2)=k \wedge parent(d_2) = d$,
     \item $r = u\rightarrow w\delta$ and $u\subseteq c(d)$ and for all $(a,\downarrow_k)\in w$ there exists $d_2\in V(T)$ such that $l(d_2)=k \wedge parent(d_2) = d$ and $d\neq r_T$,
@@ -64,7 +64,7 @@ We will now introduce a variant with a global limit upon the membrane structure.
 
 \begin{definition}
   \label{def:active_p_system_with_a_limit_on_total_number_of_membranes}
-  An {\bf active P system with a limit on the total number of membranes} is a tuple $\Pi = (\Sigma, L, C_0, R_1, R_2, \ldots, R_m)$, where:
+  An {\em active P system with a limit on the total number of membranes} is a tuple $\Pi = (\Sigma, L, C_0, R_1, R_2, \ldots, R_m)$, where:
   \begin{itemize}
     \item $(\Sigma, C_0, R_1, R_2, \ldots, R_m)$ is an active P system from the definition \ref{def:active_p_system},
     \item $L\in \mathbb N$ is a limit on thetotal number of membranes.
@@ -75,7 +75,7 @@ This is achieved by adding a constraint for rule of the form $r = u\rightarrow [
 
 \begin{definition}
   \label{def:applicable_rule_of_active_p_system_with_a_limit_on_total_number_of_membranes}
-  For active P system with a limit on the total number of membranes $(\Sigma, L, C_0, R_1, R_2, \ldots, R_m)$, configuration $C = (T, l, c)$, membrane $d\in V(T)$ the rule $r\in R_{l(d)}$ is {\bf applicable} iff:
+  For active P system with a limit on the total number of membranes $(\Sigma, L, C_0, R_1, R_2, \ldots, R_m)$, configuration $C = (T, l, c)$, membrane $d\in V(T)$ the rule $r\in R_{l(d)}$ is {\em applicable} iff:
   \begin{itemize}
     \item $r = u\rightarrow w$ and $u\subseteq c(d)$ and $\forall (a,\downarrow_k)\in w \exists d_2\in V(T): l(d_2)=k \wedge parent(d_2) = d$,
     \item $r = u\rightarrow w\delta$ and $u\subseteq c(d)$ and $\forall (a,\downarrow_k)\in w \exists d_2\in V(T): l(d_2)=k \wedge parent(d_2) = d$ and $d\neq r_T$,
@@ -157,7 +157,7 @@ This variant is not very realistic from biological point of view. Assuming membr
 We will propose an algorithm for deciding existence of infinite computation. Basic idea is to consider the minimal coverability graph (\cite{Rozenberg93MinimalCoverabilityGraph}), where nodes are configurations and an edge leads from the configuration $C_1$ to the configuration $C_2$, whenever there is a rule applicable in $C_1$, which results in $C_2$. The construction in \cite{Rozenberg93MinimalCoverabilityGraph} is performed on Petri nets, where the configuration consists just of a vector of natural numbers. The situation is the same for single-membrane sequential P systems. We need to modify the construction for active P systems.
 
 \begin{definition}
-  A configuration $C_2 = (T_2, l_2, c_2)$ {\bf covers} configuration $C_1 = (T_1, l_1, c_1)$ iff $\exists$ isomorphism $f: T_1\rightarrow T_2$ preserving membrane labels and contents: $\forall d\in T_1$ the following properties hold: $l_1(d)=l_2(f(d))\wedge c_1(d)\subseteq c_2(f(d))$. We will denote this with $C_1\leq C_2$.
+  A configuration $C_2 = (T_2, l_2, c_2)$ {\em covers} configuration $C_1 = (T_1, l_1, c_1)$ iff $\exists$ isomorphism $f: T_1\rightarrow T_2$ preserving membrane labels and contents: $\forall d\in T_1$ the following properties hold: $l_1(d)=l_2(f(d))\wedge c_1(d)\subseteq c_2(f(d))$. We will denote this with $C_1\leq C_2$.
 \end{definition}
 
 \begin{figure}
@@ -214,7 +214,7 @@ We will now follow with a proof of an important property of the covering relatio
 
 \begin{lemma}
 \label{rule_applicability_lemma}
-  For sequential active P system with limit on the total number of membranes, if $C_2 = (T_2, l_2, c_2)$ {\bf covers} configuration $C_1 = (T_1, l_1, c_1)$, then there is an isomorphism $f: T_1\rightarrow T_2$ such that if a rule $r$ is applicable in membrane $d\in T_1$, then $r$ is applicable in $f(d)$.
+  For sequential active P system with limit on the total number of membranes, if $C_2 = (T_2, l_2, c_2)$ {\em covers} configuration $C_1 = (T_1, l_1, c_1)$, then there is an isomorphism $f: T_1\rightarrow T_2$ such that if a rule $r$ is applicable in membrane $d\in T_1$, then $r$ is applicable in $f(d)$.
 \end{lemma}
 
 \begin{dokaz}

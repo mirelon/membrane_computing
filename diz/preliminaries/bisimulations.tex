@@ -1,23 +1,23 @@
 % !TEX root = ../diz.tex
 \begin{definition}
-  A {\bf state transition system} is a pair $(S, \rightarrow)$, where $S$ is a set of states and $\rightarrow\subseteq S\times S$ is a binary transition relation over $S$.
+  A {\em state transition system} is a pair $(S, \rightarrow)$, where $S$ is a set of states and $\rightarrow\subseteq S\times S$ is a binary transition relation over $S$.
 \end{definition}
   If $p,q\in S$, then $(p,q)\in \rightarrow$ is usually written as $p\rightarrow q$. This represents the fact that there is a transition from state $p$ to state $q$.
 
 \begin{definition}
-  A {\bf labeled state transition system} (LTS) is a tuple $(S, A, \rightarrow)$, where $S$ is a set of states, $A$ is a set of labels and $\rightarrow\subseteq S\times A\times S$ is a ternary transition relation.
+  A {\em labeled state transition system} (LTS) is a tuple $(S, A, \rightarrow)$, where $S$ is a set of states, $A$ is a set of labels and $\rightarrow\subseteq S\times A\times S$ is a ternary transition relation.
 \end{definition}
 
 If $p,q\in S$ and $a\in A$, then $(p,a,q)\in \rightarrow$ is usually written as $p\xrightarrow{a} q$. This represents the fact that there is a transition from state $p$ to state $q$ with a label $a$.
 
 \begin{definition}
   Let $(S_1, A, \rightarrow)$ and $(S_2, A, \rightarrow)$ be two labeled transition systems.
-  A {\bf simulation} is a binary relation $R\subseteq S_1\times S_2$ such that if $(s_1,s_2)\in R$ then for each $s_1\xrightarrow{a} t_1$ there is some $s_2\xrightarrow{a} t_2$ such that $(t_1, t_2)\in R$.
+  A {\em simulation} is a binary relation $R\subseteq S_1\times S_2$ such that if $(s_1,s_2)\in R$ then for each $s_1\xrightarrow{a} t_1$ there is some $s_2\xrightarrow{a} t_2$ such that $(t_1, t_2)\in R$.
 \end{definition}
 
 \begin{definition}
   Let $(S_1, A, \rightarrow)$ and $(S_2, A, \rightarrow)$ be two labeled transition systems.
-  A {\bf bisimulation} is a binary relation $R\subseteq S_1\times S_2$ such that if $(s_1,s_2)\in R$ then:
+  A {\em bisimulation} is a binary relation $R\subseteq S_1\times S_2$ such that if $(s_1,s_2)\in R$ then:
   \begin{enumerate}
     \item for each $s_1\xrightarrow{a} t_1$ there is some $s_2\xrightarrow{a} t_2$ such that $(t_1, t_2)\in R$,
     \item for each $s_2\xrightarrow{a} t_2$ there is some $s_1\xrightarrow{a} t_1$ such that $(t_1, t_2)\in R$.
@@ -27,20 +27,20 @@ If $p,q\in S$ and $a\in A$, then $(p,a,q)\in \rightarrow$ is usually written as 
 Sometimes, we want to allows systems to perform internal (silent) steps, of which the impact is considered unobservable. There are multiple notions of the bisimulation. The definition above is called a strong bisimulation.
 
 \begin{definition}
-  A {\bf labeled transition system with silent actions} is a triple $(S, A, \rightarrow)$, where $S$ is a set of states, $A$ is a set of actions, also a silent action $\tau$ is assumed that is not in $A$ and $\rightarrow\subseteq (A\cup\tau)\times S$ is the transition relation.
+  A {\em labeled transition system with silent actions} is a triple $(S, A, \rightarrow)$, where $S$ is a set of states, $A$ is a set of actions, also a silent action $\tau$ is assumed that is not in $A$ and $\rightarrow\subseteq (A\cup\tau)\times S$ is the transition relation.
 \end{definition}
 
 We use $A_\tau$ to denote $A\cup\{\tau\}$.
 By $\xRightarrow{\tau^*}$ we denote the transitive and reflexive closure of $\xrightarrow{\tau}$. For $a\in A$ we define the relation $\xRightarrow{a}$ on $S$ by $r\xRightarrow{a}s$ iff there exists $r^\prime, s^\prime\in S$ such that $r \xRightarrow{\tau^*} r^\prime \xrightarrow{a} s^\prime \xRightarrow{\tau^*} s$.
 
 \begin{definition}
-  A {\bf run} of a labeled transition system is a finite, non-empty alternating sequence $\rho = s_0a_0s_1a_1\ldots s_{n-1}a_{n-1}s_n$ of states and actions, beginning and ending with a state such that for $0\leq i<n: s_i\xrightarrow{a_i}s_{i+1}$.
+  A {\em run} of a labeled transition system is a finite, non-empty alternating sequence $\rho = s_0a_0s_1a_1\ldots s_{n-1}a_{n-1}s_n$ of states and actions, beginning and ending with a state such that for $0\leq i<n: s_i\xrightarrow{a_i}s_{i+1}$.
 \end{definition}
 
 We also say that $\rho$ is a run from $s_0$. We denote $first(\rho)=s_0$ and $last(\rho)=s_n$.
 
 \begin{definition}
-  A relation $R\subseteq S\times S$ is called a {\bf branching bisimulation} if it is symmetric and satisfies the following transfer property: if $rRs$ and $r\xrightarrow{a} r^\prime$ then either $a=\tau$ and $r^\prime Rs$ of there exist $s^\prime,s^{\prime\prime}\in S$ such that $s \xRightarrow{\tau^*} s^\prime \xrightarrow{a} s^{\prime\prime}$, $rRs^\prime$ and $r^\prime Rs^{\prime\prime}$.
+  A relation $R\subseteq S\times S$ is called a {\em branching bisimulation} if it is symmetric and satisfies the following transfer property: if $rRs$ and $r\xrightarrow{a} r^\prime$ then either $a=\tau$ and $r^\prime Rs$ of there exist $s^\prime,s^{\prime\prime}\in S$ such that $s \xRightarrow{\tau^*} s^\prime \xrightarrow{a} s^{\prime\prime}$, $rRs^\prime$ and $r^\prime Rs^{\prime\prime}$.
 \end{definition}
 
 \begin{figure}
@@ -95,7 +95,7 @@ We also say that $\rho$ is a run from $s_0$. We denote $first(\rho)=s_0$ and $la
 We could have strengthened the above definition of branching bisimulation by requiring all intermediate states in $s\xRightarrow{\tau^*}s^\prime$ to be related with $r$. However, that would lead to the same equivalence relation \cite{DeNicola95Bisimulations}. 
 
 \begin{definition}
-  A relation $R\subseteq S\times S$ is called a {\bf weak bisimulation} if it is symmetric and satisfies the following transfer property: if $rRs$ and $r\xRightarrow{a} r^\prime$ then there exist $s^\prime\in S$ such that $s \xRightarrow{a} s^\prime$ and $r^\prime Rs^{\prime}$.
+  A relation $R\subseteq S\times S$ is called a {\em weak bisimulation} if it is symmetric and satisfies the following transfer property: if $rRs$ and $r\xRightarrow{a} r^\prime$ then there exist $s^\prime\in S$ such that $s \xRightarrow{a} s^\prime$ and $r^\prime Rs^{\prime}$.
 \end{definition}
 
 This means that two states are considered equivalent if they lead via the same sequences of visible actions to equivalent states. The intermediate states are not questioned. The diagram in the Figure \ref{fig:transfer diagram for weak bisimulation} summarizes the transfer property for the weak bisimulation. We have used the same notational conventions of the Figure \ref{fig:transfer diagram for branching bisimulation}.
