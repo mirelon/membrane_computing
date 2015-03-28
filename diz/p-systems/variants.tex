@@ -149,7 +149,7 @@ Dang in \cite{Dang04Sequential} investigates the sequential mode. In each step, 
 
 \begin{definition}
   \label{def:computation_step_of_a_sequential_P_system}
-  A {\em computation step of a sequential P system} is a relation $\Rightarrow$ on the set of configurations such that $C_1 \Rightarrow C_2$ holds iff there is an applicable rule in a membrane in $C_1$ such that applying that rule can result in $C_2$.
+  A {\bf computation step of a sequential P system} is a relation $\Rightarrow$ on the set of configurations such that $C_1 \Rightarrow C_2$ holds iff there is an applicable rule in a membrane in $C_1$ such that applying that rule can result in $C_2$.
 \end{definition}
 
 For purely catalytic systems with 1 membrane, the sequential mode generates only the semilinear sets and thus is strictly weaker than the maximally parallel version.
@@ -164,9 +164,9 @@ We have further investigated this variant (sequential P system without prioritie
 % Restricting maximal parallelism
 
 Dang in \cite{Ibarra04dang} proposes several restricted versions of parallelism.
-$n${\em -Max-Parallel} version nondeterministically selects a maximal subset of at most n rules to apply. It is proved that 9{\em -Max-Parallel} SCO (defined in the subsection \ref{sub:context_in_rules}) is universal.
-$\leq n${\em -Parallel} version is similar, but does not require the condition of a maximal subset of rules. It is shown to be weaker than $n${\em -Max-Parallel} version.
-$n${\em -Parallel} version requires the size of the subset of rules to apply to be exactly $n$.
+$n${\bf -Max-Parallel} version nondeterministically selects a maximal subset of at most n rules to apply. It is proved that 9{\bf -Max-Parallel} SCO (defined in the subsection \ref{sub:context_in_rules}) is universal.
+$\leq n${\bf -Parallel} version is similar, but does not require the condition of a maximal subset of rules. It is shown to be weaker than $n${\bf -Max-Parallel} version.
+$n${\bf -Parallel} version requires the size of the subset of rules to apply to be exactly $n$.
 All three versions are equal to the sequential mode when $n=1$. For non-universality results, Dang used the proof technique by simulation by vector addition systems. Our future research may be inspired by this technique.
 
 % Minimal parallelism
