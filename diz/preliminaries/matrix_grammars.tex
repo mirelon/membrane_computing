@@ -1,4 +1,8 @@
 % !TEX root = ../diz.tex
+Context-free grammars are well-studied and well-behaved in terms of decidability, but many real-world problems cannot be described with context-free grammars. Grammars with regulated rewriting are grammars with mechanisms to regulate the application of rules, so that certain derivations are avoided. Thus, with context-free rules and regulated rewriting mechanisms, one can often generate languages that are not context-free.
+
+One of these is a matrix grammar \cite{Dassow12RegulatedRewriting}, in which instead of single productions, productions are grouped together into finite sequences. A production cannot be applied separately, it must be applied in sequence.
+
 \begin{definition}
 A {\bf matrix grammar} is a tuple $G = (N,T,M,\sigma)$, where:
 \begin{itemize}
