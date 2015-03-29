@@ -1,16 +1,17 @@
 % !TEX root = ../diz.tex
+Some results in chapter \ref{cha:p_systems} refer to semilinear sets \cite{Ibarra:03:Catalytic}, so we will define them in this section.
 \begin{definition}
-  A {\bf linear set} $L(c,p_1,\ldots,p_r)$ is a subset $\{c+\sum\limits_{i=1}^r|k_i\in\mathbb N\}$ of $\mathbb N^n$, where $c,p_1,\ldots,p_r\in \mathbb N^n$.
+  A {\bf linear set} $L(v_0,v_1,\ldots,v_r)$ is a subset $\{v_0+\sum\limits_{i=1}^r a_iv_i|a_i\in\mathbb N\}$ of $\mathbb N^n$, where $v_0,v_1,\ldots,v_r\in \mathbb N^n$.
 \end{definition}
 
-We call $c$ the constant and $p_1,\ldots,p_r$ the periods of the linear set.
+We call $v_0$ the initial vector and $v_1,\ldots,v_r$ the generator vectors of the linear set. Basically, a linear set is a set of $n$-dimensional vectors given by integral linear combinations (with integer coefficients) of generator vectors added to the initial vector.
 
 \begin{example}
   For $n=1$ the linear set is a subset of $\mathbb N$. For $n=1$ and $r=1$ we get an arithmetic progression.
 \end{example}
 
 \begin{example}
-  $L((0,0),(0,1),(1,0))$ contains all pairs with one zero element and one non-negative element: $$\{(0,0), (1,0), (2,0), \ldots, (x,0), \ldots, (0,1), (0,2), \ldots, (0,y), \ldots\}$$.
+  $L((0,0),(0,1),(1,0))$ defines all pairs of natural numbers.
 \end{example}
 
 \begin{definition}
