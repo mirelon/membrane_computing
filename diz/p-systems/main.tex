@@ -1,32 +1,13 @@
 % !TEX root = ../diz.tex
-In previous chapter we introduced the notions of membrane and membrane structure.
+In subsection \ref{sub:membrane_systems} we briefly introduced the notions of membrane, membrane structure and P system.
 
-% Place objects in the regions.
-
-The next step is to place certain objects in the regions delimited by the membranes. The objects are identified by their names, mathematically symbols from a given alphabet.
-
-% Multisets of objects.
-
-Several copies of the same object can appear in a region, so we will work with multisets of objects.
-
-% Evolution rules
-
-In order to obtain a computing device, we will allow the objects to evolve according to evolution rules. Any object, alone or together with another objects, can be transformed in other objects, can pass through a membrane, and can dissolve the membrane in which it is placed.
-
-% Parallelism
-
-All objects evolve at the same time, in parallel manner across all membranes.
-
-% Priorities
-
-The evolution rules are hierarchized by a priority relation, which is a partial order.
+A P system \cite{Paun98} is a computing model which abstracts from the way the alive cells process chemical compounds in their compartmental structure. In short, in the regions defined by a membrane structure we have objects which can be described by symbols. Their multiplicity matters, that is, we work with multisets of objects placed in the regions of the membrane structure. Objects evolve according to given rules. Any object, alone or together with another objects, can be transformed in other objects, can pass through a membrane, and can dissolve the membrane in which it is placed. All objects evolve at the same time, in parallel manner across all membranes. The evolution rules are hierarchized by a priority relation, which is a partial order. By using the rules in a nondeterministic, maximally parallel manner, one gets transitions between the system configurations. A sequence of transitions is a computation. With a halting computation we can associate a result, in the form of the objects present in a given membrane in the halting configuration, or expelled from the system during the computation.
 
 % P system
 
 These aspects all together forms a P system as introduced in \cite{Paun98}. An example of a P system containing rules for computing the Fibonacci sequence can be seen in the figure \ref{fig:p_system_fibonacci}.
 
-
-In section~\ref{sec:definitions} we will provide formal definition of a P system.
+In section~\ref{sec:definitions} we will provide a formal definition of a P system. Section \ref{sec:p_system_variants} we will make an overview of most common P system variants and in section \ref{sec:case_studies} we show how P systems can be of use in practice case studies.
 
 \section{Definitions} % (fold)
 \label{sec:definitions}
