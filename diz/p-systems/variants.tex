@@ -3,12 +3,11 @@ Besozzi in his PhD thesis (see \cite{Besozzi:PhD:2004}) formulates three criteri
 
 \begin{enumerate}
 	\item It should be as much realistic as possible from the biological point of view, in order not to widen the distance between the inspiring cellular reality and the idealized theory.
-	\item It should result in computational completeness and efficiency, which would mean to obtain universal (and hence, programmable) computing devices, with a powerful and useful intrinsic parallelism;
+	\item It should result in computational completeness and efficiency, which would mean to obtain universal (and hence, programmable) computing devices, with a powerful and useful intrinsic parallelism.
 	\item It should present mathematical minimality and elegance, to the aim of proposing an alternative framework for the analysis of computational models.
 \end{enumerate}
 
-In membrane computing, many models are equal in power with Turing machines. We should say they are Turing complete (or computationally complete), but because the proofs are always constructive, starting the constructions from these proofs from universal Turing machines or from equivalent devices, we obtain universal P systems (able
-to simulate any other P system of the given type). That is why we speak about universality results, and not about computational completeness.
+In membrane computing, many models are equal in power with Turing machines. To be correct, we should speak about Turing completeness (or computational completeness). Because the proofs are always constructive, using the constructions from these proofs on a universal Turing machine or from a equivalent device, we obtain universal P systems, which are able to simulate any other P system of the given type. That is why we often speak about universality results, and not about computational completeness.
 
 \subsection{Accepting vs generating} % (fold)
 \label{sub:accepting_vs_generating}
@@ -25,31 +24,41 @@ The regular, context-free, context-sensitive and recursively enumerable language
 Some other grammars (programmed grammars with appearance checking) are shown to be more powerful in accepting mode than in generating mode.
 For deterministic Lindenmayer systems, the generating and accepting mode are incomparable.
 
+% Definition of accepting P system
+
+It can be interesting to investigate accepting and generating mode also in P system variants. The original P system from section \ref{sec:definitions} defines the language as a generator. The accepting mode is usually defined as in \cite{Besozzi:PhD:2004}. A fixed membrane is specified as the input membrane. The system is said to accept a multiset (the initial contents of the input membrane), a number (the size of the input membrane) or a relation (various combinations of the occurrences of certain symbols in the input membrane) iff there is a computation that reaches a given halting configuration (or just a configuration).
+
 % Accepting vs generating P system results
 
-It can be interesting to investigate accepting and generating mode also in P system variants. Barbuti in \cite{Barbuti:2010:AcceptingGenerating} shown that in the nondeterministic case, when either promoters or cooperative rules are allowed, acceptor P systems have shown to be universal. The same in known to hold for the corresponding classes of nondeterministic generator P systems. In the deterministic case, acceptor P systems have been shown to be universal only if cooperative rules are allowed. Universality has been shown not to hold for the corresponding classes of generator P systems.
+In many variants the generating and accepting mode are equivalent. Barbuti in \cite{Barbuti:2010:AcceptingGenerating} showed some variants where the P system in accepting mode is strictly stronger than in generating mode.
 
 % subsection accepting_vs_generating (end)
 
 \subsection{Active vs passive membranes} % (fold)
 \label{sub:active_vs_passive_membranes}
 
-% TODO: need citations
-Most of the studied P system variants assumes that the number of membranes can only decrease during a computation, by dissolving membranes as a result of applying evolution rules to the objects present in the system.
+Most of the studied P system variants assume that the number of membranes can only decrease during a computation, by dissolving membranes as a result of applying evolution rules to the objects present in the system \cite{Paun99ActiveMembranes}.
 A natural possibility is to let the number of membranes also to increase during a computation, for instance, by division, as it is well-known in biology. Actually, the membranes from biochemistry are not at all passive, like those in the models briefly described above.
 For example, the passing of a chemical compound through a membrane is often done by a direct interaction with the membrane itself (with the so-called protein channels or protein gates present in the membrane); during this interaction, the chemical compound which passes through membrane can be modified, while the membrane itself can in this way be modified (at least locally).
 
 In \cite{Paun99ActiveMembranes} P\u{a}un considers P systems with active membranes where the central role in the computation is played by the membranes: evolution rules are associated both with objects and membranes, while the communication through membranes is performed with the direct participation of the membranes; moreover, the membranes can not only be dissolved, but they also can multiply by division. An elementary membrane can be divided by means of an interaction with an object from that membrane.
 
+There are also other ways to define the creation of new membranes. In section \ref{sec:active_membranes} we present a variant with a special evolution rule which creates new membrane when a given multiset ob objects is present in the region. 
+
 % Polarization
 
-Each membrane is supposed to have an electrical polarization (we will say charge), one of the three possible: positive, negative, or neutral. If in a membrane we have two immediately lower membranes of opposite polarizations, one positive and one negative, then that membrane can also divide in such a way that the two membranes of opposite charge are separated; all membranes of neutral charge and all objects are duplicated and a copy of each of them is introduced in each of the two new membranes.
-The skin is never divided.
+\subsubsection{P systems with polarized membranes} % (fold)
+\label{ssub:p_systems_with_polarized_membranes}
+
+Polarizing membranes \cite{Paun99ActiveMembranes} is a special extension of active P systems, where each membrane is supposed to have an electrical polarization (we will say charge), one of the three possible: positive, negative, or neutral. If in a membrane we have two immediately lower membranes of opposite polarizations, one positive and one negative, then that membrane can also divide in such a way that the two membranes of opposite charge are separated; all membranes of neutral charge and all objects are duplicated and a copy of each of them is introduced in each of the two new membranes.
+The skin membrane is never divided.
 If at the same time a membrane is divided and there are objects in this membrane which are being rewritten in the same step, then in the new copies of the membrane the result of the evolution is included.
 
 In this way, the number of membranes can grow, even exponentially. As expected, by making use of this increased parallelism we can compute faster.
 For example, the SAT problem, which is NP complete, can be solved in linear time, when we consider the steps of computation as the time units.
 Moreover, the model is shown to be computationally universal.
+
+% subsubsection p_systems_with_polarized_membranes (end)
 
 % subsection active_vs_passive_membranes (end)
 
