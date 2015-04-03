@@ -62,23 +62,21 @@ Moreover, the model is shown to be computationally universal.
 
 % subsection active_vs_passive_membranes (end)
 
-\subsection{Context in rules} % (fold)
+\subsection{Cooperative vs non-cooperative} % (fold)
 \label{sub:context_in_rules}
 
 % Cooperative / Non-cooperative
 
-Rewriting rules in P systems can be cooperative and non-cooperative, like in Chomsky's context-free and context-sensitive grammars. Non-cooperative rules are restricted to use only one object on the left side and cooperative rules do not have this restriction.
-P systems with cooperative rules are universal \cite{Paun98}, while P systems with non-cooperative rules only characterize Parikh image of context-free languages ($PsCF$) \cite{Sburlan05dragos}.
+If a P system contains evolution rules whose radius is greater than 1, then it is said to be cooperative, otherwise it is a non-cooperative system. Non-cooperative P systems have all rules restricted to contain only one object on the left side.
+P systems with cooperative rules are universal \cite{Paun98}, while P systems with non-cooperative rules only characterize Parikh image of context-free languages ($PsCF$) \cite{Sburlan05dragos}. It seems to relate with context-free and context-sensitive grammars in Chomsky's hierarchy mentioned in section \ref{sec:chomsky_hierarchy}. 
 
 % Catalytic P systems
 
-P\u{a}un \cite{Paun98} also defines P systems with catalysts where catalysts are a specified subset of the alphabet. Rewriting rules can contain catalysts, which are not modified by applying the rule. Surprisingly, P systems with catalytic rules are universal, actually two membranes in the P system are sufficient to achieve universality.
-
-In systems where only catalytic rules (purely catalytic systems \cite{Ibarra:03:Catalytic}), three catalysts are enough \cite{Freund2005TwoCatalysts}.
+P\u{a}un \cite{Paun98} also defines catalytic P systems where catalysts are a specified subset of the alphabet $C\subseteq \Sigma$. In a catalytic system the only possible rule of radius greater than 1 is of the form $ca\rightarrow cv$, where $c\in C, a\in \Sigma\setminus C$ and $v\in (\Sigma\setminus C)^*$ and that is the only form of a rule that can contain a catalyst. If $C=\emptyset$ then the system is called non-catalytic. Catalysts are not modified by applying the catalytic rule. Surprisingly, P systems with catalytic rules are universal, even two membranes in the P system are sufficient to achieve universality.
 
 % Two catalysts
 
-Freund in \cite{Freund2005TwoCatalysts} also shows that two catalysts and one membrane are enough and raised an open problem whether one catalyst is sufficient. He conjectured that for computationally universal P systems the results obtained in this paper are optimal not only with respect to the number of membranes (2), but also with respect to the number of catalysts.
+Freund in \cite{Freund2005TwoCatalysts} showed that two catalysts and one membrane are enough for universality and raised an open problem whether one catalyst is sufficient. He conjectured that for computationally universal P systems the results obtained in this paper are optimal not only with respect to the number of membranes (2), but also with respect to the number of catalysts.
 
 % Catalysts are too powerful
 
@@ -88,17 +86,16 @@ A variant with promoters and inhibitors have been proposed (see \cite{Ionescu:ju
 
 % Promoters
 
-In the case of promoters, the rules are possible only in the presence of certain symbols. An object $p$ is a promoter for a rule $u\rightarrow v$ and we denote this by $u\rightarrow v|_{p}$, if the rule is active only in the presence of object $p$. Note that unlike in the case with catalysts, promoters allow the associated rules to be applied as many times as possible.
+In the case of promoters, the rules are possible only in the presence of certain symbols. An object $p$ is a promoter for a rule $u\rightarrow v$ and we denote this by $u\rightarrow v|_{p}$, if the rule is applicable only in the presence of object $p$. Note that unlike in the case with catalysts, promoters allow the associated rules to be applied as many times as possible.
 
 % Inhibitors
 
-An object $i$ is inhibitor for a rule $u\rightarrow v$ and we denote this by $u\rightarrow v|_{\neg i}$, if the rule is active only if inhibitor $i$ is not present in the region.
-One of our results (see section \ref{sec:inhibitors}) uses inhibitors as a tool to achieve universality for sequential P systems.
-
+If an object $i$ is an inhibitor for a rule $u\rightarrow v$, we denote this by $u\rightarrow v|_{\neg i}$. Such rule is applicable as long as inhibitor $i$ is not present in the region.
 
 % One catalyst with promoters / inhibitors
 
-Ionescu in \cite{Ionescu:jucs_10_5:on_p_systems_with} shows that P systems with non-cooperative catalytic rules with only one catalyst and with promoters / inhibitors are universal.
+Ionescu in \cite{Ionescu:jucs_10_5:on_p_systems_with} showed that P systems with non-cooperative catalytic rules with only one catalyst and with promoters / inhibitors are universal.
+One of our results (see section \ref{sec:inhibitors}) uses inhibitors to achieve universality for sequential P systems.
 
 % Zero catalysts with inhibitors
 
@@ -106,7 +103,11 @@ Non-cooperative rules with no catalysts and with inhibitors were studied in \cit
 
 % Simple cooperative system
 
-Dang \cite{Ibarra04dang} proposes a simple cooperative system ($SCO$) as a P system where the only rules allowed are of the form $a\rightarrow v$ or of the form $aa\rightarrow v$, where $a$ is a symbol and $v$ is a (possibly null) string of symbols not containing $a$. This variant is investigated with various modes of parallelism, so their results will be mentioned in the subsection \ref{sub:parallelism_options}
+Dang \cite{Ibarra04dang} proposes a simple cooperative system ($SCO$) as a P system where the only rules allowed are of the form $a\rightarrow v$ or of the form $aa\rightarrow v$, where $a$ is an object and $v$ is a multiset of objects not containing $a$. This variant is investigated with various modes of parallelism, so their results will be mentioned in the subsection \ref{sub:parallelism_options}
+
+% Purely catalytic systems
+
+Another interesting variant is where the only rules are the catalytic rules of the form $ca\rightarrow cv$, so there are no rules of radius 1. This variant is called purely catalytic systems and was introduced by Ibarra in \cite{Ibarra:03:Catalytic}. The computational completeness was shown to hold with just three catalysts \cite{Freund2005TwoCatalysts}.
 
 % subsection context_in_rules (end)
 
