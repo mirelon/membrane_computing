@@ -154,21 +154,21 @@ Coverability graph analysis offers an alternative to the techinque of reachabili
   \caption{Coverability graph algorithm}\label{alg:coverability_graph}
   \begin{algorithmic}[1]
     \Procedure{CoverabilityGraph}{marked Petri net $\mathcal P = (P, T, \varphi, \mu_0)$}
-      \State $\text{create a node $\mu_{init}$ such that $\mu_{init} = \mu_0$ and mark it as `new'}$
-      \While{$\text{there is a `new' node $\mu$}$}
+      \State $\text{create a node $\mu_{init}$ such that $\mu_{init} = \mu_0$ and mark it as ``new''}$
+      \While{$\text{there is a ``new'' node $\mu$}$}
         \For{$\text{each transition $t$ enabled at $\mu$}$}
           \If{$\text{there is a node $\mu^\prime=\mu+\Delta t$}$}
             \State $\text{add an edge $\mu\xrightarrow{t}\mu^\prime$}$
           \ElsIf{$\text{there is a path $\mu_{init}\xrightarrow{*}\mu^{\prime\prime}\xrightarrow{*}\mu$ such that $\mu^{\prime\prime}<\mu+\Delta t$}$}
-            \State $\text{add a `new' node $x$ with}$
+            \State $\text{add a ``new'' node $x$ with}$
             \State \hspace{\algorithmicindent}$\text{$x(p)=\omega$ if $\mu^{\prime\prime}(p)<(\mu+\Delta t)(p)$}$
             \State \hspace{\algorithmicindent}$\text{$x(p)=\mu^{\prime\prime}(p)$ otherwise}$
             \State $\text{add an edge $\mu\xrightarrow{t}x$}$
           \Else
-            \State $\text{add a `new' node $x$ with $x=\mu+\Delta t$ and an edge $\mu\xrightarrow{t}x$}$
+            \State $\text{add a ``new'' node $x$ with $x=\mu+\Delta t$ and an edge $\mu\xrightarrow{t}x$}$
           \EndIf
         \EndFor
-        \State $\text{mark $\mu$ with `old'}$
+        \State $\text{mark $\mu$ with ``old''}$
       \EndWhile
     \EndProcedure
   \end{algorithmic}
