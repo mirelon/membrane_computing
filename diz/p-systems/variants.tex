@@ -199,3 +199,12 @@ Freund in \cite{Freund:2004:Async} studied the asynchronous mode of P systems, w
 Obviously, for P systems without priorities this is equivalent with just letting them work in the sequential mode, but for P systems with priorities this observation would not be true any more, because the outcome of performing one rule might affect the applicability of another rule.
 
 % subsection parallelism_options (end)
+
+\subsection{Toxic objects} % (fold)
+\label{sub:toxic_objects}
+
+Some of the P system variants are aimed at increasing modeling power. Introducting toxic objects \cite{Alhazov14Toxic} does not increase computational power nor modify the decidability of behavioral properties, but such P systems allow for smaller descriptional complexity, especially for smaller number of rules. Moreover, they have a clear direct biological motivation.
+Toxic objects are a specified subset of alphabet. They must not stay idle as otherwise the computation is abandoned without yielding a result. 
+Alhazov in \cite{Alhazov14Toxic} used toxic objects to improve the known results for catalytic and purely catalytic P systems by significantly reducing the number of rules needed for the constructions in proofs. 
+
+% subsection toxic_objects (end)
