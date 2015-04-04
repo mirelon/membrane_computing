@@ -150,7 +150,9 @@ P\u{a}un in \cite{Paun:2002:SymportAntiport} proposes a new way of communicating
 Symports allow two chemicals to pass together through a membrane in the same direction using symport rules of type $(ab,in)$ or $(ab,out)$.
 Antiports allow two chemicals to pass simultaneously through a membrane in opposite directions using antiport rules of type $(a,in;b,out)$.
 
-Surprisingly, a P system variant, where only the symport / antiport rules are used are computationally complete. Five membranes are enough for this result. If more than two chemicals may collaborate when passing through membranes, two membranes are sufficient for universality. These results are proven in \cite{Paun:2002:SymportAntiport}.
+A P system with symport/antiport rules uses only these two types of rules and nothing else. Surprisingly, this P system variant has been shown to be computationally complete. Five membranes are enough for this result as shown in \cite{Paun:2002:SymportAntiport}. If more than two chemicals may collaborate when passing through membranes, two membranes are sufficient for universality.
+
+Dang in \cite{Dang04Sequential} showed some results about the sequential P systems with symport/antiport rules. When working in just one membrane, its reachability set is the same as of vector addition systems. Thus it is not universal in contrast to the maximal parallel variant, which is universal.
 
 % subsection symport_antiport_rules (end)
 
@@ -174,20 +176,21 @@ Sequential version of symport / antiport systems are equivalent to vector additi
 Investigation of the sequential mode continues in \cite{Ibarra05Active}. Sequential P system without priorities with cooperative rules with rules for membrane dissolution are not universal by showing they can be simulated by vector addition systems with states (VASS).
 This holds even when the membrane creation is allowed for bounded number of created membranes. However, if any number of membranes are allowed to be created, the system becomes universal. This result was shown by simulation of the register machine (see section \ref{sec:register_machines}).
 
-We have further investigated this variant (sequential P system without priorities with cooperative rules) in chapter \ref{cha:on_the_edge_of_universality_of_sequential_p_systems} by allowing rules with inhibitors, which resulted in universality.
+We have further investigated this universal sequential variant in chapter \ref{cha:on_the_edge_of_universality_of_sequential_p_systems} where we will show some of our interesting results on the decidability problems of existence of finite / infinite computation.
 
+Even though the variant without rules for creation of new membranes is not universal, we have studied the effect of adding inhibitors, which was shown to be universal.
 
 % Restricting maximal parallelism
 
 Dang in \cite{Ibarra04dang} proposes several restricted versions of parallelism.
-$n${\bf -Max-Parallel} version nondeterministically selects a maximal subset of at most n rules to apply. It is proved that 9{\bf -Max-Parallel} SCO (defined in the subsection \ref{sub:context_in_rules}) is universal.
-$\leq n${\bf -Parallel} version is similar, but does not require the condition of a maximal subset of rules. It is shown to be weaker than $n${\bf -Max-Parallel} version.
-$n${\bf -Parallel} version requires the size of the subset of rules to apply to be exactly $n$.
-All three versions are equal to the sequential mode when $n=1$. For non-universality results, Dang used the proof technique by simulation by vector addition systems. Our future research may be inspired by this technique.
+$n$-Max-Parallel version nondeterministically selects a maximal subset of at most n rules to apply. It is proved that 9-Max-Parallel SCO (defined in the subsection \ref{sub:context_in_rules}) is universal.
+$\leq n$-Parallel version is similar, but does not require the condition of a maximal subset of rules. It is shown to be weaker than $n$-Max-Parallel version.
+$n$-Parallel version requires the size of the subset of rules to apply to be exactly $n$.
+All three versions are equal to the sequential mode when $n=1$. For non-universality results, Dang showed the variants are able to be simulated by vector addition systems.
 
 % Minimal parallelism
 
-Ciobanu in \cite{Ciobanu:2007:MinimalParallelism} proposes a minimal parallelism: for each region if at least one rule can be applied, then at least one rule will be applied. The symport / antiport rules variant and variant with active membranes were both shown to be universal.
+Ciobanu in \cite{Ciobanu:2007:MinimalParallelism} proposes a minimal parallelism: for each region if at least one rule can be applied, then at least one rule will be applied. The symport / antiport rules variant and variant with active membranes with unbounded membrane creation were both shown to be universal.
 
 % Asynchronous
 
