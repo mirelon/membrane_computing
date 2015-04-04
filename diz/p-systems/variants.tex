@@ -99,7 +99,7 @@ One of our results (see section \ref{sec:inhibitors}) uses inhibitors to achieve
 
 % Zero catalysts with inhibitors
 
-Non-cooperative rules with no catalysts and with inhibitors were studied in \cite{Sburlan:2006:FurtherResultsPromotersInhibitors}, the equivalence with Lindenmayer systems ($ET0L$ as defined in section \ref{sec:lindenmayer_systems}) was proved.
+Non-cooperative rules with no catalysts and with inhibitors were studied in \cite{Sburlan:2006:FurtherResultsPromotersInhibitors}, the equivalence with the Parikh image of Lindenmayer systems ($ET0L$ as defined in section \ref{sec:lindenmayer_systems}) was proved.
 
 % Simple cooperative system
 
@@ -107,7 +107,7 @@ Dang \cite{Ibarra04dang} proposes a simple cooperative system ($SCO$) as a P sys
 
 % Purely catalytic systems
 
-Another interesting variant is where the only rules are the catalytic rules of the form $ca\rightarrow cv$, so there are no rules of radius 1. This variant is called purely catalytic systems and was introduced by Ibarra in \cite{Ibarra:03:Catalytic}. The computational completeness was shown to hold with just three catalysts \cite{Freund2005TwoCatalysts}.
+Another interesting variant is where the only rules are the catalytic rules of the form $ca\rightarrow cv$, so there are no rules of radius 1. This variant is called purely catalytic systems and was introduced by Ibarra in \cite{Ibarra:03:Catalytic}. The computational completeness was shown to hold with just three catalysts \cite{Freund2005TwoCatalysts}, while when initialized with just one catalyst, the equivalence with Petri nets has been proven \cite{Ibarra04Catalytic}.
 
 % subsection context_in_rules (end)
 
@@ -116,7 +116,13 @@ Another interesting variant is where the only rules are the catalytic rules of t
 
 In the original definition of a P system \cite{Paun98}, a partial order relation over set of rewriting rules have been specified. The rule can be used only if no rule of a higher priority in the region can be applied at the same time.
 
-Sos\'ik in \cite{Sosik:2002:WithoutPriorities} showed that the priorities may be omitted from the model without loss of computational power.
+Sos\'ik in \cite{Sosik:2002:WithoutPriorities} showed that the priorities may be omitted from the maximal parallel model without loss of computational power, thus maintaining universality.
+
+Sequential P systems (see subsection \ref{sub:parallelism_options}) with prioritized rules are universal \cite{Ibarra05Active}, while without the priorities they are not.
+
+As mentioned in subsection \ref{sub:context_in_rules}, P systems with non-cooperative rules only characterize the Parikh image of context-free languages ($PsCF$) \cite{Sburlan05dragos}, it was an open problem, whether priorities could improve the computational power. In \cite{Sburlan05Priorities} Sburnan showed that the variant with prioritized rules is more powerful and characterize exactly the Parikh image of $ET0L$ (see section \ref{sec:lindenmayer_systems} and subsection \ref{sec:parikh_s_mapping} in preliminaries).
+
+We may conclude here that adding a priority relation over rules is a powerful feature which often boosts the computational power by allowing finer control mechanisms and limiting otherwise uncontrolled nondeterministic selection of rules to be applied.
 
 % subsection rules_with_priorities (end)
 
@@ -185,6 +191,8 @@ Ciobanu in \cite{Ciobanu:2007:MinimalParallelism} proposes a minimal parallelism
 
 % Asynchronous
 
-Freund in \cite{Freund:2004:Async} studied the asynchronous mode of P systems, where in each step, arbitrary many rules can be applied. The application of rules is hence done in parallel way, but are not synchronized or somewhat controlled. In many cases the sequential and asynchronous modes were shown to be equivalent.
+Freund in \cite{Freund:2004:Async} studied the asynchronous mode of P systems, where in each step, arbitrary many rules can be applied. The application of rules is hence done in parallel way, but are not synchronized or somewhat controlled.
+
+Obviously, for P systems without priorities this is equivalent with just letting them work in the sequential mode, but for P systems with priorities this observation would not be true any more, because the outcome of performing one rule might affect the applicability of another rule.
 
 % subsection parallelism_options (end)
