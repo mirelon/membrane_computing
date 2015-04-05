@@ -33,19 +33,24 @@ This research was extended in \cite{Cardona11Zebra} where they also proposed mod
 \subsection{Cellular Signalling Pathways} % (fold)
 \label{sub:cellular_signalling_pathways}
 
-Perez in \cite{Perez06EGFR} proposed a model for EGFR Signalling Cascade. More than 60 proteins were included and 160 chemical reactions. Membrane structure consists of 3 regions: the environment, the cell surface and the cytoplasm. 
+Perez in \cite{Perez06EGFR} proposed a model for EGFR Signalling Cascade. Cellular signalling pathways are fundamental to the control and regulation of cell behaviour. More than 60 proteins and 160 chemical reactions were included in the model. Membrane structure consists of 3 regions: the environment, the cell surface and the cytoplasm. 
 
 % subsection cellular_signalling_pathways (end)
 
 \subsection{Solving SAT in linear time} % (fold)
 \label{sub:solving_sat_in_linear_time}
 
+The discovery of the NP-Complete problems has created a vigorous industry producing proofs of NP-Completeness \cite{NPCompleteness}. But does NP-Completeness really imply intractability of interesting instances? This question seems to divide the Computer Science community into two camps, the pessimists who believe that NP-Complete problems require exponential resources and are therefore intractable and the optimists who expect a subexponential algorithm to emerge eventually. There is however a viable third belief, namely that the resources required do rise exponentially but slowly enough for large practical problems to be tractable.
 
-Polynomial time solutions to NP-complete problems by means of P systems are achieved by trading time (number of computation steps) for space (number of membranes and objects). This is inspired by the capabililty of cells to produce an exponential number of new membranes in polynomial time.
+A number of algorithms have been reported, using an approach more sophisticated than the obvious search of all possible solutions to achieve run times significantly less than the naive approach would suggest, but on a sequential machine these do not yet seem to solve real large problems in reasonable time. On the other hand the naive approach to most NP-Complete problems parallelises easily but yields an algorithm which is too slow even on large parallel machines. However, where the sophisticated algorithms can be parallelised, the result may well be that very large problems which have appeared intractable can be solved quite easily with machines which exist today and will be cheap tomorrow.
 
-However, many simulators of P system are inefficient since they cannot handle the parallelism of these devices. Nowadays, we are witnessing the consolidation of the GPUs as a parallel framework to compute general purpose applications such as bitcoin mining. The simulation of P systems with active membranes using GPUs is analysed in \cite{Cecilia10SAT} and an efficient linear solution to the SAT problem is illustrated.
+Polynomial time solutions to NP-complete problems are usually achieved by trading time for space \cite{Stamp03TimeMemoryTradeoff}.
 
-They compared it to the classical simulator and reported up to 94x of speedup for 256 literals in the formula. The major constraint of this parallel simulation is the GPU memory size, which can be overcome with a data partition on a cluster of GPUs. 
+P systems with their inherent parallelism seem to be a natural choice due to the capabililty of cells to produce an exponential number of new membranes in polynomial time. However, many simulators of P system are inefficient since they cannot handle the parallelism of these devices. Nowadays, we are witnessing the consolidation of the GPUs as a parallel framework to compute general purpose applications such as bitcoin mining.
+
+The simulation of P systems with active membranes using GPUs is analyzed in \cite{Cecilia10SAT} and an efficient linear solution to the SAT problem is illustrated. They compared it to the classical simulator and reported up to 94x of speedup for 256 literals in the formula. The major constraint of this parallel simulation is the GPU memory size, which can be overcome with a data partition on a cluster of GPUs.
+
+As time passes, GPU mining of bitcoins is largely dead these days. The majority is now mining with Application Specific Integrated Circuits (ASIC) \cite{Smith08ASIC}. The proposal of ASIC for P systems could be the possible aim of future research of P system simulators. 
 
 % subsection solving_sat_in_linear_time (end)
 
@@ -65,6 +70,5 @@ The proposed framework has many difficulties. The notable ones are:
   \item Is there any chance to solve NP-complete problems in this frameworks?
   \item Are LL-free P systems universal?
 \end{itemize}
-
 
 % subsection implementation_of_p_systems_in_vitro (end)
