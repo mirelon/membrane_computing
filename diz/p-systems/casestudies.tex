@@ -1,10 +1,34 @@
 % !TEX root = ../diz.tex
-\subsection{Vultures in Pyrenees} % (fold)
-\label{sub:vultures_in_pyrenees}
+Although P systems were inspired by the functioning of a biological cell, the applications has already far exceeded the scope of a cell. P systems are already being used in many problems ranging from modeling biological processes and population dynamics through social network problems to image processing and effectively solving hard problems.
 
-Spanish researchers in \cite{Cardona:2009:Vultures} presented a model of an ecosystem related to the Bearded Vulture in Pyrenees in Spain by using P systems. They have constructed a simulator to validate the designed P system, which allows them to analyze the evolution under different initial conditions.
+\subsection{MeCoSym} % (fold)
+\label{sub:mecosym}
 
-% subsection vultures_in_pyrenees (end)
+There is an online collection of various case studies on the MeCoSim webpage \cite{MeCoSimWeb}. The number of scenarios and the level of detail vary among the different case studies, possibly including detailed descriptions, references to related publications, charts and videos.
+
+MeCoSim (Membrane Computing Simulator) \cite{Perez10MeCoSim} is a software that offers the users a General Purpose Application to model, design, simulate, analyze and verify different types of models based on P systems. Some of the main features of MeCoSim are the following:
+\begin{itemize}
+  \item Simulation of models of P systems under different initial conditions. It enables the load of P-Lingua based models, parsing, edition, debugging, and different simulation types.
+  \item Visualization capabilities for analyzing P systems: alphabet, membrane structure, multisets and graphs viewers.
+  \item Highly customizable platform for defining inputs, outputs, parameters and graphs for each model of a family of P systems.
+  \item Repositories system for the visual management of available online resources, including plugins, custom applications, models and scenarios.
+  \item Export option for releasing end-user applications for solving practical problems, abstracting P system functionalities.
+  \item Plugins architecture, permitting the extension of the functionality with Java jars or external non-Java programs. MeCoSim is written in Java.
+  \item Auto-update capability, using the latest release of the program whenever it runs.
+\end{itemize}
+
+MeCoSim development started in 2010, and a number of case studies have been analyzed since then, covering many variants of P systems, different areas of interest and application domains. The examples contain, at least, some snippets of code, along with the minimal needed files to run some scenario in MeCoSim.
+
+% subsection mecosym (end)
+
+\subsection{Population dynamics} % (fold)
+\label{sub:population_dynamics}
+
+The Bearded Vulture (Gypaetus barbatus) is an endangered species in Europe that feeds almost exclusively on bone remains of wild and domestic ungulates. Spanish researchers in \cite{Cardona:2009:Vultures} presented a model of an ecosystem related to the Bearded Vulture in the Pyrenees (NE Spain), by using P systems. The evolution of six species is studied: the Bearded Vulture and five subfamilies of domestic and wild ungulates upon which the vulture feeds. P systems provide a high level computational modeling framework which integrates the structural and dynamic aspects of ecosystems in a comprehensive and relevant way. P systems explicitly represent the discrete character of the components of an ecosystem by using rewriting rules on multisets of objects which represent individuals of the population and bones. The inherent stochasticity and uncertainty in ecosystems is captured by using probabilistic strategies.
+
+This research was extended in \cite{Cardona11Zebra} where they also proposed model for exotic invasive species of Zebra Mussel for the design of a plan for the management of the reservoir of Ribarroja in the area of Ebro River basin because this species create significant environmental problems and economic costs due to its ability to block all types of infrastructure and water pipes.
+
+% subsection population_dynamics (end)
 
 \subsection{Cellular Signalling Pathways} % (fold)
 \label{sub:cellular_signalling_pathways}
