@@ -1,2 +1,52 @@
 % !TEX root = ../diz.tex
-In this section we present a formal framework for investigating processes driven by interactions between biochemical reactions in living cells.
+In this section we present reaction systems \cite{Rozenberg09Reaction}, a formal framework for investigating processes driven by interactions between biochemical reactions in living cells. These interactions are
+based on the mechanisms of facilitation and inhibition: a reaction can take place if all of its reactants are present and none of its inhibitors is present. If a reaction takes place, then it creates its products. Therefore to specify a reaction one needs to specify its set of reactants, its set of inhibitors, and its set of products. This leads to the following definition.
+
+\begin{definition}
+  A {\bf reaction} is a triplet $a=(R,I,P)$, where $R, I, P$ are finite sets. If $S$ is a set such that $R,I,P\subseteq S$, then $a$ is a reaction in $S$.
+\end{definition}
+
+The sets $R, I, P$ are also denoted $R_a, I_a, P_a$, and called the reactant set of $a$, the inhibitor set of $a$ and the product set of $a$.
+
+\begin{definition}
+  Let $a$ be a reaction and $T$ a finite set. Then $a$ is enabled by $T$, denoted by $a \mathrel{en} T$, iff $R_a\subseteq T$ and $I_a\cap T = \emptyset$.
+\end{definition}
+
+\begin{definition}
+  Let $a$ be a reaction and $T$ a finite set. The result of $a$ on $T$ is defined by: $res_a(T) = P_a$ if $a \mathrel{en} T$ and $res_a(T) = \emptyset$ otherwise.
+\end{definition}
+
+Clearly, if $R_a\cap I_a\neq\emptyset$, then $res_a(T)=\emptyset$ for every $T$. Therefore, we can assume that, for each reaction $a$, $R_a\cap I_a = \emptyset$ and we will also assume that $R_a\neq\emptyset$, $I_a\neq\emptyset$ and $P_a\neq\emptyset$.
+
+\begin{example}
+  Consider the reaction $a$ with $R_a = \{c, x_1, x_2\}$, $I_a = \{y_1, y_2\}$, and $P_a = \{c, z\}$. We can interpret $c$ as the catalyzer of $a$ as it is needed for $a$ to take place, but is not consumed by $a$. Then $a \mathrel{en} T$ for $T = \{c, x_1, x_2, z\}$, and $a$ is not enabled on neither $\{c, x_1, x_2, z, y_1\}$ nor on $\{x_1, x_2, z\}$.
+\end{example}
+
+% Set of reactions
+
+A reaction $a$ is enabled on a set $T$ if $T$ separates $R_a$ from $I_a$, i.e. $R_a\subseteq T$ and $I_a\cap T = \emptyset$. There is no assumption about the relationship of $P_a$ to either $R_a$ or $I_a$. When $a$ is enabled by a finite set $T$, then $res_a(T) = P_a$. Thus, the result of $a$ on $T$ is ``locally determined'' in the sense that it uses only a subset of $T$. However, the result of the transformation is global as all elements from $T \setminus P_a$ ``vanished''. This is in great contrast to classical models like Petri nets (see section \ref{sec:petri_nets}), where the firing of a single transition has only a local influence on the global marking which may be changed only on places that are neighbouring the given transition. In reaction systems there is no permanency of elements: an element of a global state vanishes unless it is sustained by a reaction.
+
+\begin{definition}
+  Let $A$ be a finite set of reactions. The result of $A$ on $T$ is defined by $$res_A(T) = \bigcup_{a\in A} res_a(T)$$.
+\end{definition}
+
+There are no conditions on the relationship between reactions in $A$ nor the notion of conflict here: if $a,b\in A$ with $a \mathrel{en} T$ and $b \mathrel{en} T$, then, even if $R_a\cap R_b\neq\emptyset$, still both $a$ and $b$ contribute to $res_A(T)$, i.e. $res_a(T)\cup res_b(T) \subseteq res_A(T)$.
+
+There is no counting in reaction systems, it is a qualitative rather than quantitative model. This reflects the assumption about the ``threshold supply'' of elements: either an element is present, and then there is ``enough'' of it, or an element is not present.
+
+The notion of conflict is reflected via the notion of consistency.
+
+\begin{definition}
+  A set of reactions $A$ is {\bf consistent} iff $R_A\cap I_A = \emptyset$, i.e. $R_a\cap R_b = \emptyset$ for any two reactions $a,b \in A$.
+\end{definition}
+
+Clearly, if $R_a\cap I_b\neq\emptyset$, then $a$ and $b$ can never be together enabled.
+
+\begin{definition}
+  A {\bf reaction system} is an ordered pair $\mathcal{A} = (S, A)$ such that $S$ is a finite set and $A$ is a set of reactions in $S$.
+\end{definition}
+
+There are many situations where one needs to assign quantitative parameters to states (e.g. when dealing with time issues). A numerical value can be assigned to a state $T$ if there is a measurement of $T$ yielding this value. This leads to the notion of reaction systems with measurements \cite{Ehrenfeucht09Reaction}, where a finite set of measurement functions is added as a third component to reaction systems.
+
+There are various extensions of reaction systems, but they are based on the core definition with basic notions of ``no permanence'' and ``no counting'' of elements. We will mention reaction systems again in section \ref{sec:p_system_variants} as an inspiration for some variants of P systems.
+
