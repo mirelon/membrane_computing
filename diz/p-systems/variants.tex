@@ -208,3 +208,27 @@ Toxic objects are a specified subset of alphabet. They must not stay idle as oth
 Alhazov in \cite{Alhazov14Toxic} used toxic objects to improve the known results for catalytic and purely catalytic P systems by significantly reducing the number of rules needed for the constructions in proofs. 
 
 % subsection toxic_objects (end)
+
+\subsection{Set membrane systems} % (fold)
+\label{sub:set_membrane_systems}
+
+Standard models of membrane systems have configurations, where any given compartment is represented as a multiset of objects and each computational action is represented by a multiset of simultaneously executed (multiple copies of) individual evolution rules.
+
+Such strong reliance on counting (through multiple copies of objects and rules) may lead to potential problems in two respects. First, one may wonder how realistic is the counting (multiset) mechanism if one needs to represent huge numbers of molecules and instances of biochemical reactions. Second, a membrane system would normally have an infinite state space, making the application
+of formal verifiation techniques impratical or indeed impossible (there exists a rich body of results proving Turing completeness of even very simple kinds of membrane systems).
+
+A radical solution to the state space problems can be provided by reaction systems (section \ref{sec:reaction_systems}), which, however, model biochemial reactions in living cells using qualitative (based on presence and absence of entities) rather than quantitative rewriting rules.
+
+Set membrane systems \cite{Kleijn11SetMembrane} are based on sets (of objects or rules) together with the associated set operations, rather than on multisets and multiset operations.
+
+\begin{definition}
+  A {\bf set membrane system} is a tuple $$\Pi = (\Sigma, \mu, w_1, \ldots, w_m, R_1, \ldots, R_m)$$, such that $\Sigma$ is a finite set of objects, $\mu$ is a membrane structure with $m$ membranes, $w_i\subseteq\Sigma$ is a set of objects initially present in region $i$ and $R_i$ is a finite set of evolution rules of the form $u\rightarrow v$, where $u\subseteq\Sigma$ is a nonempty set of objects and $v\subseteq\Sigma_i$ is a set of indexed objects with $\Sigma_i$ being defined as: $$\Sigma_i = \Sigma\cup\{a_{out}|a\in \Sigma\}\cup\{a_{in_j}|a\in\Sigma\mathrel{and}i=parent(j)\}$$.
+\end{definition}
+
+The difference between the ``qualitative'' and the ``quantitative'' interpretation of the evolution rules is twofold. First, there may be two enabled evolution rules in a compartment with a common object in their left hand sides while there is only a single representant of that object in the current state in the compartment. In the current qualitative setup, the two rules can be executed together. That is, objects are charaterized by their presence rather than their quantity. Second, if two simultaneously executed rules produce the same object in the same compartment, instead of adding two instances of this object, only one is added, so that we never have more than a single representant of an object in any given compartment.
+
+Kleijn in \cite{Kleijn11SetMembrane} describes different ways to define a computation step. An interesting property of maximal parallel steps is that there is always exactly one maximal parallel set of enabled rules, thus such system is deterministic.
+
+Alhazov in \cite{Alhazov05WithoutMultiplicities} proposed P systems, where the multiplicities of objects are ignored, which is essentially the same as set membrane systems. He proved that with bounded number of membranes they have a very limited computing power, exactly the Parikh images of regular languages. On the other hand, allowing membrane creation or division implies the computational completeness.
+
+% subsection set_membrane_systems (end)
