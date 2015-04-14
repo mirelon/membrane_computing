@@ -209,8 +209,19 @@ Alhazov in \cite{Alhazov14Toxic} used toxic objects to improve the known results
 
 % subsection toxic_objects (end)
 
-\subsection{Set membrane systems} % (fold)
-\label{sub:set_membrane_systems}
+\subsection{Variants inspired by reaction systems} % (fold)
+\label{sub:variants_inspired_by_reaction_systems}
+
+Reaction systems (section \ref{sec:reaction_systems}) deal with two assumptions made about the chemistry of a cell.
+\begin{enumerate}
+  \item We assume that we have the ``threshold'' supply of elements. Either an element is present and then we have ``enough'' of it, or an element is not present. Therefore we deal with a qualitative rather than quantitative calculus.
+  \item We do not have the ``permanence'' feature in our model. If nothing happens to an element in P systems, then it remains / survives (status quo approach). On the contrary, in reaction systems, an element remains / survives only if there is a reaction sustaining it. 
+\end{enumerate}
+
+We will present variants of P systems inspired by these assumptions in following subsubsections.
+
+\subsubsection{Set membrane systems} % (fold)
+\label{ssub:set_membrane_systems}
 
 Standard models of membrane systems have configurations, where any given compartment is represented as a multiset of objects and each computational action is represented by a multiset of simultaneously executed (multiple copies of) individual evolution rules.
 
@@ -231,4 +242,22 @@ Kleijn in \cite{Kleijn11SetMembrane} describes different ways to define a comput
 
 Alhazov in \cite{Alhazov05WithoutMultiplicities} proposed P systems, where the multiplicities of objects are ignored, which is essentially the same as set membrane systems. He proved that with bounded number of membranes they have a very limited computing power, exactly the Parikh images of regular languages. On the other hand, allowing membrane creation or division implies the computational completeness.
 
-% subsection set_membrane_systems (end)
+% subsubsection set_membrane_systems (end)
+
+\subsubsection{P systems with no permanence} % (fold)
+\label{ssub:p_systems_with_no_permanence}
+
+The second assumption of the reaction systems theory is much easier to handle in terms of membrane computing. If we want to preserve an object $a$ which is not evolving, we may provide a dummy rule for it, of the type $a\rightarrow a$, changing nothing. Still, many technical problems appear in this framework. The presence of such dummy rules makes the computation endless, while halting is the ``standard'' way to define successful computations in membrane computing. Moreover, the rules are nondeterministically chosen, hence the dummy rules can interfere with the ``computing rules''.
+
+While the second difficulty is a purely technical one, the first one can be overpassed by considering other ways of defining the result of a computation in a P system, and there are many suggestions in the literature. Three of them are assumed in \cite{Paun12BridgingReactionSystems}.
+\begin{enumerate}
+  \item The local halting (the computation stops when at least one membrane in the system cannot use any rule).
+  \item Signal-objects (the result consists of the number of objects in a specified membrane at the moment when a distinguished object appears in the system).
+  \item Signal-events (the result consists of the number of objects in a specified membrane at the moment when a distinguished rule is used in the system).
+\end{enumerate}
+
+The paper \cite{Paun12BridgingReactionSystems} includes a proof of computational completeness for the variant with cooperative rules along with an open problem for the variant with catalytic rules.
+
+% subsubsection p_systems_with_no_permanence (end)
+
+% subsection variants_inspired_by_reaction_systems (end)
