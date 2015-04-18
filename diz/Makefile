@@ -10,6 +10,12 @@ bib: diz.tex diz.bib
 godzilla: diz.tex
 	pdflatex "\def\godzilla{1} \input{diz.tex}"
 
+godzillabib: diz.tex
+	pdflatex "\def\godzilla{1} \input{diz.tex}"
+	bibtex diz
+	pdflatex "\def\godzilla{1} \input{diz.tex}"
+	pdflatex "\def\godzilla{1} \input{diz.tex}"
+
 clean:
 	rm -f *.bbl *.blg *.log *.aux *.idx *.lof *.out *.toc *.log *.loa
 
