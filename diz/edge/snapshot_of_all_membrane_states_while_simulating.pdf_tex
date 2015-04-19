@@ -51,13 +51,13 @@
   \makeatother%
   \begin{picture}(1,0.75)%
     \put(0,0){\includegraphics[width=\unitlength]{snapshot_of_all_membrane_states_while_simulating.pdf}}%
-    \put(0.035,0.71031146){\makebox(0,0)[lb]{\smash{\scalebox{.85}[1.0]{\textcolor{synchronize}{SYNCHRONIZE}}}}}%
-    \put(0.078,0.62032504){\makebox(0,0)[lb]{\smash{\scalebox{.85}[1.0]{\textcolor{run}{RUN}}}}}%
-    \put(0.055,0.53033725){\makebox(0,0)[lb]{\smash{\scalebox{.85}[1.0]{\textcolor{restore}{RESTORE}}}}}%
-    \put(0.035,0.33128361){\makebox(0,0)[lb]{\smash{\scalebox{.85}[1.0]{\textcolor{synchronize}{SYNCHRONIZE}}}}}%
-    \put(0.045,0.43080906){\makebox(0,0)[lb]{\smash{\scalebox{.85}[1.0]{\textcolor{senddown}{SENDDOWN}}}}}%
-    \put(0.10336942,0.408){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\scalebox{1.0}[.9]{\begin{minipage}{0.12808819\unitlength}\raggedright waiting for SYNCED / SYNCTOKENs\end{minipage}}}}%
-    \put(0.10561659,0.595){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.10224584\unitlength}\raggedright sends down SYNCED\end{minipage}}}%
+    \put(0.035,0.71031146){\makebox(0,0)[lb]{\narrow{\textcolor{synchronize}{SYNCHRONIZE}}}}%
+    \put(0.078,0.62032504){\makebox(0,0)[lb]{\narrow{\textcolor{run}{RUN}}}}%
+    \put(0.055,0.53033725){\makebox(0,0)[lb]{\narrow{\textcolor{restore}{RESTORE}}}}%
+    \put(0.035,0.33128361){\makebox(0,0)[lb]{\narrow{\textcolor{synchronize}{SYNCHRONIZE}}}}%
+    \put(0.045,0.43080906){\makebox(0,0)[lb]{\narrow{\textcolor{senddown}{SENDDOWN}}}}%
+    \put(0.10336942,0.408){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.135\unitlength}\raggedright waiting for SYNCED / SYNCTOKENs\end{minipage}}}%
+    \put(0.10561659,0.595){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.1\unitlength}\raggedright sends down SYNCED\end{minipage}}}%
     \scriptsize
     \put(0.81010165,0.71122658){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.18089649\unitlength}\raggedright \textcolor{run}{Sending to parent region is allowed only in regions in RUN phase}\end{minipage}}}%
     \put(0.81010165,0.59549776){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.18089649\unitlength}\raggedright \textcolor{senddown}{Sending to child regions is allowed only in regions in SENDDOWN phase}\end{minipage}}}%

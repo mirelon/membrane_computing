@@ -51,32 +51,32 @@
   \makeatother%
   \begin{picture}(1,0.43706781)%
     \put(0,0){\includegraphics[width=\unitlength]{possible_pairs_of_states_of_parent_and_child_membrane.pdf}}%
-    \put(0.0528999,0.2491107){\makebox(0,0)[lb]{\smash{\scalebox{.85}[1.0]{\textcolor{restore}{RESTORE(i)}}}}}%
-    \put(0.03357595,0.23092914){\makebox(0,0)[lb]{\smash{\scalebox{.85}[1.0]{\textcolor{synchronize}{SYNCHRONIZE(i)}}}}}%
-    \put(0.02445571,0.39819096){\makebox(0,0)[lb]{\smash{\scalebox{.85}[1.0]{\textcolor{synchronize}{SYNCHRONIZE(i+1)}}}}}%
-    \put(0.03346918,0.38000939){\makebox(0,0)[lb]{\smash{\scalebox{.85}[1.0]{\textcolor{synchronize}{SYNCHRONIZE(i)}}}}}%
-    \put(0.03340245,0.09995034){\makebox(0,0)[lb]{\smash{\scalebox{.85}[1.0]{\textcolor{synchronize}{SYNCHRONIZE(i)}}}}}%
-    \put(0.03340245,0.08176878){\makebox(0,0)[lb]{\smash{\scalebox{.85}[1.0]{\textcolor{synchronize}{SYNCHRONIZE(i)}}}}}%
-    \put(0.0645207,0.32391776){\makebox(0,0)[lb]{\smash{\scalebox{.85}[1.0]{\textcolor{run}{RUN(i+1)}}}}}%
-    \put(0.03312217,0.3057362){\makebox(0,0)[lb]{\smash{\scalebox{.85}[1.0]{\textcolor{synchronize}{SYNCHRONIZE(i)}}}}}%
-    \put(0.04376155,0.17453051){\makebox(0,0)[lb]{\smash{\scalebox{.85}[1.0]{\textcolor{senddown}{SENDDOWN(i)}}}}}%
-    \put(0.0332156,0.15634895){\makebox(0,0)[lb]{\smash{\scalebox{.85}[1.0]{\textcolor{synchronize}{SYNCHRONIZE(i)}}}}}%
-    \put(0.65474241,0.32349067){\makebox(0,0)[lb]{\smash{\scalebox{.85}[1.0]{\textcolor{run}{RUN(i+1)}}}}}%
-    \put(0.65474241,0.30530911){\makebox(0,0)[lb]{\smash{\scalebox{.85}[1.0]{\textcolor{run}{RUN(i+1)}}}}}%
-    \put(0.261328,0.32369087){\makebox(0,0)[lb]{\smash{\scalebox{.85}[1.0]{\textcolor{run}{RUN(i+1)}}}}}%
-    \put(0.24047542,0.30550931){\makebox(0,0)[lb]{\smash{\scalebox{.85}[1.0]{\textcolor{senddown}{SENDDOWN(i)}}}}}%
-    \put(0.45794845,0.32377095){\makebox(0,0)[lb]{\smash{\scalebox{.85}[1.0]{\textcolor{run}{RUN(i+1)}}}}}%
-    \put(0.44587387,0.30558938){\makebox(0,0)[lb]{\smash{\scalebox{.85}[1.0]{\textcolor{restore}{RESTORE(i)}}}}}%
-    \put(0.85590066,0.32334386){\makebox(0,0)[lb]{\smash{\scalebox{.85}[1.0]{\textcolor{run}{RUN(i+1)}}}}}%
-    \put(0.81548866,0.3051623){\makebox(0,0)[lb]{\smash{\scalebox{.85}[1.0]{\textcolor{synchronize}{SYNCHRONIZE(i+1)}}}}}%
-    \put(0.61421029,0.39789734){\makebox(0,0)[lb]{\smash{\scalebox{.85}[1.0]{\textcolor{synchronize}{SYNCHRONIZE(i+1)}}}}}%
-    \put(0.65462229,0.37971577){\makebox(0,0)[lb]{\smash{\scalebox{.85}[1.0]{\textcolor{run}{RUN(i+1)}}}}}%
-    \put(0.22100942,0.39807084){\makebox(0,0)[lb]{\smash{\scalebox{.85}[1.0]{\textcolor{synchronize}{SYNCHRONIZE(i+1)}}}}}%
-    \put(0.24056885,0.37988928){\makebox(0,0)[lb]{\smash{\scalebox{.85}[1.0]{\textcolor{senddown}{SENDDOWN(i)}}}}}%
-    \put(0.41762987,0.39807084){\makebox(0,0)[lb]{\smash{\scalebox{.85}[1.0]{\textcolor{synchronize}{SYNCHRONIZE(i+1)}}}}}%
-    \put(0.44596729,0.37988928){\makebox(0,0)[lb]{\smash{\scalebox{.85}[1.0]{\textcolor{restore}{RESTORE(i)}}}}}%
-    \put(0.81559542,0.39763041){\makebox(0,0)[lb]{\smash{\scalebox{.85}[1.0]{\textcolor{synchronize}{SYNCHRONIZE(i+1)}}}}}%
-    \put(0.81559542,0.37944884){\makebox(0,0)[lb]{\smash{\scalebox{.85}[1.0]{\textcolor{synchronize}{SYNCHRONIZE(i+1)}}}}}%
+    \put(0.0528999,0.2491107){\makebox(0,0)[lb]{\narrow{\textcolor{restore}{RESTORE(i)}}}}%
+    \put(0.03357595,0.23092914){\makebox(0,0)[lb]{\narrow{\textcolor{synchronize}{SYNCHRONIZE(i)}}}}%
+    \put(0.02445571,0.39819096){\makebox(0,0)[lb]{\narrow{\textcolor{synchronize}{SYNCHRONIZE(i+1)}}}}%
+    \put(0.03346918,0.38000939){\makebox(0,0)[lb]{\narrow{\textcolor{synchronize}{SYNCHRONIZE(i)}}}}%
+    \put(0.03340245,0.09995034){\makebox(0,0)[lb]{\narrow{\textcolor{synchronize}{SYNCHRONIZE(i)}}}}%
+    \put(0.03340245,0.08176878){\makebox(0,0)[lb]{\narrow{\textcolor{synchronize}{SYNCHRONIZE(i)}}}}%
+    \put(0.0645207,0.32391776){\makebox(0,0)[lb]{\narrow{\textcolor{run}{RUN(i+1)}}}}%
+    \put(0.03312217,0.3057362){\makebox(0,0)[lb]{\narrow{\textcolor{synchronize}{SYNCHRONIZE(i)}}}}%
+    \put(0.04376155,0.17453051){\makebox(0,0)[lb]{\narrow{\textcolor{senddown}{SENDDOWN(i)}}}}%
+    \put(0.0332156,0.15634895){\makebox(0,0)[lb]{\narrow{\textcolor{synchronize}{SYNCHRONIZE(i)}}}}%
+    \put(0.65474241,0.32349067){\makebox(0,0)[lb]{\narrow{\textcolor{run}{RUN(i+1)}}}}%
+    \put(0.65474241,0.30530911){\makebox(0,0)[lb]{\narrow{\textcolor{run}{RUN(i+1)}}}}%
+    \put(0.261328,0.32369087){\makebox(0,0)[lb]{\narrow{\textcolor{run}{RUN(i+1)}}}}%
+    \put(0.24047542,0.30550931){\makebox(0,0)[lb]{\narrow{\textcolor{senddown}{SENDDOWN(i)}}}}%
+    \put(0.45794845,0.32377095){\makebox(0,0)[lb]{\narrow{\textcolor{run}{RUN(i+1)}}}}%
+    \put(0.44587387,0.30558938){\makebox(0,0)[lb]{\narrow{\textcolor{restore}{RESTORE(i)}}}}%
+    \put(0.85590066,0.32334386){\makebox(0,0)[lb]{\narrow{\textcolor{run}{RUN(i+1)}}}}%
+    \put(0.81548866,0.3051623){\makebox(0,0)[lb]{\narrow{\textcolor{synchronize}{SYNCHRONIZE(i+1)}}}}%
+    \put(0.61421029,0.39789734){\makebox(0,0)[lb]{\narrow{\textcolor{synchronize}{SYNCHRONIZE(i+1)}}}}%
+    \put(0.65462229,0.37971577){\makebox(0,0)[lb]{\narrow{\textcolor{run}{RUN(i+1)}}}}%
+    \put(0.22100942,0.39807084){\makebox(0,0)[lb]{\narrow{\textcolor{synchronize}{SYNCHRONIZE(i+1)}}}}%
+    \put(0.24056885,0.37988928){\makebox(0,0)[lb]{\narrow{\textcolor{senddown}{SENDDOWN(i)}}}}%
+    \put(0.41762987,0.39807084){\makebox(0,0)[lb]{\narrow{\textcolor{synchronize}{SYNCHRONIZE(i+1)}}}}%
+    \put(0.44596729,0.37988928){\makebox(0,0)[lb]{\narrow{\textcolor{restore}{RESTORE(i)}}}}%
+    \put(0.81559542,0.39763041){\makebox(0,0)[lb]{\narrow{\textcolor{synchronize}{SYNCHRONIZE(i+1)}}}}%
+    \put(0.81559542,0.37944884){\makebox(0,0)[lb]{\narrow{\textcolor{synchronize}{SYNCHRONIZE(i+1)}}}}%
     \normalsize
     \put(0.3,0.2){\makebox(0,0)[lt]{\begin{minipage}{0.68\unitlength}\raggedright The pairs of states of parent and child membrane are joined with possible transitions between two consecutive global synchronizations - after the maximal parallel steps i and i+1\end{minipage}}}%
   \end{picture}%
