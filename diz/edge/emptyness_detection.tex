@@ -1,13 +1,13 @@
 % !TEX root = ../diz.tex
 {\em ``In general, it seems that any extension which does not allow zero testing will not actually increase the modeling power (or decrease the decision power) of Petri nets but merely result in another equivalent formulation of the basic Petri net model. (Modeling convenience may be increased)''} \cite{Peterson81PetriNets}, page 203.
 
-The above quote from \cite{Peterson81PetriNets} is a fair summary of current beliefs in the Petri net community regarding extensions of the basic Petri net mode: extensions are either Turing-powerful of they are not real extensions.
+The above quote from \cite{Peterson81PetriNets} was a fair summary of current beliefs in the Petri net community regarding extensions of the basic Petri net mode: extensions are either Turing-powerful of they are not real extensions.
 
 It is not the case as shown in \cite{Dufourd98Reset}. There exist extensions of Petri nets which do not allow zero testing but that will actually increase the computational power and decrease the decision power (e.g. boundedness becomes undecidable).
 
-In this chapter we investigate two ``weak'' extensions of sequential P systems, which allow for zero-testing, aiming to fit in layers between mere reformulations of the basic sequential P system and universal sequential P systems with inhibitors. The work is currently in progress, therefore the results are only partial with just rough outlines of the proofs.
+In this chapter we investigate several ``weak'' extensions of sequential P systems, which allow for zero-testing, aiming to fit in layers between mere reformulations of the basic sequential P system and universal sequential P systems with inhibitors. The work is currently in progress, therefore the results are mostly partial with just rough outlines of the proofs.
 
-We will extend the extend with additional decision option for objects that are being sent through a membrane to another region. Recall the original definition of the evolution rule \ref{def:evolution_rule}: $u\rightarrow v$, where $u$ is a string over $\Sigma$ and $v=v^\prime$ or $v=v^\prime\delta$, where $v^\prime$ is a string over $\Sigma\times(\{here, out\}\cup\{in_j|1\leq j\leq m\})$ and $\delta$ is a special symbol not in $\Sigma$. Recall also the algorithm \ref{alg:application_of_a_rule_in_a_p_system}, which will be extended in following subsections.
+We will extend the definition of evolution rules with additional decision option for objects that are being sent through a membrane to another region. Recall the original definition of the evolution rule \ref{def:evolution_rule}: $u\rightarrow v$, where $u$ is a string over $\Sigma$ and $v=v^\prime$ or $v=v^\prime\delta$, where $v^\prime$ is a string over $\Sigma\times(\{here, out\}\cup\{in_j|1\leq j\leq m\})$ and $\delta$ is a special symbol not in $\Sigma$. Recall also the algorithm \ref{alg:application_of_a_rule_in_a_p_system}, which will be extended in following subsections.
 
 \subsection{Objects avoiding empty regions} % (fold)
 \label{sub:objects_avoiding_empty_regions}
@@ -85,9 +85,14 @@ An occurence of $(a, out, b)$ or $(a, in_j, b)$ in the right hand side of a rule
 
 % subsection objects_altering_when_sent_to_empty_region (end)
 
+\subsection{Vacuum objects} % (fold)
+\label{sub:vacuum_objects}
+\input{vacuum.tex}
+% subsection vacuum_objects (end)
+
 \subsection{Concluding remarks} % (fold)
 \label{sub:concluding_remarks_of_emptyness_detection}
 
-The above presented two variants show possible implementations of zero-check by the feature of emptyness detection which is specific for membrane systems. The aim of the current research is to find a variant with zero-check that won't lead to computational completeness. The current status is that P systems with objects altering when sent to empty region (subsection \ref{sub:objects_altering_when_sent_to_empty_region}) are universal because we can simulate a register machine. On the other hand, the other variant with objects avoiding empty regions is more promising for our goal because the standard contruction of register machine do not work. We conjecture this variant as not universal, possibly equivalent with Petri nets.
+The above presented variants show possible implementations of zero-check by the feature of emptyness detection which is specific for membrane systems. The aim of the current research is to find a variant with zero-check that won't lead to computational completeness. The current status is that sequential P systems with objects altering when sent to empty region (subsection \ref{sub:objects_altering_when_sent_to_empty_region}) and sequential P systems with vacuum objects are universal because we can simulate a register machine. On the other hand, the other variant with objects avoiding empty regions is more promising for our goal because the standard contruction of register machine do not work. We conjecture this variant is not universal, possibly equivalent with Petri nets.
 
 % subsection concluding_remarks (end)

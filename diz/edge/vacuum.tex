@@ -1,10 +1,41 @@
 % !TEX root = ../diz.tex
-(from project proposal):
+In the common sense, vacuum represents a state of space with no or a little matter in it. Using vacuum in modelling frameworks can help express certain phenomena more easily. We define a new P system variant, which creates a special vacuum object in a region as soon as the region becomes empty.
+If we made the vacuum to be removed automatically when an object enters the region, there would be no difference with the variant without vacuum objects because of no interactions with it. Instead, the vacuum can be removed explicitly by a rule, e.g. with some interaction with other object. However, it is still created automatically, so we allow the vacuum object to occur only on the left side of rules.
 
-We propose a new variant of P system with vacuum in accordance with the criteria formulated in \cite{Besozzi:PhD:2004} (see beginning of the section \ref{sec:p_system_variants}). In the common sense, vacuum represents a state of space with no or a little matter in it. Using vacuum in modelling frameworks can help express certain phenomena more easily. We define a new P system variant, which creates a special vacuum object in a region as soon as the region becomes empty. The vacuum is removed whenever some object interacts with it. After the interaction, there is vacuum no longer. This removal process is realized by allowing the vacuum object to be used only on the left side of rules. If we made the vacuum to be removed automatically when an object enters the region, there would be no difference with the variant without vacuum objects because of no interactions with it.
+One can object that if there is an interaction of the vacuum object with another object in the same region, the region is nonempty at that time and it does not make sense to have nonempty region with vacuum. But the vacuum object can be regarded as a memory footprint of the past event, when the region was empty. It is just waiting there to be processed.
 
-We are interested in how the variant with the vacuum improves the computation power of a sequential P system in comparison to the variant without using the vacuum. This case have been shown to be universal.
+In the following, the vacuum object is denoted by $\nu$.
 
-In the future we will research other restriction for this variant such as non-cooperative rules, decaying objects, deterministic steps and will use techniques to show even non-universality results.
+We will have rules of type $u\rightarrow v$, where $u$ is a string over $\Sigma\cup\{\nu\}$ and $v=v^\prime$ or $v=v^\prime\delta$, where $v^\prime$ is a string over $\Sigma\times(\{here, out\}\cup\{in_j|1\leq j\leq m\})$ and $\delta$ and $\nu$ are special symbols not in $\Sigma$.
 
-\input{../../inh/vacuumproof}
+There will be a phase in the computational step before the rewriting takes place. The vacuum object is created in all empty membranes. It can be seen as a special implicit rule with highest priority.
+
+\begin{veta}
+  Sequential P systems with vacuum objects are computationally complete.
+\end{veta}
+
+\begin{dokaz}
+  We will prove the universality by simulating the register machine. If there was a symbol for every register as in proof~\ref{proof:reg_by_inh}, the vacuum object would be created only if all registers are empty. But for the simulation of the $sub()$ instruction we need to detect when one concrete register is empty.
+  
+  We will have a membrane for each register. These membranes will be contained in the skin membrane. The value of register $i$ will be represented by the multiplicity of object $a$ in membrane $i$.
+  
+  The alphabet will consist of the instruction labels from the register machine and the counter object $a$. Initially, the skin membrane contains only the instruction label. There will be rules to send the instruction label to the corresponding membrane where the instruction is executed. After the execution the next instruction label is sent back to the skin membrane.
+  
+  We will have following rules in the skin membrane:
+  
+  \begin{itemize}
+  \item $e \rightarrow e\downarrow_j$ for an instruction of type $e : (add(j), f)$ or $e : (sub(j), f, z)$ and
+  \item $h \rightarrow h\downarrow$ for a halting instruction $h$.
+  \end{itemize}
+  
+  And in every inner membrane $j$:
+  
+  \begin{itemize}
+  \item $e \rightarrow a|f\uparrow$ for instructions of type $e : (add(j), f)$,
+  \item $e|a \rightarrow f\uparrow$ for instructions of type $e : (sub(j), f, z)$,
+  \item $e|\nu \rightarrow z\uparrow$ for instructions of type $e : (sub(j), f, z)$, and
+  \item $h|a \rightarrow h|a$
+  \end{itemize}
+
+  When halting, if there is an nonempty register, it will cycle forever with the last rule. However, if all registers are empty, the halting instruction label will stay in all membranes and the computation will halt. \qed  
+\end{dokaz}
