@@ -1,0 +1,93 @@
+% !TEX root = ../diz.tex
+{\em ``In general, it seems that any extension which does not allow zero testing will not actually increase the modeling power (or decrease the decision power) of Petri nets but merely result in another equivalent formulation of the basic Petri net model. (Modeling convenience may be increased)''} \cite{Peterson81PetriNets}, page 203.
+
+The above quote from \cite{Peterson81PetriNets} is a fair summary of current beliefs in the Petri net community regarding extensions of the basic Petri net mode: extensions are either Turing-powerful of they are not real extensions.
+
+It is not the case as shown in \cite{Dufourd98Reset}. There exist extensions of Petri nets which do not allow zero testing but that will actually increase the computational power and decrease the decision power (e.g. boundedness becomes undecidable).
+
+In this chapter we investigate two ``weak'' extensions of sequential P systems, which allow for zero-testing, aiming to fit in layers between mere reformulations of the basic sequential P system and universal sequential P systems with inhibitors. The work is currently in progress, therefore the results are only partial with just rough outlines of the proofs.
+
+We will extend the extend with additional decision option for objects that are being sent through a membrane to another region. Recall the original definition of the evolution rule \ref{def:evolution_rule}: $u\rightarrow v$, where $u$ is a string over $\Sigma$ and $v=v^\prime$ or $v=v^\prime\delta$, where $v^\prime$ is a string over $\Sigma\times(\{here, out\}\cup\{in_j|1\leq j\leq m\})$ and $\delta$ is a special symbol not in $\Sigma$. Recall also the algorithm \ref{alg:application_of_a_rule_in_a_p_system}, which will be extended in following subsections.
+
+\subsection{Objects avoiding empty regions} % (fold)
+\label{sub:objects_avoiding_empty_regions}
+
+We will have a specific subset of objects, which when occur in a rule in form of $(a, out)$ or $(a, in_j)$, and the target region is empty, they are not sent and stay in the current region instead. For a clarification, we present an algorithm for the rule application \vpageref[below]{alg:application_of_a_rule_in_a_p_system_with_objects_avoiding_empty_regions} (algorithm \ref{alg:application_of_a_rule_in_a_p_system_with_objects_avoiding_empty_regions}).
+
+\begin{algorithm}
+  \caption{Application of a single rule in a P system with objects avoiding empty regions}\label{alg:application_of_a_rule_in_a_p_system_with_objects_avoiding_empty_regions}
+  \begin{algorithmic}[1]
+    \Procedure{RuleAplication}{applicable rule $u\rightarrow v\in R_i$, configuration $C = (\mu^\prime, w^\prime_1,w^\prime_2,\ldots w^\prime_m)$, set of objects avoiding empty regions $\Gamma\subseteq\Sigma$}
+      \State $w_i := w_i - u$
+      \ForAll{$(a, here)\in v$}
+        \State $w_i := w_i + a$
+      \EndFor
+      \ForAll{$(a, out)\in v$}
+        \If{$a\in\Gamma$ and $parent(i)$ is empty}
+          \State $w_i := w_i + a$
+        \Else
+          \State $w_{parent(i)} := w_{parent(i)} + a$
+        \EndIf
+      \EndFor
+      \ForAll{$(a, in_j)\in v$}      
+        \If{$a\in\Gamma$ and $j$ is empty}
+          \State $w_i := w_i + a$
+        \Else
+          \State $w_j := w_j + a$
+        \EndIf
+      \EndFor
+      \If{$v = v^\prime\delta$}
+        \State $w_{parent(i)} := w_{parent(i)} + w_i$
+        \State $w_i := \text{empty multiset}$
+      \EndIf
+    \EndProcedure
+  \end{algorithmic}
+\end{algorithm}
+
+% subsection objects_avoiding_empty_regions (end)
+
+\subsection{Objects altering when sent to empty region} % (fold)
+\label{sub:objects_altering_when_sent_to_empty_region}
+
+We will have rules of type $u\rightarrow v$, where $u$ is a string over $\Sigma$ and $v=v^\prime$ or $v=v^\prime\delta$, where $v^\prime$ is a string over $\Sigma\times(\{here, out\}\cup\{in_j|1\leq j\leq m\})\times\Sigma$ and $\delta$ is a special symbol not in $\Sigma$.
+
+An occurence of $(a, out, b)$ or $(a, in_j, b)$ in the right hand side of a rule is interpreted so that if the target region is empty, the object is altered and $b$ is sent instead of $a$ if the target region is nonempty. We present an algorithm for this variant of the rule application \vpageref[below]{alg:application_of_a_rule_in_a_p_system_with_objects_altering_when_sent_to_empty_region} (algorithm \ref{alg:application_of_a_rule_in_a_p_system_with_objects_altering_when_sent_to_empty_region}).
+
+\begin{algorithm}
+  \caption{Application of a single rule in a P system with objects altering when sent to empty region}\label{alg:application_of_a_rule_in_a_p_system_with_objects_altering_when_sent_to_empty_region}
+  \begin{algorithmic}[1]
+    \Procedure{RuleAplication}{applicable rule $u\rightarrow v\in R_i$, configuration $C = (\mu^\prime, w^\prime_1,w^\prime_2,\ldots w^\prime_m)$}
+      \State $w_i := w_i - u$
+      \ForAll{$(a, here, b)\in v$}
+        \State $w_i := w_i + a$
+      \EndFor
+      \ForAll{$(a, out, b)\in v$}
+        \If{$parent(i)$ is empty}
+          \State $w_{parent(i)} := w_{parent(i)} + b$
+        \Else
+          \State $w_{parent(i)} := w_{parent(i)} + a$
+        \EndIf
+      \EndFor
+      \ForAll{$(a, in_j, b)\in v$}      
+        \If{$j$ is empty}
+          \State $w_j := w_j + b$
+        \Else
+          \State $w_j := w_j + a$
+        \EndIf
+      \EndFor
+      \If{$v = v^\prime\delta$}
+        \State $w_{parent(i)} := w_{parent(i)} + w_i$
+        \State $w_i := \text{empty multiset}$
+      \EndIf
+    \EndProcedure
+  \end{algorithmic}
+\end{algorithm}
+
+% subsection objects_altering_when_sent_to_empty_region (end)
+
+\subsection{Concluding remarks} % (fold)
+\label{sub:concluding_remarks_of_emptyness_detection}
+
+The above presented two variants show possible implementations of zero-check by the feature of emptyness detection which is specific for membrane systems. The aim of the current research is to find a variant with zero-check that won't lead to computational completeness. The current status is that P systems with objects altering when sent to empty region (subsection \ref{sub:objects_altering_when_sent_to_empty_region}) are universal because we can simulate a register machine. On the other hand, the other variant with objects avoiding empty regions is more promising for our goal because the standard contruction of register machine do not work. We conjecture this variant as not universal, possibly equivalent with Petri nets.
+
+% subsection concluding_remarks (end)

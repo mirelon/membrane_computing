@@ -50,6 +50,7 @@ Each membrane determines a compartment, also called region, the space delimited 
 Next step is inserting objects into regions and adding them the possibility to evolve and communicate according to certain specified rules.
 
 \begin{definition}
+\label{def:evolution_rule}
   An {\bf evolution rule} over an alphabet $\Sigma$ is a pair $(u,v)$, which will be written as $u\rightarrow v$, where $u$ is a string over $\Sigma$ and $v=v^\prime$ or $v=v^\prime\delta$, where $v^\prime$ is a string over $\Sigma\times(\{here, out\}\cup\{in_j|1\leq j\leq m\})$ and $\delta$ is a special symbol not in $\Sigma$.
 \end{definition}
 
