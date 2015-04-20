@@ -1,2 +1,11 @@
 % !TEX root = diz.tex
 \appendix
+\ifdefined\godzilla
+  \chapter{*Appendix}
+  \begin{sidewaysfigure}
+    \centering
+    \def\svgwidth{\columnwidth}
+    \input{punchcard.pdf_tex}
+    \caption{Github punchcard}
+  \end{sidewaysfigure}
+\fi
