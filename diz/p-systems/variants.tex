@@ -12,11 +12,11 @@ In membrane computing, many models are equal in power with Turing machines. To b
 \subsection{Accepting vs generating} % (fold)
 \label{sub:accepting_vs_generating}
 
-In the Chomsky hierarchy, there are language acceptors (finite automata, Turing machines) and language generators (formal grammars).
+In the Chomsky hierarchy, there are \index{Language!acceptor} language acceptors (finite automata, Turing machines) and \index{Language!generator} language generators (formal grammars).
 
 % Accepting grammars
 
-Bordhin in \cite{Bordihn99acceptingpure} extends grammars to allow for accepting languages by interchanging the left side with the right side of a rule. The mode will apply rewriting rules to an input word and accept it when it reaches the starting nonterminal. However, the input word consists of terminal symbols, which could not be rewritten when using original definition, hence they consider the pure version of various grammar types where they give up the distinction between terminal and nonterminal symbols.
+Bordhin in \cite{Bordihn99acceptingpure} extends grammars to allow for accepting languages by interchanging the left side with the right side of a rule. The mode will apply rewriting rules to an input word and accept it when it reaches the starting nonterminal. However, the input word consists of terminal symbols, which could not be rewritten when using original definition, hence they consider the \index{Language!pure} pure version of various grammar types where they give up the distinction between terminal and nonterminal symbols.
 
 % Accepting vs generating common results
 
@@ -41,7 +41,7 @@ Most of the studied P system variants assume that the number of membranes can on
 A natural possibility is to let the number of membranes also to increase during a computation, for instance, by division, as it is well-known in biology. Actually, the membranes from biochemistry are not at all passive, like those in the models briefly described above.
 For example, the passing of a chemical compound through a membrane is often done by a direct interaction with the membrane itself (with the so-called protein channels or protein gates present in the membrane); during this interaction, the chemical compound which passes through membrane can be modified, while the membrane itself can in this way be modified (at least locally).
 
-In \cite{Paun99ActiveMembranes} P\u{a}un considers P systems with active membranes where the central role in the computation is played by the membranes: evolution rules are associated both with objects and membranes, while the communication through membranes is performed with the direct participation of the membranes; moreover, the membranes can not only be dissolved, but they also can multiply by division. An elementary membrane can be divided by means of an interaction with an object from that membrane.
+In \cite{Paun99ActiveMembranes} P\u{a}un considers \index{P systems!with active membranes} P systems with active membranes where the central role in the computation is played by the membranes: evolution rules are associated both with objects and membranes, while the communication through membranes is performed with the direct participation of the membranes; moreover, the membranes can not only be dissolved, but they also can multiply by division. An elementary membrane can be divided by means of an interaction with an object from that membrane.
 
 There are also other ways to define the creation of new membranes. In section \ref{sec:active_membranes} we present a variant with a special evolution rule which creates new membrane when a given multiset ob objects is present in the region. 
 
@@ -50,7 +50,7 @@ There are also other ways to define the creation of new membranes. In section \r
 \subsubsection{P systems with polarized membranes} % (fold)
 \label{ssub:p_systems_with_polarized_membranes}
 
-Polarizing membranes \cite{Paun99ActiveMembranes} is a special extension of active P systems, where each membrane is supposed to have an electrical polarization (we will say charge), one of the three possible: positive, negative, or neutral. If in a membrane we have two immediately lower membranes of opposite polarizations, one positive and one negative, then that membrane can also divide in such a way that the two membranes of opposite charge are separated; all membranes of neutral charge and all objects are duplicated and a copy of each of them is introduced in each of the two new membranes.
+\index{P systems!with polarized membranes} Polarizing membranes \cite{Paun99ActiveMembranes} is a special extension of active P systems, where each membrane is supposed to have an electrical polarization (we will say charge), one of the three possible: positive, negative, or neutral. If in a membrane we have two immediately lower membranes of opposite polarizations, one positive and one negative, then that membrane can also divide in such a way that the two membranes of opposite charge are separated; all membranes of neutral charge and all objects are duplicated and a copy of each of them is introduced in each of the two new membranes.
 The skin membrane is never divided.
 If at the same time a membrane is divided and there are objects in this membrane which are being rewritten in the same step, then in the new copies of the membrane the result of the evolution is included.
 
@@ -67,12 +67,12 @@ Moreover, the model is shown to be computationally universal.
 
 % Cooperative / Non-cooperative
 
-If a P system contains evolution rules whose radius is greater than 1, then it is said to be cooperative, otherwise it is a non-cooperative system. Non-cooperative P systems have all rules restricted to contain only one object on the left side.
+If a P system contains evolution rules whose radius is greater than 1, then it is said to be \index{P systems!cooperative} cooperative, otherwise it is a non-cooperative system. Non-cooperative P systems have all rules restricted to contain only one object on the left side.
 P systems with cooperative rules are universal \cite{Paun98}, while P systems with non-cooperative rules only characterize Parikh image of context-free languages ($PsCF$) \cite{Sburlan05dragos}. It seems to relate with context-free and context-sensitive grammars in Chomsky's hierarchy mentioned in section \ref{sec:chomsky_hierarchy}. 
 
 % Catalytic P systems
 
-P\u{a}un \cite{Paun98} also defines catalytic P systems where catalysts are a specified subset of the alphabet $C\subseteq \Sigma$. In a catalytic system the only possible rule of radius greater than 1 is of the form $ca\rightarrow cv$, where $c\in C, a\in \Sigma\setminus C$ and $v\in (\Sigma\setminus C)^*$ and that is the only form of a rule that can contain a catalyst. If $C=\emptyset$ then the system is called non-catalytic. Catalysts are not modified by applying the catalytic rule. Surprisingly, P systems with catalytic rules are universal, even two membranes in the P system are sufficient to achieve universality.
+P\u{a}un \cite{Paun98} also defines \index{P systems!catalytic} catalytic P systems where catalysts are a specified subset of the alphabet $C\subseteq \Sigma$. In a catalytic system the only possible rule of radius greater than 1 is of the form $ca\rightarrow cv$, where $c\in C, a\in \Sigma\setminus C$ and $v\in (\Sigma\setminus C)^*$ and that is the only form of a rule that can contain a catalyst. If $C=\emptyset$ then the system is called non-catalytic. Catalysts are not modified by applying the catalytic rule. Surprisingly, P systems with catalytic rules are universal, even two membranes in the P system are sufficient to achieve universality.
 
 % Two catalysts
 
@@ -86,11 +86,11 @@ A variant with promoters and inhibitors have been proposed (see \cite{Ionescu:ju
 
 % Promoters
 
-In the case of promoters, the rules are possible only in the presence of certain symbols. An object $p$ is a promoter for a rule $u\rightarrow v$ and we denote this by $u\rightarrow v|_{p}$, if the rule is applicable only in the presence of object $p$. Note that unlike in the case with catalysts, promoters allow the associated rules to be applied as many times as possible.
+In the case of \index{P systems!with promoters} promoters, the rules are possible only in the presence of certain symbols. An object $p$ is a promoter for a rule $u\rightarrow v$ and we denote this by $u\rightarrow v|_{p}$, if the rule is applicable only in the presence of object $p$. Note that unlike in the case with catalysts, promoters allow the associated rules to be applied as many times as possible.
 
 % Inhibitors
 
-If an object $i$ is an inhibitor for a rule $u\rightarrow v$, we denote this by $u\rightarrow v|_{\neg i}$. Such rule is applicable as long as inhibitor $i$ is not present in the region.
+If an object $i$ is an \index{P systems!with inhibitors}\index{Inhibitor} inhibitor for a rule $u\rightarrow v$, we denote this by $u\rightarrow v|_{\neg i}$. Such rule is applicable as long as inhibitor $i$ is not present in the region.
 
 % One catalyst with promoters / inhibitors
 
@@ -99,7 +99,7 @@ One of our results (see section \ref{sec:inhibitors}) uses inhibitors to achieve
 
 % Zero catalysts with inhibitors
 
-Non-cooperative rules with no catalysts and with inhibitors were studied in \cite{Sburlan:2006:FurtherResultsPromotersInhibitors}, the equivalence with the Parikh image of Lindenmayer systems ($ET0L$ as defined in section \ref{sec:lindenmayer_systems}) was proved.
+Non-cooperative rules with no catalysts and with inhibitors were studied in \cite{Sburlan:2006:FurtherResultsPromotersInhibitors}, the equivalence with the Parikh image of Lindenmayer systems \index{ET0L} ($ET0L$ as defined in section \ref{sec:lindenmayer_systems}) was proved.
 
 % Simple cooperative system
 
@@ -114,13 +114,13 @@ Another interesting variant is where the only rules are the catalytic rules of t
 \subsection{Rules with priorities} % (fold)
 \label{sub:rules_with_priorities}
 
-In the original definition of a P system \cite{Paun98}, a partial order relation over set of rewriting rules have been specified. The rule can be used only if no rule of a higher priority in the region can be applied at the same time.
+\index{P systems!with priorities} In the original definition of a P system \cite{Paun98}, a partial order relation over set of rewriting rules have been specified. The rule can be used only if no rule of a higher priority in the region can be applied at the same time.
 
 Sos\'ik in \cite{Sosik:2002:WithoutPriorities} showed that the priorities may be omitted from the maximal parallel model without loss of computational power, thus maintaining universality.
 
-Sequential P systems (see subsection \ref{sub:parallelism_options}) with prioritized rules are universal \cite{Ibarra05Active}, while without the priorities they are not.
+\index{P systems!sequential} Sequential P systems (see subsection \ref{sub:parallelism_options}) with prioritized rules are universal \cite{Ibarra05Active}, while without the priorities they are not.
 
-As mentioned in subsection \ref{sub:context_in_rules}, P systems with non-cooperative rules only characterize the Parikh image of context-free languages ($PsCF$) \cite{Sburlan05dragos}, it was an open problem, whether priorities could improve the computational power. In \cite{Sburlan05Priorities} Sburnan showed that the variant with prioritized rules is more powerful and characterize exactly the Parikh image of $ET0L$ (see section \ref{sec:lindenmayer_systems} and subsection \ref{sec:parikh_s_mapping} in preliminaries).
+As mentioned in subsection \ref{sub:context_in_rules}, P systems with non-cooperative rules only characterize the Parikh image of context-free languages ($PsCF$) \cite{Sburlan05dragos}, it was an open problem, whether priorities could improve the computational power. In \cite{Sburlan05Priorities} Sburnan showed that the variant with prioritized rules is more powerful and characterize exactly the \index{ET0L} Parikh image of $ET0L$ (see section \ref{sec:lindenmayer_systems} and subsection \ref{sec:parikh_s_mapping} in preliminaries).
 
 We may conclude here that adding a priority relation over rules is a powerful feature which often boosts the computational power by allowing finer control mechanisms and limiting otherwise uncontrolled nondeterministic selection of rules to be applied.
 
@@ -129,7 +129,7 @@ We may conclude here that adding a priority relation over rules is a powerful fe
 \subsection{Energy in P systems} % (fold)
 \label{sub:energy_in_p_systems}
 
-Various notions of energy has been proposed for use in P systems. P\u{a}un in \cite{Paun:2001:Energy} considers a P system where each evolution rule ``produces'' or ``consumes'' some quantity of energy, in amounts which are expressed as integer numbers. In each moment and in each membrane the total energy involved in an evolution step should be positive, but if ``Too much'' energy is present in a membrane, then the membrane will be destroyed (dissolved). This variant was investigated in two cases, both were shown to be universal:
+\index{P systems!with energy} Various notions of energy has been proposed for use in P systems. P\u{a}un in \cite{Paun:2001:Energy} considers a P system where each evolution rule ``produces'' or ``consumes'' some quantity of energy, in amounts which are expressed as integer numbers. In each moment and in each membrane the total energy involved in an evolution step should be positive, but if ``Too much'' energy is present in a membrane, then the membrane will be destroyed (dissolved). This variant was investigated in two cases, both were shown to be universal:
 
 \begin{enumerate}
 	\item when using only two membranes and unbounded amount of energy,
@@ -145,7 +145,7 @@ This variant is universal even in sequential mode if we allow priorities on the 
 \subsection{Symport / antiport rules} % (fold)
 \label{sub:symport_antiport_rules}
 
-P\u{a}un in \cite{Paun:2002:SymportAntiport} proposes a new way of communicating between membranes.
+\index{P systems!with symport/antiport} P\u{a}un in \cite{Paun:2002:SymportAntiport} proposes a new way of communicating between membranes.
 
 Symports allow two chemicals to pass together through a membrane in the same direction using symport rules of type $(ab,in)$ or $(ab,out)$.
 Antiports allow two chemicals to pass simultaneously through a membrane in opposite directions using antiport rules of type $(a,in;b,out)$.
@@ -159,11 +159,11 @@ Dang in \cite{Dang04Sequential} showed some results about the sequential P syste
 \subsection{Parallelism options} % (fold)
 \label{sub:parallelism_options}
 
-Original definition of P system (see \cite{Paun98}) uses maximal parallelism when doing a step of computation. There is an obvious biological motivation relying on the assumption that ``if we wait long enough, then all reaction which may take place will take place''. This condition is rather powerful, because it decreases the non-determinism of the system's evolution. For various reasons ranging from looking for more realistic models to just the mathematical challenge, the maximal parallelism was questioned.
+Original definition of P system (see \cite{Paun98}) uses \index{P systems!maximal parallel} maximal parallelism when doing a step of computation. There is an obvious biological motivation relying on the assumption that ``if we wait long enough, then all reaction which may take place will take place''. This condition is rather powerful, because it decreases the non-determinism of the system's evolution. For various reasons ranging from looking for more realistic models to just the mathematical challenge, the maximal parallelism was questioned.
 
 % Sequential mode
 
-Dang in \cite{Dang04Sequential} investigates the sequential mode. In each step, from the set of applicable rules across all membrane one is nondeterministically chosen and applied.
+Dang in \cite{Dang04Sequential} investigates the \index{P systems!sequential} sequential mode. In each step, from the set of applicable rules across all membrane one is nondeterministically chosen and applied.
 
 \begin{definition}
   \label{def:computation_step_of_a_sequential_P_system}
@@ -190,11 +190,11 @@ All three versions are equal to the sequential mode when $n=1$. For non-universa
 
 % Minimal parallelism
 
-Ciobanu in \cite{Ciobanu05MinimalParallelism} proposes even more restricted version of parallelism: minimal parallelism. For each region, if at least one rule can be applied, then at least one rule will be applied. The symport / antiport rules variant has been shown to be universal. In \cite{Ciobanu:2007:MinimalParallelism} the results are extended to a variant with active membranes with unbounded membrane creation and polarisations, which was shown to be universal.
+Ciobanu in \cite{Ciobanu05MinimalParallelism} proposes even more restricted version of parallelism: \index{P systems!minimal parallel} minimal parallelism. For each region, if at least one rule can be applied, then at least one rule will be applied. The symport / antiport rules variant has been shown to be universal. In \cite{Ciobanu:2007:MinimalParallelism} the results are extended to a variant with active membranes with unbounded membrane creation and polarisations, which was shown to be universal.
 
 % Asynchronous
 
-Freund in \cite{Freund:2004:Async} studied the asynchronous mode of P systems, where in each step, arbitrary many rules can be applied. The application of rules is hence done in parallel way, but are not synchronized or somewhat controlled.
+Freund in \cite{Freund:2004:Async} studied the \index{P systems!asynchronous} asynchronous mode of P systems, where in each step, arbitrary many rules can be applied. The application of rules is hence done in parallel way, but are not synchronized or somewhat controlled.
 
 Obviously, for P systems without priorities this is equivalent with just letting them work in the sequential mode, but for P systems with priorities this observation would not be true any more, because the outcome of performing one rule might affect the applicability of another rule.
 
@@ -203,7 +203,7 @@ Obviously, for P systems without priorities this is equivalent with just letting
 \subsection{Toxic objects} % (fold)
 \label{sub:toxic_objects}
 
-Some of the P system variants are aimed at increasing modeling power. Introducting toxic objects \cite{Alhazov14Toxic} does not increase computational power nor modify the decidability of behavioral properties, but such P systems allow for smaller descriptional complexity, especially for smaller number of rules. Moreover, they have a clear direct biological motivation.
+Some of the P system variants are aimed at increasing modeling power. Introducting \index{P systems!with toxic objects} toxic objects \cite{Alhazov14Toxic} does not increase computational power nor modify the decidability of behavioral properties, but such P systems allow for smaller descriptional complexity, especially for smaller number of rules. Moreover, they have a clear direct biological motivation.
 Toxic objects are a specified subset of alphabet. They must not stay idle as otherwise the computation is abandoned without yielding a result. 
 Alhazov in \cite{Alhazov14Toxic} used toxic objects to improve the known results for catalytic and purely catalytic P systems by significantly reducing the number of rules needed for the constructions in proofs. 
 
@@ -223,7 +223,7 @@ We will present variants of P systems inspired by these assumptions in following
 \subsubsection{Set membrane systems} % (fold)
 \label{ssub:set_membrane_systems}
 
-Standard models of membrane systems have configurations, where any given compartment is represented as a multiset of objects and each computational action is represented by a multiset of simultaneously executed (multiple copies of) individual evolution rules.
+\index{P systems!with sets} Standard models of membrane systems have configurations, where any given compartment is represented as a multiset of objects and each computational action is represented by a multiset of simultaneously executed (multiple copies of) individual evolution rules.
 
 Such strong reliance on counting (through multiple copies of objects and rules) may lead to potential problems in two respects. First, one may wonder how realistic is the counting (multiset) mechanism if one needs to represent huge numbers of molecules and instances of biochemical reactions. Second, a membrane system would normally have an infinite state space, making the application
 of formal verifiation techniques impratical or indeed impossible (there exists a rich body of results proving Turing completeness of even very simple kinds of membrane systems).
@@ -247,7 +247,7 @@ Alhazov in \cite{Alhazov05WithoutMultiplicities} proposed P systems, where the m
 \subsubsection{P systems with no permanence} % (fold)
 \label{ssub:p_systems_with_no_permanence}
 
-The second assumption of the reaction systems theory is much easier to handle in terms of membrane computing. If we want to preserve an object $a$ which is not evolving, we may provide a dummy rule for it, of the type $a\rightarrow a$, changing nothing. Still, many technical problems appear in this framework. The presence of such dummy rules makes the computation endless, while halting is the ``standard'' way to define successful computations in membrane computing. Moreover, the rules are nondeterministically chosen, hence the dummy rules can interfere with the ``computing rules''.
+\index{P systems!with no permanence} The second assumption of the reaction systems theory is much easier to handle in terms of membrane computing. If we want to preserve an object $a$ which is not evolving, we may provide a dummy rule for it, of the type $a\rightarrow a$, changing nothing. Still, many technical problems appear in this framework. The presence of such dummy rules makes the computation endless, while halting is the ``standard'' way to define successful computations in membrane computing. Moreover, the rules are nondeterministically chosen, hence the dummy rules can interfere with the ``computing rules''.
 
 While the second difficulty is a purely technical one, the first one can be overpassed by considering other ways of defining the result of a computation in a P system, and there are many suggestions in the literature. Three of them are assumed in \cite{Paun12BridgingReactionSystems}.
 \begin{enumerate}

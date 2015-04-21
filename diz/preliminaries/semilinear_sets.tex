@@ -1,5 +1,5 @@
 % !TEX root = ../diz.tex
-Some results in chapter \ref{cha:p_systems} refer to semilinear sets \cite{Ibarra:03:Catalytic}, so we will define them in this section.
+Some results in chapter \ref{cha:p_systems} refer to \index{Semilinear set} semilinear sets \cite{Ibarra:03:Catalytic}, so we will define them in this section.
 \begin{definition}
   A {\bf linear set} $L(v_0,v_1,\ldots,v_r)$ is a subset $\{v_0+\sum\limits_{i=1}^r a_iv_i|a_i\in\mathbb N\}$ of $\mathbb N^n$, where $v_0,v_1,\ldots,v_r\in \mathbb N^n$.
 \end{definition}
@@ -29,7 +29,7 @@ The number of occurrences of a given symbol $a\in \Sigma$ in the string $w\in \S
 $\Psi_\Sigma(w)=(|w|_{a_1},|w|_{a_2},\ldots,|w|_{a_n})$ is called a {\bf Parikh image of the string} $w\in \Sigma^*$, where $\Sigma=\{a_1,a_2,\ldots a_n\}$.
 \end{definition}
 
-When referring to the Parikh mapping for a language, this should be taken to mean the mapping applied to all the words on the language. This idea is expressed in the next definition. 
+When referring to the \index{Parikh's mapping} Parikh mapping for a language, this should be taken to mean the mapping applied to all the words on the language. This idea is expressed in the next definition. 
 
 \begin{definition}
 For a language $L\subseteq \Sigma^*$, $\Psi_\Sigma(L)=\{\Psi_\Sigma(w)|w\in L\}$ is the {\bf Parikh image of the language} $L$.
@@ -52,7 +52,7 @@ $\Psi_\Sigma(L)=\{(1,0), (1,1)\}$. Notice that Parikh image of $L$ has only 2 el
   Consider the words $w_1 = aaaabbbb \in L(G)$ and $w_2 = babababa \in L(G)$. Both of these words have the same Parikh image: $\Psi_\Sigma(w_i) = (4,4)$. It is interesting to note that most information embedded in a word generated with a context-free grammar is thrown away by the Parikh mapping.
 \end{example}
 
-This loss of information is expressed in the Parikh's theorem \cite{Parikh66}, stating that the Parikh image of a context-free language is semilinear. The biggest implication of the theorem though, is that it shows that if the order of the symbols is ignored, then it is impossible to distinguish between a regular set and a context-free language \cite{Kozen97Automata}.
+This loss of information is expressed in the \index{Parikh's theorem} Parikh's theorem \cite{Parikh66}, stating that the Parikh image of a context-free language is semilinear. The biggest implication of the theorem though, is that it shows that if the order of the symbols is ignored, then it is impossible to distinguish between a regular set and a context-free language \cite{Kozen97Automata}.
 
 Another interesting result appeared in \cite{Ito69Semilinear} that every semilinear set is a finite union of disjoint linear sets.
 

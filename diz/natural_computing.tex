@@ -43,7 +43,7 @@ Neural networks, genetic algorithms and DNA computing are already well establish
 \subsection{Neural networks} % (fold)
 \label{sub:neural_networks}
 
-Inspired by the human brain, which contains on average 86 billions neurons \cite{Azevedo09NumberOfNeurons}, neurophysiologist Warren McCulloch in 1943 proposed a mathematical model of artificial neural network.
+Inspired by the human brain, which contains on average 86 billions neurons \cite{Azevedo09NumberOfNeurons}, neurophysiologist Warren McCulloch in 1943 proposed a mathematical model of artificial \index{Neural network} neural network.
 
 A single perceptron computes a function $f(x)$, where $x$ is an input - a vector of real values.
 
@@ -69,7 +69,7 @@ Neural networks have broad applicability to real world problems and are best if 
 \subsection{Evolutionary algorithms} % (fold)
 \label{sub:evolutionary_algorithms}
 
-Evolutionary algorithms are inspired by Darwin's theory of evolution. Basically, an algorithm starts with a population of random individuals (solutions to the problem). In each generation, the fitness of every individual is evaluated and the more fit individuals are replicated and mutated to form a new generation. The less fit individuals die.
+\index{Evolutionary algorithms} Evolutionary algorithms are inspired by Darwin's theory of evolution. Basically, an algorithm starts with a population of random individuals (solutions to the problem). In each generation, the fitness of every individual is evaluated and the more fit individuals are replicated and mutated to form a new generation. The less fit individuals die.
 
 Idea of evolutionary computing was introduced in the 1960's by I. Rechenberg. Nowadays they have been applied to find solution of many optimization problems. They also can be used to design or to train a neural network \cite{Montana:1989:TrainNeuronByGenetic}.
 
@@ -82,14 +82,14 @@ Idea of evolutionary computing was introduced in the 1960's by I. Rechenberg. No
 
 Nature computes not only at the neural or genetic level, but also at the cellular level. In general, any non-trivial biological system has a hierarchical structure where objects and information flows between regions, what can be interpreted as a computation process.
 
-The regions are typically delimited by various types of membranes at different levels from cell membranes, through skin membrane to virtual membranes which delimits different parts of an ecosystem.
+The regions are typically delimited by various types of membranes at different levels from \index{Membrane} cell membranes, through skin membrane to virtual membranes which delimits different parts of an ecosystem.
 This hierarchical system can be seen in other field such as distributed computing, where again well delimited computing units coexist and are hierarchically arranged in complex systems from single processors to the internet.
 
 Membranes keep together certain chemicals or information and selectively determines which of them may pass through.
 
 % The notion of membrane structure
 
-From these observations, P\u{a}un \cite{Paun98} introduces the notion of a membrane structure as a mathematical representation of hierarchical architectures composed of membranes. It is usually represented as a Venn diagram with all the considered sets being subsets of a unique set and not allowed to be intersected. Every two sets are either one the subset of the other, or disjoint. Outermost membrane (also called skin membrane) delimits the finite ``inside'' and the infinite ``outside''.
+From these observations, P\u{a}un \cite{Paun98} introduces the notion of a \index{Membrane!structure} membrane structure as a mathematical representation of hierarchical architectures composed of membranes. It is usually represented as a Venn diagram with all the considered sets being subsets of a unique set and not allowed to be intersected. Every two sets are either one the subset of the other, or disjoint. Outermost membrane (also called skin membrane) delimits the finite ``inside'' and the infinite ``outside''.
 
 Hierarchical structures are usually represented by trees, but membrane structures are visually better viewed as Venn diagram as seen in the figure \ref{fig:membrane_structure}.
 
@@ -111,7 +111,7 @@ Recently, several computational models based on the membrane structure have been
 \subsubsection{P systems} % (fold)
 \label{subs:p_systems}
 
-P systems were introduced in 1998 as a system with membrane structure that contains multisets of objects and rewrite rules that are executed in a maximally parallel manner. Since then, a huge amount of variants have been created with various computation powers. We have investigated the power of several such variants. Additionally, we propose a new variant with a vacuum, where the rules can describe what will happen to an object that arrives to an empty membrane.
+\index{P systems} P systems were introduced in 1998 as a system with membrane structure that contains multisets of objects and rewrite rules that are executed in a maximally parallel manner. Since then, a huge amount of variants have been created with various computation powers. We have investigated the power of several such variants. Additionally, we propose a new variants various notions of emptyness detection, where the rules can describe what will happen to an object that arrives to an empty membrane.
 
 P systems with existing and newly proposed variants will be discussed in the chapter \ref{cha:p_systems}.
 
@@ -125,7 +125,7 @@ Aside from P systems, other models based on the membrane structure have been cre
 \subsubsection{The Calculus of Looping Sequences} % (fold)
 \label{subs:calculus_of_looping_sequences}
 
-Barbuti in \cite{Barbuti07CLS} concluded that there is a need for a formalism having a simple notation, having the ability of describing biological systems at different levels of abstractions, having some notions of compositionality and being flexible enough to allow describing new kinds of phenomena as they are discovered, without being specialized to the description of a particular class of systems. The Calculus of Looping Sequences (CLS) was introduced in \cite{Barbuti07CLS}.
+Barbuti in \cite{Barbuti07CLS} concluded that there is a need for a formalism having a simple notation, having the ability of describing biological systems at different levels of abstractions, having some notions of compositionality and being flexible enough to allow describing new kinds of phenomena as they are discovered, without being specialized to the description of a particular class of systems. The \index{Calculus of Looping Sequences} Calculus of Looping Sequences (CLS) was introduced in \cite{Barbuti07CLS}.
 
 The membrane structure in CLS is defined recursively, consisting of terms $T$ and sequences $S$:
 $$ T ::= S \mid (S)^L\rfloor T \mid T|T$$

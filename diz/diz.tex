@@ -24,7 +24,8 @@
 \usepackage{caption}
 \usepackage{hyperref}
 \usepackage{varioref}
-\usepackage{makeidx}
+\usepackage{imakeidx}
+\makeindex[title=Register]
 \usepackage[nouppercase]{scrpage2}
 \setlength{\headheight}{1.1\baselineskip}
 \pagestyle{scrheadings}
@@ -34,7 +35,6 @@
 \usepackage{etoolbox}
 \apptocmd{\thebibliography}{\raggedright}{}{}
 
-\def\indexname{Register}
 % pekne pokope definujeme potrebne udaje
 \def\mftitlea{Biologically inspired computation models}
 \def\mftitle{\mftitlea}
@@ -49,7 +49,6 @@
 \def\eps{\varepsilon}
 \def\bigpipe{\;\big|\;}
 \def\goodgap{\hspace{\subfigcapskip}}
-\makeindex
 
 \begin{document}
 \frontmatter

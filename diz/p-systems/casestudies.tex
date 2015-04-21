@@ -6,7 +6,7 @@ Although P systems were inspired by the functioning of a biological cell, the ap
 
 There is an online collection of various case studies on the MeCoSim webpage \cite{MeCoSimWeb}. The number of scenarios and the level of detail vary among the different case studies, possibly including detailed descriptions, references to related publications, charts and videos.
 
-MeCoSim (Membrane Computing Simulator) \cite{Perez10MeCoSim} is a software that offers the users a General Purpose Application to model, design, simulate, analyze and verify different types of models based on P systems. Some of the main features of MeCoSim are the following:
+\index{P systems!simulator} MeCoSim (Membrane Computing Simulator) \cite{Perez10MeCoSim} is a software that offers the users a General Purpose Application to model, design, simulate, analyze and verify different types of models based on P systems. Some of the main features of MeCoSim are the following:
 \begin{itemize}
   \item Simulation of models of P systems under different initial conditions. It enables the load of P-Lingua based models, parsing, edition, debugging, and different simulation types.
   \item Visualization capabilities for analyzing P systems: alphabet, membrane structure, multisets and graphs viewers.
@@ -48,7 +48,7 @@ Polynomial time solutions to NP-complete problems are usually achieved by tradin
 
 P systems with their inherent parallelism seem to be a natural choice due to the capabililty of cells to produce an exponential number of new membranes in polynomial time. However, many simulators of P system are inefficient since they cannot handle the parallelism of these devices. Nowadays, we are witnessing the consolidation of the GPUs as a parallel framework to compute general purpose applications such as bitcoin mining.
 
-The simulation of P systems with active membranes using GPUs is analyzed in \cite{Cecilia10SAT} and an efficient linear solution to the SAT problem is illustrated. They compared it to the classical simulator and reported up to 94x of speedup for 256 literals in the formula. The major constraint of this parallel simulation is the GPU memory size, which can be overcome with a data partition on a cluster of GPUs.
+The simulation of \index{P systems!with active membranes}P systems with active membranes using GPUs is analyzed in \cite{Cecilia10SAT} and an efficient linear solution to the SAT problem is illustrated. They compared it to the classical simulator and reported up to 94x of speedup for 256 literals in the formula. The major constraint of this parallel simulation is the GPU memory size, which can be overcome with a data partition on a cluster of GPUs.
 
 As time passes, GPU mining of bitcoins is largely dead these days. The majority is now mining with Application Specific Integrated Circuits (ASIC) \cite{Smith08ASIC}. The proposal of ASIC for P systems could be the possible aim of future research of P system simulators. 
 
@@ -61,7 +61,7 @@ As time passes, GPU mining of bitcoins is largely dead these days. The majority 
 
 This topic could let to the construction of computers based on P systems, and this kind of experiments could be for P systems what are DNA experiments for DNA computing: in vitro use of molecules to calculate. The speed of these processes occurring at membranes (both artificial and natural) is much higher as compared with DNA computing experiments, providing us with a faster computation \cite{Ardelean06InVitro}.
 
-There was a planned experiment of computing the Fibonacci sequence using P systems in vitro (see \cite{Gershoni:2008:InVitro}) using test tubes as membranes and DNA molecules as objects, evolving under the control of enzymes. Number of objects in a multiset was represented by a pre-defined ``mole'' of the substance and synchronization was obtained by ``waiting enough'', such that all reactions that can take place in a test tube actually take place. Hence, they reuqired a variant where reactions do not cycle and proposes the Local loop-free P systems, which were shown to be universal. Communication was done by moving all the relevant objects to the next tube in a mechanical way. The final result was read by spectrometry.
+There was a planned experiment of computing the Fibonacci sequence using P systems in vitro (see \cite{Gershoni:2008:InVitro}) using test tubes as membranes and DNA molecules as objects, evolving under the control of enzymes. Number of objects in a multiset was represented by a pre-defined ``mole'' of the substance and synchronization was obtained by ``waiting enough'', such that all reactions that can take place in a test tube actually take place. Hence, they reuqired a variant where reactions do not cycle and proposes the \index{P systems!local loop-free} Local loop-free P systems, which were shown to be universal. Communication was done by moving all the relevant objects to the next tube in a mechanical way. The final result was read by spectrometry.
 
 Many questions and open problems arised from this planned experiment, e.g. if there is any chance to effectively solve NP-Complete problems in this framework. 
 

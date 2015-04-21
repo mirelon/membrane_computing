@@ -1,16 +1,16 @@
 % !TEX root = ../diz.tex
-In this section we study a variant of sequential systems where universality can be achieved without checking for zero by allowing membranes to be created unlimited number of times \cite{Ibarra05Active}. Such P systems are called active P systems. Contrary, if we place a limit on the number of times a membrane is created, we get a class of P systems which is only equivalent to vector addition systems, hence not universal.
+In this section we study a variant of \index{P systems!sequential} sequential P systems where universality can be achieved without checking for zero by allowing membranes to be created unlimited number of times \cite{Ibarra05Active}. Such P systems are called active P systems. Contrary, if we place a limit on the number of times a membrane is created, we get a class of P systems which is only equivalent to vector addition systems, hence not universal.
 
 In Subsection \ref{sub:active_p_systems} we will introduce membrane structure and formally define membrane configuration and active P system, because standard definitions are not convenient for our formal proofs.
 
-The Subsection \ref{sub:termination_problems} contains two main results. The existence of an infinite computation is surprisingly shown to be decidable. On the other hand, the existence of a halting computation is shown to be undecidable. Why is the first result surprising? At first sight it seems to relate to the Rice's theorem (see section \ref{sec:rice_s_theorem}), because it is a decidability problem for a Turing complete computation model. But the existence of an infinite computation is not a property of the language generated or accepted by the active P system. It is the property of the computation itself, therefore the Rice's theorem is not applicable here.
+The Subsection \ref{sub:termination_problems} contains two main results. The existence of an infinite computation is surprisingly shown to be decidable. On the other hand, the existence of a halting computation is shown to be undecidable. Why is the first result surprising? At first sight it seems to relate to the Rice's theorem (see section \ref{sec:rice_s_theorem}), because it is a decidability problem for a Turing complete computation model. But the existence of an infinite computation is not a property of the language generated or accepted by the active P system. It is the property of the computation itself, therefore the \index{Rice's theorem} Rice's theorem is not applicable here.
 
 \subsection{Active P systems} % (fold)
 \label{sub:active_p_systems}
 
 \begin{definition}
   \label{def:membrane_structure}
-  Let $\Sigma$ be a set of objects. We denote by $\mathbb N^\Sigma$ a set of all mappings from $\Sigma$ to $\mathbb N$, so it contains all multisets of objects from $\Sigma$. A {\bf membrane configuration} is a tuple $(T, l, c)$, where:
+  Let $\Sigma$ be a set of objects. We denote by $\mathbb N^\Sigma$ a set of all mappings from $\Sigma$ to $\mathbb N$, so it contains all multisets of objects from $\Sigma$. A \index{Membrane!configuration} {\bf membrane configuration} is a tuple $(T, l, c)$, where:
   \begin{itemize}
     \item $T$ is a rooted tree,
     \item $l\in\mathbb N^{V(T)}$ is a mapping that assigns for each node of $T$ a number (label), where $l(r_T)=1$, so the skin membrane is always labeled with 1,
@@ -20,7 +20,7 @@ The Subsection \ref{sub:termination_problems} contains two main results. The exi
 
 \begin{definition}
   \label{def:active_p_system}
-  An {\bf active P system} is a tuple $(\Sigma, C_0, R_1, R_2, \ldots, R_m)$, where:
+  An \index{P systems!active}\index{P systems!with active membranes} {\bf active P system} is a tuple $(\Sigma, C_0, R_1, R_2, \ldots, R_m)$, where:
   \begin{itemize}
     \item $\Sigma$ is a set of objects,
     \item $C_0$ is initial membrane configuration,
@@ -213,7 +213,7 @@ We will now follow with a proof of an important property of the covering relatio
 
 \begin{lemma}
 \label{rule_applicability_lemma}
-  For sequential active P system with limit on the total number of membranes, if $C_2 = (T_2, l_2, c_2)$ {\bf covers} configuration $C_1 = (T_1, l_1, c_1)$, then there is an isomorphism $f: T_1\rightarrow T_2$ such that if a rule $r$ is applicable in membrane $d\in T_1$, then $r$ is applicable in $f(d)$.
+  For sequential active P system with limit on the total number of membranes, if $C_2 = (T_2, l_2, c_2)$ {\bf covers} configuration $C_1 = (T_1, l_1, c_1)$, then there is an \index{Tree!isomorphism} isomorphism $f: T_1\rightarrow T_2$ such that if a rule $r$ is applicable in membrane $d\in T_1$, then $r$ is applicable in $f(d)$.
 \end{lemma}
 
 \begin{dokaz}
@@ -282,7 +282,7 @@ We will now show that comparing two encodings corresponds to covering of two con
 \end{veta}
 
 \begin{dokaz}
-  The algorithm for deciding the problem will traverse the reachability graph. When it encounters a configuration that covers another configuration, from lemma \ref{rule_applicability_lemma} follows that the same rules can be applied repeatedly, so the algorithm will halt with the answer YES.
+  The algorithm for deciding the problem will traverse the \index{Reachability graph} reachability graph. When it encounters a configuration that covers another configuration, from lemma \ref{rule_applicability_lemma} follows that the same rules can be applied repeatedly, so the algorithm will halt with the answer YES.
   Otherwise, the algorithm will answer NO.
   Algorithm will always halt, because if there was an infinite computation, from lemma \ref{infinite_sequence_of_configurations_lemma} there would be two increasing configurations which is already covered in the YES case.
   \qed

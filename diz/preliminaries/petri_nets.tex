@@ -2,7 +2,7 @@
 Another well-studied formalism often referred to (e.g. in \cite{Dang04Sequential,Freund:2004:Async}) are Petri nets. Petri nets \cite{Petri62,Yen06PetriNets} were introduced by Carl Adam Petri in 1962 in his PhD thesis. A Petri net is a graphical and mathematical tool for the modeling of concurrent processes and analysis of system behavior. A Petri net is usually drawn as a directed bipartite graph with two kind of nodes. Places are represented by circles within which each small black dot denotes a token. Transitions are represented by bars. Each edge is either from a place to a transition or vice versa.
 
 \begin{definition}
-  A {\bf Petri net} is a tuple $(P, T, \varphi)$, where:
+  A \index{Petri net} {\bf Petri net} is a tuple $(P, T, \varphi)$, where:
   \begin{itemize}
     \item $P$ is a finite set of places,
     \item $T$ is a finite set of transitions,
@@ -33,7 +33,7 @@ If a transition $t$ is enabled, it may fire by removing $\varphi(p,t)$ tokens fr
 \end{example}
 
 \begin{definition}
-  A {\bf marked Petri net} is a tuple $(P,T,\varphi,\mu_0)$, where $(P,T,\varphi)$ is a Petri net and $\mu_0$ is called the initial marking.
+  A \index{Petri net!marked} {\bf marked Petri net} is a tuple $(P,T,\varphi,\mu_0)$, where $(P,T,\varphi)$ is a Petri net and $\mu_0$ is called the initial marking.
 \end{definition}
 
 \begin{definition}
@@ -48,13 +48,13 @@ The notation $\mu_0\xrightarrow{*}\mu$ is used to denote the existence of a firi
 \end{definition}
 
 \begin{definition}
-  Let $\mathcal P = (P,T,\varphi,\mu_0)$ be a marked Petri net. The {\bf reachability set} of $\mathcal P$ is $R(\mathcal(P)) = \{\mu|\mu_0\xrightarrow{*}\mu\}$.
+  Let $\mathcal P = (P,T,\varphi,\mu_0)$ be a marked Petri net. The \index{Reachability set} {\bf reachability set} of $\mathcal P$ is $R(\mathcal(P)) = \{\mu|\mu_0\xrightarrow{*}\mu\}$.
 \end{definition}
 
 A notion of reachability graph is helpful for analyzing the behavior of a Petri net as a tool for visualisation of the structure of the reachability set.
 
 \begin{definition}
-  Let $\mathcal P = (P,T,\varphi,\mu_0)$ be a marked Petri net. The {\bf reachability graph} of $\mathcal P$ is a labelled graph whose nodes are the reachable markings and edge from $\mu_1$ to $\mu_2$ is labeled with a transition $t\in T$ iff $\mu_1\xrightarrow{t}\mu_2$.
+  Let $\mathcal P = (P,T,\varphi,\mu_0)$ be a marked Petri net. The \index{Reachability graph}\index{Graph!reachability} {\bf reachability graph} of $\mathcal P$ is a labelled graph whose nodes are the reachable markings and edge from $\mu_1$ to $\mu_2$ is labeled with a transition $t\in T$ iff $\mu_1\xrightarrow{t}\mu_2$.
 \end{definition}
 
 \begin{figure}
@@ -118,7 +118,7 @@ A notion of reachability graph is helpful for analyzing the behavior of a Petri 
 
 In spite of its simplicity, the applicability of the technique of reachability graph analysis is rather limited in the sense that it suffers from the state explosion phenomenon as the sizes of the reachability sets grow beyond any primitive recursive function in the worst case \cite{Yen06PetriNets}.
 
-Coverability graph analysis offers an alternative to the techinque of reachability graph analysis by abstracting out certain details to make the graph finite. To understand the intuition behind coverability graphs, consider the Figure \ref{fig:example reachability graph} which shows a part of the reachability graph of the Petri net in the Figure \ref{fig:example petri net}. Consider the path $(3,0,0,0)\xrightarrow{t_1}(2,1,1,1)\xrightarrow{t_2}(3,1,1,0)$ along which the places $p_2$ and $p_3$ both gain an extra token in the end, i.e. $(3,0,0,0) > (3,1,1,0)$. Clearly they can be made to contain arbitrary large number of tokens by repeating the firing sequence $t_1t_2$ for a sufficient number of times, as $(3,0,0,0)\xrightarrow{t_1t_2}(3,1,1,0)\xrightarrow{t_1t_2}(3,2,2,0)\xrightarrow{t_1t_2}\ldots\xrightarrow{t_1t_2}(3,n,n,0)$, for arbitrary $n$. In order to capture the notion of a place being unbounded, we short-circuit the above infinite sequence of computation as $(3,0,0,0)\xrightarrow{t_1}(2,1,1,1)\xrightarrow{t_2}(3,\omega,\omega,0)$, where $\omega$ is a symbol denoting something being arbitrarily large. As it turns out, the coverability graph of a Petri net is always finite \cite{Karp69ParallelProgramSchemata}. The corresponding coverability graph of the example Petri net in the Figure \ref{fig:example petri net} is in the Figure \ref{fig:example coverability graph}. The algorithm for generating the coverability graph of a Petri net \cite{Yen06PetriNets} is shown \vpageref[below]{alg:coverability_graph}.
+\index{Coverability graph}\index{Graph!coverability} Coverability graph analysis offers an alternative to the techinque of reachability graph analysis by abstracting out certain details to make the graph finite. To understand the intuition behind coverability graphs, consider the Figure \ref{fig:example reachability graph} which shows a part of the reachability graph of the Petri net in the Figure \ref{fig:example petri net}. Consider the path $(3,0,0,0)\xrightarrow{t_1}(2,1,1,1)\xrightarrow{t_2}(3,1,1,0)$ along which the places $p_2$ and $p_3$ both gain an extra token in the end, i.e. $(3,0,0,0) > (3,1,1,0)$. Clearly they can be made to contain arbitrary large number of tokens by repeating the firing sequence $t_1t_2$ for a sufficient number of times, as $(3,0,0,0)\xrightarrow{t_1t_2}(3,1,1,0)\xrightarrow{t_1t_2}(3,2,2,0)\xrightarrow{t_1t_2}\ldots\xrightarrow{t_1t_2}(3,n,n,0)$, for arbitrary $n$. In order to capture the notion of a place being unbounded, we short-circuit the above infinite sequence of computation as $(3,0,0,0)\xrightarrow{t_1}(2,1,1,1)\xrightarrow{t_2}(3,\omega,\omega,0)$, where $\omega$ is a symbol denoting something being arbitrarily large. As it turns out, the coverability graph of a Petri net is always finite \cite{Karp69ParallelProgramSchemata}. The corresponding coverability graph of the example Petri net in the Figure \ref{fig:example petri net} is in the Figure \ref{fig:example coverability graph}. The algorithm for generating the coverability graph of a Petri net \cite{Yen06PetriNets} is shown \vpageref[below]{alg:coverability_graph}.
 
 \begin{figure}
   \centering
@@ -181,7 +181,7 @@ Analysis of several behavioral properties is studied and following decidability 
 
 \subsubsection{The boundedness problem} % (fold)
 \label{ssub:the_boundedness_problem}
-  The boundedness problem is, given a marked Petri net $\mathcal P$, deciding whether $|R(\mathcal P)|$ is finite. This problem was first considered by Karp and Miller \cite{Karp69ParallelProgramSchemata}, where it was shown to be decidable using the technique of coverability graph analysis. A Petri net is unbounded iff an $\omega$ occurs in the corresponding coverability graph. The algorithm presented there was basically an unbounded search and consequently no complexity analysis was shown. Subsequently, a lower bound of $O(2^{cm})$ space was shown by Lipton in \cite{Lipton76Reachability}, where $m$ is the number of places in the Petri net and $c$ is a constant. Finally, an upper bound of $O(2^{cn\log{n}})$ space was given by Rackoff in \cite{Rackoff78Reachability}. Here, however, $n$ represents the size or number of bits in the problem instance and $c$ is a constant.
+  The \index{Boundedness problem} boundedness problem is, given a marked Petri net $\mathcal P$, deciding whether $|R(\mathcal P)|$ is finite. This problem was first considered by Karp and Miller \cite{Karp69ParallelProgramSchemata}, where it was shown to be decidable using the technique of coverability graph analysis. A Petri net is unbounded iff an $\omega$ occurs in the corresponding coverability graph. The algorithm presented there was basically an unbounded search and consequently no complexity analysis was shown. Subsequently, a lower bound of $O(2^{cm})$ space was shown by Lipton in \cite{Lipton76Reachability}, where $m$ is the number of places in the Petri net and $c$ is a constant. Finally, an upper bound of $O(2^{cn\log{n}})$ space was given by Rackoff in \cite{Rackoff78Reachability}. Here, however, $n$ represents the size or number of bits in the problem instance and $c$ is a constant.
 % subsubsection the_boundedness_problem (end)
 
 \subsubsection{The covering problem} % (fold)
@@ -191,7 +191,7 @@ Analysis of several behavioral properties is studied and following decidability 
 
 \subsubsection{The reachability problem} % (fold)
 \label{ssub:the_reachability_problem}
-  The reachability problem is, given a marked Petri net $\mathcal P$ and a marking $\mu$, deciding whether $\mu\in R(\mathcal P)$. This problem has attracted the most attention in the Petri net community. One reason is that the problem has many real-world applications; furthermore, it is the key to the solutions of several other Petri net problems. Before the decidability question of the reachability problem for general Petri nets was proven by Mayr in 1981 \cite{Mayr81PetriNetReachability}, a number of attempts had been made to investigate the problem for restricted classes of Petri nets, in hope of gaining more insights and developing new tools in order to conquer the general Petri net reachability problem. It should be noted that the technique of the coverability graph analysis does not answer the reachability problem as $\omega$ abstracts out the exact number of tokens that a place can accumulate, should the place be potentially unbounded.
+  The \index{Reachability problem} reachability problem is, given a marked Petri net $\mathcal P$ and a marking $\mu$, deciding whether $\mu\in R(\mathcal P)$. This problem has attracted the most attention in the Petri net community. One reason is that the problem has many real-world applications; furthermore, it is the key to the solutions of several other Petri net problems. Before the decidability question of the reachability problem for general Petri nets was proven by Mayr in 1981 \cite{Mayr81PetriNetReachability}, a number of attempts had been made to investigate the problem for restricted classes of Petri nets, in hope of gaining more insights and developing new tools in order to conquer the general Petri net reachability problem. It should be noted that the technique of the coverability graph analysis does not answer the reachability problem as $\omega$ abstracts out the exact number of tokens that a place can accumulate, should the place be potentially unbounded.
 % subsubsection the_reachability_problem (end)
 
 \subsubsection{The containment problem} % (fold)
@@ -219,7 +219,7 @@ Conventional Petri nets have several limitations such as the inability to test f
 \subsubsection{Colored Petri nets} % (fold)
 \label{ssub:colored_petri_nets}
 
-A colored Petri net (CPN) has each token attached with a color, indicating the identity of the token. Moreover, each place and each transition has attached a set of colors. A transition can fire with respect to each of its colors. By firing a transition, tokens are removed from the input places and added to the output places in the same way as that in original Petri nets, except that a functional dependency is specified between the color of the transition firing and the colors of the involved tokens. The color attached to a token may be changed by a transition firing and it often represents a complex data-value. CPNs lead to compact net models by using of the concept of colors.
+A \index{Petri net!colored} colored Petri net (CPN) has each token attached with a color, indicating the identity of the token. Moreover, each place and each transition has attached a set of colors. A transition can fire with respect to each of its colors. By firing a transition, tokens are removed from the input places and added to the output places in the same way as that in original Petri nets, except that a functional dependency is specified between the color of the transition firing and the colors of the involved tokens. The color attached to a token may be changed by a transition firing and it often represents a complex data-value. CPNs lead to compact net models by using of the concept of colors.
 
 % subsubsection colored_petri_nets (end)
 
@@ -233,7 +233,7 @@ The computational power of conventional or backwards-compatible Petri nets such 
 \subsubsection{Petri nets with inhibitor arcs} % (fold)
 \label{ssub:petri_nets_with_inhibitor_arcs}
 
-The inhibitor arc connects an input place to a transition. The presence of an inhibitor arc connecting an input place to a transition changes the transition enabling conditions. In the presence of the inhibitor arc, a transition is regarded as enabled if each input place, connected to the transition by a normal arc, contains at least the number of tokens equal to the weight of the arc, and no tokens are present on each input place connected to the transition by the
+The \index{Petri net!with inhibitor arcs} inhibitor arc connects an input place to a transition. The presence of an inhibitor arc connecting an input place to a transition changes the transition enabling conditions. In the presence of the inhibitor arc, a transition is regarded as enabled if each input place, connected to the transition by a normal arc, contains at least the number of tokens equal to the weight of the arc, and no tokens are present on each input place connected to the transition by the
 inhibitor arc. The transition firing rule is the same for normally connected places. The firing, however, does not change the marking in the inhibitor arc connected places. 
 
 % subsubsection petri_nets_with_inhibitor_arcs (end)
@@ -241,28 +241,28 @@ inhibitor arc. The transition firing rule is the same for normally connected pla
 \subsubsection{Time petri nets} % (fold)
 \label{ssub:time_petri_nets}
 
-Time Petri nets (TPN) are Petri nets in which each transition $t$ has attached two times $a\leq b$. Assuming that $t$ was last enabled at time $c$, then $t$ may fire only during the interval $[c+a, c+b]$ and must fire at time $c+b$ at the latest unless it is disabled before by the firing of another transition. Firing a transition takes no time.
+\index{Petri net!time} Time Petri nets (TPN) are Petri nets in which each transition $t$ has attached two times $a\leq b$. Assuming that $t$ was last enabled at time $c$, then $t$ may fire only during the interval $[c+a, c+b]$ and must fire at time $c+b$ at the latest unless it is disabled before by the firing of another transition. Firing a transition takes no time.
 
 % subsubsection time_petri_nets (end)
 
 \subsubsection{Timed Petri nets} % (fold)
 \label{ssub:timed_petri_nets}
 
-Timed Petri nets (TdPN) are obtained from Petri nets by associating a firing time (delay) to each transition of the net. Moreover, each token has an age property, so the marking of a place $p$ is a finite multiset of ages. The precondition of a transition with input place $p$ is an interval. A transition is enabled if for every input place there exists an appropriate token, i.e. its age is included in the interval.
+\index{Petri net!timed} Timed Petri nets (TdPN) are obtained from Petri nets by associating a firing time (delay) to each transition of the net. Moreover, each token has an age property, so the marking of a place $p$ is a finite multiset of ages. The precondition of a transition with input place $p$ is an interval. A transition is enabled if for every input place there exists an appropriate token, i.e. its age is included in the interval.
 
 % subsubsection timed_petri_nets (end)
 
 \subsubsection{Prioritized Petri nets} % (fold)
 \label{ssub:prioritized_petri_nets}
 
-Transactions in prioritized Petri nets have input arcs of two types: normal and prioritized. A place with a token and several transitions enabled from this place will fire the transition with a priority arc first. If there are more than one priority arc outgoing from a place which causes that more than one transition is enabled, then the firing choice is nondeterministic.
+\index{Petri net!prioritized} Transitions in prioritized Petri nets have input arcs of two types: normal and prioritized. A place with a token and several transitions enabled from this place will fire the transition with a priority arc first. If there are more than one priority arc outgoing from a place which causes that more than one transition is enabled, then the firing choice is nondeterministic.
 
 % subsubsection prioritized_petri_nets (end)
 
 \subsubsection{Maximal parallel Petri nets} % (fold)
 \label{ssub:maximal_parallel_petri_nets}
 
-Under the maximal parallel semantics, maximal sets of simultaneously enabled rules are fired. They are of interest due to their close connections with the model of P systems.
+\index{Petri net!maximal parallel} Under the maximal parallel semantics, maximal sets of simultaneously enabled rules are fired. They are of interest due to their close connections with the model of P systems.
 
 % subsubsection maximal_parallel_petri_nets (end)
 
@@ -276,14 +276,14 @@ While the above extended Petri nets are powerful enough to simulate Turing machi
 \subsubsection{Reset nets} % (fold)
 \label{ssub:reset_nets}
 
-A reset arc does not impose a precondition on firing, and empties the place when the transition fires. This makes reachability and boundedness undecidable, while some other properties, such as termination, coverability remain decidable.
+A \index{Reset net}\index{Petri net!with reset arcs} reset arc does not impose a precondition on firing, and empties the place when the transition fires. This makes reachability and boundedness undecidable, while some other properties, such as termination, coverability remain decidable.
 
 % subsubsection reset_nets (end)
 
 \subsubsection{Transfer nets} % (fold)
 \label{ssub:transfer_nets}
 
-Petri nets with transfer arcs (transfer nets) can contain transitions that can also consume all the tokens present in one place regardless of the actual number of tokens and move them to another place. The termination and coverability remain decidable and reachability undecidable, on the other hand, in this case the boundedness is decidable \cite{Dufourd98Reset}.
+\index{Transfer net}\index{Petri net!with transfer arcs} Petri nets with transfer arcs (transfer nets) can contain transitions that can also consume all the tokens present in one place regardless of the actual number of tokens and move them to another place. The termination and coverability remain decidable and reachability undecidable, on the other hand, in this case the boundedness is decidable \cite{Dufourd98Reset}.
 
 % subsubsection transfer_nets (end)
 

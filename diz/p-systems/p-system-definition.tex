@@ -1,5 +1,5 @@
 % !TEX root = ../diz.tex
-The definition of a P system is based on the notion of membrane structure \cite{Besozzi:PhD:2004}, which is introduced in terms of the language $MS$ over the alphabet $\{[, ]\}$, consisting of the strings recurrently defined as follows:
+The definition of a P system is based on the notion of \index{Membrane!structure} membrane structure \cite{Besozzi:PhD:2004}, which is introduced in terms of the language $MS$ over the alphabet $\{[, ]\}$, consisting of the strings recurrently defined as follows:
 \begin{enumerate}
   \item $[]\in MS$,
   \item if $\mu_1, \ldots, \mu_n \in MS$, then $[\mu_1\ldots\mu_n] \in MS$,
@@ -21,15 +21,15 @@ Thus, the order of parentheses is irrelevant as long as they are at the same hie
 \end{definition}
 
 \begin{definition}
-  Each pair of matching parentheses $[]$ appearing in a membrane structure $\mu$ is called a {\bf membrane}.
+  Each pair of matching parentheses $[]$ appearing in a membrane structure $\mu$ is called a \index{Membrane} {\bf membrane}.
 \end{definition}
 
 \begin{definition}
-  The external membrane of a membrane structure is called the {\bf skin membrane}.
+  The external membrane of a membrane structure is called the \index{Membrane!skin} {\bf skin membrane}.
 \end{definition}
 
 \begin{definition}
-  Any membrane without any other membrane inside (appearing in a membrane structure in the form $[]$) is called an {\bf elementary membrane}.
+  Any membrane without any other membrane inside (appearing in a membrane structure in the form $[]$) is called an \index{Membrane!elementary} {\bf elementary membrane}.
 \end{definition}
 
 \begin{definition}
@@ -65,7 +65,7 @@ Note that the strings $u, v$ are understood as representations of multisets over
 We are now ready to proceed with a formal definition of a P system of degree $m$.
 
 \begin{definition}
-  A {\bf P system} is a tuple $$\Pi = (\Sigma, \mu, w_1, w_2,\ldots , w_m, R_1, R_2,\ldots , R_m)$$, where:
+  A \index{P systems!definition} {\bf P system} is a tuple $$\Pi = (\Sigma, \mu, w_1, w_2,\ldots , w_m, R_1, R_2,\ldots , R_m)$$, where:
   \begin{itemize}
     \item $\Sigma$ is the alphabet of objects,
     \item $\mu$ is a membrane structure consisting of $m$ membranes labeled with numbers $1,2,\dots,m$,
@@ -81,7 +81,7 @@ Any of the initial multisets $w_1, w_2,\dots , w_m$ can be empty as well as any 
 The $(m+1)$-tuple $(\mu, w_1,w_2,\ldots w_m)$ constitutes the initial configuration of the P system $\Pi$. In general, the configuration is represented by the membrane structure of $\Pi$and the multisets of objects in the regions.
 
 \begin{definition}
-  A {\bf configuration} of a P system $\Pi$ is an $(m+1)$-tuple $(\mu^\prime, w^\prime_1,w^\prime_2,\ldots w^\prime_m)$, where $\mu^\prime$ is a membrane structure and $w^\prime_1,w^\prime_2,\ldots w^\prime_m$ are multisets over $\Sigma$ present in the regions $1,2,\ldots,m$ of $\mu^\prime$.
+  A \index{P systems!configuration} {\bf configuration} of a P system $\Pi$ is an $(m+1)$-tuple $(\mu^\prime, w^\prime_1,w^\prime_2,\ldots w^\prime_m)$, where $\mu^\prime$ is a membrane structure and $w^\prime_1,w^\prime_2,\ldots w^\prime_m$ are multisets over $\Sigma$ present in the regions $1,2,\ldots,m$ of $\mu^\prime$.
 \end{definition}
 
 Note that the membrane structure can be different from the initial membrane structure, according to the dissolving action, which will be explained later.
