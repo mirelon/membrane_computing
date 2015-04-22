@@ -9,6 +9,7 @@
 \usepackage{amsmath,amsthm}
 \usepackage{mathtools}
 \usepackage{import}
+\usepackage{pdfpages}
 
 \usepackage{algorithm}
 \usepackage[noend]{algpseudocode}
@@ -92,9 +93,8 @@ Comenius University, Bratislava
 \eject
 \eject
 
-\thispagestyle{empty}
-{~}\vspace{12cm}
-
+\thispagestyle{empty}{~}
+\includepdf[pages={1}]{zadanie.pdf}
 \include{prehlasenie}
 \include{podakovanie}
 \include{abstrakt}
