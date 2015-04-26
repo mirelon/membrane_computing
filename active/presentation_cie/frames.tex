@@ -130,11 +130,6 @@
     \newpage
     \note{}
 
-  % subsection overview (end)
-
-  \subsection{Active membranes} % (fold)
-  \label{sub:active_membranes}
-
     \begin{frame}[t]\frametitle{Variants of rules}
       \begin{itemize}
         \item cooperative ($a\ |\ b\ |\ b \rightarrow b$) (universal \cite{Paun98})
@@ -149,12 +144,24 @@
       Sequential P systems with cooperative rules
       \onslide<2->{
         \begin{itemize}
-          \item are equal to VASS $\Rightarrow$ not universal \cite{Dang:2005:Sequential}
+          \item can be simulated with VASS / Petri nets $\Rightarrow$ not universal \cite{Dang:2005:Sequential}
           \item with priorities are universal \cite{Dang:2005:Sequential}
           \item with unbounded membrane creation are universal \cite{Dang:2005:Sequential}
-          \onslide<3->{\item {\bf with inhibitors \cite{Kovac14}}}
         \end{itemize}
       }
+    \end{frame}
+    \note{}
+
+  % subsection overview (end)
+
+  \subsection{Active membranes} % (fold)
+  \label{sub:active_membranes}
+
+    \begin{frame}[t]\frametitle{Variants of rules}
+      \begin{itemize}
+        \item cooperative ($a\ |\ b\ |\ b \rightarrow b$) (universal \cite{Paun98})
+        \onslide<2->{\item non-cooperative ($b \rightarrow c$) (PsCF \cite{Sburlan05dragos})}
+      \end{itemize}
     \end{frame}
     \note{}
 
