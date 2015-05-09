@@ -1,0 +1,50 @@
+% !TEX root = cie.tex
+Let $\Sigma$ be a set of objects. A {\bf membrane configuration} is a tuple $(T, l, c)$, where:
+\begin{itemize}
+  \item $T$ is a rooted tree,
+  \item $l\in\mathbb N^{V(T)}$ is a mapping that assigns for each node of $T$ a number (label), where $l(r_T)=1$, so the skin membrane is always labeled with 1,
+  \item $c\in(2^\Sigma)^{V(T)}$ is a mapping that assigns for each node of $T$ a set of objects from $\Sigma$, so it represents the contents of the membrane.
+\end{itemize}
+
+An {\bf active P system} is a tuple $(\Sigma, C_0, R_1, R_2, \dots , R_m)$, where:
+\begin{itemize}
+  \item $\Sigma$ is a set of objects,
+  \item $C_0$ is initial membrane configuration,
+  \item $R_1,R_2,\dots, R_m$ are finite sets of rewriting rules associated with the labels $1,2,\dots,m$ and can be of forms:
+  \begin{itemize}
+    \item $u\rightarrow w$, where $u\subseteq \Sigma$, $|u|\geq 1$, $w\subseteq (\Sigma\times\{\cdot, \uparrow, \downarrow_j\})$ and $1\leq j\leq m$,
+    \item a dissolving rule $u\rightarrow w\delta$, where $u\subseteq \Sigma$, $|u|\geq 1$, $w\subseteq (\Sigma\times\{\cdot, \uparrow, \downarrow_j\})$ and $1\leq j\leq m$,
+    \item a membrane creation $u\rightarrow [_j v]_j$, where $u\subseteq \Sigma$, $|u|\geq 1$, $v\subseteq \Sigma$ and $1\leq j\leq m$.
+  \end{itemize}
+\end{itemize}
+
+For the first two forms, each rewriting rule may specify for each object on the right side, whether it stays in the current region (we will omit the symbol $\cdot$), moves through the membrane to the parent region ($\uparrow$)
+or to a specific child region ($\downarrow_j$, where $j$ is a label of a membrane).
+We denote these transfers with an arrow immediately after the symbol.
+An example of such rule is the following: $ab\rightarrow ab\downarrow_2 c\uparrow c\delta$.
+
+By applying the rule we mean the removal of objects specified on the left side and the addition of the objects on the right side with respect to set union semantics.
+Symbol $\delta\notin\Sigma$ does not represent an object. It may be present only at the end of the rule, which means that after the application of the rule, the membrane is dissolved and its contents (objects, child membranes) are propagated to the parent membrane.
+
+Active P systems differ from classic (passive) P systems in ability to create new membranes by rules of the third form. Such rule will create new child membrane with a given label $j$ and a given set of objects $v$ as its contents. If there already is such a membrane, nothing happens. {\red TODO: Do we really need this sort of rule? I think the sending down in sufficient (i.e. if the target membrane we want to send objects to does not exists, one such is automatically created). When allowing multiple children with same label, this sort of rule was essential, but now it is useless. \color{magenta} EDIT: yeah, but our simulation would be overcomplicated then, having hard time detecting the innermost membrane}
+
+% applicable rule definition
+
+For an active P system $(\Sigma, C_0, R_1, R_2, \dots , R_m)$, configuration $C = (T, l, c)$, membrane $d\in V(T)$ the rule $r\in R_{l(d)}$ is {\bf applicable} iff:
+\begin{itemize}
+  \item $r = u\rightarrow w$ and $u\subseteq c(d)$ and for all $(a,\downarrow_k)\in w$ there exists $d_2\in V(T)$ such that $l(d_2)=k \wedge parent(d_2) = d$,
+  \item $r = u\rightarrow w\delta$ and $u\subseteq c(d)$ and for all $(a,\downarrow_k)\in w$ there exists $d_2\in V(T)$ such that $l(d_2)=k \wedge parent(d_2) = d$ and $d\neq r_T$,
+  \item $r = u\rightarrow [_j v]_j$ and $u\subseteq c(d)$.
+\end{itemize}
+
+In this paper we assume only sequential systems, so in each step of the computation, there is one rule nondeterministically chosen among all applicable rules in all membranes to be applied.
+
+% Computation step
+
+A {\bf computation step} of P system is a relation $\Rightarrow$ on the set of configurations such that $C_1 \Rightarrow C_2$ holds iff there is an applicable rule in a membrane in $C_1$ such that applying that rule can result in $C_2$.
+
+% Result of a computation
+
+The P system can work in generating or in accepting mode. For the generating mode we consider the concatenation of the objects which leave the system, in the order they are sent out of the skin membrane (if several symbols are expelled at the same time, then any ordering of them is considered). In this case we generate a language. The result of a single computation is clearly only one multiset or a string, but for one initial configuration there can be multiple possible computations. It follows from the fact that there can be more than one applicable rule in each configuration and they are chosen nondeterministically.
+
+{\red For the accepting mode the input word in encoded into a membrane structure by a given encoding} and it is accepted if and only if a given accepting configuration can be reached\cite{Ibarra05Active}.

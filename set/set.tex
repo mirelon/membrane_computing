@@ -1,0 +1,164 @@
+\documentclass[llncs,submission,copyright,creativecommons]{../lib/lncs/llncs}
+\providecommand{\event}{Cie-CS 2015} % Name of the event you are submitting to
+
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{color}
+
+\usepackage{fontenc}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{makeidx}
+
+% Repeat the same theorem in the appendix
+\usepackage{thmtools, thm-restate}
+\let\theorem\relax
+\declaretheorem{theorem}
+
+\pagestyle{headings}
+\bibliographystyle{../lib/lncs/splncs}
+
+\def\eps{\varepsilon}
+\def\red{\color{red}}
+\def\goodgap{\hspace{\subfigcapskip}}
+\renewcommand\refname{References}
+
+% Itemize bulet types
+\renewcommand{\labelitemi}{$\bullet$}
+\renewcommand{\labelitemii}{$\cdot$}
+
+% Narrow texts in boxes
+\providecommand{\narrow}[1]{\scalebox{.8}[1.0]{#1}}
+
+\begin{document}
+\title{Sequential P Systems with Active Membranes without counting\thanks{Work supported by the grant VEGA 1/1333/12.}}
+\author{Michal Kováč}
+\institute{Faculty of Mathematics, Physics and Informatics, Comenius University}
+\date{\today}
+\maketitle
+
+\begin{abstract}
+We study variants of P systems that are working in the sequential mode. Basically, they are not computationally universal, but there are possible extensions that can increase the computation power. Extensions that implement a notion of zero-checking, are often computationally universal.
+P systems with an ability to create new membranes are a rare exception as they are known to be computationally universal even in the sequential mode without using a dedicated zero-check operation.
+{\red Using sets instead of multiset was inspired by Reaction systems.}
+\end{abstract}
+
+\section{Introduction}
+\label{sec:introduction}
+
+% Bio motivation
+
+Membrane systems (P systems) \cite{Paun10OxfordHandbookMembraneComputing} were introduced by P\u{a}un (see \cite{Paun2000108}) as distributed parallel computing devices inspired by the structure and functionality of cells. Starting from the observation that there is an obvious parallelism in the cell biochemistry and relying on the assumption that ``if we wait enough, then all reactions which may take place will take place'', a feature of the P systems is given by the maximal parallel way of using the rules. For various reasons ranging from looking for more realistic models to just more mathematical challenge, the maximal parallelism was questioned, either simply criticized, or replaced with presumably less restrictive assumptions.
+In some cases, a sequential model may be a more reasonable assumption. In sequential P systems, only one rewriting rule is used in each step of computation. Without priorities, they are equivalent to Petri nets \cite{Ibarra05Active}, hence not computationally universal. However priorities, inhibitors and other modifications can increase the computation power. It seems that there is a link between universality and ability to zero-check \cite{Alhazov12Properties}.
+
+\section{Preliminaries}
+\label{sec:preliminaries}
+
+Here we recall several notions from the classical theory of formal languages.
+
+An {\bf alphabet} is a finite nonempty set of symbols. Usually it is denoted by $\Sigma$. A {\bf string} over an alphabet is a finite sequence of symbols from the alphabet. We denote by $\Sigma^*$ the set of all strings over an alphabet $\Sigma$. By $\Sigma^+$ = $\Sigma^* - \{\eps\}$ we denote the set of all nonempty strings over $\Sigma$. A {\bf language} over the alphabet $\Sigma$ is any subset of $\Sigma^*$.
+
+The number of occurrences of a given symbol $a\in \Sigma$ in the string $w\in \Sigma^*$ is denoted by $|w|_a$. $\Psi_\Sigma(w)=(|w|_{a_1},|w|_{a_2},\dots,|w|_{a_n})$ is called a Parikh vector associated with the string $w\in \Sigma^*$, where $\Sigma=\{a_1,a_2,\dots, a_n\}$. For a language $L\subseteq \Sigma^*$, $\Psi_\Sigma(L)=\{\Psi_\Sigma(w)|w\in L\}$ is the Parikh image of $L$. If FL is a family of languages, PsFL denotes the family of Parikh images of languages in FL.
+
+Next, we recall notions from graph theory.
+
+A {\bf rooted tree} is a tree, in which a particular node is distinguished from the others and called the root node.
+Let $T$ be a rooted tree. We will denote its root node by $r_T$.
+Let $d$ be a node of $T\setminus\{r_T\}$.
+As $T$ is a tree, there is a unique path from $d$ to $r_T$. 
+The node adjacent to $d$ on that path is also unique and is called a {\bf parent node} of $d$ and is denoted by $parent_T(d)$.
+We will denote the set of nodes of $T$ by $V(T)$ and set of its edges by $E(T)$.
+Let $T_1, T_2$ be rooted trees. A bijection $f: V(T_1)\rightarrow V(T_2)$ is an {\bf isomorphism} iff $\{(f(u),f(v))|(u,v)\in E(T_1)\} = E(T_2)$ and $f(r_{T_1}) = r_{T_2}$. 
+
+  
+\section{Active P systems}
+\label{sec:p systems}
+
+% Membrane structure
+
+The fundamental ingredient of a P system is the {\bf membrane structure} (see \cite{Paun2006Introduction}). It is a hierarchically arranged set of membranes, all contained in the {\bf skin membrane}. Each membrane determines a compartment, also called region, which is the space delimited from above by it and from below by the membranes placed directly inside, if any exists. Clearly, the correspondence membrane – region is one-to-one, that is why we sometimes use interchangeably these terms.
+The membrane structure can be also viewed as a rooted tree with the skin membrane as the root node.
+
+A P system consists of a membrane structure, where each membrane is labeled with a number from 1 to $m$. Each membrane contains a set of objects. Objects can be transformed into other objects and sent through a membrane according to given rules defined for membrane labels. The rules are known from the beginning for each possible membrane, even for the ones that do not exist yet, or the ones that will never exist.
+
+In this paper we work with P systems with active membranes (Active P systems). The rules can modify the membrane structure by dissolving and creating new membranes. That is why we will define the configuration to include the membrane structure as well.
+
+% P system
+
+\input{p-system-definition}
+
+\section{\red Simulation of register machine} % (fold)
+\label{sec:simulation_of_register_machine}
+
+\subsection{Register machine} % (fold)
+\label{sub:register_machine}
+
+\begin{definition}
+  A {\bf $n$-register machine} is a tuple $M = (n,P,i,h)$, where:
+  \begin{itemize}
+    \item $n$ is the number of registers,
+    \item $P$ is a set of labeled instructions of the form $j : (op(r),k,l)$, where $op(r)$ is an operation on register $r\leq n$, and $j$, $k$, $l$ are labels from the set $Lab(M)$ such that there are no two instructions with the same label $j$,
+    \item $i$ is the initial label, and
+    \item $h$ is the final label.
+  \end{itemize}
+\end{definition}
+
+The machine is capable of the following instructions:
+\begin{itemize}
+  \item $(add(r),k,l)$ : Add one to the contents of register $r$ and proceed to instruction $k$ or to instruction $l$; in the deterministic variants usually considered in the literature we demand $k = l$.
+  \item $(sub(r),k,l)$ : If register $r$ is not empty, then subtract one from its contents and go to instruction $k$, otherwise proceed to instruction $l$.
+  \item $halt$ : This instruction stops the machine. This additional instruction can only be assigned to the final label $h$.
+\end{itemize}
+
+A deterministic $m$-register machine can analyze an input $(n_1,\dots,n_m)\in N_0^m$ in registers 1 to $m$, which is recognized if the register machine finally stops by the halt instruction with all its registers being empty (this last requirement is not necessary). If the machine does not halt, the analysis was not successful.
+
+A configuration of a register machine is a tuple $(r_1, \ldots, r_m, ip)$, where $r_i$ is value of the register $i$ and $ip$ (instruction pointer) is the label of current instruction to be executed.
+
+% subsection register_machine (end)
+
+We define a bisimulation relation as follows:
+
+For a configuration of register machine $(r_1, r_2, ip)$ the membrane structure will consist of a skin membrane, a chain consisting of $r_1$ membranes embedded one into another like in a Matryoshka doll with label 1, a similar chain of $r_2$ membranes labeled 2. The two innermost membranes contain a single object $t_1$ or $t_2$. If $r_i = 0$ then $t_i$ is in the skin membrane. Label of the current instruction ($ip$) is in the skin membrane.
+
+We will have following rules in the skin membrane:
+\begin{itemize}
+  \item $u_j \rightarrow j$,
+  \item $j \rightarrow j\downarrow_{i}$ for instruction $j: op(i)$,
+  \item $j, t_i \rightarrow [_1 u_k, t_i ]_1$ for instruction $j: (add(i), k, \_)$,
+  \item $j, t_i \rightarrow l$ for instruction $j: (sub(i), \_, l)$
+\end{itemize}
+
+For the membrane $i$:
+\begin{itemize}
+  \item $j \rightarrow j\downarrow_{i}$ for instruction $j: op(i)$,
+  \item $j, t_i \rightarrow [_1 u_k, t_i ]_1$ for instruction $j: (add(i), k, \_)$,
+  \item $u_j \rightarrow u_j\uparrow$ for instruction $j: (op(i), \_, \_)$,
+  \item $j, t_i \rightarrow u_k, t_i, \delta$ for instruction $j: (sub(i), k, l)$
+\end{itemize}
+
+If empty register halting is needed, we will consume $t_1$ and $t_2$ symbols with the label of a halting instruction in the skin membrane.
+
+The simulation was quite straightforward. We proved that the model is computational complete. It could be improved in several ways:
+\begin{itemize}
+  \item The number of membranes we use depends on the sum of values of registers. Could this be optimized? Similarly, the number of computational steps needed to simulate one instruction is huge. If the optimization is succesful, the next steps could be considering solving SAT in polynomial time (or perhaps in linear time when using membrane division instead of simple creation) 
+  \item Could the simulation be done in a simple way if there is no rule for membrane creation? The only possible way to create membrane would be through sending objects into membrane which does not exist (as we mentioned in previous section).
+  \begin{itemize}
+    \item We could introduce an object $haschild$ instead of $t$ object which would mean the exact opposite. Then, the sending the instruction downwards would be performed using an object $haschild$ as a catalyst\footnote{I think I can prove that without this catalyst (relying only on the rules defined for membranes) the sending of instruction downward would always lead to an infinite membrane creation}. In the innermost membrane no such catalyst is present, so we can execute the corresponding membrane structure modification (create a new membrane of dissolve a membrane).
+  \end{itemize}
+\end{itemize}
+
+
+
+
+
+% section simulation_of_register_machine (end)
+
+\bibliography{set}
+
+\end{document}
