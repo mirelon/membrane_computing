@@ -85,13 +85,53 @@ Let $T_1, T_2$ be rooted trees. A bijection $f: V(T_1)\rightarrow V(T_2)$ is an 
 The fundamental ingredient of a P system is the {\bf membrane structure} (see \cite{Paun2006Introduction}). It is a hierarchically arranged set of membranes, all contained in the {\bf skin membrane}. Each membrane determines a compartment, also called region, which is the space delimited from above by it and from below by the membranes placed directly inside, if any exists. Clearly, the correspondence membrane – region is one-to-one, that is why we sometimes use interchangeably these terms.
 The membrane structure can be also viewed as a rooted tree with the skin membrane as the root node.
 
-A P system consists of a membrane structure, where each membrane is labeled with a number from 1 to $m$. Each membrane contains a set of objects. Objects can be transformed into other objects and sent through a membrane according to given rules defined for membrane labels. The rules are known from the beginning for each possible membrane, even for the ones that do not exist yet, or the ones that will never exist.
+A P system consists of a membrane structure, where each membrane is labeled with a number from 1 to $m$. Each membrane contains objects - either a multiset of objects in classical definition of P systems or a set of objects in set P systems. Objects can be transformed into other objects and sent through a membrane according to given rules defined for membrane labels. The rules are known from the beginning for each possible membrane, even for the ones that do not exist yet, or the ones that will never exist.
 
 In this paper we work with P systems with active membranes (Active P systems). The rules can modify the membrane structure by dissolving and creating new membranes. That is why we will define the configuration to include the membrane structure as well.
 
 % P system
 
 \input{p-system-definition}
+
+\section{Existence of infinite computation in sequential active multiset P systems} % (fold)
+\label{sec:existence_of_infinite_computation_in_sequential_active_multiset_p_systems}
+
+\begin{lemma}
+  For each infinite sequence of rooted forests $\{T\}_{i=0}^\infty$ there is an infinite subsequence $\{T^\prime\}_{i=0}^\infty$ such that for all $i\geq 0$ there is an injection $f: V(T_i^\prime) \rightarrow V(T_{i+1}^\prime)$ such that for each $v\in T_i^\prime$ the number of children $deg(v)\leq deg(f(v))$.
+\end{lemma}
+
+\begin{proof}
+  TODO: proof from stackoverflow adapted from trees to forests. Also, the proof provides increasing sequence of trees, we need to define the injection.
+\end{proof}
+
+\begin{lemma}
+  For each infinite sequence of rooted trees $\{T\}_{i=0}^\infty$ there is an infinite subsequence such that for all $i\geq 0$ there is an injection $f: V(T_i^\prime) \rightarrow V(T_{i+1}^\prime)$ such that $f(root(T_i^\prime)) = root(T_{i+1}^\prime)$ for each $v\in T_i^\prime$ the number of children is nondecreasing: $deg(v)\leq deg(f(v))$.
+\end{lemma}
+
+\begin{proof}
+  For the given sequence of rooted trees we will construct a sequence of rooted forests as subtrees rooted on children of original root. From the previous lemma we have an injection on these forests $f: V(T_i^\prime) \rightarrow V(T_{i+1}^\prime)$ such that for each $v\in T_i^\prime$ the number of children $deg(v)\leq deg(f(v))$. The desired injection $f^\prime$ on rooted trees will be defined as $f$ extended with $f^\prime(root(T_i^\prime)) = root(T_{i+1}^\prime)$.
+
+  The last thing we miss is $deg(root(T_i^\prime)) \leq deg(root(T_{i+1}^\prime))$. Look at the sequence $deg(root(T_i^\prime))_{i=0}^\infty$. It is an infinite sequence of natural numbers. I can easily prove that there is an infinite nondecreasing subsequence, but I think it is a standard theorem, however I have not found a reference name for it yet.
+\end{proof}
+
+
+\begin{lemma}
+  For a finite set of labels $\{1\ldots m\}$ and each infinite sequence of labeled rooted trees $\{T\}_{i=0}^\infty$ there is an infinite subsequence such that for all $i\geq 0$ there is an injection $f: V(T_i^\prime) \rightarrow V(T_{i+1}^\prime)$ such that $f(root(T_i^\prime)) = root(T_{i+1}^\prime)$ for each $v\in T_i^\prime$ the number of children is nondecreasing: $deg(v)\leq deg(f(v))$ and the label is the same: $l(v)=l(f(v))$.
+\end{lemma}
+
+\begin{proof}
+  TODO: The infinite subsequence from the previous lemma is missing the labeling requirement.
+\end{proof}
+
+\begin{lemma}
+  For every infinite computation of sequential active multiset P systems there is an infinite increasing subsequence of configurations. TODO: define increasing 
+\end{lemma}
+
+\begin{proof}
+  Assume the infinite sequence of configurations from the infinite computation. TODO: finish it
+\end{proof}
+
+% section existence_of_infinite_computation_in_sequential_active_multiset_p_systems (end)
 
 \section{\red Simulation of register machine} % (fold)
 \label{sec:simulation_of_register_machine}

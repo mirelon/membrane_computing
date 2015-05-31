@@ -1,12 +1,31 @@
 % !TEX root = cie.tex
-Let $\Sigma$ be a set of objects. A {\bf membrane configuration} is a tuple $(T, l, c)$, where:
+Let $\Sigma$ be a set of objects. A {\bf membrane configuration} for multiset P systems is a tuple $(T, l, c)$, where:
+\begin{itemize}
+  \item $T$ is a rooted tree,
+  \item $l\in\mathbb N^{V(T)}$ is a mapping that assigns for each node of $T$ a number (label), where $l(r_T)=1$, so the skin membrane is always labeled with 1,
+  \item $c\in(2^\Sigma)^{V(T)}$ is a mapping that assigns for each node of $T$ a multiset of objects from $\Sigma$, so it represents the contents of the membrane.
+\end{itemize}
+
+A {\bf membrane configuration} for set P systems is a tuple $(T, l, c)$, where:
 \begin{itemize}
   \item $T$ is a rooted tree,
   \item $l\in\mathbb N^{V(T)}$ is a mapping that assigns for each node of $T$ a number (label), where $l(r_T)=1$, so the skin membrane is always labeled with 1,
   \item $c\in(2^\Sigma)^{V(T)}$ is a mapping that assigns for each node of $T$ a set of objects from $\Sigma$, so it represents the contents of the membrane.
 \end{itemize}
 
-An {\bf active P system} is a tuple $(\Sigma, C_0, R_1, R_2, \dots , R_m)$, where:
+An {\bf active multiset P system} is a tuple $(\Sigma, C_0, R_1, R_2, \dots , R_m)$, where:
+\begin{itemize}
+  \item $\Sigma$ is a set of objects,
+  \item $C_0$ is initial membrane configuration,
+  \item $R_1,R_2,\dots, R_m$ are finite sets of rewriting rules associated with the labels $1,2,\dots,m$ and can be of forms:
+  \begin{itemize}
+    \item $u\rightarrow w$, where $u\in \Sigma^+$, $w\in (\Sigma\times\{\cdot, \uparrow, \downarrow_j\})^*$ and $1\leq j\leq m$,
+    \item a dissolving rule $u\rightarrow w\delta$, where $u\in \Sigma^+$, $w\in (\Sigma\times\{\cdot, \uparrow, \downarrow_j\})^*$ and $1\leq j\leq m$,
+    \item a membrane creation $u\rightarrow [_j v]_j$, where $u\in \Sigma^+, v\in \Sigma^*$ and $1\leq j\leq m$.
+  \end{itemize}
+\end{itemize}
+
+An {\bf active set P system} is a tuple $(\Sigma, C_0, R_1, R_2, \dots , R_m)$, where:
 \begin{itemize}
   \item $\Sigma$ is a set of objects,
   \item $C_0$ is initial membrane configuration,
@@ -18,12 +37,12 @@ An {\bf active P system} is a tuple $(\Sigma, C_0, R_1, R_2, \dots , R_m)$, wher
   \end{itemize}
 \end{itemize}
 
-For the first two forms, each rewriting rule may specify for each object on the right side, whether it stays in the current region (we will omit the symbol $\cdot$), moves through the membrane to the parent region ($\uparrow$)
+For the first two forms of the rules, each rewriting rule may specify for each object on the right side, whether it stays in the current region (we will omit the symbol $\cdot$), moves through the membrane to the parent region ($\uparrow$)
 or to a specific child region ($\downarrow_j$, where $j$ is a label of a membrane).
 We denote these transfers with an arrow immediately after the symbol.
 An example of such rule is the following: $ab\rightarrow ab\downarrow_2 c\uparrow c\delta$.
 
-By applying the rule we mean the removal of objects specified on the left side and the addition of the objects on the right side with respect to set union semantics.
+By applying the rule we mean the removal of objects specified on the left side and the addition of the objects on the right side, with respect to multiset operations for multiset P systems and with respect to set union semantics for set P systems.
 Symbol $\delta\notin\Sigma$ does not represent an object. It may be present only at the end of the rule, which means that after the application of the rule, the membrane is dissolved and its contents (objects, child membranes) are propagated to the parent membrane.
 
 Active P systems differ from classic (passive) P systems in ability to create new membranes by rules of the third form. Such rule will create new child membrane with a given label $j$ and a given set of objects $v$ as its contents. If there already is such a membrane, nothing happens. {\red TODO: Do we really need this sort of rule? I think the sending down in sufficient (i.e. if the target membrane we want to send objects to does not exists, one such is automatically created). When allowing multiple children with same label, this sort of rule was essential, but now it is useless. \color{magenta} EDIT: yeah, but our simulation would be overcomplicated then, having hard time detecting the innermost membrane}
