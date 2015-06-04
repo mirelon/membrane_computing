@@ -45,8 +45,7 @@
 
 \begin{abstract}
 We study variants of P systems that are working in the sequential mode. Basically, they are not computationally universal, but there are possible extensions that can increase the computation power. Extensions that implement a notion of zero-checking, are often computationally universal.
-P systems with an ability to create new membranes are a rare exception as they are known to be computationally universal even in the sequential mode without using a dedicated zero-check operation.
-{\red Using sets instead of multiset was inspired by Reaction systems.}
+P systems with an ability to create new membranes are a rare exception as they are known to be computationally universal even in the sequential mode without using a dedicated zero-check operation. Using sets instead of multiset was inspired by Reaction systems and we show how to use this relaxation in the context of active membranes.
 \end{abstract}
 
 \section{Introduction}
@@ -122,6 +121,9 @@ A configuration of a register machine is a tuple $(r_1, \ldots, r_m, ip)$, where
 
 % subsection register_machine (end)
 
+\subsection{Simple simulation} % (fold)
+\label{sub:simple_simulation}
+
 We define a bisimulation relation as follows:
 
 For a configuration of register machine $(r_1, r_2, ip)$ the membrane structure will consist of a skin membrane, a chain consisting of $r_1$ membranes embedded one into another like in a Matryoshka doll with label 1, a similar chain of $r_2$ membranes labeled 2. The two innermost membranes contain a single object $t_1$ or $t_2$. If $r_i = 0$ then $t_i$ is in the skin membrane. Label of the current instruction ($ip$) is in the skin membrane.
@@ -153,9 +155,44 @@ The simulation was quite straightforward. We proved that the model is computatio
   \end{itemize}
 \end{itemize}
 
+% subsection simple_simulation (end)
 
+\subsection{Optimalization of the simulation} % (fold)
+\label{sub:optimalization_of_the_simulation}
 
+In this subsection we address the inefficient usage of membranes. In the previous simulation, the number of membranes was linearly dependent on maximal value of the register value through the computation. This optimalization will show how to reduce it to logarithmic dependency.
 
+We define a bisimulation relation as follows:
+
+Assume configuration of register machine $(r_1, r_2, ip)$. Let $b_1b_2\ldots b_k$ be a binary representation of $r_1$ and $c_1c_2\ldots c_l$ be a binary representation of $r_2$. The membrane structure will consist of a skin membrane, a chain of $k$ membranes embedded one into another like in a Matryoshka doll with label 1, a similar chain of $l$ membranes labeled 2. The two innermost membranes (with label $i$) contain a single object $t_i$. The skin membrane contains the label of the current instruction $ip$. Other membranes (with label $i$) contains $s_i$.
+The membrane with label 1 and depth $d$ will contain $b_{k-d}$ and the membrane with label 2 and depth $d$ will contain $c_{l-d}$. So the highest-order position in the binary number is represented by the innermost membrane and the more-often incremented position is represented by the membrane closer to the skin membrane.
+
+We will have following rules in the skin membrane:
+\begin{itemize}
+  \item $u_j \rightarrow j$,
+  \item $j \rightarrow j\downarrow_{i}$ for instruction $j: op(i)$
+\end{itemize}
+
+For the membrane $i$ and instruction $j: add(i,k)$:
+\begin{itemize}
+  \item $j1 \rightarrow 0j\downarrow_{i}$ (we decremented lower position, so we must increment higher position (011 to 100, now at 1 to 0)),
+  \item $j0 \rightarrow 1u_k \uparrow$ (we incremented a position and can proceed to the next instruction),
+  \item $j1t \rightarrow [_i 1t]_i0su_k\uparrow$ (incrementing 111 to 1000)
+\end{itemize}
+
+For the membrane $i$ and instruction $j: sub(i,k,l)$:
+\begin{itemize}
+  \item $sj1 \rightarrow s0u_k \uparrow$ (we found position to decrement, proceed to the next instruction),
+  \item $j0 \rightarrow 1j\downarrow_i$ (1000 is decremented to 0111 and now we encountered a 0),
+  \item $tj1 \rightarrow tu_k \delta$ (decrementing the number of bits),
+  \item $tj0 \rightarrow tu_l \uparrow 0$ (trying to decrement a zero)
+\end{itemize}
+
+TODO: decrementing a single 1 should not dissolve the last membrane with label $i$.
+
+TODO: decrementing the number of bits should remove the $s$ in the second innermost membrane (The $t$ should replace it).
+
+% subsection optimalization_of_the_simulation (end)
 
 % section simulation_of_register_machine (end)
 
