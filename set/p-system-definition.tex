@@ -26,7 +26,7 @@ An example of such rule is the following: $ab\rightarrow ab\downarrow_2 c\uparro
 By applying the rule we mean the removal of objects specified on the left side and the addition of the objects on the right side with respect to set union semantics.
 Symbol $\delta\notin\Sigma$ does not represent an object. It may be present only at the end of the rule, which means that after the application of the rule, the membrane is dissolved and its contents (objects, child membranes) are propagated to the parent membrane.
 
-Active P systems differ from classic (passive) P systems in ability to create new membranes by rules of the third form. Such rule will create new child membrane with a given label $j$ and a given set of objects $v$ as its contents. If there already is such a membrane, nothing happens. {\red TODO: Do we really need this sort of rule? I think the sending down in sufficient (i.e. if the target membrane we want to send objects to does not exists, one such is automatically created). When allowing multiple children with same label, this sort of rule was essential, but now it is useless. \color{magenta} EDIT: yeah, but our simulation would be overcomplicated then, having hard time detecting the innermost membrane}
+Active P systems differ from classic (passive) P systems in ability to create new membranes by rules of the third form. Such rule will create new child membrane with a given label $j$ and a given set of objects $v$ as its contents. If current membrane already contains a child membrane with label $j$, then such rule is not applicable.
 
 % applicable rule definition
 
