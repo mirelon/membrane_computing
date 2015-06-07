@@ -157,10 +157,10 @@ The simulation was quite straightforward. We proved that the model is computatio
 
 In this subsection we address the inefficient usage of membranes in the previous simulation. New, optimized simulation will reduce it to logarithmic dependency.
 
-For a register machine with $m$ registers we will construct an active P system, where $\Sigma = \{0,1,s,t\}\cup\{x_j, y_j \text{~for instructions with label~} j\}$. Skin membrane will be labeled with $m+1$, other labels correspond to registers 1 to $m$.
+For a register machine with $m$ registers we will construct an active P system, where $\Sigma = \{0,1,p,s,t\}\cup\{x_j, y_j, z_j \text{~for instructions with label~} j\}$. Skin membrane will be labeled with $m+1$, other labels correspond to registers 1 to $m$.
 
 Assume configuration of register machine $(r_1, r_2, \ldots r_m, ip)$. For each register $i$, let $b_1b_2\ldots b_k$ be a binary representation of $r_i$. The skin membrane will contain a chain of $k$ membranes embedded one into another like in a Matryoshka doll with label $i$.
-The membrane in depth $d$ will contain the object $b_{k-d}$, which is either 0 or 1. So the highest-order position in the binary number is represented by the innermost membrane and more-often incremented positions are in membranes closer to the skin membrane. Moreover, the innermost membranes contain a single object $t$. The skin membrane contains the label of the current instruction $x_{ip}$. Other membranes (not skin and not innermost) contain $s$.
+The membrane in depth $d$ will contain the object $b_{k-d}$, which is either 0 or 1. So the highest-order position in the binary number is represented by the innermost membrane and more-often incremented positions are in membranes closer to the skin membrane. Moreover, the innermost membranes contain a single object $t$. The skin membrane contains the label of the current instruction $x_{ip}$. Other membranes (not skin and not innermost) contain $s$. Object $p$ will be in all membranes except the skin membrane and direct children of skin membrane. It represents the fact that the membrane can be dissolved, while keeping at least one membrane for binary representation of the register value.
 
 
 We will have following rules in the skin membrane:
@@ -169,37 +169,44 @@ We will have following rules in the skin membrane:
   \item $x_j \rightarrow x_j\downarrow_{i}$ for instruction $j: op(i)$
 \end{itemize}
 
+For the membrane $i$ and instruction $j$:
+\begin{itemize}
+  \item $y_j \rightarrow y_j \uparrow$ (return the next instruction to the skin membrane).
+\end{itemize}
+
 For the membrane $i$ and instruction $j: add(i,k)$:
 \begin{itemize}
   \item $x_j1 \rightarrow x_j\downarrow_{i}0$ (we decremented lower position, so we must increment higher position (011 to 100, now at 1 to 0)),
   \item $x_j0 \rightarrow y_k \uparrow 1$ (we incremented a position and can return and proceed to the next instruction),
-  \item $x_j1t \rightarrow [_i 1t]_iy_k\uparrow 0s$ (incrementing 111 to 1000)
+  \item $x_j1t \rightarrow [_i 1tp]_iy_k\uparrow 0s$ (incrementing 111 to 1000).
 \end{itemize}
 
 For the membrane $i$ and instruction $j: sub(i,k,l)$:
 \begin{itemize}
   \item $x_j1s \rightarrow y_k \uparrow 0s$ (we found position to decrement, proceed to the next instruction),
   \item $x_j0 \rightarrow x_j\downarrow_i 1$ (1000 is decremented to 0111 and now we encountered a 0),
-  \item $x_j1t \rightarrow y_kt \delta$ (decrementing the number of bits),
+  \item $x_j1tp \rightarrow z_kt \delta$ (decrementing the number of bits),
+  \item $z_jst \rightarrow y_jt$ (after decremented the number of bits, remove $s$ in the new highest-order position),
   \item $x_j0t \rightarrow y_l \uparrow 0t$ (trying to decrement a zero)
 \end{itemize}
 
-TODO: decrementing a single 1 should not dissolve the last membrane with label $i$.
+Could the simulation be optimized even more? Encoding the register value to a chain of membranes is not making full use of membrane structure.
 
-TODO: decrementing the number of bits should remove the $s$ in the second innermost membrane (The $t$ should replace it).
+% subsection optimalization_of_the_simulation (end)
 
-The simulation could be further improved in several ways:
+% section simulation_of_register_machine (end)
+
+\section{Modified membrane creation semantics} % (fold)
+\label{sec:modified_membrane_creation_semantics}
+
 \begin{itemize}
-  \item The number of membranes we use depends on the sum of values of registers. Could this be optimized? Similarly, the number of computational steps needed to simulate one instruction is huge. If the optimization is succesful, the next steps could be considering solving SAT in polynomial time (or perhaps in linear time when using membrane division instead of simple creation). We could make use of the membranes in more structured. As for now, we use only linear embedding.
   \item Could the simulation be done in a simple way if there is no rule for membrane creation? The only possible way to create membrane would be through sending objects into membrane which does not exist (as we mentioned in previous section).
   \begin{itemize}
     \item We could introduce an object $haschild$ instead of $t$ object which would mean the exact opposite. Then, the sending the instruction downwards would be performed using an object $haschild$ as a catalyst\footnote{I think I can prove that without this catalyst (relying only on the rules defined for membranes) the sending of instruction downward would always lead to an infinite membrane creation}. In the innermost membrane no such catalyst is present, so we can execute the corresponding membrane structure modification (create a new membrane of dissolve a membrane).
   \end{itemize}
 \end{itemize}
 
-% subsection optimalization_of_the_simulation (end)
-
-% section simulation_of_register_machine (end)
+% section modified_membrane_creation_semantics (end)
 
 \bibliography{set}
 
