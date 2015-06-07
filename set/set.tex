@@ -124,29 +124,71 @@ A configuration of a register machine is a tuple $(r_1, \ldots, r_m, ip)$, where
 \subsection{Simple simulation} % (fold)
 \label{sub:simple_simulation}
 
-We define a bisimulation relation as follows:
+For a register machine with $m$ registers we will construct an active P system, where $\Sigma = \{x_j, y_j \text{~for instructions with label~} j\}\cup\{t_i \text{~for each register ~}i\}$. Skin membrane will be labeled with $m+1$, other labels correspond to registers 1 to $m$.
 
-For a configuration of register machine $(r_1, r_2, ip)$ the membrane structure will consist of a skin membrane, a chain consisting of $r_1$ membranes embedded one into another like in a Matryoshka doll with label 1, a similar chain of $r_2$ membranes labeled 2. The two innermost membranes contain a single object $t_1$ or $t_2$. If $r_i = 0$ then $t_i$ is in the skin membrane. Label of the current instruction ($ip$) is in the skin membrane.
+For a configuration of register machine $(r_1, r_2, \ldots r_m, ip)$ the membrane structure will consist of a skin membrane, which will contain $m$ chains consisting of $r_i$ membranes embedded one into another like in a Matryoshka doll with label $i$. The innermost membranes will contain a single object $t_i$. If $r_i = 0$ then $t_i$ is in the skin membrane and there is no membrane with label $i$. Object representing the label of the current instruction ($x_{ip}$) is in the skin membrane.
 
 We will have following rules in the skin membrane:
 \begin{itemize}
-  \item $u_j \rightarrow j$,
-  \item $j \rightarrow j\downarrow_{i}$ for instruction $j: op(i)$,
-  \item $j, t_i \rightarrow [_1 u_k, t_i ]_1$ for instruction $j: (add(i), k, \_)$,
-  \item $j, t_i \rightarrow l$ for instruction $j: (sub(i), \_, l)$
+  \item $y_j \rightarrow x_j$,
+  \item $x_j \rightarrow x_j\downarrow_{i}$ for instruction $j: op(i)$,
+  \item $x_j, t_i \rightarrow [_1 y_k, t_i ]_1$ for instruction $j: (add(i), k, \_)$,
+  \item $x_j, t_i \rightarrow l$ for instruction $j: (sub(i), \_, l)$
 \end{itemize}
 
 For the membrane $i$:
 \begin{itemize}
-  \item $j \rightarrow j\downarrow_{i}$ for instruction $j: op(i)$,
-  \item $j, t_i \rightarrow [_1 u_k, t_i ]_1$ for instruction $j: (add(i), k, \_)$,
-  \item $u_j \rightarrow u_j\uparrow$ for instruction $j: (op(i), \_, \_)$,
-  \item $j, t_i \rightarrow u_k, t_i, \delta$ for instruction $j: (sub(i), k, l)$
+  \item $x_j \rightarrow x_j\downarrow_{i}$ for instruction $j: op(i)$,
+  \item $x_j, t_i \rightarrow [_1 y_k, t_i ]_1$ for instruction $j: (add(i), k, \_)$,
+  \item $y_j \rightarrow y_j\uparrow$ for instruction $j: (op(i), \_, \_)$,
+  \item $x_j, t_i \rightarrow y_k, t_i, \delta$ for instruction $j: (sub(i), k, l)$
 \end{itemize}
 
-If empty register halting is needed, we will consume $t_1$ and $t_2$ symbols with the label of a halting instruction in the skin membrane.
+Object $x_j$ represents the instruction currently executed. It is sent down the chain of membranes and in the innermost membrane the creation of new membrane or the dissolution is performed. Then the next instruction represented by object $y_j$ is sent upwards all the way to the skin membrane. The object $t_i$ is always present in the innermost membrane. The zero-test is implemented by rule in the skin membrane, which require the presence of $t_i$, meaning that the value of register $i$ is zero.  
 
-The simulation was quite straightforward. We proved that the model is computational complete. It could be improved in several ways:
+If empty register halting is needed, we will consume $t_i$ symbols with the label of a halting instruction in the skin membrane.
+
+The simulation was quite straightforward. We proved that the model is computational complete. However, the simulation is not very effective. It uses alphabet of size $2 * \text{number of instructions} + \text{number of registers}$. And its number of membranes is linearly dependent on sum of values of registers. The time needed for executing an instruction on register $i$ is linearly dependent on $r_i$.
+
+% subsection simple_simulation (end)
+
+\subsection{Optimalization of the simulation} % (fold)
+\label{sub:optimalization_of_the_simulation}
+
+In this subsection we address the inefficient usage of membranes in the previous simulation. New, optimized simulation will reduce it to logarithmic dependency.
+
+For a register machine with $m$ registers we will construct an active P system, where $\Sigma = \{0,1,s,t\}\cup\{x_j, y_j \text{~for instructions with label~} j\}$. Skin membrane will be labeled with $m+1$, other labels correspond to registers 1 to $m$.
+
+Assume configuration of register machine $(r_1, r_2, \ldots r_m, ip)$. For each register $i$, let $b_1b_2\ldots b_k$ be a binary representation of $r_i$. The skin membrane will contain a chain of $k$ membranes embedded one into another like in a Matryoshka doll with label $i$.
+The membrane in depth $d$ will contain the object $b_{k-d}$, which is either 0 or 1. So the highest-order position in the binary number is represented by the innermost membrane and more-often incremented positions are in membranes closer to the skin membrane. Moreover, the innermost membranes contain a single object $t$. The skin membrane contains the label of the current instruction $x_{ip}$. Other membranes (not skin and not innermost) contain $s$.
+
+
+We will have following rules in the skin membrane:
+\begin{itemize}
+  \item $y_j \rightarrow x_j$,
+  \item $x_j \rightarrow x_j\downarrow_{i}$ for instruction $j: op(i)$
+\end{itemize}
+
+For the membrane $i$ and instruction $j: add(i,k)$:
+\begin{itemize}
+  \item $x_j1 \rightarrow x_j\downarrow_{i}0$ (we decremented lower position, so we must increment higher position (011 to 100, now at 1 to 0)),
+  \item $x_j0 \rightarrow y_k \uparrow 1$ (we incremented a position and can return and proceed to the next instruction),
+  \item $x_j1t \rightarrow [_i 1t]_iy_k\uparrow 0s$ (incrementing 111 to 1000)
+\end{itemize}
+
+For the membrane $i$ and instruction $j: sub(i,k,l)$:
+\begin{itemize}
+  \item $x_j1s \rightarrow y_k \uparrow 0s$ (we found position to decrement, proceed to the next instruction),
+  \item $x_j0 \rightarrow x_j\downarrow_i 1$ (1000 is decremented to 0111 and now we encountered a 0),
+  \item $x_j1t \rightarrow y_kt \delta$ (decrementing the number of bits),
+  \item $x_j0t \rightarrow y_l \uparrow 0t$ (trying to decrement a zero)
+\end{itemize}
+
+TODO: decrementing a single 1 should not dissolve the last membrane with label $i$.
+
+TODO: decrementing the number of bits should remove the $s$ in the second innermost membrane (The $t$ should replace it).
+
+The simulation could be further improved in several ways:
 \begin{itemize}
   \item The number of membranes we use depends on the sum of values of registers. Could this be optimized? Similarly, the number of computational steps needed to simulate one instruction is huge. If the optimization is succesful, the next steps could be considering solving SAT in polynomial time (or perhaps in linear time when using membrane division instead of simple creation). We could make use of the membranes in more structured. As for now, we use only linear embedding.
   \item Could the simulation be done in a simple way if there is no rule for membrane creation? The only possible way to create membrane would be through sending objects into membrane which does not exist (as we mentioned in previous section).
@@ -154,43 +196,6 @@ The simulation was quite straightforward. We proved that the model is computatio
     \item We could introduce an object $haschild$ instead of $t$ object which would mean the exact opposite. Then, the sending the instruction downwards would be performed using an object $haschild$ as a catalyst\footnote{I think I can prove that without this catalyst (relying only on the rules defined for membranes) the sending of instruction downward would always lead to an infinite membrane creation}. In the innermost membrane no such catalyst is present, so we can execute the corresponding membrane structure modification (create a new membrane of dissolve a membrane).
   \end{itemize}
 \end{itemize}
-
-% subsection simple_simulation (end)
-
-\subsection{Optimalization of the simulation} % (fold)
-\label{sub:optimalization_of_the_simulation}
-
-In this subsection we address the inefficient usage of membranes. In the previous simulation, the number of membranes was linearly dependent on maximal value of the register value through the computation. This optimalization will show how to reduce it to logarithmic dependency.
-
-We define a bisimulation relation as follows:
-
-Assume configuration of register machine $(r_1, r_2, ip)$. Let $b_1b_2\ldots b_k$ be a binary representation of $r_1$ and $c_1c_2\ldots c_l$ be a binary representation of $r_2$. The membrane structure will consist of a skin membrane, a chain of $k$ membranes embedded one into another like in a Matryoshka doll with label 1, a similar chain of $l$ membranes labeled 2. The two innermost membranes (with label $i$) contain a single object $t_i$. The skin membrane contains the label of the current instruction $ip$. Other membranes (with label $i$) contains $s_i$.
-The membrane with label 1 and depth $d$ will contain $b_{k-d}$ and the membrane with label 2 and depth $d$ will contain $c_{l-d}$. So the highest-order position in the binary number is represented by the innermost membrane and the more-often incremented position is represented by the membrane closer to the skin membrane.
-
-We will have following rules in the skin membrane:
-\begin{itemize}
-  \item $u_j \rightarrow j$,
-  \item $j \rightarrow j\downarrow_{i}$ for instruction $j: op(i)$
-\end{itemize}
-
-For the membrane $i$ and instruction $j: add(i,k)$:
-\begin{itemize}
-  \item $j1 \rightarrow 0j\downarrow_{i}$ (we decremented lower position, so we must increment higher position (011 to 100, now at 1 to 0)),
-  \item $j0 \rightarrow 1u_k \uparrow$ (we incremented a position and can proceed to the next instruction),
-  \item $j1t \rightarrow [_i 1t]_i0su_k\uparrow$ (incrementing 111 to 1000)
-\end{itemize}
-
-For the membrane $i$ and instruction $j: sub(i,k,l)$:
-\begin{itemize}
-  \item $sj1 \rightarrow s0u_k \uparrow$ (we found position to decrement, proceed to the next instruction),
-  \item $j0 \rightarrow 1j\downarrow_i$ (1000 is decremented to 0111 and now we encountered a 0),
-  \item $tj1 \rightarrow tu_k \delta$ (decrementing the number of bits),
-  \item $tj0 \rightarrow tu_l \uparrow 0$ (trying to decrement a zero)
-\end{itemize}
-
-TODO: decrementing a single 1 should not dissolve the last membrane with label $i$.
-
-TODO: decrementing the number of bits should remove the $s$ in the second innermost membrane (The $t$ should replace it).
 
 % subsection optimalization_of_the_simulation (end)
 
