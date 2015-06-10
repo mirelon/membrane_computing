@@ -26,6 +26,7 @@
 
 \def\eps{\varepsilon}
 \def\red{\color{red}}
+\def\green{\color{green}}
 \def\goodgap{\hspace{\subfigcapskip}}
 \renewcommand\refname{References}
 
@@ -198,8 +199,6 @@ Catalan pairing function (TODO: need cite) orders full binary trees by the numbe
 
 % subsection further_optimizations (end)
 
-
-
 % subsection optimalization_of_the_simulation (end)
 
 % section simulation_of_register_machine (end)
@@ -207,12 +206,15 @@ Catalan pairing function (TODO: need cite) orders full binary trees by the numbe
 \section{Modified membrane creation semantics} % (fold)
 \label{sec:modified_membrane_creation_semantics}
 
-\begin{itemize}
-  \item Could the simulation be done in a simple way if there is no rule for membrane creation? The only possible way to create membrane would be through sending objects into membrane which does not exist (as we mentioned in previous section).
-  \begin{itemize}
-    \item We could introduce an object $haschild$ instead of $t$ object which would mean the exact opposite. Then, the sending the instruction downwards would be performed using an object $haschild$ as a catalyst\footnote{I think I can prove that without this catalyst (relying only on the rules defined for membranes) the sending of instruction downward would always lead to an infinite membrane creation}. In the innermost membrane no such catalyst is present, so we can execute the corresponding membrane structure modification (create a new membrane of dissolve a membrane).
-  \end{itemize}
-\end{itemize}
+In this section we will investigate the effect of other semantics of membrane creation. The previous semantics assumed an explicit membrane creation rule. If the current membrane already contains child membrane with the same label as the membrane going to be created, then the rule is not applicable, hence the membrane creation is aborted. Similar behavior is in the definition of sending objects to the child membrane. If such membrane does not exist, objects cannot be sent and the rule is not applicable.
+
+These two behaviors are in fact complementary. It seems natural to join these two artificial rule abortions and provide a rule that will always be applicable if the precondition of left side inclusion is fulfilled. Therefore we will have no explicit membrane creation rule. Any rule which is sending some objects to child membrane labeled $j$ will create child membrane $j$ if it does not exist.
+
+TODO: example needed (with picture?)
+
+We will now show how the computational completeness of this variant of membrane creation is achieved by simulating the register machine.
+
+{\green We could introduce an object $haschild$ instead of $t$ object which would mean the exact opposite. Then, the sending the instruction downwards would be performed using an object $haschild$ as a catalyst\footnote{I think I can prove that without this catalyst (relying only on the rules defined for membranes) the sending of instruction downward would always lead to an infinite membrane creation}. In the innermost membrane no such catalyst is present, so we can execute the corresponding membrane structure modification (create a new membrane of dissolve a membrane).}
 
 % section modified_membrane_creation_semantics (end)
 
