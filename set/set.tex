@@ -223,9 +223,7 @@ For an active P system $(\Sigma, C_0, R_1, R_2, \dots , R_m)$, configuration $C 
 \end{itemize}
 TODO: example needed (with picture?)
 
-We will now show how the computational completeness of this variant of membrane creation is achieved by simulating the register machine.
-
-{\green We could introduce an object $haschild$ instead of $t$ object which would mean the exact opposite. Then, the sending the instruction downwards would be performed using an object $haschild$ as a catalyst\footnote{I think I can prove that without this catalyst (relying only on the rules defined for membranes) the sending of instruction downward would always lead to an infinite membrane creation}. In the innermost membrane no such catalyst is present, so we can execute the corresponding membrane structure modification (create a new membrane of dissolve a membrane).}
+We will now show how the computational completeness of this variant of membrane creation is achieved by simulating the register machine. The simulation is essentially the same as in section \ref{sub:optimalization_of_the_simulation}. All the rules which are sending objects into a child membrane are already assuming that the child membrane already exists. The only difference is in the rule for membrane creation: $x_j1t \rightarrow [_i 1tp]_iy_k\uparrow 0s$. This rules is applied always in the innermost membrane with no child membranes. Modified simulation will therefore use rule $x_j1t \rightarrow 1\downarrow_i t\downarrow_i p\downarrow_i y_k\uparrow 0s$, which, when applied, creates a child membrane $i$, because no such child membrane exists.
 
 % section modified_membrane_creation_semantics (end)
 
