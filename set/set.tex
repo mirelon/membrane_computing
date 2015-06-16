@@ -210,6 +210,17 @@ In this section we will investigate the effect of other semantics of membrane cr
 
 These two behaviors are in fact complementary. It seems natural to join these two artificial rule abortions and provide a rule that will always be applicable if the precondition of left side inclusion is fulfilled. Therefore we will have no explicit membrane creation rule. Any rule which is sending some objects to child membrane labeled $j$ will create child membrane $j$ if it does not exist.
 
+Formally, rules can be of form:
+\begin{itemize}
+  \item $u\rightarrow w$, where $u\subseteq \Sigma$, $|u|\geq 1$, $w\subseteq (\Sigma\times\{\cdot, \uparrow, \downarrow_j\})$ and $1\leq j\leq m$,
+  \item a dissolving rule $u\rightarrow w\delta$, where $u\subseteq \Sigma$, $|u|\geq 1$, $w\subseteq (\Sigma\times\{\cdot, \uparrow, \downarrow_j\})$ and $1\leq j\leq m$.
+\end{itemize}
+
+For an active P system $(\Sigma, C_0, R_1, R_2, \dots , R_m)$, configuration $C = (T, l, c)$, membrane $d\in V(T)$ the rule $r\in R_{l(d)}$ is {\bf applicable} iff:
+\begin{itemize}
+  \item $r = u\rightarrow w$ and $u\subseteq c(d)$,
+  \item $r = u\rightarrow w\delta$ and $u\subseteq c(d)$ and $d\neq r_T$.
+\end{itemize}
 TODO: example needed (with picture?)
 
 We will now show how the computational completeness of this variant of membrane creation is achieved by simulating the register machine.
