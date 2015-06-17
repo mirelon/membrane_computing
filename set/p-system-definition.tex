@@ -14,7 +14,7 @@ An {\bf active P system} is a tuple $(\Sigma, C_0, R_1, R_2, \dots , R_m)$, wher
   \begin{itemize}
     \item $u\rightarrow w$, where $u\subseteq \Sigma$, $|u|\geq 1$, $w\subseteq (\Sigma\times\{\cdot, \uparrow, \downarrow_j\})$ and $1\leq j\leq m$,
     \item a dissolving rule $u\rightarrow w\delta$, where $u\subseteq \Sigma$, $|u|\geq 1$, $w\subseteq (\Sigma\times\{\cdot, \uparrow, \downarrow_j\})$ and $1\leq j\leq m$,
-    \item a membrane creation $u\rightarrow [_j v]_j$, where $u\subseteq \Sigma$, $|u|\geq 1$, $v\subseteq \Sigma$ and $1\leq j\leq m$.
+    \item a membrane creation $u\rightarrow [_j v_1]_j v_2$, where $u\subseteq \Sigma$, $|u|\geq 1$, $v_1, v_2\subseteq \Sigma$ and $1\leq j\leq m$.
   \end{itemize}
 \end{itemize}
 
@@ -26,7 +26,7 @@ An example of such rule is the following: $ab\rightarrow ab\downarrow_2 c\uparro
 By applying the rule we mean the removal of objects specified on the left side and the addition of the objects on the right side with respect to set union semantics.
 Symbol $\delta\notin\Sigma$ does not represent an object. It may be present only at the end of the rule, which means that after the application of the rule, the membrane is dissolved and its contents (objects, child membranes) are propagated to the parent membrane.
 
-Active P systems differ from classic (passive) P systems in ability to create new membranes by rules of the third form. Such rule will create new child membrane with a given label $j$ and a given set of objects $v$ as its contents. If current membrane already contains a child membrane with label $j$, then such rule is not applicable.
+Active P systems differ from classic (passive) P systems in ability to create new membranes by rules of the third form. Such rule will create new child membrane with a given label $j$ and a given set of objects $v_1$ as its contents, while the set $v_2$ is the set of products that stays in the current membrane. If the current membrane already contains a child membrane with label $j$, then such rule is not applicable.
 
 % applicable rule definition
 
@@ -34,7 +34,7 @@ For an active P system $(\Sigma, C_0, R_1, R_2, \dots , R_m)$, configuration $C 
 \begin{itemize}
   \item $r = u\rightarrow w$ and $u\subseteq c(d)$ and for all $(a,\downarrow_k)\in w$ there exists $d_2\in V(T)$ such that $l(d_2)=k \wedge parent(d_2) = d$,
   \item $r = u\rightarrow w\delta$ and $u\subseteq c(d)$ and for all $(a,\downarrow_k)\in w$ there exists $d_2\in V(T)$ such that $l(d_2)=k \wedge parent(d_2) = d$ and $d\neq r_T$,
-  \item $r = u\rightarrow [_j v]_j$ and $u\subseteq c(d)$.
+  \item $r = u\rightarrow [_j v_1]_j v_2$ and $u\subseteq c(d)$.
 \end{itemize}
 
 In this paper we assume only sequential systems, so in each step of the computation, there is one rule nondeterministically chosen among all applicable rules in all membranes to be applied.

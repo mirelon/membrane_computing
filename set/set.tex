@@ -208,7 +208,12 @@ Catalan pairing function \cite{Stanley1986EnumerativeCombinatorics} orders full 
 
 In this section we will investigate the effect of other semantics of membrane creation. The previous semantics assumed an explicit membrane creation rule. If the current membrane already contains child membrane with the same label as the membrane going to be created, then the rule is not applicable, hence the membrane creation is aborted. Similar behavior is in the definition of sending objects to the child membrane. If such membrane does not exist, objects cannot be sent and the rule is not applicable.
 
-These two behaviors are in fact complementary. It seems natural to join these two artificial rule abortions and provide a rule that will always be applicable if the precondition of left side inclusion is fulfilled. Therefore we will have no explicit membrane creation rule. Any rule which is sending some objects to child membrane labeled $j$ will create child membrane $j$ if it does not exist.
+These two behaviors are in fact complementary. It seems natural to join these two artificial rule abortions and provide a rule that will always be applicable if the precondition of left side inclusion is fulfilled.
+
+\subsection{Semantics inject-or-create} % (fold)
+\label{sub:semantics_inject_or_create}
+
+Therefore we will have no explicit membrane creation rule. Any rule which is sending some objects to child membrane labeled $j$ will create child membrane $j$ if it does not exist.
 
 Formally, rules can be of form:
 \begin{itemize}
@@ -224,6 +229,15 @@ For an active P system $(\Sigma, C_0, R_1, R_2, \dots , R_m)$, configuration $C 
 TODO: example needed (with picture?)
 
 We will now show how the computational completeness of this variant of membrane creation is achieved by simulating the register machine. The simulation is essentially the same as in section \ref{sub:optimalization_of_the_simulation}. All the rules which are sending objects into a child membrane are already assuming that the child membrane already exists. The only difference is in the rule for membrane creation: $x_j1t \rightarrow [_i 1tp]_iy_k\uparrow 0s$. This rules is applied always in the innermost membrane with no child membranes. Modified simulation will therefore use rule $x_j1t \rightarrow 1\downarrow_i t\downarrow_i p\downarrow_i y_k\uparrow 0s$, which, when applied, creates a child membrane $i$, because no such child membrane exists.
+
+% subsection semantics_inject_or_create (end)
+
+\subsection{Semantics wrap-or-create} % (fold)
+\label{sub:semantics_wrap_or_create}
+
+In this variant we stick with explicit membrane creation rule, but when the membrane with the same label is already contained in the current membrane, the rule remains applicable and the child membrane will be wrapped by a new membrane with the given contents. For example, applying the rule $a \rightarrow [_2 b ]_2 c$ in the membrane 1 of membrane structure $[_1 a [_2 d ]_2 ]_1$ would result in $[_1 c [_2 b [_2 d ]_2 ]_2 ]_1$.
+
+% subsection semantics_wrap_or_create (end)
 
 % section modified_membrane_creation_semantics (end)
 
