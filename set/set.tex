@@ -237,6 +237,27 @@ We will now show how the computational completeness of this variant of membrane 
 
 In this variant we stick with explicit membrane creation rule, but when the membrane with the same label is already contained in the current membrane, the rule remains applicable and the child membrane will be wrapped by a new membrane with the given contents. For example, applying the rule $a \rightarrow [_2 b ]_2 c$ in the membrane 1 of membrane structure $[_1 a [_2 d ]_2 ]_1$ would result in $[_1 c [_2 b [_2 d ]_2 ]_2 ]_1$.
 
+Again, we will show how to simulate the register machine. The simulation will be similar to the one defined in subsection \ref{sub:simple_simulation}, but with additional control objects similar to the second simulation \ref{sub:optimalization_of_the_simulation}.
+
+For a register machine with $m$ registers we will construct an active P system $(\Sigma, C_0, R_1, \ldots R_{m+1})$, where $$\Sigma = \{x_j \text{~for instructions with label~} j\}\cup\{t_i, s_i \text{~for each register ~}i\}$$. Skin membrane will be labeled with $m+1$, other labels correspond to registers 1 to $m$. $C_0$ will be the input word for the register machine encoded into a membrane structure by the following encoding: 
+
+For a configuration of register machine $(r_1, r_2, \ldots r_m, ip)$ the membrane structure will consist of a skin membrane, which will contain $m$ chains consisting of $r_i$ membranes embedded one into another like in a Matryoshka doll with label $i$. Membranes with a child labeled $i$ will contain a single object $s_i$. If the membrane has no child labeled $i$, it contains an object $t_i$. If $r_i = 0$ then $t_i$ is in the skin membrane and there is no membrane with label $i$. Object representing the label of the current instruction ($x_{ip}$) is in the skin membrane.
+
+We will have following rules in the skin membrane:
+\begin{itemize}
+  \item $x_j s_i\rightarrow [_i s_i ]_i s_i x_k$ for instruction $j: (add(i), k, \_)$,
+  \item $x_j t_i\rightarrow [_i t_i ]_i s_i x_k$ for instruction $j: (add(i), k, \_)$,
+  \item $x_j t_i\rightarrow x_l t_i$ for instruction $j: (sub(i), k, l)$,
+  \item $x_j s_i\rightarrow x_j\downarrow_i$ for instruction $j: (sub(i), k, l)$,
+\end{itemize}
+
+For the membrane $i$:
+\begin{itemize}
+  \item $x_j \rightarrow x_k\delta$
+\end{itemize}
+
+For every $add$ instruction there is just one rule applied in the simulation and for each $sub$ instruction there is one or two instructions, depending on the register value. If $r_i>0$ then the instruction enters the membrane labeled $i$ and dissolves it, decreasing the number of stacked membranes with label $i$.
+
 % subsection semantics_wrap_or_create (end)
 
 % section modified_membrane_creation_semantics (end)
