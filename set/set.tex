@@ -45,8 +45,8 @@
 \maketitle
 
 \begin{abstract}
-We study variants of P systems that are working in the sequential mode. Basically, they are not computationally universal, but there are possible extensions that can increase the computation power. Extensions that implement a notion of zero-checking, are often computationally universal.
-P systems with an ability to create new membranes are a rare exception as they are known to be computationally universal even in the sequential mode without using a dedicated zero-check operation. Using sets instead of multiset was inspired by Reaction systems and we show how to use this relaxation in the context of active membranes.
+We study variants of P systems that are working in the sequential mode. Basically, they are not computationally complete, but there are possible extensions that can increase the computation power. Extensions that implement a notion of zero-checking, are often computationally complete.
+P systems with an ability to create new membranes are a rare exception as they are known to be computationally complete even in the sequential mode without using a dedicated zero-check operation. Using sets instead of multiset was inspired by Reaction systems and we show how to use this relaxation in the context of active membranes.
 \end{abstract}
 
 \section{Introduction}
@@ -55,7 +55,7 @@ P systems with an ability to create new membranes are a rare exception as they a
 % Bio motivation
 
 Membrane systems (P systems) \cite{Paun10OxfordHandbookMembraneComputing} were introduced by P\u{a}un (see \cite{Paun2000108}) as distributed parallel computing devices inspired by the structure and functionality of cells. Starting from the observation that there is an obvious parallelism in the cell biochemistry and relying on the assumption that ``if we wait enough, then all reactions which may take place will take place'', a feature of the P systems is given by the maximal parallel way of using the rules. For various reasons ranging from looking for more realistic models to just more mathematical challenge, the maximal parallelism was questioned, either simply criticized, or replaced with presumably less restrictive assumptions.
-In some cases, a sequential model may be a more reasonable assumption. In sequential P systems, only one rewriting rule is used in each step of computation. Without priorities, they are equivalent to Petri nets \cite{Ibarra05Active}, hence not computationally universal. However priorities, inhibitors and other modifications can increase the computation power. It seems that there is a link between universality and ability to zero-check \cite{Alhazov12Properties}.
+In some cases, a sequential model may be a more reasonable assumption. In sequential P systems, only one rewriting rule is used in each step of computation. Without priorities, they are equivalent to Petri nets \cite{Ibarra05Active}, hence not computationally complete. However priorities, inhibitors and other modifications can increase the computation power. It seems that there is a link between universality and ability to zero-check \cite{Alhazov12Properties}.
 
 \section{Preliminaries}
 \label{sec:preliminaries}
@@ -77,7 +77,7 @@ We will denote the set of nodes of $T$ by $V(T)$ and set of its edges by $E(T)$.
 Let $T_1, T_2$ be rooted trees. A bijection $f: V(T_1)\rightarrow V(T_2)$ is an {\bf isomorphism} iff $\{(f(u),f(v))|(u,v)\in E(T_1)\} = E(T_2)$ and $f(r_{T_1}) = r_{T_2}$. 
 
   
-\section{Active P systems}
+\section{Active set P systems}
 \label{sec:p systems}
 
 % Membrane structure
@@ -87,7 +87,7 @@ The membrane structure can be also viewed as a rooted tree with the skin membran
 
 A P system consists of a membrane structure, where each membrane is labeled with a number from 1 to $m$. Each membrane contains a set of objects. Objects can be transformed into other objects and sent through a membrane according to given rules defined for membrane labels. The rules are known from the beginning for each possible membrane, even for the ones that do not exist yet, or the ones that will never exist.
 
-In this paper we work with P systems with active membranes (Active P systems). The rules can modify the membrane structure by dissolving and creating new membranes. That is why we will define the configuration to include the membrane structure as well.
+In this paper we work with P systems with active membranes working on sets (Active set P systems). The rules can modify the membrane structure by dissolving and creating new membranes. That is why we will define the configuration to include the membrane structure as well.
 
 % P system
 
@@ -125,7 +125,7 @@ A configuration of a register machine is a tuple $(r_1, \ldots, r_m, ip)$, where
 \subsection{Simple simulation} % (fold)
 \label{sub:simple_simulation}
 
-For a register machine with $m$ registers we will construct an active P system $(\Sigma, C_0, R_1, \ldots R_{m+1})$, where $\Sigma = \{x_j, y_j \text{~for instructions with label~} j\}\cup\{t_i \text{~for each register ~}i\}$. Skin membrane will be labeled with $m+1$, other labels correspond to registers 1 to $m$. $C_0$ will be the input word for the register machine encoded into a membrane structure by the following encoding: 
+For a register machine with $m$ registers we will construct an active set P system $(\Sigma, C_0, R_1, \ldots R_{m+1})$, where $\Sigma = \{x_j, y_j \text{~for instructions with label~} j\}\cup\{t_i \text{~for each register ~}i\}$. Skin membrane will be labeled with $m+1$, other labels correspond to registers 1 to $m$. $C_0$ will be the input word for the register machine encoded into a membrane structure by the following encoding: 
 
 For a configuration of register machine $(r_1, r_2, \ldots r_m, ip)$ the membrane structure will consist of a skin membrane, which will contain $m$ chains consisting of $r_i$ membranes embedded one into another like in a Matryoshka doll with label $i$. The innermost membranes will contain a single object $t_i$. If $r_i = 0$ then $t_i$ is in the skin membrane and there is no membrane with label $i$. Object representing the label of the current instruction ($x_{ip}$) is in the skin membrane.
 
@@ -149,6 +149,14 @@ Object $x_j$ represents the instruction currently executed. It is sent down the 
 
 If empty register halting is needed, we will consume $t_i$ symbols with the label of a halting instruction in the skin membrane.
 
+\begin{theorem}
+  Active set P systems are computationally complete.
+\end{theorem}
+
+\begin{proof}
+  Computational completeness is proved by a direct simulation of a register machine, which is also computationally complete. \qed
+\end{proof}
+
 The simulation was quite straightforward. We proved that the model is computational complete. However, the simulation is not very effective. It uses alphabet of size $2 * \text{number of instructions} + \text{number of registers}$. And its number of membranes is linearly dependent on sum of values of registers. The time needed for executing an instruction on register $i$ is linearly dependent on $r_i$.
 
 % subsection simple_simulation (end)
@@ -158,7 +166,7 @@ The simulation was quite straightforward. We proved that the model is computatio
 
 In this subsection we address the inefficient usage of membranes in the previous simulation. New, optimized simulation will reduce it to logarithmic dependency.
 
-For a register machine with $m$ registers we will construct an active P system, where $\Sigma = \{0,1,p,s,t\}\cup\{x_j, y_j, z_j \text{~for instructions with label~} j\}$. Skin membrane will be labeled with $m+1$, other labels correspond to registers 1 to $m$.
+For a register machine with $m$ registers we will construct an active set P system, where $\Sigma = \{0,1,p,s,t\}\cup\{x_j, y_j, z_j \text{~for instructions with label~} j\}$. Skin membrane will be labeled with $m+1$, other labels correspond to registers 1 to $m$.
 
 Assume configuration of register machine $(r_1, r_2, \ldots r_m, ip)$. For each register $i$, let $b_1b_2\ldots b_k$ be a binary representation of $r_i$. The skin membrane will contain a chain of $k$ membranes embedded one into another like in a Matryoshka doll with label $i$.
 The membrane in depth $d$ will contain the object $b_{k-d}$, which is either 0 or 1. So the highest-order position in the binary number is represented by the innermost membrane and more-often incremented positions are in membranes closer to the skin membrane. Moreover, the innermost membranes contain a single object $t$. The skin membrane contains the label of the current instruction $x_{ip}$. Other membranes (not skin and not innermost) contain $s$. Object $p$ will be in all membranes except the skin membrane and direct children of skin membrane. It represents the fact that the membrane can be dissolved, while keeping at least one membrane for binary representation of the register value.
@@ -194,7 +202,7 @@ For the membrane $i$ and instruction $j: sub(i,k,l)$:
 \subsection{Further optimizations} % (fold)
 \label{sub:further_optimizations}
 
-Could the simulation be optimized even more? Encoding the register value to a chain of membranes is not making full use of membrane structure. There are many options how to efficiently represent an integer by a tree. For efficient implementation of the increment and decrement instructions we need an encoding with a property that a local change in value of the encoding of the entire tree corresponds to a local change in value of the encodings of its child subtrees. Stein in 1999 \cite{Stein99Plowing} proposed a boustrophedonic variant of Cantor pairing function. The implementation of an active P system simulating a register machine using this pairing function to encode child subtrees would be quite easy, but we would stick to the logarithmic time in the worst case (diagonal of the pairing function).
+Could the simulation be optimized even more? Encoding the register value to a chain of membranes is not making full use of membrane structure. There are many options how to efficiently represent an integer by a tree. For efficient implementation of the increment and decrement instructions we need an encoding with a property that a local change in value of the encoding of the entire tree corresponds to a local change in value of the encodings of its child subtrees. Stein in 1999 \cite{Stein99Plowing} proposed a boustrophedonic variant of Cantor pairing function. The implementation of an active set P system simulating a register machine using this pairing function to encode child subtrees would be quite easy, but we would stick to the logarithmic time in the worst case (diagonal of the pairing function).
 Catalan pairing function \cite{Stanley1986EnumerativeCombinatorics} orders full binary trees by the number of nodes. The time would be logarithmic with a base 4, which is a slight improvement, but asymptotically still the same.
 
 % subsection further_optimizations (end)
@@ -221,7 +229,7 @@ Formally, rules can be of form:
   \item a dissolving rule $u\rightarrow w\delta$, where $u\subseteq \Sigma$, $|u|\geq 1$, $w\subseteq (\Sigma\times\{\cdot, \uparrow, \downarrow_j\})$ and $1\leq j\leq m$.
 \end{itemize}
 
-For an active P system $(\Sigma, C_0, R_1, R_2, \dots , R_m)$, configuration $C = (T, l, c)$, membrane $d\in V(T)$ the rule $r\in R_{l(d)}$ is {\bf applicable} iff:
+For an active set P system $(\Sigma, C_0, R_1, R_2, \dots , R_m)$, configuration $C = (T, l, c)$, membrane $d\in V(T)$ the rule $r\in R_{l(d)}$ is {\bf applicable} iff:
 \begin{itemize}
   \item $r = u\rightarrow w$ and $u\subseteq c(d)$,
   \item $r = u\rightarrow w\delta$ and $u\subseteq c(d)$ and $d\neq r_T$.
@@ -229,6 +237,14 @@ For an active P system $(\Sigma, C_0, R_1, R_2, \dots , R_m)$, configuration $C 
 TODO: example needed (with picture?)
 
 We will now show how the computational completeness of this variant of membrane creation is achieved by simulating the register machine. The simulation is essentially the same as in section \ref{sub:optimalization_of_the_simulation}. All the rules which are sending objects into a child membrane are already assuming that the child membrane already exists. The only difference is in the rule for membrane creation: $x_j1t \rightarrow [_i 1tp]_iy_k\uparrow 0s$. This rules is applied always in the innermost membrane with no child membranes. Modified simulation will therefore use rule $x_j1t \rightarrow 1\downarrow_i t\downarrow_i p\downarrow_i y_k\uparrow 0s$, which, when applied, creates a child membrane $i$, because no such child membrane exists.
+
+\begin{theorem}
+  Active set P systems with inject-or-create semantics are computationally complete.
+\end{theorem}
+
+\begin{proof}
+  Computational completeness is proved by a direct simulation of a register machine, which is also computationally complete. \qed
+\end{proof}
 
 % subsection semantics_inject_or_create (end)
 
@@ -239,7 +255,7 @@ In this variant we stick with explicit membrane creation rule, but when the memb
 
 Again, we will show how to simulate the register machine. The simulation will be similar to the one defined in subsection \ref{sub:simple_simulation}, but with additional control objects similar to the second simulation \ref{sub:optimalization_of_the_simulation}.
 
-For a register machine with $m$ registers we will construct an active P system $(\Sigma, C_0, R_1, \ldots R_{m+1})$, where $$\Sigma = \{x_j \text{~for instructions with label~} j\}\cup\{t_i, s_i \text{~for each register ~}i\}$$. Skin membrane will be labeled with $m+1$, other labels correspond to registers 1 to $m$. $C_0$ will be the input word for the register machine encoded into a membrane structure by the following encoding: 
+For a register machine with $m$ registers we will construct an active set P system $(\Sigma, C_0, R_1, \ldots R_{m+1})$, where $$\Sigma = \{x_j \text{~for instructions with label~} j\}\cup\{t_i, s_i \text{~for each register ~}i\}$$. Skin membrane will be labeled with $m+1$, other labels correspond to registers 1 to $m$. $C_0$ will be the input word for the register machine encoded into a membrane structure by the following encoding: 
 
 For a configuration of register machine $(r_1, r_2, \ldots r_m, ip)$ the membrane structure will consist of a skin membrane, which will contain $m$ chains consisting of $r_i$ membranes embedded one into another like in a Matryoshka doll with label $i$. Membranes with a child labeled $i$ will contain a single object $s_i$. If the membrane has no child labeled $i$, it contains an object $t_i$. If $r_i = 0$ then $t_i$ is in the skin membrane and there is no membrane with label $i$. Object representing the label of the current instruction ($x_{ip}$) is in the skin membrane.
 
@@ -257,6 +273,14 @@ For the membrane $i$:
 \end{itemize}
 
 For every $add$ instruction there is just one rule applied in the simulation and for each $sub$ instruction there is one or two instructions, depending on the register value. If $r_i>0$ then the instruction enters the membrane labeled $i$ and dissolves it, decreasing the number of stacked membranes with label $i$.
+
+\begin{theorem}
+  Active set P systems with wrap-or-create semantics are computationally complete.
+\end{theorem}
+
+\begin{proof}
+  Computational completeness is proved by a direct simulation of a register machine, which is also computationally complete. \qed
+\end{proof}
 
 % subsection semantics_wrap_or_create (end)
 
