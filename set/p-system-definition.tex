@@ -6,10 +6,12 @@ Let $\Sigma$ be a set of objects. A {\bf membrane configuration} is a tuple $(T,
   \item $c\in(2^\Sigma)^{V(T)}$ is a mapping that assigns for each node of $T$ a set of objects from $\Sigma$, so it represents the contents of the membrane.
 \end{itemize}
 
-An {\bf active P system} is a tuple $(\Sigma, C_0, R_1, R_2, \dots , R_m)$, where:
+The common representation of a membrane structure in this paper is by a string, where a membrane is denoted by a pair of matching square brackets, e.g. $[_1 [_2 ab ]_2 ac ]_1$.
+
+A {\bf sequential active set P system} is a tuple $(\Sigma, C_0, R_1, R_2, \dots , R_m)$, where:
 \begin{itemize}
   \item $\Sigma$ is a set of objects,
-  \item $C_0$ is initial membrane configuration,
+  \item $C_0$ is the initial membrane configuration,
   \item $R_1,R_2,\dots, R_m$ are finite sets of rewriting rules associated with the labels $1,2,\dots,m$ and can be of forms:
   \begin{itemize}
     \item $u\rightarrow w$, where $u\subseteq \Sigma$, $|u|\geq 1$, $w\subseteq (\Sigma\times\{\cdot, \uparrow, \downarrow_j\})$ and $1\leq j\leq m$,
@@ -26,11 +28,11 @@ An example of such rule is the following: $ab\rightarrow ab\downarrow_2 c\uparro
 By applying the rule we mean the removal of objects specified on the left side and the addition of the objects on the right side with respect to set union semantics.
 Symbol $\delta\notin\Sigma$ does not represent an object. It may be present only at the end of the rule, which means that after the application of the rule, the membrane is dissolved and its contents (objects, child membranes) are propagated to the parent membrane.
 
-Active P systems differ from classic (passive) P systems in ability to create new membranes by rules of the third form. Such rule will create new child membrane with a given label $j$ and a given set of objects $v_1$ as its contents, while the set $v_2$ is the set of products that stays in the current membrane. If the current membrane already contains a child membrane with label $j$, then such rule is not applicable.
+Active P systems differ from classic (passive) P systems in their ability to create new membranes by rules of the third form. Such rule will create new child membrane with a given label $j$ and a given set of objects $v_1$ as its contents, while the set $v_2$ is the set of products that stays in the current membrane. If the current membrane already contains a child membrane with label $j$, then such rule is not applicable.
 
 % applicable rule definition
 
-For an active P system $(\Sigma, C_0, R_1, R_2, \dots , R_m)$, configuration $C = (T, l, c)$, membrane $d\in V(T)$ the rule $r\in R_{l(d)}$ is {\bf applicable} iff:
+For a sequential active set P system $(\Sigma, C_0, R_1, R_2, \dots , R_m)$, configuration $C = (T, l, c)$, membrane $d\in V(T)$ the rule $r\in R_{l(d)}$ is {\bf applicable} iff:
 \begin{itemize}
   \item $r = u\rightarrow w$ and $u\subseteq c(d)$ and for all $(a,\downarrow_k)\in w$ there exists $d_2\in V(T)$ such that $l(d_2)=k \wedge parent(d_2) = d$,
   \item $r = u\rightarrow w\delta$ and $u\subseteq c(d)$ and for all $(a,\downarrow_k)\in w$ there exists $d_2\in V(T)$ such that $l(d_2)=k \wedge parent(d_2) = d$ and $d\neq r_T$,
@@ -41,10 +43,10 @@ In this paper we assume only sequential systems, so in each step of the computat
 
 % Computation step
 
-A {\bf computation step} of P system is a relation $\Rightarrow$ on the set of configurations such that $C_1 \Rightarrow C_2$ holds iff there is an applicable rule in a membrane in $C_1$ such that applying that rule can result in $C_2$.
+A {\bf computation step} of a sequential active P system is a relation $\Rightarrow$ on the set of membrane configurations such that $C_1 \Rightarrow C_2$ holds iff there is an applicable rule in a membrane in $C_1$, such that applying that rule can result in $C_2$.
 
 % Result of a computation
 
 The P system can work in generating or in accepting mode. For the generating mode we consider the concatenation of the objects which leave the system, in the order they are sent out of the skin membrane (if several symbols are expelled at the same time, then any ordering of them is considered). In this case we generate a language. The result of a single computation is clearly only one multiset or a string, but for one initial configuration there can be multiple possible computations. It follows from the fact that there can be more than one applicable rule in each configuration and they are chosen nondeterministically.
 
-For the accepting mode the input word in encoded into a membrane structure by a given encoding and it is accepted if and only if a given accepting configuration can be reached\cite{Ibarra05Active}.
+For the accepting mode the input word is encoded into a membrane structure by a given encoding and it is accepted if and only if a given accepting configuration can be reached\cite{Ibarra05Active}.
