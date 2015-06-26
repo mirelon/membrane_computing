@@ -303,6 +303,17 @@ For every $add$ instruction there is just one rule applied in the simulation and
 
 % section modified_membrane_creation_semantics (end)
 
+\section*{Conclusions} % (fold)
+\label{sec:conclusions}
+
+We have investigated the bridge between membrane systems and reaction systems for the sequential variant with active membranes. We have shown computational completeness by a simulation of a register machine. When using sets instead of multisets, the original definition of creating a membrane may seem obsolete. Therefore, we have proposed alternative definitions for membrane creation: inject-or-create and wrap-or-create. In either case the resulting system has been shown to be universal.
+
+As some simulations are not very effective, we have also proposed ways to improve the efficiency. For the simulation with original membrane creation we managed to reduce time needed for executing one instruction of the register machine from linear to logarithmic time. The wrap-or-create semantics is the most suitable for the simulation as for every instruction of the register machine only constant number of steps of the P system is needed.
+
+The register value in the simulations is encoded in either unary or binary form. We propose other options to encode the register value as a tree structure of membranes and leave the construction of the simulation as a topic for further study.
+
+% section conclusions (end)
+
 \bibliography{set}
 
 \end{document}
