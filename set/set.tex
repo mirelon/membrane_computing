@@ -162,7 +162,9 @@ For the membrane $i$:
   \item $x_j, t_i \rightarrow y_k, t_i, \delta$ for instruction $j: (sub(i), k, l)$
 \end{itemize}
 
-Object $x_j$ represents the instruction currently executed. It is sent down the chain of membranes and in the innermost membrane the creation of new membrane, or the dissolution is performed. Then the next instruction represented by object $y_j$ is sent upwards all the way to the skin membrane. The object $t_i$ is always present in the innermost membrane. The zero-test is implemented by the two rules in the skin membrane, which require the presence of $t_i$, meaning that the value of register $i$ is zero.  
+Object $x_j$ represents the instruction currently executed. It is sent down the chain of membranes and in the innermost membrane the creation of new membrane, or the dissolution is performed. Then the next instruction represented by object $y_j$ is sent upwards all the way to the skin membrane. The object $t_i$ is always present in the innermost membrane. The zero-test is implemented by the two rules in the skin membrane, which require the presence of $t_i$, meaning that the value of register $i$ is zero.
+
+TODO: Example
 
 If empty register halting is needed, we will consume $t_i$ symbols with the label of a halting instruction in the skin membrane.
 
@@ -216,6 +218,8 @@ For the membrane $i$ and instruction $j: sub(i,k,l)$:
   \item $x_j0t \rightarrow y_l \uparrow 0t$ (trying to decrement a zero)
 \end{itemize}
 
+TODO: Example
+
 \subsection{Further optimizations} % (fold)
 \label{sub:further_optimizations}
 
@@ -251,7 +255,8 @@ For a sequential active set P system $(\Sigma, C_0, R_1, R_2, \dots , R_m)$, con
   \item $r = u\rightarrow w$ and $u\subseteq c(d)$,
   \item $r = u\rightarrow w\delta$ and $u\subseteq c(d)$ and $d\neq r_T$.
 \end{itemize}
-TODO: example needed (with picture?)
+
+TODO: example
 
 We will now show how the computational completeness of this variant of membrane creation is achieved by simulating the register machine. The simulation is essentially the same as in section \ref{sub:optimalization_of_the_simulation}. All the rules which are sending objects into a child membrane are already assuming that the child membrane already exists. The only difference is in the rule for membrane creation: $x_j1t \rightarrow [_i 1tp]_iy_k\uparrow 0s$. This rule is applied always in the innermost membrane with no child membranes. Modified simulation will therefore use rule $x_j1t \rightarrow 1\downarrow_i t\downarrow_i p\downarrow_i y_k\uparrow 0s$, which, when applied, creates a child membrane $i$, because no such child membrane exists.
 
@@ -290,6 +295,8 @@ For the membrane $i$:
 \end{itemize}
 
 For every $add$ instruction there is just one rule applied in the simulation and for each $sub$ instruction there is one or two instructions, depending on the register value. If $r_i>0$ then the instruction enters the membrane labeled $i$ and dissolves it, decreasing the number of stacked membranes with label $i$.
+
+TODO: Example
 
 \begin{theorem}
   Sequential active set P systems with wrap-or-create semantics are computationally complete.
