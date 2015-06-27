@@ -15,6 +15,7 @@
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{makeidx}
+\usepackage{enumitem}
 
 % Repeat the same theorem in the appendix
 \usepackage{thmtools, thm-restate}
@@ -133,6 +134,8 @@ The machine is capable of the following instructions:
   \item $halt$ : This instruction stops the machine. This additional instruction can only be assigned to the final label $h$.
 \end{itemize}
 
+We will denote by $(op(r), \_, \_)$ any of the operations $add$ and $sub$ operating on the register $r$ having arbitrary following instruction. 
+
 A deterministic $m$-register machine can analyze an input $(n_1,\dots,n_m)\in N_0^m$ in registers 1 to $m$, which is recognized if the register machine finally stops by the halt instruction with all its registers being empty (this last requirement is not necessary). If the machine does not halt, the analysis was not successful.
 
 A configuration of a register machine is a tuple $(r_1, \ldots, r_m, ip)$, where $r_i$ is value of the register $i$ and $ip$ (instruction pointer) is the label of current instruction to be executed.
@@ -147,26 +150,26 @@ For a register machine with $m$ registers we will construct a sequential active 
 For a configuration of register machine $(r_1, r_2, \ldots r_m, ip)$ the membrane structure will consist of a skin membrane, which will contain $m$ chains consisting of $r_i$ membranes embedded one into another like in a Matryoshka doll with label $i$. The innermost membranes will contain a single object $t_i$. If $r_i = 0$ then $t_i$ is in the skin membrane and there is no membrane with label $i$. Object representing the label of the current instruction ($x_{ip}$) is in the skin membrane.
 
 We will have following rules in the skin membrane:
-\begin{itemize}
-  \item $y_j \rightarrow x_j$,
-  \item $x_j \rightarrow x_j\downarrow_{i}$ for instruction $j: op(i)$,
-  \item $x_j, t_i \rightarrow [_1 y_k, t_i ]_1$ for instruction $j: (add(i), k, \_)$,
-  \item $x_j, t_i \rightarrow l$ for instruction $j: (sub(i), \_, l)$
-\end{itemize}
+\begin{enumerate}
+  \item\label{simple_skin_next_instruction} $y_j \rightarrow x_j$,
+  \item\label{simple_skin_send_down} $x_j \rightarrow x_j\downarrow_{i}$ for instruction $j: (op(i), \_, \_)$,
+  \item\label{simple_skin_create} $x_j, t_i \rightarrow [_1 y_k, t_i ]_1$ for instruction $j: (add(i), k, \_)$,
+  \item\label{simple_skin_sub_empty} $x_j, t_i \rightarrow l$ for instruction $j: (sub(i), \_, l)$
+\end{enumerate}
 
 For the membrane $i$:
-\begin{itemize}
-  \item $x_j \rightarrow x_j\downarrow_{i}$ for instruction $j: op(i)$,
-  \item $x_j, t_i \rightarrow [_1 y_k, t_i ]_1$ for instruction $j: (add(i), k, \_)$,
-  \item $y_j \rightarrow y_j\uparrow$ for instruction $j: (op(i), \_, \_)$,
-  \item $x_j, t_i \rightarrow y_k, t_i, \delta$ for instruction $j: (sub(i), k, l)$
-\end{itemize}
+\begin{enumerate}[resume]
+  \item\label{simple_inner_resend_down} $x_j \rightarrow x_j\downarrow_{i}$ for instruction $j: (op(i), \_, \_)$,
+  \item\label{simple_inner_create} $x_j, t_i \rightarrow [_1 y_k, t_i ]_1$ for instruction $j: (add(i), k, \_)$,
+  \item\label{simple_inner_resend_up} $y_j \rightarrow y_j\uparrow$ for instruction $j: (op(i), \_, \_)$,
+  \item\label{simple_inner_dissolve} $x_j, t_i \rightarrow y_k, t_i, \delta$ for instruction $j: (sub(i), k, l)$
+\end{enumerate}
 
-Object $x_j$ represents the instruction currently executed. It is sent down the chain of membranes and in the innermost membrane the creation of new membrane, or the dissolution is performed. Then the next instruction represented by object $y_j$ is sent upwards all the way to the skin membrane. The object $t_i$ is always present in the innermost membrane. The zero-test is implemented by the two rules in the skin membrane, which require the presence of $t_i$, meaning that the value of register $i$ is zero.
+Object $x_j$ represents the instruction currently executed. It is sent down the chain of membranes by rules \ref{simple_skin_send_down} and \ref{simple_inner_resend_down}. In the innermost membrane the creation of a new membrane (rule \ref{simple_inner_create}), or the dissolution (rule \ref{simple_inner_dissolve}) is performed. Then the next instruction represented by object $y_j$ is sent upwards all the way to the skin membrane by the rule \ref{simple_inner_resend_up}. The object $t_i$ is always present in the innermost membrane. For a SUB instruction there are two rules in the skin membrane, together they implement the zero-test. The rule \ref{simple_skin_send_down} is applicable only if the register is nonempty and the rule \ref{simple_skin_sub_empty} is applicable only if the register is empty by requiring the presence of $t_i$, meaning that the value of register $i$ is zero.
 
-TODO: Example
-
-If empty register halting is needed, we will consume $t_i$ symbols with the label of a halting instruction in the skin membrane.
+\begin{example}
+  Assume a register machine with two registers with values $r_1=2$, $r_2=0$ and the current instruction $j: add(1,k,k)$. The corresponding membrane configuration is $[_3 [_1 [_1 t_1 ]_1 ]_1 x_j t_2]_3$. The computation of the P system is deterministic, at each step there is only one applicable rule. Starting with the rule \ref{simple_skin_send_down} and then the rule \ref{simple_inner_resend_down}, $x_j$ enters the innermost membrane, where the rule \ref{simple_inner_create} creates new membrane.
+\end{example}
 
 \begin{theorem}
   Sequential active set P systems are computationally complete.
