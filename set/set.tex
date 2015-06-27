@@ -249,7 +249,7 @@ These two behaviors are in fact complementary. It seems natural to join these tw
 \subsection{Semantics inject-or-create} % (fold)
 \label{sub:semantics_inject_or_create}
 
-Therefore we will have no explicit membrane creation rule. Any rule which is sending some objects to child membrane labeled $j$ will create child membrane $j$ if it does not exist.
+We will first examine the case where we have no explicit membrane creation rule. Any rule which is sending some objects to child membrane labeled $j$ will create child membrane $j$ if it does not exist.
 
 Formally, rules can be of form:
 \begin{itemize}
@@ -263,7 +263,11 @@ For a sequential active set P system $(\Sigma, C_0, R_1, R_2, \dots , R_m)$, con
   \item $r = u\rightarrow w\delta$ and $u\subseteq c(d)$ and $d\neq r_T$.
 \end{itemize}
 
-TODO: example
+\begin{example}
+  Assume the membrane configuration $[_1 [_2 ]_2 a ]_1$. If we apply the rule $a \rightarrow a\downarrow_2$ in the skin membrane, the object $a$ is sent to the membrane 2 because such child membrane already exists. The resulting membrane configuration is $[_1 [_2 a ]_2 ]_1$.
+
+  If we apply the rule $a \rightarrow a\downarrow_3$ in the skin membrane, a new membrane labeled 3 is created, because such child membrane does not exist yet. The resulting membrane configuration is $[_1 [_2 ]_2 [_3 a ]_3 ]_1$.
+\end{example}
 
 We will now show how the computational completeness of this variant of membrane creation is achieved by simulating the register machine. The simulation is essentially the same as in section \ref{sub:optimalization_of_the_simulation}. All the rules which are sending objects into a child membrane are already assuming that the child membrane already exists. The only difference is in the rule for membrane creation: $x_j1t \rightarrow [_i 1tp]_iy_k\uparrow 0s$. This rule is applied always in the innermost membrane with no child membranes. Modified simulation will therefore use rule $x_j1t \rightarrow 1\downarrow_i t\downarrow_i p\downarrow_i y_k\uparrow 0s$, which, when applied, creates a child membrane $i$, because no such child membrane exists.
 
