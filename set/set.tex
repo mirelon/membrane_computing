@@ -73,7 +73,7 @@ The sequential mode was only mentioned in \cite{Kleijn11SetMembrane} under the n
 
 In section \ref{sec:preliminaries} we recall some computer science basic notions that we will use through the work. Sequential P systems with active membranes working on sets instead of multisets (Sequential active set P systems) are formally presented in section \ref{sec:p systems}.
 
-In section \ref{sec:simulation_of_register_machine} we show the computational completeness by simulating the register machine and in the last section \ref{sec:modified_membrane_creation_semantics} various modifications of membrane creation are investigated.
+In section \ref{sec:simulation_of_register_machine} we show the computational completeness by simulating the register machine. In the last section \ref{sec:modified_membrane_creation_semantics} we challenge the original definition of membrane creation and propose two modifications. First is called inject-or-create and has no explicit membrane creation rule. Instead, when sending objects to a child membrane, which does not exist, then a new membrane is created and objects are sent to it. Second modification is called wrap-or-create and has an explicit membrane creation rule. However, applying such rule when a child membrane with the same label exists wraps the existing membrane in the newly created one.
 
 \section{Preliminaries}
 \label{sec:preliminaries}
