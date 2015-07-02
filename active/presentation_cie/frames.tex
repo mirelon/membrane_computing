@@ -11,7 +11,7 @@
 \title{Decidability of Termination Problems for Sequential P Systems with Active Membranes}
 \author{Michal Kováč}
 \institute{FMFI UK, Slovakia}
-\date{15.5.2015}
+\date{2.7.2015}
 \begin{document}
 
 \begin{frame}[t]
@@ -121,18 +121,6 @@
     \end{frame}
     \note{}
 
-    \begin{frame}[t]\frametitle{Vector addition systems}
-      \begin{itemize}
-        \item $G=(x,W), x\in \mathbb{N}^n, W\subseteq Z^n$
-        \pause
-        \item Reachability set $R(G) = \{z|\exists v_1\ldots v_j\in W: z=x+v_1+\ldots v_j\text{~and~}\forall 1\leq i\leq j:x+v_1+\ldots+v_i\geq 0\}$
-        \pause
-        \item Same reachability set as Petri nets
-      \end{itemize}
-
-    \end{frame}
-    \note{}
-
     % subsection computational_power (end)
 
 % section p_systems (end)
@@ -197,7 +185,7 @@
 
     \begin{frame}[t]\frametitle{Termination problems in active membranes}
       \begin{definition}
-        Define $end(C)$ as k-tuple satisfying $enc(C_1)\leq enc(C_2) \Rightarrow C_1\leq C_2$.
+        Define $enc(C)$ as k-tuple satisfying $enc(C_1)\leq enc(C_2) \Rightarrow C_1\leq C_2$.
       \end{definition}
       \pause
 
@@ -218,7 +206,7 @@
       \pause
 
       \begin{theorem}
-        Existence of finite computation in sequential P systems with active membranes is decidable.
+        Existence of finite computation in sequential P systems with active membranes is undecidable.
       \end{theorem}
       \pause
 
