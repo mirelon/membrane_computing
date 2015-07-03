@@ -47,7 +47,7 @@
 
 \begin{abstract}
 We study variants of P systems that are working in the sequential mode. Usually, they are not computationally complete, but there are possible extensions that can increase the computation power. Extensions that implement a notion of zero-checking are often computationally complete.
-P systems with an ability to create new membranes are a rare exception as they are known to be computationally complete even in the sequential mode without using a dedicated zero-check operation. Using sets instead of multiset was inspired by Reaction systems and we show how to use this relaxation in the context of active membranes. We present some results on computational power for this variant as well as for various notions of membrane creation.
+P systems with an ability to create new membranes are a rare exception as they are known to be computationally complete even in the sequential mode without using a dedicated zero-check operation. Using sets instead of multisets was inspired by Reaction systems and we show how to use this relaxation in the context of active membranes. We challenge the original definition of a membrane creation because possible multiplicity of labels of child membranes are in conflict with no multiplicity of objects in Reaction systems. We propose more suitable notions of membrane creation and prove computational completeness by simulating a register machine.
 \end{abstract}
 
 \section{Introduction}
@@ -73,7 +73,7 @@ The sequential mode was only mentioned in \cite{Kleijn11SetMembrane} under the n
 
 In section \ref{sec:preliminaries} we recall some computer science basic notions that we will use through the work. Sequential P systems with active membranes working on sets instead of multisets (Sequential active set P systems) are formally presented in section \ref{sec:p systems}.
 
-In section \ref{sec:simulation_of_register_machine} we show the computational completeness by simulating the register machine. In the last section \ref{sec:modified_membrane_creation_semantics} we challenge the original definition of membrane creation and propose two modifications. First is called inject-or-create and has no explicit membrane creation rule. Instead, when sending objects to a child membrane, which does not exist, then a new membrane is created and objects are sent to it. Second modification is called wrap-or-create and has an explicit membrane creation rule. However, applying such rule when a child membrane with the same label exists wraps the existing membrane in the newly created one.
+In section \ref{sec:simulation_of_register_machine} we show the computational completeness by simulating the register machine. In the last section we propose two modifications of the definition of a membrane creation because in the original definition possible multiplicity of labels of child membranes are in conflict with no multiplicity of objects. First modification is called inject-or-create and has no explicit membrane creation rule. Instead, when sending objects to a child membrane, which does not exist, then a new membrane is created and objects are sent to it. Second modification is called wrap-or-create and has an explicit membrane creation rule. However, applying such rule when a child membrane with the same label exists wraps the existing membrane in the newly created one.
 
 \section{Preliminaries}
 \label{sec:preliminaries}
@@ -156,7 +156,7 @@ The main theorem is stated as follows:
 \begin{proof}
   Computational completeness is proved by a direct simulation of a register machine, which is also computationally complete.
 
-  For a register machine with $m$ registers we will construct a sequential active set P system $(\Sigma, C_0, R_1, \ldots R_{m+1})$, where $\Sigma = \{x_j, y_j \text{~for instructions with label~} j\}\cup\{t_i \text{~for each register ~}i\}$. Skin membrane will be labeled with $m+1$, other labels correspond to registers 1 to $m$. $C_0$ will be the input word for the register machine encoded into a membrane structure by the following encoding: 
+  For a register machine with $m$ registers we will construct a sequential active set P system $(\Sigma, C_0, R_1, \ldots R_{m+1})$, where $$\Sigma = \{x_j, y_j \text{~for instructions with label~} j\}\cup\{t_i \text{~for each register ~}i\}$$. Skin membrane will be labeled with $m+1$, other labels correspond to registers 1 to $m$. $C_0$ will be the input word for the register machine encoded into a membrane structure by the following encoding: 
 
   For a configuration of register machine $(r_1, r_2, \ldots r_m, ip)$ the membrane structure will consist of a skin membrane, which will contain $m$ chains consisting of $r_i$ membranes embedded one into another like in a Matryoshka doll with label $i$. The innermost membranes will contain a single object $t_i$. If $r_i = 0$ then $t_i$ is in the skin membrane and there is no membrane with label $i$. Object representing the label of the current instruction ($x_{ip}$) is in the skin membrane.
 
@@ -275,7 +275,7 @@ For a sequential active set P system $(\Sigma, C_0, R_1, R_2, \dots , R_m)$, con
   If we apply the rule $a \rightarrow a\downarrow_3$ in the skin membrane, a new membrane labeled 3 is created, because such child membrane does not exist yet. The resulting membrane configuration is $[_1 [_2 ]_2 [_3 a ]_3 ]_1$.
 \end{example}
 
-TODO: add picture to the example
+% TODO: add picture to the example
 
 \begin{theorem}
   Sequential active set P systems with inject-or-create semantics are computationally complete.
@@ -294,7 +294,7 @@ The efficiency of this simulation is essentially the same as in section \ref{sub
 
 In this variant we stay with explicit membrane creation rule, but when the membrane with the same label is already contained in the current membrane, the rule remains applicable and the child membrane will be wrapped by a new membrane with the given contents. For example, applying the rule $a \rightarrow [_2 b ]_2 c$ in the membrane 1 of membrane structure $[_1 a [_2 d ]_2 ]_1$ would result in $[_1 c [_2 b [_2 d ]_2 ]_2 ]_1$.
 
-TODO: example with a picture
+% TODO: example with a picture
 
 \begin{theorem}
   Sequential active set P systems with wrap-or-create semantics are computationally complete.
@@ -342,7 +342,7 @@ We have investigated the bridge between membrane systems and reaction systems fo
 
 As some simulations are not very effective, we have also proposed ways to improve the efficiency. For the simulation with original membrane creation we managed to reduce time needed for executing one instruction of the register machine from linear to logarithmic time. The wrap-or-create semantics is the most suitable for the simulation as for every instruction of the register machine only constant number of steps of the P system is needed.
 
-TODO: add a summary table with metric results on the simulation efficiency.
+% TODO: add a summary table with metric results on the simulation efficiency.
 
 The register value in the simulations is encoded in either unary or binary form. We propose other options to encode the register value as a tree structure of membranes and leave the construction of the simulation as a topic for further study.
 
