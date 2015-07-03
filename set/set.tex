@@ -117,6 +117,8 @@ In this paper we work with sequential P systems with active membranes working on
 \subsection{Register machine} % (fold)
 \label{sub:register_machine}
 
+In this section we will show that sequential active set P systems are powerful computing devices as they can simulate the register machine. The section starts with a definition of deterministic register machine with a definition of a configuration. Next is the formulation of the main theorem followed by a proof made by a simulation. At last the efficiency of the simulation is questioned and various improvements are proposed. 
+
 \begin{definition}
   A {\bf $n$-register machine} is a tuple $M = (n,P,i,h)$, where:
   \begin{itemize}
@@ -138,7 +140,7 @@ We will denote by $(op(r), \_, \_)$ any of the operations $add$ and $sub$ operat
 
 A deterministic $m$-register machine can analyze an input $(n_1,\dots,n_m)\in N_0^m$ in registers 1 to $m$, which is recognized if the register machine finally stops by the halt instruction with all its registers being empty (this last requirement is not necessary). If the machine does not halt, the analysis was not successful.
 
-A configuration of a register machine is a tuple $(r_1, \ldots, r_m, ip)$, where $r_i$ is value of the register $i$ and $ip$ (instruction pointer) is the label of current instruction to be executed.
+A configuration of a register machine is a tuple $(r_1, \ldots, r_m, ip)$, where $r_i$ is the value of the register $i$ and $ip$ (instruction pointer) is the label of current instruction to be executed.
 
 % subsection register_machine (end)
 
