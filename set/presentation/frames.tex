@@ -47,29 +47,6 @@
     \end{frame}
     \note{}
 
-    \begin{frame}[t]\frametitle{P system with active membranes}
-    \begin{itemize}
-      \item $\Pi = (\Sigma, C_0, R_1, \ldots R_m)$
-      \pause
-      \item $C = (T, l, c)$
-      \begin{itemize}
-        \item $l: V(T) \rightarrow \{1, \ldots, m\}$
-        \item $c: V(T) \rightarrow \mathbb{N}^\Sigma$
-      \end{itemize}
-      \pause
-      \item Rewriting rules
-      \begin{itemize}
-        \item $u\rightarrow v$
-        \item $u\rightarrow v\delta$
-        \item $u\rightarrow [_j v]_j$,
-
-        where $u \in \mathbb{N}^\Sigma, |u|\geq 1$ and $v\in \mathbb{N}^{\Sigma\times\{\cdot, \uparrow, \downarrow_{j}\}}$
-      \end{itemize}
-
-    \end{itemize}
-    \end{frame}
-    \note{}
-
     \begin{frame}[t]\frametitle{Computation}
       \begin{itemize}
         \item Maximal parallel vs. sequential
@@ -124,12 +101,45 @@
   \label{sub:original_semantics}
 
     \begin{frame}[t]\frametitle{Sequential active set membrane systems}
-      TODO: definition
+      \begin{itemize}
+        \item $\Pi = (\Sigma, C_0, R_1, \ldots R_m)$
+        \pause
+        \item $C = (T, l, c)$
+        \begin{itemize}
+          \item $l: V(T) \rightarrow \{1, \ldots, m\}$
+          \item $c: V(T) \rightarrow 2^\Sigma$
+        \end{itemize}
+        \pause
+        \item Rewriting rules
+        \begin{itemize}
+          \item $u\rightarrow w$
+          \item $u\rightarrow w\delta$
+          \item $u\rightarrow [_j v_1]_j v_2$,
+
+          where $u \in \Sigma, |u|\geq 1$, $v_1,v_2\in \mathbb{N}$ and $w\in (\Sigma\times\{\cdot, \uparrow, \downarrow_{j}\})$
+        \end{itemize}
+
+      \end{itemize}
     \end{frame}
     \note{}
 
     \begin{frame}[t]\frametitle{Proof of universality}
-      TODO: proof of universality
+      We can simulate the register machine.
+      \begin{itemize}
+        \item Simple simulation: unary encoding of register values by nested membranes. Linear time overhead and linear number of membranes. Alphabet size: 2 times number of instructions + registers.
+        \item Optimized simulation: binary encoding by nested membrane labels. Logarithmic time overhead and logarithmic number of membranes. Alphabet size: 3 times number of instructions + 5.
+      \end{itemize}
+
+      TODO: add some slides with example simulation
+      
+    \end{frame}
+    \note{}
+
+    \begin{frame}[t]\frametitle{Issues with original semantics}
+      \begin{itemize}
+        \item Explicit membrane creation rule
+        \item Sending an object to a child membrane
+      \end{itemize}
     \end{frame}
     \note{}
   
@@ -139,11 +149,7 @@
   \label{sub:inject_or_create_semantics}
 
     \begin{frame}[t]\frametitle{inject-or-create}
-      TODO: definition      
-    \end{frame}
-    \note{}
-
-    \begin{frame}[t]\frametitle{inject-or-create}
+      No explicit membrane creation rule
       TODO: proof of universality
     \end{frame}
     \note{}
@@ -154,12 +160,9 @@
   \label{sub:wrap_or_create_semantics}
   
     \begin{frame}[t]\frametitle{wrap-or-create}
-      TODO: definition
-    \end{frame}
-    \note{}
-
-    \begin{frame}[t]\frametitle{wrap-or-create}
+      Explicit membrane creation rule which is not blocked by presence of another such membrane
       TODO: proof of universality
+      Additional control objects, but constant time overhead.
     \end{frame}
     \note{}
 
