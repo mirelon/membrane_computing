@@ -296,6 +296,19 @@
       \end{frame}
     }
 
+    \begin{frame}[t]{Comparison of membrane creation semantics}
+      \begin{center}
+        \begin{tabular}{c|c|c}
+          \hline
+          & space & time \\ \hline
+          original & $O(n)$ & $O(n)$ \\ \hline
+          original & $O(log(n))$ & $O(log(n))$ \\ \hline
+          inject-or-create & $O(log(n))$ & $O(log(n))$ \\ \hline
+          wrap-or-create & $O(n)$ & $O(1)$ \\ \hline
+        \end{tabular}
+      \end{center}
+    \end{frame}
+
   % subsection modified_membrane_creation_semantics (end)
 
 % section sequential_active_set_membrane_systems (end)
