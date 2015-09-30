@@ -54,9 +54,9 @@
     \put(0.57073616,0.3738724){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{1}}}%
     \put(0.55686917,0.01207046){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{}}}%
     \put(0.41063565,0.09527231){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{}}}%
-    \put(0.5051832,0.22385697){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{x2}}}%
-    \put(0.73209731,0.3146226){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{t1}}}%
-    \put(0.52913521,0.07888406){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{t2}}}%
-    \put(0.45864155,0.31752893){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{s1}}}%
+    \put(0.5051832,0.22385697){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$x_2$}}}%
+    \put(0.73209731,0.3146226){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$t_1$}}}%
+    \put(0.52913521,0.07888406){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$t_2$}}}%
+    \put(0.45864155,0.31752893){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$s_1$}}}%
   \end{picture}%
 \endgroup%

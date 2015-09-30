@@ -21,7 +21,7 @@
 \usetheme{Warsaw}
 \bibliographystyle{apalike}
 \title{Sequential P Systems with Active Membranes Working on Sets}
-\author{Michal Kováč, Damas Gruska}
+\author{{\bf Michal Kováč}, Damas Gruska}
 \institute{Faculty of Mathematics, Physics and Informatics, Comenius University, Bratislava, Slovakia}
 \date{30.9.2015}
 \begin{document}
@@ -89,10 +89,27 @@
 
     \begin{frame}[t]\frametitle{Set membane systems}
       \begin{itemize}
-        \item Alhazov \cite{Alhazov05WithoutMultiplicities}: multiplicities of objects are ignored ~ R, with active membranes universal
-        \item Kleijn, Koutny \cite{Kleijn11SetMembrane}: \"min-enabled\" computational step $\Rightarrow$ sequential ~ R
-        \item Maximal parallel $\Rightarrow$ deterministic
-        \item No conflict (objects can participate as reactants in as many rules as they want)
+        \item Alhazov \cite{Alhazov05WithoutMultiplicities}: multiplicities of objects are ignored
+        \pause
+        \begin{itemize}
+          \item maximal parallel $\Rightarrow$ deterministic
+          \pause
+          \item equivalent to finite state machines
+          \pause
+          \item with active membranes universal
+        \end{itemize}
+        \pause
+        \item Kleijn, Koutny \cite{Kleijn11SetMembrane}: ``min-enabled'' computational step = sequential
+        \pause
+        \begin{itemize}
+          \item equivalent to finite state machines
+        \end{itemize}        
+        \pause
+        \item Properties:
+        \begin{itemize}
+          \item No conflict (objects can participate as reactants in as many rules as they want).
+          \item If an object is used as a reactant for at least one rule, it is consumed.
+        \end{itemize}
       \end{itemize}
     \end{frame}
     \note{}
@@ -109,11 +126,11 @@
 
     \begin{frame}[t]\frametitle{Sequential active set membrane systems}
       \begin{itemize}
-        \item $\Pi = (\Sigma, C_0, R_1, \ldots R_m)$
+        \item $\Pi = (\Sigma, C_0, R_0, \ldots R_{m-1})$
         \pause
         \item $C = (T, l, c)$
         \begin{itemize}
-          \item $l: V(T) \rightarrow \{1, \ldots, m\}$
+          \item $l: V(T) \rightarrow \{0, \ldots, m-1\}$
           \item $c: V(T) \rightarrow 2^\Sigma$
         \end{itemize}
         \pause
@@ -123,7 +140,7 @@
           \item $u\rightarrow w\delta$
           \item $u\rightarrow [_j v_1]_j v_2$,
 
-          where $u \in \Sigma, |u|\geq 1$, $v_1,v_2\in \mathbb{N}$ and $w\in (\Sigma\times\{\cdot, \uparrow, \downarrow_{j}\})$
+          where $u \subseteq \Sigma, |u|\geq 1$, $v_1,v_2\subseteq\Sigma$ and $w\subseteq (\Sigma\times\{\cdot, \uparrow, \downarrow_{j}\})$
         \end{itemize}
 
       \end{itemize}
@@ -141,16 +158,11 @@
         \end{itemize}
         \item State = (instruction pointer, values of registers)
         \item Step: modify the register value, move the instruction pointer
-        \item Computation:
-        \begin{itemize}
-          \item Given the input values of registers, accept if $halt$ can be reached.
-          \item \ldots
-        \end{itemize}
       \end{itemize}
     \end{frame}
 
-    \begin{frame}[t]\frametitle{Proof of universality}
-      Simulation of a register machine:
+    \begin{frame}[t]\frametitle{Simulation of a register machine}
+      Simulation of a register machine (2 registers, 3 instructions):
       \begin{itemize}
         \item $1: sub(1,2,3)$
         \item $2: add(2,1)$
@@ -175,7 +187,7 @@
       \begin{frame}[t]\frametitle{Example simulation}
         \begin{columns}
           \begin{column}{0.55\textwidth}
-            Skin membrane:
+            Skin membrane (6 rules):
             \begin{itemize}
               \item \hlonboth(2)(10)($x_1\rightarrow x_1\downarrow_1$), \hlon(13)($x_2\rightarrow x_2\downarrow_2$)
               \item \hlon(7)($x_2t_2\rightarrow [_2 y_1t_2 ]_2$)
@@ -190,14 +202,14 @@
             \end{figure}
           \end{column}
           \begin{column}{0.45\textwidth}
-            Membrane 1:
+            Membrane 1 (4 rules):
             \begin{itemize}
               \item \hlon(3)($x_1\rightarrow x_1\downarrow_1$)
               \item \hlonboth(4)(11)($x_1t_1\rightarrow y_2t_1\delta$)
               \item $y_1\rightarrow y_1\uparrow$, \hlon(5)($y_2\rightarrow y_2\uparrow$)
             \end{itemize}
             \vspace{40pt}
-            Membrane 2:
+            Membrane 2 (4 rules):
             \begin{itemize}
               \item $x_2\rightarrow x_2\downarrow_2$
               \item \hlon(14)($x_2t_2\rightarrow [_2y_1t_2]_2$)
@@ -217,8 +229,19 @@
 
     \begin{frame}[t]\frametitle{Issues with original semantics}
       \begin{itemize}
-        \item Explicit membrane creation rule
-        \item Sending an object to a child membrane
+        \item Two issues:
+        \begin{enumerate}
+          \item Explicit membrane creation rule
+          \pause
+          \item Sending an object to a child membrane
+        \end{enumerate}
+        \pause
+        \item Alternatives:
+        \begin{enumerate}
+          \item Inject-or-create (no explicit membrane creation rule)
+          \pause
+          \item Wrap-or-create
+        \end{enumerate}
       \end{itemize}
     \end{frame}
     \note{}
@@ -298,13 +321,13 @@
 
     \begin{frame}[t]{Comparison of membrane creation semantics}
       \begin{center}
-        \begin{tabular}{c|c|c}
+        \begin{tabular}{|c|c|c|l|}
           \hline
-          & space & time \\ \hline
-          original & $O(n)$ & $O(n)$ \\ \hline
-          original & $O(log(n))$ & $O(log(n))$ \\ \hline
-          inject-or-create & $O(log(n))$ & $O(log(n))$ \\ \hline
-          wrap-or-create & $O(n)$ & $O(1)$ \\ \hline
+          semantics & membranes & time & alphabet \\ \hline
+          original & $O(n)$ & $O(n)$ & $2*\# instr.+\# reg.$ \\ \hline
+          original & $O(log(n))$ & $O(log(n))$ & $3*\# instr.+ 5$ \\ \hline
+          inject-or-create & $O(log(n))$ & $O(log(n))$ & $3*\# instr.+ 5$ \\ \hline
+          wrap-or-create & $O(n)$ & $O(1)$ & $\# instr.+2*\# reg.$ \\ \hline
         \end{tabular}
       \end{center}
     \end{frame}

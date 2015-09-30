@@ -55,10 +55,10 @@
     \put(0.57073616,0.34992035){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{1}}}%
     \put(0.55686917,0.01207046){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{}}}%
     \put(0.41063565,0.09527231){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{}}}%
-    \put(0.3942474,0.07888406){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{x1}}}%
-    \put(0.73209731,0.29067055){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{t1}}}%
-    \put(0.52913521,0.07888406){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{t2}}}%
-    \put(0.50780626,0.2872737){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{s1}}}%
-    \put(0.64868428,0.07743032){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{s1}}}%
+    \put(0.3942474,0.07888406){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$x_1$}}}%
+    \put(0.73209731,0.29067055){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$t_1$}}}%
+    \put(0.52913521,0.07888406){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$t_2$}}}%
+    \put(0.50780626,0.2872737){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$s_1$}}}%
+    \put(0.64868428,0.07743032){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$s_1$}}}%
   \end{picture}%
 \endgroup%

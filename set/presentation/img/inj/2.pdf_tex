@@ -52,7 +52,7 @@
     \put(0,0){\includegraphics[width=\unitlength,page=1]{2.pdf}}%
     \put(0.38267598,0.07268425){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{}}}%
     \put(0.23231465,0.15823469){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{}}}%
-    \put(0.57572773,0.37757543){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{a}}}%
+    \put(0.57572773,0.37757543){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$a$}}}%
     \put(0.37041718,0.44558456){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{2}}}%
     \put(0.03422113,0.50717771){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{1}}}%
     \put(0.17793853,0.32239822){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{}}}%

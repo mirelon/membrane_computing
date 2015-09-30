@@ -54,11 +54,11 @@
     \put(0.57073616,0.3852181){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{1}}}%
     \put(0.55686917,0.01207046){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{}}}%
     \put(0.41063565,0.09527231){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{}}}%
-    \put(0.66024116,0.3587448){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{x1}}}%
-    \put(0.75352807,0.36000542){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{t1}}}%
-    \put(0.42576323,0.11544246){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{s2}}}%
+    \put(0.66024116,0.3587448){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$x_1$}}}%
+    \put(0.75352807,0.36000542){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$t_1$}}}%
+    \put(0.42576323,0.11544246){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$s_2$}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{5.pdf}}%
     \put(0.56910403,0.172171){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{2}}}%
-    \put(0.73172583,0.1381339){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{t2}}}%
+    \put(0.73172583,0.1381339){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$t_2$}}}%
   \end{picture}%
 \endgroup%

@@ -53,9 +53,9 @@
     \put(0.20137041,0.43060093){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{0}}}%
     \put(0.55686917,0.01207046){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{}}}%
     \put(0.41063565,0.09527231){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{}}}%
-    \put(0.57325745,0.14191576){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{x2}}}%
-    \put(0.7598313,0.36378732){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{t1}}}%
-    \put(0.76235252,0.13939451){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{t2}}}%
+    \put(0.57325745,0.14191576){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$x_2$}}}%
+    \put(0.7598313,0.36378732){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$t_1$}}}%
+    \put(0.76235252,0.13939451){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$t_2$}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{13.pdf}}%
     \put(0.39676868,0.18477731){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{2}}}%
   \end{picture}%
