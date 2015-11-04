@@ -1,14 +1,17 @@
 \usepackage[utf8]{inputenc}
+\bibliographystyle{apalike}
+\usepackage{bibentry}
+\nobibliography*
 \usepackage{slovak}
 \usepackage{tikz}
 \usetikzlibrary{arrows,positioning}
 \usetheme{Warsaw}
-\bibliographystyle{apalike}
 \title{Biologicky motivované \\výpočtové modely}
 \author{Michal Kováč}
 \institute{FMFI UK}
 \date{24.6.2013}
 \begin{document}
+\renewcommand{\pause}{}
 
 \begin{frame}[t]
 \titlepage
@@ -76,295 +79,281 @@
   \includegraphics[width=0.7\textwidth]{membrane_structure.png}
   \hfill
   \includegraphics[width=0.3\textwidth]{membrane_tree.png}
+  \pause
+  \begin{itemize}
+    \item Multisets
+    \pause
+    \item Rewriting rules
+    \pause
+    \item Passive vs. Active
+  \end{itemize}
 
 \end{frame}
 \note{
   Membránové systémy sú inšpirované bunkami. Základom je preto membránová štruktúra, ktorá pozostáva z regiónov, ktoré sú oddelené membránami. Tvorí to hierarchickú štruktúru, ktorá sa dá zobraziť ako strom.
 }
 
-\begin{frame}[t]\frametitle{Obsah membrány}
+\begin{frame}[t]\frametitle{Varianty pravidiel}
   \begin{itemize}
-    \item multimnožina objektov
+    \item kooperatívne ($a\ |\ b\ |\ b \rightarrow b$) (RE \cite{Paun98})
+    \pause
+    \item nekooperatívne ($b \rightarrow c$) (CF \cite{Sburlan05dragos})
+    \pause
+    \item nekooperatívne s inhibítormi ($a \rightarrow b\ |_{\neg{c,d}}$) (ET0L \cite{Ionescu:jucs_10_5:on_p_systems_with})
+    \pause
+    \item katalytické ($a\ |\ b \rightarrow a\ |\ c\ |\ d$)
     \begin{itemize}
-      \item $a\ |\ b\ |\ b$
-    \end{itemize}
-    \item prepisovacie pravidlá
-    \begin{itemize}
-      \item $a\ |\ b\ |\ b\rightarrow a\ |\ a_{out}\ |\ b_{in_{6}}$
-      \item $b \rightarrow a\ |\ \delta$
+      \item katalytické s 2 katalyzátormi (RE \cite{Freund2005TwoCatalysts})
+      \item s 1 katalyzátorom (otvorený problém)
+      \item s 1 katalyzátorom a inhibítormi (RE \cite{Ionescu:jucs_10_5:on_p_systems_with})
     \end{itemize}
   \end{itemize}
 \end{frame}
-\note{
-  V každej membráne je multimnožina objektov. Objekty predstavujú molekuly, alebo chemické zlúčeniny.
-
-  Každá membrána má aj množinu prepisovacích pravidiel. Ľavá aj pravá strana pravidla pozostáva z multimnožiny objektov, pričom ľavá strana nesmie byť prázdna.
-
-  Posielanie objektov cez membránu sa uskutočňuje tak, že na pravej strane môžu mať objekty špecifikované, či ostanú v aktuálnom regióne, alebo sa pošlú cez membránu von, alebo dnu cez konkrétnu membránu.
-
-  Pravidlo môže obsahovať špeciálny symbol delta. Po aplikácii takéhoto pravidla sa membrána rozpustí, jej pravidlá zaniknú, a objekty a prípadne membrány sa z vnútra vylejú von.
-}
-
-\begin{frame}[t]\frametitle{P systém}
-
-  P systém definujeme ako $\Pi = (V, \mu, w_1, w_2,\dots , w_m, R_1, R_2, \dots , R_m)$, kde:
-  \begin{itemize}
-    \item $V$ je abeceda objektov
-    \item $\mu$ je membránová štruktúra
-    \item $w_1, w_2, \dots w_m$ sú počiatočné multimnožiny v membránach $1\dots m$, $w_i\subseteq \mathbb{N}^V$
-    \item $R_1, R_2, \dots , R_m$ sú množiny prepisovacích pravidiel v membránach $1\dots m$, pričom $$R_i\subseteq(\mathbb{N}^V\setminus 0^V)\times\mathbb{N}^{V\times(\{here,out\}\cup\{in_1,\dots in_m\})}$$.
-  \end{itemize}
-
-\end{frame}
-\note{
-  P systém sa definuje ako konštrukt pozostávajúci z abecedy objektov, membránovej štruktúry, počiatočnej multimnožiny objektov a prepisovacích pravidiel
-}
-
-\begin{frame}[t]\frametitle{Konfigurácia a krok výpočtu}
-  \begin{itemize}
-    \item konfigurácia = membránová štruktúra + obsahy membrán
-    \item krok výpočtu: maximálny paralelizmus
-  \end{itemize}
-  \tikzstyle{mybox} = [draw=black,very thick, rectangle, rounded corners, inner sep=10pt]
-  \begin{tikzpicture}
-    \onslide<2->{
-      \node [mybox] (box){%
-        \begin{minipage}{0.50\textwidth}
-          \vspace{0pt}
-          \begin{align}
-            \tag{$r_1$}a\ |\ b\ |\ b&\rightarrow c\\
-            \tag{$r_2$}b &\rightarrow c\ |\ c
-          \end{align}
-          $a\ |\ a\ |\ b\ |\ b$
-        \end{minipage}
-      };
-    }
-    \onslide<3->{
-      \node [mybox,below=3cm of box.west,anchor=west] (box2) {$a\ |\ c$};
-      \path[-triangle 45] (box) edge [left] node {$r_1$} (box2);
-    }
-    \onslide<4->{
-      \node [mybox,below=3cm of box.east,anchor=east] (box3){$a\ |\ a\ |\ c\ |\ c\ |\ c\ |\ c$};
-      \path[-triangle 45] (box) edge [right] node {$2*r_2$} (box3);
-    }
-  \end{tikzpicture}
-\end{frame}
-\note{
-  Konfigurácia P systému v sebe zahŕňa membránovú štruktúru a obsahy jednotlivých membrán. P systém má globálny časovač, v každom kroku, každá membrána aplikuje maximálnu multimnožinu pravidiel.
-
-  V tomto príklade máme dve jednoduché pravidlá a multimnožinu aabb. Ak sa použije prvé pravidlo, žiadne ďalšie sa už v tomto kroku použiť nemôže, preto je to maximálna multimnožina.
-
-  Ak sa použije druhé pravidlo, musí sa použiť dvakrát, aby to bola maximálna multimnožina.
-
-  V tomto príklade sú teda dve maximálne multimnožiny pravidiel. O ďalšej konfigurácii sa rozhodne nedeterministicky.
-}
-
-\begin{frame}[t]\frametitle{Jazyk}
-  \begin{itemize}
-    \item výsledok výpočtu je multimnožina objektov, ktorá:
-    \begin{itemize}
-      \item počas výpočtu prešla cez vonkajšiu membránu
-      \item na konci ostane v špecifickej membráne
-    \end{itemize}
-    \onslide<2->{\item generatívny vs akceptačný mód}
-    \onslide<3->{\item Parikhovo zobrazenie: PsRE}
-  \end{itemize}
-\end{frame}
-\note{
-  Ak je postupnosť krokov výpočtu konečná, výpočet je úspešný a výsledok výpočtu je multimnožina objektov, ktorá prešla cez vonkajšiu membránu. Podobne by sa dal definovať aj ako multimnožina objektov, ktorá ostane v špecifickej membráne.
-
-  V akceptačnom móde sa do špecifickej membrány vloží multimnožina objektov, pričom ostatné membrány sú prázdne. Ak výpočet zastaví, pôvodná multimnožina patrí do jazyka, inak nepatrí.
-}
+\note{}
 \newpage
-\note{
-  Pre vačšinu známych modelov sú generatívny aj akceptačný mód rovnako silné, u P systémoch to nie je vždy tak, preto sa oplatí skúmať obidva módy.
+\note{}
 
-  Všetky možné úspešné výpočty definujú jazyk nad multimnožinami. Z hľadiska výpočtovej sily sa triedy týchto jazykov porovnávajú s Parikhovým zobrazením známych tried jazykov. P systémom zodpovedá trieda jazykov PsRE, čo je Parikov obraz triedy rekurzívne vyčísliteľných jazykov. Voláme ich univerzálne, lebo podľa Turingovej tézy nimi vieme simulovať akýkoľvek iný model, ktorý je algoritmicky simulovateľný.
-}
+\begin{frame}[t]\frametitle{Sekvenčné P systémy}
+  \begin{itemize}
+    \item Maximálny paralelizmus vs. sekvenčný mód
+    \pause
+    \item Sekvenčné P systémy s kooperatívnymi pravidlami (VASS \cite{Dang:2005:Sequential})
+    \pause
+    \begin{itemize}
+      \item s prioritami (RE \cite{Dang:2005:Sequential})
+      \pause
+      \item s aktívnymi membránami (RE \cite{Dang:2005:Sequential})
+      \pause
+      \item {\bf s inhibítormi (RE \cite{Kovac14})}
+    \end{itemize}
+    \pause
+    \item Jazyk
+    \begin{itemize}
+      \item Generatívny mód: postupnosť objektov vypustených do okolitého prostredia
+      \pause
+      \item Akceptačný mód: daná konfigurácia je akceptovaná, ak sa systém vie dostať do stavu, kde sa už nedá použiť žiadne pravidlo
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+\note{}
 
 % subsection p_systemy (end)
 
-\subsection{Varianty} % (fold)
-\label{sub:varianty}
-
-\begin{frame}[t]\frametitle{Varianty objektov}
-  \begin{itemize}
-    \item worm objects \cite{Mate02}
-    \begin{itemize}
-    \item namiesto multimnožín objektov sú v membránach multimnožiny stringov ($\mathbb{N}^{V^*}$)
-      \item inšpirované DNA
-    \end{itemize}
-  \end{itemize}
-\end{frame}
-\note{
-  Aby sme mohli definovať priamo jazyky nad stringami, Mate navrhol variant P systems with worm objects. V membránach sú rovno multimnožiny stringov, čo je inšpirované reťazcami DNA. Takto dostal tiež univerzálny model.
-}
-
-\begin{frame}[t]\frametitle{Varianty pravidiel}
-  \begin{itemize}
-    \item kontextové (PsRE)
-    \onslide<2->{\item kooperatívne (PsRE) \cite{Paun98}}
-    \onslide<3->{\item katalytické
-      \begin{itemize}
-        \item s 2 katalyzátormi (PsRE) \cite{Freund2005TwoCatalysts}
-        \item s 1 katalyzátorom (otvorený problem)
-        \item s 1 katalyzátorom a inhibítormi (PsRE) \cite{Ionescu:jucs_10_5:on_p_systems_with}}
-    \end{itemize}
-    \onslide<4->{\item bezkontextové (PsCF) \cite{Sburlan05dragos}}
-    \onslide<5->{\item bezkontextové s inhibítormi (PsET0L) \cite{Ionescu:jucs_10_5:on_p_systems_with}}
-  \end{itemize}
-\end{frame}
-\note{
-  Pôvodná definícia definovala kontextové pravidlá. Ak by sme ľavú stranu obmedzili, že v nej môžu byť maximálne 2 objekty, sú to kooperatívne pravidlá. O nich Paun v pôvodnom článku ukázal, že sú tiež univerzálne.
-
-  Katalyzátory sa definujú ako podmnožina objektov. Keď sa katalyzátor nachádza na ľavej strane pravidla, musí sa aj na pravej strane. OKrem katalyzátorov sa na ľavej strane nachádza práve jeden objekt, ktorý nie je katalyzátor.
-  Séria článkov skúmala, koľko minimálne katalyzátorov treba na univerzálnosť. Až v roku 2005 Freund ukázal, že stačia 2 a nastolil otvorený problém, ako je to s 1 katalyzátorom. Jediné, na čo sa prišlo, je, že keď sa použijú navyše inhibítory, tak je to univerzálne.
-}
-\newpage
-\note{
-  Bezkontextové pravidlá majú na ľavej strane práve jeden objekt. Výpočtová sila zodpovedá bezkontextovým jazykom. A veľmi ani inhibítory nepomôžu, bude to zodpovedať len špeciálnej triede L systémov, ktoré nie sú univerzálne.
-}
-
-\begin{frame}[t]\frametitle{Varianty kroku výpočtu}
-  \begin{itemize}
-    \item maximálny paralelizmus (PsRE)
-    \onslide<2->{\item sekvenčný (vieme simulovať pomocou VASS, \cite{Dang:2005:Sequential})}
-    \onslide<3->{\item asynchrónny (väčšinou $\sim$ sekvenčný) \cite{Freund:2004:APS:2144633.2144637}}
-    \onslide<4->{\item minimálny paralelizmus (PsRE) \cite{Ciobanu:2007:MinimalParallelism}}
-    % \item n-paralelizmus, max-n-paralelizmus, \dots
-  \end{itemize}
-\end{frame}
-\note{Podobne existuje množstvo variantov spôsobu aplikácie pravidiel v jednom kroku výpočtu.
-
-  Pri sekvenčnom móde sa v každom kroku nedeterministicky vyberie pravidlo, ktoré sa raz aplikuje. Ibarra ukázal, že sekvenčné P systémy sa dajú simulovať pomocou vector addition systems, čiže nie sú univerzálne.
-
-  V asynchrónnom móde sa v každom kroku vyberie ľubovoľná multimnožina pravidiel, ktorá sa aplikuje. Aspoň v jednej membráne táto multimnožina nesmie byť prázdna.
-  Vo väčšine prípadov dáva asynchrónny mód rovnaké výsledky ako sekvenčný.
-
-  V minimálnom paralelizme pre každú membránu platí, že ak sa môže použiť aspoň jedno pravidlo, tak sa aspoň jedno musí použiť. Je to akoby odľahčenie podmienky v maximálnom paralelizme, pričom sa zachováva univerzalita.
-}
-
-% subsection varianty (end)
-
 % section prehlad_problematiky (end)
 
-\section{Plány na dizertačnú prácu} % (fold)
-\label{sec:plany_na_dizertacnu_pracu}
+\section{Skúmané varianty P systémov} % (fold)
+\label{sec:sk_man_varianty_p_syst_mov}
 
-\subsection{Aktuálne riešené problémy} % (fold)
-\label{sub:aktualne_riesene_problemy}
+\subsection{Sekvenčné P systémy s inhibítormi} % (fold)
+\label{sub:sekven_n_p_syst_my_s_inhib_tormi}
 
-\begin{frame}[t]\frametitle{Aktuálne riešené problémy}
+\begin{frame}[t]\frametitle{Sekvenčné P systémy s inhibítormi}
   \begin{itemize}
-    \item maximálny paralelizmus je veľmi silná featura\dots
-    \onslide<2->{\item ako sa dá rozšíriť sekvenčný mód?}
-    \onslide<3->{\item na univerzalitu treba:
+    \item \bibentry{Kovac14}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[t]\frametitle{Prehľad simulácie pre akceptačný mód}
+  \begin{itemize}
+    \item Simulácia registrového stroja
+    \item Obsah registra $j$ sa reprezentuje početnosťou objektu $j$
+    \item Objekt pre každú inštrukciu
+    \pause
+    \item SUB inštrukcia sa simuluje pomocou inhibítora
     \begin{itemize}
-        \item pravidlá s prioritami \cite{Dang:2005:Sequential}
-        \item povoliť neobmedzené vytváranie membrán \cite{Dang:2005:Sequential}}
-        \onslide<4->{\item {\bf inhibítory \cite[submitted]{Kovac13}}}
-        \onslide<5->{\item iné rozšírenia (pravidlá s detekciu prázdnych membrán, \dots)
-      \item inšpirácie z výsledkov iných formalizmov}
+      \item $i: SUB(j,k,l)$
+      \item $ij\rightarrow k$
+      \item $i\rightarrow l|_{\neg{j}}$
     \end{itemize}
   \end{itemize}
 \end{frame}
-\note{Maximálny paralelizmus je veľmi silná featura. Globálny časovač reakcií vo väčšine prípadov tvorí hranicu toho, čo je, a čo nie je univerálne.
-  Ani v bunke sa nenachádza taký časovač, podľa ktorého by sa reakcie synchronizovali. Preto sa hľadajú spôsoby, ako túto featuru odľahčiť, prípadne, akými spôsobmi by sa dal rozšíriť sekvenčný mód, aby bol univerzálny.
+\note{}
 
-  Týmto problémom sa v poslednej dobe venujem aj ja.
-
-  Ukázalo sa, že existujú spôsoby, ako rozšíriť sekvenčný mód, aby sa stal univerzálnym. Napríklad pravidlá s prioritami, či s vytváraním nových membrán, pričom sa akákoľvek ohraničenie na počet vytvorených membrán nestačí, treba neobmedzené množstvo.
-}
-\newpage
-\note{
-  Môj výsledok je, že použitie inhibítorov v sekvenčných P systémoch nám tiež zaručí univerzalitu. Článok bol zaslaný na konferenciu, obsahuje dôkaz pomocou simulácie maximálne paralelného P systému.
-
-  Skúmam aj ďalšie rozšírenia, napríklad pravidlá s detekciu prázdnych membrán.
-}
-
-% subsection aktualne_riesene_problemy (end)
-
-\subsection{Ďalšie plány} % (fold)
-\label{sub:dalsie_plany}
-
-\begin{frame}[t]\frametitle{Ďalšie plány}
+\begin{frame}[t]\frametitle{Prehľad simulácie pre generatívny mód}
   \begin{itemize}
-    \item Preskúmať možnosti kombinovania ďalších variantov P systémov z hľadiska výpočtovej sily
-    \begin{itemize}
-      \item rozpadajúce sa objekty
-      \item energie
-      \item symport / antiport
-      \item priestorové P systémy
-      \item \dots
-    \end{itemize}
+    \item Simulácia maximálne paralelného P systému $\Pi_1$ pomocou sekvenčného P systému s inhibítormi $\Pi_2$.
+    \pause
+    \item Každý maximálne paralelný krok $\Pi_1$ simulujeme sekvenčnými krokmi $\Pi_2$.
+    \pause
+    \item Produkty si označujeme, aby neboli použíté, kým neskončí daný maximálne paralelný krok.
+    \pause
+    \item Pomocou inhibítorov zistíme moment, kedy sa už v $\Pi_2$ nedá aplikovať žiadne pravidlo, aby sa mohol simulovať ďalší maximálne paralelný krok.
+    \pause
+    \item Synchronizácia medzi membránami pomocou tokenu.
   \end{itemize}
 \end{frame}
-\note{Medzi ďalšie plány patrí preskúmanie, ako pomôže kombinovanie s ďalšími variantami z hľadiska výpočtovej sily.
+\note{}
 
-  Zaujímavé rozšírenia sú napríklad rozpadajúce sa objekty, kde má každý objekt určený čas rozpadu, a po danom počte krokov objekt zanikne.
+% subsection sekven_n_p_syst_my_s_inhib_tormi (end)
 
-  Takisto inšpiratívne ja aj použitie energií. Každá reakcia spotrebuje nejakú energiu a po odpálení sa nejaká energia môže naspäť uvoľniť.
+\subsection{Sekvenčné P systémy s aktívnymi membránami} % (fold)
+\label{sub:sekven_n_p_syst_my_s_akt_vnymi_membr_nami}
 
-  Pri symport / antiport pravidlách komunikácia medzi membránami je vždy párova, pričom vždy idú dva objekty buď súbežne, alebo oproti sebe.
-
-  Priestorové P systémy zavádzajú pre objekty pozíciu v priestore.
-
-  Variantov je veľké množstvo, no stále sa oplatí hľadať aj nové.
-}
-
-\begin{frame}[t]\frametitle{Nové varianty}
+\begin{frame}[t]\frametitle{Sekvenčné P systémy s aktívnymi membránami}
   \begin{itemize}
-    \item Nájsť nové varianty
-    \item Besozzi \cite{Besozzi:PhD:2004}: Dobrý variant by mal byť:
-    \begin{itemize}
-      \item realistický
-      \item univerzálny
-      \item iredundantný
-    \end{itemize}
+    \item Bez limitu počtu aplikovaní pravidla na vytvorenie membrány (RE \cite{Ibarra05Active})
+    \pause
+    \item \bibentry{Kovac15Active}
   \end{itemize}
-\end{frame}
-\note{Zaujímavú definíciu dobrého variantu uvádza Besozzi vo svojej PhD práci.
+
   
-  Mal by byť dostatočne realistický, vychádzať z reálnych pozorovaní biologických javov. 
+\end{frame}
 
-  Mal by byť dostatočne silný z výpočtového hľadiska, ideálne univerzálny.
-
-  A mal by byť iredundantný, čiže definícia by mala byť dostatočne jednoduchá, nemala by obsahovať nič navyše.
-}
-
-
-\begin{frame}[t]\frametitle{Inšpirácie z výsledkov iných formalizmov}
+\begin{frame}[t]\frametitle{Problém zastavenia}
   \begin{itemize}
-    \item Petriho siete
+    \item Problém zastavenia je definovaný pre deterministické modely
+    \pause
+    \item Zovšeobecnenie: Existencia (ne)konečného výpočtu
+  \end{itemize}
+
+\end{frame}
+\note{}
+
+\begin{frame}[t]\frametitle{Existencia nekonečného výpočtu}
+  \begin{itemize}
+    \item Graf dosiahnuteľnosti
+    \pause
+    \item Čiastočné usporiadanie $\leq$:
     \begin{itemize}
-      \item nie sú univerzálne
-      \item s inhibítormi áno
-      \item iné rozšírenia Petriho sietí
+      \item $C_1 \leq C_2 \Rightarrow$ každé pravidlo v $C_1$ je aplikovateľné v $C_2$.
+      \pause
+      \item Pre každú nekonečnú postupnosť konfigurácií existuje $C_1, C_2$: $C_1 \rightarrow^* C_2$ a $C_1 \leq C_2$.
     \end{itemize}
-    \onslide<2->{\item CLS (Calculi of Looping Sequences)
-      \begin{itemize}
-        \item sekvenčný model, vie simulovať P systémy \cite{Barbuti07CLS}
-      \end{itemize}}
-    \onslide<3->{\item reaction systems [Rozenberg, 2007]}
+    \pause
+    \item Dicksonova lemma: Pre každú nekonečnú postupnosť n-tíc nad $\mathbb{N}$ $\{a_i\}_{i=0}^\infty$ existujú $i<j$: $a_i\leq a_j$
   \end{itemize}
 \end{frame}
-\note{Ďalšie plány zahŕňajú aj porovnanie s výsledkami iných formalizmov napríklad Petriho sietí, reaction systems, či CLS.
 
-  Petriho siete nie sú univerzálne, no niektoré rozšírenia, napríklad s inhibítormi sú. Chcel by som preskúmať aj iné rozšírenia Petriho sietí, ktoré ešte nikto nevyskúšal aplikovať v P systémoch. Petriho siete sú oveľa viac preskúmané ako P systémy, takže sa oplatí nimi inšpirovať.
+\begin{frame}[t]{Algoritmus rozhodujúci existenciu nekonečného výpočtu}
+  \begin{itemize}
+    \item Traverzuj graf dosiahnuteľnosti
+    \item Dosiahnutá konfigurácia $C_2$, taká, že na ceste z počiatočnej konfigurácie existuje $C_1\leq C_2\Rightarrow$ YES.
+    \item Ak traverzovanie skončilo $\Rightarrow$ NO.
+  \end{itemize}
+\end{frame}
 
-  Zaujímavý formalizmus je CLS, ktorý je sekvenčný, ale napriek tomu vie simulovať max. paralelné P systémy. Výhodou je, že pracuje so stringami. Článok písali Barbuti a Milazzo, ktorý je mojím oponentom.
+\begin{frame}[t]{Existencia konečného výpočtu}
+  \begin{itemize}
+    \item Pre daný P systém $\Pi$ a danú konfiguráciu $C$ vieme zostrojiť P systém $\Pi^\prime: \exists$ konečný výpočet $\Pi^\prime\Leftrightarrow C$ je dosiahnuteľná v $\Pi$.  
+  \end{itemize}  
+\end{frame}
 
-  Okrem Petriho sietí som dostal odporúčanie pozrieť sa aj na formalizmus Reaction Systems. Zaoberá sa interakciami medzi reakciami, ktoré sa môžu navzájom ovplyvňovať - inhibovať alebo posilňovať.
-}
+% subsection sekven_n_p_syst_my_s_akt_vnymi_membr_nami (end)
 
-% subsection dalsie_plany (end)
+\subsection{Detekcia prázdnosti membrán} % (fold)
+\label{sub:detekcia_pr_zdnosti_membr_n}
 
-% section plany_na_dizertacnu_pracu (end)
+\begin{frame}[t]{Detekcia prázdnosti membrán}
+  \begin{itemize}
+    \item Objekty vyhýbajúce sa prázdnym membránam
+    \pause
+    \item Mutovanie objektov pri poslaní do prázdnej membrány
+    \pause
+    \item Objekt reprezetujúci vákuum
+  \end{itemize}  
+\end{frame}
+
+% subsection detekcia_pr_zdnosti_membr_n (end)
+
+\subsection{Sekvenčné P systémy s množinami namiesto multimnožín} % (fold)
+\label{sub:sekven_n_p_syst_my_s_mno_inami_namiesto_multimno_n}
+
+\begin{frame}[t]{Sekvenčné P systémy s množinami namiesto multimnožín}
+  \begin{itemize}
+    \item \bibentry{Kovac15Set}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Nevýhody používania multimnožín}
+  \begin{itemize}
+    \item Nakoľko realistické je reprezentovať presný počet objektov?
+    \item Efektivita verifikačných techník
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[t]\frametitle{P systémy s množinami objektov}
+  \begin{itemize}
+    \item Alhazov \cite{Alhazov05WithoutMultiplicities}: počty objektov sa ignorujú (R), s aktívnymi membránami (RE)
+    \item Kleijn, Koutny \cite{Kleijn11SetMembrane}: ``min-enabled'' computational step $\Rightarrow$ (R)
+    \pause
+    \item Maximálny paralelizmus $\Rightarrow$ determinizmus
+    \pause
+    \item Pravidlá bez konfliktu (objekty sa môžu zúčastniť ako reaktanty súčasne vo viacerých pravidlách)
+  \end{itemize}
+\end{frame}
+\note{}
+
+\begin{frame}[t]\frametitle{Sekvenčné P systémy s množinami objektov a aktívnymi membránami}
+  \begin{itemize}
+    \item $\Pi = (\Sigma, C_0, R_1, \ldots R_m)$
+    \pause
+    \item $C = (T, l, c)$
+    \begin{itemize}
+      \item $l: V(T) \rightarrow \{1, \ldots, m\}$
+      \item $c: V(T) \rightarrow 2^\Sigma$
+    \end{itemize}
+    \pause
+    \item Pravidlá
+    \begin{itemize}
+      \item $u\rightarrow w$
+      \item $u\rightarrow w\delta$
+      \item $u\rightarrow [_j v_1]_j v_2$,
+
+      kde $u \in \Sigma, |u|\geq 1$, $v_1,v_2\in \mathbb{N}$ a $w\in (\Sigma\times\{\cdot, \uparrow, \downarrow_{j}\})$
+    \end{itemize}
+
+  \end{itemize}
+\end{frame}
+\note{}
+
+\begin{frame}[t]\frametitle{Iné sémantiky vytvárania membrány}
+  \begin{itemize}
+    \item Problémy pôvodnej sémantiky:
+    \begin{itemize}
+      \item Vytváranie membrány, ktorá už existuje
+      \item Posielanie objektu do neexistujúcej membrány
+    \end{itemize}
+    \pause
+    \item Inject-or-create
+    \pause
+    \item Wrap-or-create
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[t]\frametitle{Simulácia registrového stroja}
+  \begin{center}
+    \begin{tabular}{c|c|c}
+      \hline
+      & priestor & čas \\ \hline
+      original & $O(n)$ & $O(n)$ \\ \hline
+      \pause
+      original & $O(log(n))$ & $O(log(n))$ \\ \hline
+      \pause
+      inject-or-create & $O(log(n))$ & $O(log(n))$ \\ \hline
+      \pause
+      wrap-or-create & $O(n)$ & $O(1)$ \\ \hline
+    \end{tabular}
+  \end{center}
+\end{frame}
+
+% subsection sekven_n_p_syst_my_s_mno_inami_namiesto_multimno_n (end)
+
+% section sk_man_varianty_p_syst_mov (end)
+
 
 \begin{frame}[plain]
 \begin{center}
   Ďakujem za pozornosť
 \end{center}
+\end{frame}
+
+\begin{frame}[t]{Vyjadrenia k posudkom}
+  \begin{itemize}
+    \item Štandardnou motiváciou pre skúmanie týchto modelov je potenciál vysokého paralelizmu. Práca je príliš zameraná na sekvenčný mód, ktorý úplne eliminuje potenciál tohto modelu.
+    \pause
+    \item 
+  \end{itemize}
 \end{frame}
 
 \newsavebox\mytempbib
