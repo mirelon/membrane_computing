@@ -342,7 +342,16 @@ We have investigated the bridge between membrane systems and reaction systems fo
 
 As some simulations are not very effective, we have also proposed ways to improve the efficiency. For the simulation with original membrane creation we managed to reduce time needed for executing one instruction of the register machine from linear to logarithmic time. The wrap-or-create semantics is the most suitable for the simulation as for every instruction of the register machine only constant number of steps of the P system is needed.
 
-% TODO: add a summary table with metric results on the simulation efficiency.
+\begin{center}
+  \begin{tabular}{|c|c|c|l|}
+    \hline
+    semantics & membranes & time & alphabet \\ \hline
+    original & $O(n)$ & $O(n)$ & $2*\# instr.+\# reg.$ \\ \hline
+    original & $O(log(n))$ & $O(log(n))$ & $3*\# instr.+ 5$ \\ \hline
+    inject-or-create & $O(log(n))$ & $O(log(n))$ & $3*\# instr.+ 5$ \\ \hline
+    wrap-or-create & $O(n)$ & $O(1)$ & $\# instr.+2*\# reg.$ \\ \hline
+  \end{tabular}
+\end{center}
 
 The register value in the simulations is encoded in either unary or binary form. We propose other options to encode the register value as a tree structure of membranes and leave the construction of the simulation as a topic for further study.
 
