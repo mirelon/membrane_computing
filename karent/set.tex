@@ -164,8 +164,8 @@ The main theorem is stated as follows:
   \begin{enumerate}
     \item\label{simple_skin_next_instruction} $y_j \rightarrow x_j$,
     \item\label{simple_skin_send_down} $x_j \rightarrow x_j\downarrow_{i}$ for instruction $j: (op(i), \_, \_)$,
-    \item\label{simple_skin_create} $x_j, t_i \rightarrow [_1 y_k, t_i ]_1$ for instruction $j: (add(i), k, k)$,
-    \item\label{simple_skin_sub_empty} $x_j, t_i \rightarrow l$ for instruction $j: (sub(i), \_, l)$
+    \item\label{simple_skin_create} $x_j, t_i \rightarrow [_i y_k, t_i ]_i$ for instruction $j: (add(i), k, k)$,
+    \item\label{simple_skin_sub_empty} $x_j, t_i \rightarrow x_l$ for instruction $j: (sub(i), \_, l)$
   \end{enumerate}
 
   For the membrane $i$:
