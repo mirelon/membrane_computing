@@ -180,10 +180,6 @@ The main theorem is stated as follows:
 \end{proof}
 
 \begin{example}
-  Assume a register machine with two registers with values $r_1=2$, $r_2=0$ and the current instruction $j: add(1,k,k)$. The corresponding membrane configuration is $[_3 [_1 [_1 t_1 ]_1 ]_1 x_j t_2]_3$. The computation of the P system is deterministic, at each step there is only one applicable rule. Starting with the rule \ref{simple_skin_send_down} and then the rule \ref{simple_inner_resend_down}, $x_j$ enters the innermost membrane, where the rule \ref{simple_inner_create} creates new membrane.
-\end{example}
-
-\begin{example}
   Assume a register machine with two registers with values $r_1=2$, $r_2=0$ and instructions:
   \begin{itemize}
     \item $1: sub(1),2,3$
@@ -191,78 +187,27 @@ The main theorem is stated as follows:
     \item $3: halt$
   \end{itemize}
 
-  The initial configuration will be $[_3 [_1 [_1 t_1 ]_1 ]_1 [_2 ]_2 t_2 x_1 ]_3$. Example computation:
+  The initial configuration is $[_3 [_1 [_1 t_1 ]_1 ]_1 [_2 ]_2 t_2 x_1 ]_3$. The computation of the P system is deterministic, at each step there is only one applicable rule. Starting with the rule \ref{simple_skin_send_down} and then the rule \ref{simple_inner_resend_down}, $x_1$ enters the innermost membrane, where the rule \ref{simple_inner_dissolve} dissolves the membrane. The full example computation:
 
   \begin{enumerate}
     \item $[_3 [_1 [_1 t_1 ]_1 ]_1 t_2 x_1 ]_3$
-    \begin{itemize}
-      \item Use rule \ref{simple_skin_send_down}
-    \end{itemize}
-    \item $[_3 [_1 [_1 t_1 ]_1 x_1 ]_1 t_2 ]_3$
-    \begin{itemize}
-      \item Use rule \ref{simple_inner_resend_down}
-    \end{itemize}
-    \item $[_3 [_1 [_1 t_1 x_1 ]_1 ]_1 t_2 ]_3$
-    \begin{itemize}
-      \item Use rule \ref{simple_inner_dissolve}
-    \end{itemize}
-    \item $[_3 [_1 t_1 y_2 ]_1 t_2 ]_3$
-    \begin{itemize}
-      \item Use rule \ref{simple_inner_resend_up}
-    \end{itemize}
-    \item $[_3 [_1 t_1 ]_1 t_2 y_2 ]_3$
-    \begin{itemize}
-      \item Use rule \ref{simple_skin_next_instruction}
-    \end{itemize}
-    \item $[_3 [_1 t_1 ]_1 t_2 x_2 ]_3$
-    \begin{itemize}
-      \item Use rule \ref{simple_skin_create}
-    \end{itemize}
-    \item $[_3 [_1 t_1 ]_1 [_2 t_2 y_1 ]_2 ]_3$
-    \begin{itemize}
-      \item Use rule \ref{simple_inner_resend_up}
-    \end{itemize}
-    \item $[_3 [_1 t_1 ]_1 [_2 t_2 ]_2 y_1 ]_3$
-    \begin{itemize}
-      \item Use rule \ref{simple_skin_next_instruction}
-    \end{itemize}
-    \item $[_3 [_1 t_1 ]_1 [_2 t_2 ]_2 x_1 ]_3$
-    \begin{itemize}
-      \item Use rule \ref{simple_skin_send_down}
-    \end{itemize}
-    \item $[_3 [_1 t_1 x_1 ]_1 [_2 t_2 ]_2 ]_3$
-    \begin{itemize}
-      \item Use rule \ref{simple_inner_dissolve}
-    \end{itemize}
-    \item $[_3 [_2 t_2 ]_2 t_1 y_2 ]_3$
-    \begin{itemize}
-      \item Use rule \ref{simple_skin_next_instruction}
-    \end{itemize}
-    \item $[_3 [_2 t_2 ]_2 t_1 x_2 ]_3$
-    \begin{itemize}
-      \item Use rule \ref{simple_skin_send_down}
-    \end{itemize}
-    \item $[_3 [_2 t_2 x_2 ]_2 t_1 ]_3$
-    \begin{itemize}
-      \item Use rule \ref{simple_inner_create}
-    \end{itemize}
-    \item $[_3 [_2 [_2 t_2 y_1 ]_2 ]_2 t_1 ]_3$
-    \begin{itemize}
-      \item Use rule \ref{simple_inner_resend_up}
-    \end{itemize}
-    \item $[_3 [_2 [_2 t_2 ]_2 y_1 ]_2 t_1 ]_3$
-    \begin{itemize}
-      \item Use rule \ref{simple_inner_resend_up}
-    \end{itemize}
-    \item $[_3 [_2 [_2 t_2 ]_2 ]_2 t_1 y_1 ]_3$
-    \begin{itemize}
-      \item Use rule \ref{simple_skin_next_instruction}
-    \end{itemize}
-    \item $[_3 [_2 [_2 t_2 ]_2 ]_2 t_1 x_1 ]_3$
-    \begin{itemize}
-      \item Use rule \ref{simple_skin_sub_empty}
-    \end{itemize}
-    \item $[_3 [_2 [_2 t_2 ]_2 ]_2 t_1 x_3 ]_3$
+    \item $[_3 [_1 [_1 t_1 ]_1 x_1 ]_1 t_2 ]_3$ (used rule \ref{simple_skin_send_down})
+    \item $[_3 [_1 [_1 t_1 x_1 ]_1 ]_1 t_2 ]_3$ (used rule \ref{simple_inner_resend_down})
+    \item $[_3 [_1 t_1 y_2 ]_1 t_2 ]_3$ (used rule \ref{simple_inner_dissolve})
+    \item $[_3 [_1 t_1 ]_1 t_2 y_2 ]_3$ (used rule \ref{simple_inner_resend_up})
+    \item $[_3 [_1 t_1 ]_1 t_2 x_2 ]_3$ (used rule \ref{simple_skin_next_instruction})
+    \item $[_3 [_1 t_1 ]_1 [_2 t_2 y_1 ]_2 ]_3$ (used rule \ref{simple_skin_create})
+    \item $[_3 [_1 t_1 ]_1 [_2 t_2 ]_2 y_1 ]_3$ (used rule \ref{simple_inner_resend_up})
+    \item $[_3 [_1 t_1 ]_1 [_2 t_2 ]_2 x_1 ]_3$ (used rule \ref{simple_skin_next_instruction})
+    \item $[_3 [_1 t_1 x_1 ]_1 [_2 t_2 ]_2 ]_3$ (used rule \ref{simple_skin_send_down})
+    \item $[_3 [_2 t_2 ]_2 t_1 y_2 ]_3$ (used rule \ref{simple_inner_dissolve})
+    \item $[_3 [_2 t_2 ]_2 t_1 x_2 ]_3$ (used rule \ref{simple_skin_next_instruction})
+    \item $[_3 [_2 t_2 x_2 ]_2 t_1 ]_3$ (used rule \ref{simple_skin_send_down})
+    \item $[_3 [_2 [_2 t_2 y_1 ]_2 ]_2 t_1 ]_3$ (used rule \ref{simple_inner_create})
+    \item $[_3 [_2 [_2 t_2 ]_2 y_1 ]_2 t_1 ]_3$ (used rule \ref{simple_inner_resend_up})
+    \item $[_3 [_2 [_2 t_2 ]_2 ]_2 t_1 y_1 ]_3$ (used rule \ref{simple_inner_resend_up})
+    \item $[_3 [_2 [_2 t_2 ]_2 ]_2 t_1 x_1 ]_3$ (used rule \ref{simple_skin_next_instruction})
+    \item $[_3 [_2 [_2 t_2 ]_2 ]_2 t_1 x_3 ]_3$ (used rule \ref{simple_skin_sub_empty})
   \end{enumerate}
 \end{example}
 
