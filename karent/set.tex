@@ -165,7 +165,7 @@ The main theorem is stated as follows:
     \item\label{simple_skin_next_instruction} $y_j \rightarrow x_j$,
     \item\label{simple_skin_send_down} $x_j \rightarrow x_j\downarrow_{i}$ for instruction $j: (op(i), \_, \_)$,
     \item\label{simple_skin_create} $x_j, t_i \rightarrow [_i y_k, t_i ]_i$ for instruction $j: (add(i), k, k)$,
-    \item\label{simple_skin_sub_empty} $x_j, t_i \rightarrow x_l$ for instruction $j: (sub(i), \_, l)$
+    \item\label{simple_skin_sub_empty} $x_j, t_i \rightarrow x_l, t_i$ for instruction $j: (sub(i), \_, l)$
   \end{enumerate}
 
   For the membrane $i$:
@@ -181,6 +181,89 @@ The main theorem is stated as follows:
 
 \begin{example}
   Assume a register machine with two registers with values $r_1=2$, $r_2=0$ and the current instruction $j: add(1,k,k)$. The corresponding membrane configuration is $[_3 [_1 [_1 t_1 ]_1 ]_1 x_j t_2]_3$. The computation of the P system is deterministic, at each step there is only one applicable rule. Starting with the rule \ref{simple_skin_send_down} and then the rule \ref{simple_inner_resend_down}, $x_j$ enters the innermost membrane, where the rule \ref{simple_inner_create} creates new membrane.
+\end{example}
+
+\begin{example}
+  Assume a register machine with two registers with values $r_1=2$, $r_2=0$ and instructions:
+  \begin{itemize}
+    \item $1: sub(1),2,3$
+    \item $2: add(2),1,1$
+    \item $3: halt$
+  \end{itemize}
+
+  The initial configuration will be $[_3 [_1 [_1 t_1 ]_1 ]_1 [_2 ]_2 t_2 x_1 ]_3$. Example computation:
+
+  \begin{enumerate}
+    \item $[_3 [_1 [_1 t_1 ]_1 ]_1 t_2 x_1 ]_3$
+    \begin{itemize}
+      \item Use rule \ref{simple_skin_send_down}
+    \end{itemize}
+    \item $[_3 [_1 [_1 t_1 ]_1 x_1 ]_1 t_2 ]_3$
+    \begin{itemize}
+      \item Use rule \ref{simple_inner_resend_down}
+    \end{itemize}
+    \item $[_3 [_1 [_1 t_1 x_1 ]_1 ]_1 t_2 ]_3$
+    \begin{itemize}
+      \item Use rule \ref{simple_inner_dissolve}
+    \end{itemize}
+    \item $[_3 [_1 t_1 y_2 ]_1 t_2 ]_3$
+    \begin{itemize}
+      \item Use rule \ref{simple_inner_resend_up}
+    \end{itemize}
+    \item $[_3 [_1 t_1 ]_1 t_2 y_2 ]_3$
+    \begin{itemize}
+      \item Use rule \ref{simple_skin_next_instruction}
+    \end{itemize}
+    \item $[_3 [_1 t_1 ]_1 t_2 x_2 ]_3$
+    \begin{itemize}
+      \item Use rule \ref{simple_skin_create}
+    \end{itemize}
+    \item $[_3 [_1 t_1 ]_1 [_2 t_2 y_1 ]_2 ]_3$
+    \begin{itemize}
+      \item Use rule \ref{simple_inner_resend_up}
+    \end{itemize}
+    \item $[_3 [_1 t_1 ]_1 [_2 t_2 ]_2 y_1 ]_3$
+    \begin{itemize}
+      \item Use rule \ref{simple_skin_next_instruction}
+    \end{itemize}
+    \item $[_3 [_1 t_1 ]_1 [_2 t_2 ]_2 x_1 ]_3$
+    \begin{itemize}
+      \item Use rule \ref{simple_skin_send_down}
+    \end{itemize}
+    \item $[_3 [_1 t_1 x_1 ]_1 [_2 t_2 ]_2 ]_3$
+    \begin{itemize}
+      \item Use rule \ref{simple_inner_dissolve}
+    \end{itemize}
+    \item $[_3 [_2 t_2 ]_2 t_1 y_2 ]_3$
+    \begin{itemize}
+      \item Use rule \ref{simple_skin_next_instruction}
+    \end{itemize}
+    \item $[_3 [_2 t_2 ]_2 t_1 x_2 ]_3$
+    \begin{itemize}
+      \item Use rule \ref{simple_skin_send_down}
+    \end{itemize}
+    \item $[_3 [_2 t_2 x_2 ]_2 t_1 ]_3$
+    \begin{itemize}
+      \item Use rule \ref{simple_inner_create}
+    \end{itemize}
+    \item $[_3 [_2 [_2 t_2 y_1 ]_2 ]_2 t_1 ]_3$
+    \begin{itemize}
+      \item Use rule \ref{simple_inner_resend_up}
+    \end{itemize}
+    \item $[_3 [_2 [_2 t_2 ]_2 y_1 ]_2 t_1 ]_3$
+    \begin{itemize}
+      \item Use rule \ref{simple_inner_resend_up}
+    \end{itemize}
+    \item $[_3 [_2 [_2 t_2 ]_2 ]_2 t_1 y_1 ]_3$
+    \begin{itemize}
+      \item Use rule \ref{simple_skin_next_instruction}
+    \end{itemize}
+    \item $[_3 [_2 [_2 t_2 ]_2 ]_2 t_1 x_1 ]_3$
+    \begin{itemize}
+      \item Use rule \ref{simple_skin_sub_empty}
+    \end{itemize}
+    \item $[_3 [_2 [_2 t_2 ]_2 ]_2 t_1 x_3 ]_3$
+  \end{enumerate}
 \end{example}
 
 The simulation was quite straightforward. We proved that the model is computationally complete. However, the simulation is not very effective. It uses alphabet of size $2 * \text{number of instructions} + \text{number of registers}$, and its number of membranes is linearly dependent on the sum of values of registers. The time needed for executing an instruction on register $i$ is linearly dependent on $r_i$.
