@@ -192,13 +192,13 @@ The simulation was quite straightforward. We proved that the model is computatio
 
 In this subsection we address the inefficient usage of membranes in the previous simulation. New, optimized simulation will reduce it to logarithmic dependency.
 
-For a register machine with $m$ registers we will construct a seqeuntial active set P system, where $\Sigma = \{0,1,p,s,t\}\cup\{x_j, y_j, z_j \text{~for instructions with label~} j\}$. Skin membrane will be labeled with $m+1$, other labels correspond to registers 1 to $m$.
+For a register machine with $m$ registers we will construct a seqeuntial active set P system, where $\Sigma = \{0,1,p,q,s,t\}\cup\{x_j, y_j, z_j \text{~for instructions with label~} j\}$. Skin membrane will be labeled with $m+1$, other labels correspond to registers 1 to $m$.
 
 Assume configuration of register machine $(r_1, r_2, \ldots r_m, ip)$. For each register $i$, let $b_1b_2\ldots b_k$ be a binary representation of $r_i$. The skin membrane will contain a chain of $k$ membranes embedded one into another like in a Matryoshka doll with label $i$.
-The membrane in depth $d$ will contain the object $b_{k-d}$, which is either 0 or 1. So the highest-order position in the binary number is represented by the innermost membrane and more often changed positions by increments are in membranes closer to the skin membrane. Moreover, the innermost membranes contain a single object $t$. The skin membrane contains the label of the current instruction $x_{ip}$. Other membranes (not skin and not innermost) contain $s$. Object $p$ will be in all membranes except the skin membrane and direct children of the skin membrane. It represents the fact that the membrane can be dissolved, while keeping at least one membrane for binary representation of the register value.
+The membrane in depth $d$ will contain the object $b_{k-d}$, which is either 0 or 1. So the highest-order position in the binary number is represented by the innermost membrane and more often changed positions by increments are in membranes closer to the skin membrane. Moreover, the innermost membranes contain a single object $t$. The skin membrane contains the label of the current instruction $x_{ip}$. Other membranes (not skin and not innermost) contain $s$. Direct children of the skin membrane will contain a single object $q$ representing the fact that we don't want the membrane to be dissolved. Object $p$ will be in all membranes except the skin membrane and direct children of the skin membrane. It represents the fact that the membrane can be dissolved, while keeping at least one membrane for binary representation of the register value.
 
 The basic idea is to recursively decide the next action based on lowest position. For incrementing number ending with zero, incrementing the lowest position is enough. Similar simple case is when decrementing number ending with one. For incrementing number ending with one, we decrement the lowest position and recursively call increment on the binary number omitting the lowest position. Similarly, for decrementing number ending with zero, we increment the lowest position and recursively call decrement on the binary number omitting the lowest position.
-There are some special cases, like incrementing 111 to 1000 or decrementing 1000 to 111. In these cases we should change the number of membranes representing positions. 
+There are some special cases, like incrementing 111 to 1000 or decrementing 1000 to 111. In these cases we should change the number of membranes representing positions. There is also an exception to this - decrementing 1 to 0 does not change the number of bits.
 
 We will have following rules in the skin membrane:
 \begin{enumerate}
@@ -213,7 +213,7 @@ For the membrane $i$ and instruction $j$:
 
 For the membrane $i$ and instruction $j: add(i,k,k)$:
 \begin{enumerate}[resume]
-  \item\label{optim_inner_add_1} $x_j1 \rightarrow x_j\downarrow_{i}0$ (we decremented lower position, so we must increment higher position (011 to 100, now at 1 to 0)),
+  \item\label{optim_inner_add_1} $x_j1s \rightarrow x_j\downarrow_{i}0s$ (we decremented lower position, so we must increment higher position (011 to 100, now at 1 to 0)),
   \item\label{optim_inner_add_0} $x_j0 \rightarrow y_k \uparrow 1$ (we incremented a position and can return and proceed to the next instruction),
   \item\label{optim_inner_add_1_highest} $x_j1t \rightarrow [_i 1tp]_iy_k\uparrow 0s$ (incrementing 111 to 1000).
 \end{enumerate}
@@ -221,17 +221,20 @@ For the membrane $i$ and instruction $j: add(i,k,k)$:
 For the membrane $i$ and instruction $j: sub(i,k,l)$:
 \begin{enumerate}[resume]
   \item\label{optim_inner_sub_1} $x_j1s \rightarrow y_k \uparrow 0s$ (we found position to decrement, proceed to the next instruction),
-  \item\label{optim_inner_sub_0} $x_j0 \rightarrow x_j\downarrow_i 1$ (1000 is decremented to 0111 and now we encountered a 0),
-  \item\label{optim_inner_sub_1_highest} $x_j1tp \rightarrow z_kt \delta$ (decrementing the number of bits),
-  \item\label{optim_inner_sub_remove_s} $z_jst \rightarrow y_jt$ (after decremented the number of bits, remove $s$ in the new highest-order position),
+  \item\label{optim_inner_sub_0} $x_j0s \rightarrow x_j\downarrow_i 1s$ (1000 is decremented to 0111 and now we encountered a 0),
+  \item\label{optim_inner_sub_1_highest} $x_j1tp \rightarrow z_jt \delta$ (decrementing the number of bits),
+  \item\label{optim_inner_sub_1_highest_1} $x_j1tq \rightarrow y_k\uparrow 0t$ (exception to the rule \ref{optim_inner_sub_1_highest} - decrementing 1 to 0 does not decrement the number of bits),
+  \item\label{optim_inner_sub_remove_s} $z_jst \rightarrow y_kt$ (after decremented the number of bits, remove $s$ in the new highest-order position),
   \item\label{optim_inner_sub_0_highest} $x_j0t \rightarrow y_l \uparrow 0t$ (trying to decrement a zero)
 \end{enumerate}
 
 \begin{example}
-  Assume a register machine with two registers with values $r_1=3$, $r_2=0$ and the current instruction $j: add(1,k,k)$. The corresponding membrane configuration is $[_3 [_1 [_1 1 t p ]_1 1 s ]_1 [_2 0 t ]_2 x_j ]_3$. The computation of the P system is deterministic, at each step there is only one applicable rule. Starting with the rule \ref{optim_skin_send_down}, $x_j$ will meet the object $1$ in the configuration $[_3 [_1 [_1 1 t p ]_1 1 x_j s ]_1 [_2 0 t ]_2 ]_3$. The only applicable rule then is \ref{optim_inner_add_1}, resulting in $[_3 [_1 [_1 1 t p x_j ]_1 0 s ]_1 [_2 0 t ]_2 ]_3$. $x_j$ now meets objects 1 and $t$, which means that the only applicable rule is \ref{optim_inner_add_1_highest}, creating a new innermost membrane and resulting in the configuration $[_3 [_1 [_1 [_1 1 t p ]_1 0 ]_1 0 y_k s ]_1 [_2 0 t ]_2 ]_3$. The object $y_k$ is by the rule \ref{optim_inner_resend_up} propagated to the skin membrane, where it is prepared for the next instruction by the rule \ref{optim_skin_next_instruction}.
+  Assume a register machine with two registers with values $r_1=3$, $r_2=0$ and the current instruction $j: add(1,k,k)$. The corresponding membrane configuration is $[_3 [_1 [_1 1 t p ]_1 1 s q ]_1 [_2 0 t q ]_2 x_j ]_3$.
+
+  The computation of the P system is deterministic, at each step there is only one applicable rule. Starting with the rule \ref{optim_skin_send_down}, $x_j$ will meet the object $1$ in the configuration $[_3 [_1 [_1 1 t p ]_1 1 x_j s q ]_1 [_2 0 t q ]_2 ]_3$. The only applicable rule then is \ref{optim_inner_add_1}, resulting in $[_3 [_1 [_1 1 t p x_j ]_1 0 s q ]_1 [_2 0 t q ]_2 ]_3$. $x_j$ now meets objects 1 and $t$, which means that the only applicable rule is \ref{optim_inner_add_1_highest}, creating a new innermost membrane and resulting in the configuration $[_3 [_1 [_1 [_1 1 t p ]_1 0 p ]_1 0 y_k s q ]_1 [_2 0 t q ]_2 ]_3$. The object $y_k$ is by the rule \ref{optim_inner_resend_up} propagated to the skin membrane, where it is prepared for the next instruction by the rule \ref{optim_skin_next_instruction}.
 \end{example}
 
-One instruction of the register machine is performed by number of computational steps which is logarithmic on the value of the register the instruction is operated on. The number of membranes is logarithmic as well. The number of objects is $3 * \text{number of instructions} + 5$.
+One instruction of the register machine is performed by number of computational steps which is logarithmic on the value of the register the instruction is operated on. The number of membranes is logarithmic as well. The number of objects is $3 * \text{number of instructions} + 6$.
 
 \subsection{Further optimalizations} % (fold)
 \label{sub:further_optimalizations}
@@ -347,8 +350,8 @@ As some simulations are not very effective, we have also proposed ways to improv
     \hline
     semantics & membranes & time & alphabet \\ \hline
     original & $O(n)$ & $O(n)$ & $2*\# instr.+\# reg.$ \\ \hline
-    original & $O(log(n))$ & $O(log(n))$ & $3*\# instr.+ 5$ \\ \hline
-    inject-or-create & $O(log(n))$ & $O(log(n))$ & $3*\# instr.+ 5$ \\ \hline
+    original & $O(log(n))$ & $O(log(n))$ & $3*\# instr.+ 6$ \\ \hline
+    inject-or-create & $O(log(n))$ & $O(log(n))$ & $3*\# instr.+ 6$ \\ \hline
     wrap-or-create & $O(n)$ & $O(1)$ & $\# instr.+2*\# reg.$ \\ \hline
   \end{tabular}
 \end{center}
