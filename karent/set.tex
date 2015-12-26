@@ -209,9 +209,11 @@ The main theorem is stated as follows:
     \item $[_3 [_2 [_2 t_2 ]_2 ]_2 t_1 x_1 ]_3$ (used rule \ref{simple_skin_next_instruction})
     \item $[_3 [_2 [_2 t_2 ]_2 ]_2 t_1 x_3 ]_3$ (used rule \ref{simple_skin_sub_empty})
   \end{enumerate}
+
+  We have shown an example computation of P system which simulates the register machine which moves contents of register 1 to the register 2.
 \end{example}
 
-The simulation was quite straightforward. We proved that the model is computationally complete. However, the simulation is not very effective. It uses alphabet of size $2 * \text{number of instructions} + \text{number of registers}$, and its number of membranes is linearly dependent on the sum of values of registers. The time needed for executing an instruction on register $i$ is linearly dependent on $r_i$.
+The simulation of the register machine was quite straightforward. We proved that the model is computationally complete. However, the simulation is not very effective. It uses alphabet of size $2 * \text{number of instructions} + \text{number of registers}$, and its number of membranes is linearly dependent on the sum of values of registers. The time needed for executing an instruction on register $i$ is linearly dependent on $r_i$.
 
 % subsection simple_simulation (end)
 
