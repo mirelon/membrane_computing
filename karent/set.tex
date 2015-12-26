@@ -357,9 +357,27 @@ In this variant we stay with explicit membrane creation rule, but when the membr
 \end{proof}
 
 \begin{example}
-  Assume a register machine with two registers with values $r_1=2$ and $r_2=0$. The corresponding membrane configuration is $[_3 [_1 [_1 t_1 ]_1 s_1 ]_1 s_1 t_2 x_j ]_3$. If the current instruction is $j: sub(1,k,l)$ then the only applicable is the rule \ref{wrap_skin_sub_s} which results in the configuration $[_3 [_1 [_1 t_1 ]_1 s_1 x_j ]_1 s_1 t_2 ]_3$. Then the only applicable is the rule \ref{wrap_inner_dissolve} which dissolves the membrane 1 resulting in the configuration $[_3 [_1 t_1 ]_1 s_1 ]_1 s_1 t_2 x_k ]_3$.
+  Assume a register machine with two registers with values $r_1=2$ and $r_2=0$ and instructions:
+  \begin{itemize}
+    \item $1: sub(1),2,3$
+    \item $2: add(2),1,1$
+    \item $3: halt$
+  \end{itemize}.
 
-  For another example, consider instruction $j: add(1,k,k)$. The increment is simulated by wrapping the membrane 1 to a new membrane created by the rule \ref{wrap_skin_add_s} with the resulting configuration $[_3 [_1 [_1 [_1 t_1 ]_1 s_1 ]_1 s_1 ]_1 s_1 t_2 x_k ]_3$.
+  The initial membrane configuration is $[_3 [_1 [_1 t_1 ]_1 s_1 ]_1 s_1 t_2 x_1 ]_3$. The computation of the P system is deterministic, at each step there is only one applicable rule. Starting with the rule \ref{wrap_skin_sub_s}, $x_1$ enters the inner membrane, where the rule \ref{wrap_inner_dissolve} dissolves the membrane. The full example computation:
+
+  \begin{enumerate}
+    \item $[_3 [_1 [_1 t_1 ]_1 s_1 ]_1 s_1 t_2 x_1 ]_3$
+    \item $[_3 [_1 [_1 t_1 ]_1 s_1 x_1 ]_1 t_2 ]_3$ (used rule \ref{wrap_skin_sub_s})
+    \item $[_3 [_1 t_1 ]_1 s_1 t_2 x_2 ]_3$ (used rule \ref{wrap_inner_dissolve})
+    \item $[_3 [_1 t_1 ]_1 [_2 t_2 ]_2 s_1 s_2 x_1 ]_3$ (used rule \ref{wrap_skin_add_t})
+    \item $[_3 [_1 t_1 x_1 ]_1 [_2 t_2 ]_2 s_2 ]_3$ (used rule \ref{wrap_skin_sub_s})
+    \item $[_3 [_2 t_2 ]_2 t_1 s_2 x_2 ]_3$ (used rule \ref{wrap_inner_dissolve})
+    \item $[_3 [_2 [_2 t_2 ]_2 s_2 ]_2 t_1 s_2 x_1 ]_3$ (used rule \ref{wrap_skin_add_s})
+    \item $[_3 [_2 [_2 t_2 ]_2 s_2 ]_2 t_1 s_2 x_3 ]_3$ (used rule \ref{wrap_skin_sub_t})
+  \end{enumerate}
+  
+  We have shown an example computation of P system which simulates the register machine which moves contents of register 1 to the register 2.
 \end{example}
 
 This simulation is the most suitable for simulating the register machine because for incrementing the number of stacked membranes we just need to wrap the topmost membrane into a new membrane. This gained us constant time for executing one instruction, however the number of membranes remains linear on the sum of register values. The number of objects is $\text{number of instructions} + 2 * \text{number of registers}$.
