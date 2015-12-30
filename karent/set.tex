@@ -253,7 +253,7 @@ For the membrane $i$ and instruction $j: sub(i),k,l$:
   \item\label{optim_inner_sub_1} $x_j1s \rightarrow y_k \uparrow 0s$ (we found position to decrement, proceed to the next instruction),
   \item\label{optim_inner_sub_0} $x_j0s \rightarrow x_j\downarrow_i 1s$ (1000 is decremented to 0111 and now we encountered a 0),
   \item\label{optim_inner_sub_1_highest} $x_j1tp \rightarrow z_jt \delta$ (decrementing the number of bits),
-  \item\label{optim_inner_sub_1_highest_1} $x_j1tq \rightarrow y_k\uparrow 0t$ (exception to the rule \ref{optim_inner_sub_1_highest} - decrementing 1 to 0 does not decrement the number of bits),
+  \item\label{optim_inner_sub_1_highest_1} $x_j1tq \rightarrow y_k\uparrow 0tq$ (exception to the rule \ref{optim_inner_sub_1_highest} - decrementing 1 to 0 does not decrement the number of bits),
   \item\label{optim_inner_sub_remove_s} $z_jst \rightarrow y_kt$ (after decremented the number of bits, remove $s$ in the new highest-order position),
   \item\label{optim_inner_sub_0_highest} $x_j0t \rightarrow y_l \uparrow 0t$ (trying to decrement a zero)
 \end{enumerate}
@@ -262,6 +262,42 @@ For the membrane $i$ and instruction $j: sub(i),k,l$:
   Assume a register machine with two registers with values $r_1=3$, $r_2=0$ and the current instruction $j: add(1),k,k$. The corresponding membrane configuration is $[_3 [_1 [_1 1 t p ]_1 1 s q ]_1 [_2 0 t q ]_2 x_j ]_3$.
 
   The computation of the P system is deterministic, at each step there is only one applicable rule. Starting with the rule \ref{optim_skin_send_down}, $x_j$ will meet the object $1$ in the configuration $[_3 [_1 [_1 1 t p ]_1 1 x_j s q ]_1 [_2 0 t q ]_2 ]_3$. The only applicable rule then is \ref{optim_inner_add_1}, resulting in $[_3 [_1 [_1 1 t p x_j ]_1 0 s q ]_1 [_2 0 t q ]_2 ]_3$. $x_j$ now meets objects 1 and $t$, which means that the only applicable rule is \ref{optim_inner_add_1_highest}, creating a new innermost membrane and resulting in the configuration $[_3 [_1 [_1 [_1 1 t p ]_1 0 p ]_1 0 y_k s q ]_1 [_2 0 t q ]_2 ]_3$. The object $y_k$ is by the rule \ref{optim_inner_resend_up} propagated to the skin membrane, where it is prepared for the next instruction by the rule \ref{optim_skin_next_instruction}.
+\end{example}
+
+\begin{example}
+  Assume a register machine with two registers with values $r_1 = 2$, $r_2 = 0$ and instructions:
+  \begin{itemize}
+    \item $1: sub(1),2,3$
+    \item $2: add(2),1,1$
+    \item $3: halt$
+  \end{itemize}
+
+  The initial configuration is $[_3 [_1 [_1 1 t p ]_1 0 s q ]_1 [_2 0 t q ]_2 x_1 ]_3$. The computation of the P system is deterministic, at each step there is only one applicable rule. Starting with the rule \ref{optim_skin_send_down} and then the rule \ref{optim_inner_sub_0}, $x_1$ enters the innermost membrane, where the 
+  rule \ref{optim_inner_sub_1_highest} dissolves the membrane. The full example computation:
+
+  \begin{enumerate}
+    \item $[_3 [_1 [_1 1 t p ]_1 0 s q ]_1 [_2 0 t q ]_2 x_1 ]_3$
+    \item $[_3 [_1 [_1 1 t p ]_1 0 s q x_1 ]_1 [_2 0 t q ]_2 ]_3$ (used rule \ref{optim_skin_send_down})
+    \item $[_3 [_1 [_1 1 t p x_1 ]_1 1 s q ]_1 [_2 0 t q ]_2 ]_3$ (used rule \ref{optim_inner_sub_0})
+    \item $[_3 [_1 1 s t q z_1 ]_1 [_2 0 t q ]_2 ]_3$ (used rule \ref{optim_inner_sub_1_highest})
+    \item $[_3 [_1 1 t q y_2 ]_1 [_2 0 t q ]_2 ]_3$ (used rule \ref{optim_inner_sub_remove_s})
+    \item $[_3 [_1 1 t q ]_1 [_2 0 t q ]_2 y_2 ]_3$ (used rule \ref{optim_inner_resend_up})
+    \item $[_3 [_1 1 t q ]_1 [_2 0 t q ]_2 x_2 ]_3$ (used rule \ref{optim_skin_next_instruction})
+    \item $[_3 [_1 1 t q ]_1 [_2 0 t q x_2 ]_2 ]_3$ (used rule \ref{optim_skin_send_down})
+    \item $[_3 [_1 1 t q ]_1 [_2 1 t q ]_2 y_1 ]_3$ (used rule \ref{optim_inner_add_0})
+    \item $[_3 [_1 1 t q ]_1 [_2 1 t q ]_2 x_1 ]_3$ (used rule \ref{optim_skin_next_instruction})
+    \item $[_3 [_1 1 t q x_1 ]_1 [_2 1 t q ]_2 ]_3$ (used rule \ref{optim_skin_send_down})
+    \item $[_3 [_1 0 t q ]_1 [_2 1 t q ]_2 y_2 ]_3$ (used rule \ref{optim_inner_add_1_highest})
+    \item $[_3 [_1 0 t q ]_1 [_2 1 t q ]_2 x_2 ]_3$ (used rule \ref{optim_skin_next_instruction})
+    \item $[_3 [_1 0 t q ]_1 [_2 1 t q x_2 ]_2 ]_3$ (used rule \ref{optim_skin_send_down})
+    \item $[_3 [_1 0 t q ]_1 [_2 [_2 1 t p ]_2 0 s q ]_2 y_1 ]_3$ (used rule \ref{optim_inner_add_1_highest})
+    \item $[_3 [_1 0 t q ]_1 [_2 [_2 1 t p ]_2 0 s q ]_2 x_1 ]_3$ (used rule \ref{optim_skin_next_instruction})
+    \item $[_3 [_1 0 t q x_1 ]_1 [_2 [_2 1 t p ]_2 0 s q ]_2 ]_3$ (used rule \ref{optim_skin_send_down})
+    \item $[_3 [_1 0 t q ]_1 [_2 [_2 1 t p ]_2 0 s q ]_2 y_3 ]_3$ (used rule \ref{optim_inner_sub_0_highest})
+    \item $[_3 [_1 0 t q ]_1 [_2 [_2 1 t p ]_2 0 s q ]_2 x_3 ]_3$ (used rule \ref{optim_skin_next_instruction})
+  \end{enumerate}
+  
+  We have shown an example computation of P system which simulates the register machine which moves contents of register 1 to the register 2.
 \end{example}
 
 One instruction of the register machine is performed by number of computational steps which is logarithmic on the value of the register the instruction is operated on. The number of membranes is logarithmic as well. The number of objects is $3 * \text{number of instructions} + 6$.
