@@ -90,7 +90,7 @@ We also say that $\rho$ is a run from $s_0$. We denote $first(\rho)=s_0$ and $la
 \end{figure}
 
 \begin{example}
-  The diagrams shown in the Figure \ref{fig:transfer diagram for branching bisimulation} summarize the main transfer properties of branching bisimulation. We have used the dashed lines to represent the relations that have to be established in order to conclude that the two states connected by the plain line are equivalent.
+  The diagrams shown in the Figure \ref{fig:transfer diagram for branching bisimulation} summarize the main transfer properties of branching bisimulation. We have used the dashed lines to represent the relations that have to be established in order to conclude that the two states connected by the plain line are bisimilar.
 \end{example}
 
 We could have strengthened the above definition of branching bisimulation by requiring all intermediate states in $s\xRightarrow{\tau^*}s^\prime$ to be related with $r$. However, that would lead to the same equivalence relation \cite{DeNicola95Bisimulations}. 
@@ -99,7 +99,7 @@ We could have strengthened the above definition of branching bisimulation by req
   A relation $R\subseteq S\times S$ is called a \index{Bisimulation!weak} {\bf weak bisimulation} if it is symmetric and satisfies the following transfer property: if $rRs$ and $r\xRightarrow{a} r^\prime$ then there exist $s^\prime\in S$ such that $s \xRightarrow{a} s^\prime$ and $r^\prime Rs^{\prime}$.
 \end{definition}
 
-This means that two states are considered equivalent if they lead via the same sequences of visible actions to equivalent states. The intermediate states are not questioned. The diagram in the Figure \ref{fig:transfer diagram for weak bisimulation} summarizes the transfer property for the weak bisimulation. We have used the same notational conventions of the Figure \ref{fig:transfer diagram for branching bisimulation}.
+This means that two states are considered equivalent if they lead via the same sequences of visible actions to bisimilar states. The intermediate states are not questioned. The diagram in the Figure \ref{fig:transfer diagram for weak bisimulation} summarizes the transfer property for the weak bisimulation. We have used the same notational conventions of the Figure \ref{fig:transfer diagram for branching bisimulation}.
 
 \begin{figure}
   \centering
