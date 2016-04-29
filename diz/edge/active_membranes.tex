@@ -298,15 +298,15 @@ Note that the infinite sequence does not have to correspond with a computation, 
 In this subsection we will focus on the opposite problem: whether there is a computation that is halting. Recall that halting computation has no applicable rule in the last configuration.
 First, we will reduce the reachability problem to this problem. The reachability problem is to determine, for a given configuration $C$, whether there exists a computation from $C_0$ to $C$. The reachability of active P systems can be then reduced to the reachabililty of register machines, which is undecidable.
 
-For a given P system $\Pi$ and a target configuration $C$ we will construct a P system $\Pi^\prime$ such that there is a halting computation of $\Pi^\prime\Leftrightarrow\linebreak C$ is reachable for $\Pi$. Suppose $\Pi = (\Sigma, C_0, R_1, \ldots, R_m)$ and $C = (T, l, c)$. Then we will construct $\Pi^\prime = (\Sigma^\prime, C_0^\prime, R_1^\prime, \ldots, R_m^\prime)$, where:
+For a given P system $\Pi$ and a target configuration $C$ we will construct a P system $\Pi^\prime$ such that there is a halting computation of $\Pi^\prime\Leftrightarrow\linebreak C$ is reachable for $\Pi$. Suppose $\Pi = (\Sigma, C_0, R_1, \ldots, R_m)$, where $C_0 = (T_0, l_0, c_0)$ and $C = (T, l, c)$. Then we will construct $\Pi^\prime = (\Sigma^\prime, C_0^\prime, R_1^\prime, \ldots, R_m^\prime)$, where:
 
 \begin{itemize}
   \item $\Sigma^\prime = \Sigma\cup\{\xi_d|d\in V(T)\}$,
-  \item $C_0^\prime = (T, l, c^\prime)$, where $\forall d\in V(T)\setminus r_T: c^\prime(d) = c(d)$ and $c^\prime(r_T) = c(r_T)\cup\{\xi_{r_T}\}$,
-  \item $\forall i\in\{1,\ldots, m\}: R_i^\prime = R_i\cup\{\xi_d c(d)\rightarrow\xi_{d^\prime}\downarrow_{l(d^\prime)}|d,d^\prime\in V(T),l(d)=i,parent(d^\prime)=d\}$.
+  \item $C_0^\prime = (T_0, l_0, c^\prime)$, where $\forall d\in V(T_0)\setminus r_{T_0}: c^\prime(d) = c_0(d)$ and $c^\prime(r_{T_0}) = c_0(r_{T_0})\cup\{\xi_{r_T}\}$,
+  \item $\forall i\in\{1,\ldots, m\}: R_i^\prime = R_i\cup\{\xi_d c(d)\rightarrow(\xi_{d^\prime}\downarrow_{l(d^\prime)}|d^\prime\in V(T),parent_T(d^\prime)=d)|d\in V(T), l(d)=i\}$.
 \end{itemize}
 
-The $\xi_d$ objects are called verifiers, they are intended to verify if the contents of the membrane corresponds to the contents in the target configuration $C$. After this verification it descends down into child membranes for the verification of other parts of the membrane structure.
+The $\xi_d$ objects are called verifiers, they are intended to verify if the contents of the membrane corresponds to the contents in the target configuration $C$. If the current configuration is not $C$, it is not guaranteed that the verification can complete. After the verification of a membrane contents it descends down into all child membranes using single rule in order to verify other parts of the membrane structure.
 Initially, there is an object $\xi_{r_T}$ in the skin membrane. Verification is performed in the rule $\xi_d c(d)\rightarrow\xi_{d^\prime}\downarrow_{l(d^\prime)}$, where on the right side there is $\xi_{d^\prime}$ object for every child membrane $d^\prime$ in the target configuration $C$.
 
 The construction is not complete. The system should not be able to halt unless the verification takes place. That is why we introduce a new object $\omega$ to each membrane with a rule $\omega\rightarrow\omega$ and the verifier will erase them with rule $\xi_d\omega c(d)\rightarrow\xi_{d^\prime}\downarrow_{l(d^\prime)}$. One application of this rule will erase the $\omega$ object and propagate proper $\xi$ object to every child membrane. We also need to ensure that newly created membranes contain the $\omega$ object, so we replace every rule for membrane creation $u\rightarrow [_k v]_k$ with $u\rightarrow [_k v\omega]_k$.
@@ -578,8 +578,8 @@ The final construct is:
 
 \begin{itemize}
   \item $\Sigma^\prime = \Sigma\cup\{\omega, \sigma\}\cup\{\xi_d|d\in V(T)\}$,
-  \item $C_0^\prime = (T, l, c^\prime)$, where $\forall d\in V(T)\setminus r_T: c^\prime(d) = c(d)\cup\{\omega\}$ and $c^\prime(r_T) = c(r_T)\cup\{\omega,\xi_{r_T}\}$,
-  \item $\forall i\in\{1,\ldots, m\}: R_i^\prime = \{r|r\in R_i,r = u\rightarrow w\vee r = u\rightarrow w\delta\}\cup\linebreak\{u\rightarrow [_k v\omega]_k|u\rightarrow [_k v]_k\in R_i\}\cup\{a\rightarrow a|a\in\Sigma\}\cup\{\sigma\sigma\rightarrow\sigma\sigma,\omega\rightarrow\omega\}\cup\linebreak\{\xi_d\omega c(d)\rightarrow\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}|d,d^\prime\in V(T),l(d)=i,parent(d^\prime)=d\}$.
+  \item $C_0^\prime = (T_0, l_0, c^\prime)$, where $\forall d\in V(T)\setminus r_T: c^\prime(d) = c_0(d)\cup\{\omega\}$ and $c^\prime(r_T) = c_0(r_T)\cup\{\omega,\xi_{r_T}\}$,
+  \item $\forall i\in\{1,\ldots, m\}: R_i^\prime = \{r|r\in R_i,r = u\rightarrow w\vee r = u\rightarrow w\delta\}\cup\linebreak\{u\rightarrow [_k v\omega]_k|u\rightarrow [_k v]_k\in R_i\}\cup\{a\rightarrow a|a\in\Sigma\}\cup\{\sigma\sigma\rightarrow\sigma\sigma,\omega\rightarrow\omega\}\cup\linebreak\{\xi_d\omega c(d)\rightarrow(\sigma\xi_{d^\prime}\downarrow_{l(d^\prime)}|d^\prime\in V(T),parent(d^\prime)=d)|d\in V(T), l(d)=i\}$.
 \end{itemize}
 
 We need to prove two implications in order to formally prove correctness of this construction.
