@@ -152,7 +152,7 @@ The multiset of simultaneously applicable rules is maximal iff adding more rules
   A {\bf computation step} of a P system is a relation $\Rightarrow$ on the set of configurations such that $C_1 \Rightarrow C_2$ iff there is a nonempty maximal multiset of simultaneously applicable rules, which, applied to $C_1$, can result in $C_2$.
 \end{definition}
 
-For a configuration $C_1$ there can be multiple possible results $C_2$, so one of them is nondeterministically chosen.
+Because there can be more than one maximal multiset, for a configuration $C_1$ there can be multiple possible results $C_2$, so one of them is nondeterministically chosen.
 
 Starting from the initial configuration and applying the rules in the way described above, we obtain a sequence of transition among configurations; such a sequence is called a computation of $\Pi$.
 
