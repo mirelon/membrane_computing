@@ -1,9 +1,9 @@
 % !TEX root = ../diz.tex
 In this section we study a variant of \index{P systems!sequential} sequential P systems where universality can be achieved without checking for zero by allowing membranes to be created unlimited number of times \cite{Ibarra05Active}. Such P systems are called active P systems. Contrary, if we place a limit on the number of times a membrane is created, we get a class of P systems which is only equivalent to vector addition systems, hence not universal.
 
-In Subsection \ref{sub:active_p_systems} we will introduce membrane structure and formally define membrane configuration and active P system, because standard definitions are not convenient for our formal proofs.
+In subsection \ref{sub:active_p_systems} we will introduce membrane structure and formally define membrane configuration and active P system, because standard definitions are not convenient for our formal proofs.
 
-The Subsection \ref{sub:termination_problems} contains two main results. The existence of an infinite computation is surprisingly shown to be decidable. On the other hand, the existence of a halting computation is shown to be undecidable. Why is the first result surprising? At first sight it seems to relate to the Rice's theorem (see section \ref{sec:rice_s_theorem}), because it is a decidability problem for a Turing complete computation model. But the existence of an infinite computation is not a property of the language generated or accepted by the active P system. It is the property of the computation itself, therefore the \index{Rice's theorem} Rice's theorem is not applicable here.
+The subsection \ref{sub:termination_problems} contains two main results. The existence of an infinite computation is surprisingly shown to be decidable. On the other hand, the existence of a halting computation is shown to be undecidable. Why is the first result surprising? At first sight it seems to relate to the Rice's theorem (see section \ref{sec:rice_s_theorem}), because it is a decidability problem for a Turing complete computation model. But the existence of an infinite computation is not a property of the language generated or accepted by the active P system. It is the property of the computation itself, therefore the \index{Rice's theorem} Rice's theorem is not applicable here.
 
 \subsection{Active P systems} % (fold)
 \label{sub:active_p_systems}
@@ -55,34 +55,6 @@ Active P systems differ from classic (passive) P systems in ability to create ne
 In this section we assume only sequential systems, so in each step of the computation, there is one rule nondeterministically chosen among all applicable rules in all membranes to be applied as already stated in the definition \ref{def:computation_step_of_a_sequential_P_system}.
 
 % subsection active_p_systems (end)
-
-\subsection{Active membranes with a limit on the total number of membranes} % (fold)
-\label{sub:active_membranes_with_a_limit_on_total_number_of_membranes}
-
-We will now introduce a variant with a global limit upon the membrane structure. We achieve this by restricting the rule application such that if the rule would result in a structure exceeding the limit, the rule will not be applicable.
-
-\begin{definition}
-  \label{def:active_p_system_with_a_limit_on_total_number_of_membranes}
-  An {\bf active P system with a limit on the total number of membranes} is a tuple $\Pi = (\Sigma, L, C_0, R_1, R_2, \ldots, R_m)$, where:
-  \begin{itemize}
-    \item $(\Sigma, C_0, R_1, R_2, \ldots, R_m)$ is an active P system from the definition \ref{def:active_p_system},
-    \item $L\in \mathbb N$ is a limit on thetotal number of membranes.
-  \end{itemize}
-\end{definition}
-Anytime during the computation, a configuration $(T, l, c)$ is not allowed to have more than $L$ membranes, so the following invariant holds: $|V(T)|\leq L$.
-This is achieved by adding a constraint for rule of the form $r = u\rightarrow [_k v]_k$, which is defined to be applicable iff $u\subseteq c(d)$ and $|V(T)|<L$. If the number of membranes is equal to $L$, there is no space for newly created membrane, so in that case such rule is not applicable.
-
-\begin{definition}
-  \label{def:applicable_rule_of_active_p_system_with_a_limit_on_total_number_of_membranes}
-  For active P system with a limit on the total number of membranes $(\Sigma, L, C_0, R_1, R_2, \ldots, R_m)$, configuration $C = (T, l, c)$, membrane $d\in V(T)$ the rule $r\in R_{l(d)}$ is {\bf applicable} iff:
-  \begin{itemize}
-    \item $r = u\rightarrow w$ and $u\subseteq c(d)$ and $\forall (a,\downarrow_k)\in w \exists d_2\in V(T): l(d_2)=k \wedge parent(d_2) = d$,
-    \item $r = u\rightarrow w\delta$ and $u\subseteq c(d)$ and $\forall (a,\downarrow_k)\in w \exists d_2\in V(T): l(d_2)=k \wedge parent(d_2) = d$ and $d\neq r_T$,
-    \item $r = u\rightarrow [_j v]_j$ and $u\subseteq c(d)$ and $|V(T)|<L$.
-  \end{itemize}
-\end{definition}
-
-% subsection active_membranes_with_a_limit_on_total_number_of_membranes (end)
 
 \subsection{Termination problems} % (fold)
 \label{sub:termination_problems}
@@ -137,166 +109,13 @@ For example we can look at the P system from the figure \ref{fig:a_single_membra
   \end{minipage}
 \end{figure}
 
-We will prove the (un)decidability of these problems on active P systems with limit on the total number of membranes. These problems are defined for both generating and accepting mode, but in the accepting mode we consider the questions for a given P system along with the input multiset. The results are quite interesting, because:
+% subsection termination_problems (end)
 
-\begin{veta}
-  Sequential active P systems with limit on the total number of membranes are universal.
-\end{veta}
+\subsection{Existence of halting computation} % (fold)
+\label{sub:existence_of_halting_computation}
 
-\begin{dokaz}
-  The proof of this theorem for sequential active P systems in \cite{Ibarra05Active} uses simulation of register machines and during the simulation, every configuration has at most three membranes. Hence a universal active P system with limit on the total number of membranes exists (e.g. with $L=3$).
-  \qed
-\end{dokaz}
-
-This variant is not very realistic from biological point of view. Assuming membranes to know the number of membranes in the whole system is simply not plausible. Although we believe the results also hold for the variant without limit on the total number of membranes, due to technical difficulties it remains an open problem.
-
-\subsubsection{Existence of infinite computation} % (fold)
-\label{ssub:existence_of_infinite_computation}
-
-We will propose an algorithm for deciding existence of infinite computation. Basic idea is to consider the minimal coverability graph (\cite{Rozenberg93MinimalCoverabilityGraph}), where nodes are configurations and an edge leads from the configuration $C_1$ to the configuration $C_2$, whenever there is a rule applicable in $C_1$, which results in $C_2$. The construction in \cite{Rozenberg93MinimalCoverabilityGraph} is performed on Petri nets, where the configuration consists just of a vector of natural numbers. The situation is the same for single-membrane sequential P systems. We need to modify the construction for active P systems.
-
-\begin{definition}
-  A configuration $C_2 = (T_2, l_2, c_2)$ {\bf covers} configuration $C_1 = (T_1, l_1, c_1)$ iff $\exists$ isomorphism $f: T_1\rightarrow T_2$ preserving membrane labels and contents: $\forall d\in T_1$ the following properties hold: $l_1(d)=l_2(f(d))\wedge c_1(d)\subseteq c_2(f(d))$. We will denote this with $C_1\leq C_2$.
-\end{definition}
-
-\begin{figure}
-  \begin{tikzpicture}[node distance=2mm,line width=1mm]
-    \tikzstyle{label of} = [above left=-5mm of #1]
-    \tikzstyle{membrane} = [draw,thick,rounded corners=1cm,minimum width=2cm,minimum height=2cm,rectangle]
-    \node [membrane] (m1) {
-      \begin{minipage}{.42\textwidth}
-        \begin{align*}
-          a\\
-        \end{align*}
-      \end{minipage}
-    };
-    \node [label of=m1] (l1) {1};
-    \node [below=1mm of m1] (c1) {$C_1$};
-    \node [membrane,right=.08\textwidth of m1] (m2) {
-      \begin{minipage}{.42\textwidth}
-        \begin{align*}
-          a,b\\
-        \end{align*}
-      \end{minipage}
-    };
-    \node [label of=m2] (l2) {1};
-    \node [below=1mm of m2] (c2) {$C_2$};
-    \node [membrane,below=.08\textwidth of c1] (m3) {
-      \begin{minipage}{.42\textwidth}
-        \begin{align*}
-          a\\
-        \end{align*}
-      \end{minipage}
-    };
-    \node [label of=m3] (l3) {2};
-    \node [below=1mm of m3] (c3) {$C_3$};
-    \node [membrane,below=.08\textwidth of c2] (m4) {
-      \begin{tikzpicture}
-        \node (m4a) {$a$};
-        \tikzstyle{label of} = [above left=-15mm of #1]
-        \node [membrane,minimum width=3cm,right=1mm of m4a] (m5) {a};
-        \node [label of=m5] (l5) {1};
-      \end{tikzpicture}      
-    };
-    \node [label of=m4] (l4) {1};
-    \node [below=1mm of m4] (c4) {$C_4$};
-  \end{tikzpicture}
-  \caption{Sample membrane configurations}
-  \label{fig:sample_membrane_configurations}
-\end{figure}
-
-\begin{example}
-  In the figure \ref{fig:sample_membrane_configurations} there are four membrane configuration. $C_1\leq C_2$, because the membrane structures consists of one membrane, so the corresponding trees are isomorphic. The label is the same and the contents of the membrane in $C_1$ is a subset of the contents of the membrane in $C_2$. It does not have to be a proper subset, i.e. $C_1\leq C_1$.$C_1$ and $C_3$ are incomparable, because the label is different, so neither $C_1\leq C_3$ nor $C_3\leq C_1$ holds. $C_1$ and $C_4$ are also incomparable, because the trees of their membrane structure are not isomorphic.
-\end{example}
-
-We will now follow with a proof of an important property of the covering relation - that it maintains rule applicability.
-
-\begin{lemma}
-\label{rule_applicability_lemma}
-  For sequential active P system with limit on the total number of membranes, if $C_2 = (T_2, l_2, c_2)$ {\bf covers} configuration $C_1 = (T_1, l_1, c_1)$, then there is an \index{Tree!isomorphism} isomorphism $f: T_1\rightarrow T_2$ such that if a rule $r$ is applicable in membrane $d\in T_1$, then $r$ is applicable in $f(d)$.
-\end{lemma}
-
-\begin{dokaz}
-  Suppose $r$ is applicable in $d$. Then the left side $u$ of the rule $r$ is contained within the contents of the membrane $u\subseteq c_1(d)$. Because $C_1\leq C_2$, then there is an isomorphism $f:T_1\rightarrow T_2$ such that $c_1(d)\subseteq c_2(f(d))$ and then $u\subseteq c_2(f(d))$.
-
-  There are three possible forms of the rule $r$.
-  \begin{itemize}
-    \item If $r = u\rightarrow w$, then, because $r$ is applicable in $d$, $\forall (a,\downarrow_k)\in w \exists d_2\in V(T_1): l_1(d_2)=k \wedge parent_{T_1}(d_2) = d$. Because $C_1\leq C_2$, then for $f(d_2)\in V(T_2)$ the following holds: $l_2(f(d_2)) = l_1(d_2) = k$ and $parent_{T_2}(f(d_2) = f(d)$. Hence $r$ is applicable in $f(d)$.
-    \item If $r = u\rightarrow w\delta$, then $d\neq r_{T_1}$. Since $f$ is an isomorphism, then also $f(d)\neq r_{T_2}$. Other properties follows from the previous case.
-    \item If $r = u\rightarrow [_k v]_k$, then $|V(T_1)|<L$. Isomorphism preserves number of nodes, hence $|V(T_2)| = |V(T_1)| < L$ and $r$ is applicable in $f(d)$. \qed
-  \end{itemize}
-\end{dokaz}
-
-Now, we will define the encoding of a configuration $C = (T, l, c)$ into a tuple of integers.
-
-A membrane $d\in T$ will be encoded as $(n+m)$-tuple $enc(d)\in\mathbb N^{(n+m)}$, where first $n$ numbers will be actual counts of objects and next $m$ numbers will encode the membrane label:
-\[
-  enc(d)_{i} =
-  \begin{cases}
-    c(d)(a_i) & \text{if}\ i\leq n\\
-    0 & \text{if}\ n<i\leq m\wedge i-n\neq l(d)\\
-    1 & \text{if}\ n<i\leq m\wedge i-n=l(d)
-  \end{cases}
-\].
-
-The entire tree will be encoded into concatenated sequences of encoded nodes in the preorder traversal order. This sequence is then padded with zeroes to have length $(n+m)L$ as that is the maximal length of encoded tree.
-
-Since there are only finitely many non-isomorphic trees with at most $L$ nodes (\cite{Cayley1881RootedTrees}), there is a constant $z$ such that we can uniquely assign the tree an order number $o(T) \leq z$.
-
-The entire configuration will be encoded in tuple which consists of $z$ parts. All but the part with index $o(T)$ will contain just zeros. The part with index $o(T)$ will contain the encoding of the tree.
-
-\begin{example}
-  Consider $L=2$. There are just two rooted trees with at most 2 nodes. We can define $o(T)=1$ for the single-node tree and $o(T)=2$ for the tree with a root and one child. So the encodings of configurations from figure \ref{fig:sample_membrane_configurations} contain two parts. Configurations $C_1, C_2$, and $C_3$ consists of one membrane, so their $o(T)=1$ and the second part is filled with zeroes. Configuration $C_4$ contains two membranes, so its $o(T)=2$ and the first part of its encoding will be filled with zeroes. 
-  \begin{itemize}
-    \item $enc(C_1)=\overbrace{\underbrace{1}_{c(a)}\underbrace{0}_{c(b)}\underbrace{1}_{l=1?}\underbrace{0}_{l=2?}}^{\mathclap{\text{skin membrane encoded}}}\underbrace{0000}_\text{padding to fit $(n+m)L$}\overbrace{00000000}^{\mathclap{\text{second part filled with zeroes}}}$,
-    \item $end(C_2)=1110000000000000$,
-    \item $enc(C_3)=1001000000000000$,
-    \item $enc(C_4)=00000000\overbrace{1010}^{\mathclap{\text{skin membrane encoded}}}\underbrace{1010}_{\mathclap{\text{child membrane encoded}}}$
-  \end{itemize}
-\end{example} 
-
-We will now show that comparing two encodings corresponds to covering of two configurations. Recall that configurations are encoded into tuples of integers, so the comparison is performed position by position.
-
-\begin{lemma}
-\label{encoding_lemma}
-  For configurations $C_1 = (T_1, l_1, c_1)$ and $C_2 = (T_2, l_2, c_2)$, $enc(C_1) \leq enc(C_2)\Rightarrow C_1\leq C_2$.
-\end{lemma}
-
-\begin{dokaz}
-  Both $enc(C_1)$ and $enc(C_2)$ contain $z$ parts and exactly one part which contains non-zero values. The non-zero part of $enc(C_1)$ must be non-zero also in $enc(C_2)$, because $enc(C_1)\leq enc(C_2)$. Then $o(T_1)=o(T_2)$, so the trees are isomorphic. Suppose there is an isomorphism $f:T_1\rightarrow T_2$. For every membrane $d\in T_1$, $l_1(d)=l_2(f(d))$ and $c_1(d)\subseteq c_2(f(d))$. Hence, $C_1\leq C_2$.
-  \qed
-\end{dokaz}
-
-\begin{lemma}
-\label{infinite_sequence_of_configurations_lemma}
-  For sequential active P system with limit on the total number of membranes $L$ for every infinite sequence of configurations $\{C_i\}_{i=0}^\infty\exists i<j: C_i\leq C_j$.
-\end{lemma}
-
-\begin{dokaz}
-  Suppose an infinite sequence $\{enc(C_i)\}_{i=0}^\infty$. We use a variation of Dickson's lemma (\cite{Figueira11Dickson}): Every infinite sequence of tuples from $\mathbb N^k$ contains an increasing pair. Applied to our sequence, there are two positions $i<j: enc(C_i)\leq enc(C_j)$. From lemma \ref{encoding_lemma}, $C_i\leq C_j$.
-  \qed
-\end{dokaz}
-
-Note that the infinite sequence does not have to correspond with a computation, lemma \ref{infinite_sequence_of_configurations_lemma} holds for any infinite sequence of configurations.
-
-\begin{veta}
-  Existence of infinite computation for active P systems with limit on the total number of membranes is decidable.
-\end{veta}
-
-\begin{dokaz}
-  The algorithm for deciding the problem will traverse the \index{Reachability graph} reachability graph. When it encounters a configuration that covers another configuration, from lemma \ref{rule_applicability_lemma} follows that the same rules can be applied repeatedly, so the algorithm will halt with the answer YES.
-  Otherwise, the algorithm will answer NO.
-  Algorithm will always halt, because if there was an infinite computation, from lemma \ref{infinite_sequence_of_configurations_lemma} there would be two increasing configurations which is already covered in the YES case.
-  \qed
-\end{dokaz}
-
-% subsubsection existence_of_infinite_computation (end)
-
-\subsubsection{Existence of halting computation} % (fold)
-\label{ssub:existence_of_halting_computation}
-
-In this subsection we will focus on the opposite problem: whether there is a computation that is halting. Recall that halting computation has no applicable rule in the last configuration.
-First, we will reduce the reachability problem to this problem. The reachability problem is to determine, for a given configuration $C$, whether there exists a computation from $C_0$ to $C$. The reachability of active P systems can be then reduced to the reachabililty of register machines, which is undecidable.
+In this subsection we will focus on the problem of deciding whether there is a halting computation. Recall that halting computation has no applicable rule in the last configuration.
+First, we will reduce the reachability problem to this problem. The reachability problem is to determine, for a given configuration $C$, whether there exists a computation from $C_0$ to $C$. Then, reachability of register machines, which is undecidable, can be reduced to the reachabililty of active P systems.
 
 For a given P system $\Pi$ and a target configuration $C$ we will construct a P system $\Pi^\prime$ such that there is a halting computation of $\Pi^\prime\Leftrightarrow\linebreak C$ is reachable for $\Pi$. Suppose $\Pi = (\Sigma, C_0, R_1, \ldots, R_m)$, where $C_0 = (T_0, l_0, c_0)$ and $C = (T, l, c)$. Then we will construct $\Pi^\prime = (\Sigma^\prime, C_0^\prime, R_1^\prime, \ldots, R_m^\prime)$, where:
 
@@ -641,21 +460,206 @@ The other direction of the implication is more complicated, so the following lem
 
 \begin{veta}
 \label{existence_of_halting_theorem}
-  Existence of halting computation for active P systems with limit on the total number of membranes is undecidable.
+  Existence of halting computation for active P systems is undecidable.
 \end{veta}
 
 \begin{dokaz}
-  For a given P system $\Pi$ and a target configuration $C$ we have constructed a P system $\Pi^\prime$ such that there is a halting computation of $\Pi^\prime$ iff the $\Pi$ can reach configuration $C$. The two directions of the equivalence have been proven in lemmas \ref{if_reachable_then_halting_lemma} and \ref{if_halting_then_reachable_lemma}. Using this construction, we can reduce the existence of halting computation to reachability of register machines \cite{Ibarra05Active}, which is known to be undecidable. \qed
+  For a given P system $\Pi$ and a target configuration $C$ we have constructed a P system $\Pi^\prime$ such that there is a halting computation of $\Pi^\prime$ iff the $\Pi$ can reach configuration $C$. The two directions of the equivalence have been proven in lemmas \ref{if_reachable_then_halting_lemma} and \ref{if_halting_then_reachable_lemma}. Using this construction, we can reduce the reachability of register machines, which is known to be an undecidable problem, to the existence of halting computation \cite{Ibarra05Active}. \qed
 \end{dokaz}
 
 % subsubsection existence_of_halting_computation (end)
 
-% subsection termination_problems (end)
+\subsection{Existence of infinite computation} % (fold)
+\label{sub:existence_of_infinite_computation}
+
+In this subsection we will focus on the opposite problem: whether there is a computation that is infinite. Due to technical difficulties we will provide a proof only for active P systems with limit on the total number of membranes.
+
+\subsubsection{Active membranes with a limit on the total number of membranes} % (fold)
+\label{ssub:active_membranes_with_a_limit_on_total_number_of_membranes}
+
+We will now introduce a variant with a global limit upon the membrane structure. We achieve this by restricting the rule application such that if the rule would result in a structure exceeding the limit, the rule will not be applicable.
+
+\begin{definition}
+  \label{def:active_p_system_with_a_limit_on_total_number_of_membranes}
+  An {\bf active P system with a limit on the total number of membranes} is a tuple $\Pi = (\Sigma, L, C_0, R_1, R_2, \ldots, R_m)$, where:
+  \begin{itemize}
+    \item $(\Sigma, C_0, R_1, R_2, \ldots, R_m)$ is an active P system from the definition \ref{def:active_p_system},
+    \item $L\in \mathbb N$ is a limit on thetotal number of membranes.
+  \end{itemize}
+\end{definition}
+Anytime during the computation, a configuration $(T, l, c)$ is not allowed to have more than $L$ membranes, so the following invariant holds: $|V(T)|\leq L$.
+This is achieved by adding a constraint for rule of the form $r = u\rightarrow [_k v]_k$, which is defined to be applicable iff $u\subseteq c(d)$ and $|V(T)|<L$. If the number of membranes is equal to $L$, there is no space for newly created membrane, so in that case such rule is not applicable.
+
+\begin{definition}
+  \label{def:applicable_rule_of_active_p_system_with_a_limit_on_total_number_of_membranes}
+  For active P system with a limit on the total number of membranes $(\Sigma, L, C_0, R_1, R_2, \ldots, R_m)$, configuration $C = (T, l, c)$, membrane $d\in V(T)$ the rule $r\in R_{l(d)}$ is {\bf applicable} iff:
+  \begin{itemize}
+    \item $r = u\rightarrow w$ and $u\subseteq c(d)$ and $\forall (a,\downarrow_k)\in w \exists d_2\in V(T): l(d_2)=k \wedge parent(d_2) = d$,
+    \item $r = u\rightarrow w\delta$ and $u\subseteq c(d)$ and $\forall (a,\downarrow_k)\in w \exists d_2\in V(T): l(d_2)=k \wedge parent(d_2) = d$ and $d\neq r_T$,
+    \item $r = u\rightarrow [_j v]_j$ and $u\subseteq c(d)$ and $|V(T)|<L$.
+  \end{itemize}
+\end{definition}
+
+% subsubsection active_membranes_with_a_limit_on_total_number_of_membranes (end)
+
+Although we believe the results (theorem \ref{existence_of_infinite_computation_theorem}) also hold for the variant without limit on the total number of membranes, due to technical difficulties it remains an open problem.
+The variant with limit on the total number of membranes is not very realistic from biological point of view. Assuming membranes to know the number of membranes in the whole system is simply not plausible.
+
+But the results are still quite interesting, because:
+
+\begin{veta}
+  Sequential active P systems with limit on the total number of membranes are universal.
+\end{veta}
+
+\begin{dokaz}
+  The proof of this theorem for sequential active P systems in \cite{Ibarra05Active} uses simulation of register machines and during the simulation, every configuration has at most three membranes. Hence a universal active P system with limit on the total number of membranes exists (e.g. with $L=3$).
+  \qed
+\end{dokaz}
+
+We will now propose an algorithm for deciding existence of infinite computation. Basic idea is to consider the minimal coverability graph (\cite{Rozenberg93MinimalCoverabilityGraph}), where nodes are configurations and an edge leads from the configuration $C_1$ to the configuration $C_2$, whenever there is a rule applicable in $C_1$, which results in $C_2$. The construction in \cite{Rozenberg93MinimalCoverabilityGraph} is performed on Petri nets, where the configuration consists just of a vector of natural numbers. The situation is the same for single-membrane sequential P systems. We need to modify the construction for active P systems.
+
+\begin{definition}
+  A configuration $C_2 = (T_2, l_2, c_2)$ {\bf covers} configuration $C_1 = (T_1, l_1, c_1)$ iff $\exists$ isomorphism $f: T_1\rightarrow T_2$ preserving membrane labels and contents: $\forall d\in T_1$ the following properties hold: $l_1(d)=l_2(f(d))\wedge c_1(d)\subseteq c_2(f(d))$. We will denote this with $C_1\leq C_2$.
+\end{definition}
+
+\begin{figure}
+  \begin{tikzpicture}[node distance=2mm,line width=1mm]
+    \tikzstyle{label of} = [above left=-5mm of #1]
+    \tikzstyle{membrane} = [draw,thick,rounded corners=1cm,minimum width=2cm,minimum height=2cm,rectangle]
+    \node [membrane] (m1) {
+      \begin{minipage}{.42\textwidth}
+        \begin{align*}
+          a\\
+        \end{align*}
+      \end{minipage}
+    };
+    \node [label of=m1] (l1) {1};
+    \node [below=1mm of m1] (c1) {$C_1$};
+    \node [membrane,right=.08\textwidth of m1] (m2) {
+      \begin{minipage}{.42\textwidth}
+        \begin{align*}
+          a,b\\
+        \end{align*}
+      \end{minipage}
+    };
+    \node [label of=m2] (l2) {1};
+    \node [below=1mm of m2] (c2) {$C_2$};
+    \node [membrane,below=.08\textwidth of c1] (m3) {
+      \begin{minipage}{.42\textwidth}
+        \begin{align*}
+          a\\
+        \end{align*}
+      \end{minipage}
+    };
+    \node [label of=m3] (l3) {2};
+    \node [below=1mm of m3] (c3) {$C_3$};
+    \node [membrane,below=.08\textwidth of c2] (m4) {
+      \begin{tikzpicture}
+        \node (m4a) {$a$};
+        \tikzstyle{label of} = [above left=-15mm of #1]
+        \node [membrane,minimum width=3cm,right=1mm of m4a] (m5) {a};
+        \node [label of=m5] (l5) {1};
+      \end{tikzpicture}      
+    };
+    \node [label of=m4] (l4) {1};
+    \node [below=1mm of m4] (c4) {$C_4$};
+  \end{tikzpicture}
+  \caption{Sample membrane configurations}
+  \label{fig:sample_membrane_configurations}
+\end{figure}
+
+\begin{example}
+  In the figure \ref{fig:sample_membrane_configurations} there are four membrane configuration. $C_1\leq C_2$, because the membrane structures consists of one membrane, so the corresponding trees are isomorphic. The label is the same and the contents of the membrane in $C_1$ is a subset of the contents of the membrane in $C_2$. It does not have to be a proper subset, i.e. $C_1\leq C_1$.$C_1$ and $C_3$ are incomparable, because the label is different, so neither $C_1\leq C_3$ nor $C_3\leq C_1$ holds. $C_1$ and $C_4$ are also incomparable, because the trees of their membrane structure are not isomorphic.
+\end{example}
+
+We will now follow with a proof of an important property of the covering relation - that it maintains rule applicability.
+
+\begin{lemma}
+\label{rule_applicability_lemma}
+  For sequential active P system with limit on the total number of membranes, if $C_2 = (T_2, l_2, c_2)$ {\bf covers} configuration $C_1 = (T_1, l_1, c_1)$, then there is an \index{Tree!isomorphism} isomorphism $f: T_1\rightarrow T_2$ such that if a rule $r$ is applicable in membrane $d\in T_1$, then $r$ is applicable in $f(d)$.
+\end{lemma}
+
+\begin{dokaz}
+  Suppose $r$ is applicable in $d$. Then the left side $u$ of the rule $r$ is contained within the contents of the membrane $u\subseteq c_1(d)$. Because $C_1\leq C_2$, then there is an isomorphism $f:T_1\rightarrow T_2$ such that $c_1(d)\subseteq c_2(f(d))$ and then $u\subseteq c_2(f(d))$.
+
+  There are three possible forms of the rule $r$.
+  \begin{itemize}
+    \item If $r = u\rightarrow w$, then, because $r$ is applicable in $d$, $\forall (a,\downarrow_k)\in w \exists d_2\in V(T_1): l_1(d_2)=k \wedge parent_{T_1}(d_2) = d$. Because $C_1\leq C_2$, then for $f(d_2)\in V(T_2)$ the following holds: $l_2(f(d_2)) = l_1(d_2) = k$ and $parent_{T_2}(f(d_2) = f(d)$. Hence $r$ is applicable in $f(d)$.
+    \item If $r = u\rightarrow w\delta$, then $d\neq r_{T_1}$. Since $f$ is an isomorphism, then also $f(d)\neq r_{T_2}$. Other properties follows from the previous case.
+    \item If $r = u\rightarrow [_k v]_k$, then $|V(T_1)|<L$. Isomorphism preserves number of nodes, hence $|V(T_2)| = |V(T_1)| < L$ and $r$ is applicable in $f(d)$. \qed
+  \end{itemize}
+\end{dokaz}
+
+Now, we will define the encoding of a configuration $C = (T, l, c)$ into a tuple of integers.
+
+A membrane $d\in T$ will be encoded as $(n+m)$-tuple $enc(d)\in\mathbb N^{(n+m)}$, where first $n$ numbers will be actual counts of objects and next $m$ numbers will encode the membrane label:
+\[
+  enc(d)_{i} =
+  \begin{cases}
+    c(d)(a_i) & \text{if}\ i\leq n\\
+    0 & \text{if}\ n<i\leq m\wedge i-n\neq l(d)\\
+    1 & \text{if}\ n<i\leq m\wedge i-n=l(d)
+  \end{cases}
+\].
+
+The entire tree will be encoded into concatenated sequences of encoded nodes in the preorder traversal order. This sequence is then padded with zeroes to have length $(n+m)L$ as that is the maximal length of encoded tree.
+
+Since there are only finitely many non-isomorphic trees with at most $L$ nodes (\cite{Cayley1881RootedTrees}), there is a constant $z$ such that we can uniquely assign the tree an order number $o(T) \leq z$.
+
+The entire configuration will be encoded in tuple which consists of $z$ parts. All but the part with index $o(T)$ will contain just zeros. The part with index $o(T)$ will contain the encoding of the tree.
+
+\begin{example}
+  Consider $L=2$. There are just two rooted trees with at most 2 nodes. We can define $o(T)=1$ for the single-node tree and $o(T)=2$ for the tree with a root and one child. So the encodings of configurations from figure \ref{fig:sample_membrane_configurations} contain two parts. Configurations $C_1, C_2$, and $C_3$ consists of one membrane, so their $o(T)=1$ and the second part is filled with zeroes. Configuration $C_4$ contains two membranes, so its $o(T)=2$ and the first part of its encoding will be filled with zeroes. 
+  \begin{itemize}
+    \item $enc(C_1)=\overbrace{\underbrace{1}_{c(a)}\underbrace{0}_{c(b)}\underbrace{1}_{l=1?}\underbrace{0}_{l=2?}}^{\mathclap{\text{skin membrane encoded}}}\underbrace{0000}_\text{padding to fit $(n+m)L$}\overbrace{00000000}^{\mathclap{\text{second part filled with zeroes}}}$,
+    \item $end(C_2)=1110000000000000$,
+    \item $enc(C_3)=1001000000000000$,
+    \item $enc(C_4)=00000000\overbrace{1010}^{\mathclap{\text{skin membrane encoded}}}\underbrace{1010}_{\mathclap{\text{child membrane encoded}}}$
+  \end{itemize}
+\end{example} 
+
+We will now show that comparing two encodings corresponds to covering of two configurations. Recall that configurations are encoded into tuples of integers, so the comparison is performed position by position.
+
+\begin{lemma}
+\label{encoding_lemma}
+  For configurations $C_1 = (T_1, l_1, c_1)$ and $C_2 = (T_2, l_2, c_2)$, $enc(C_1) \leq enc(C_2)\Rightarrow C_1\leq C_2$.
+\end{lemma}
+
+\begin{dokaz}
+  Both $enc(C_1)$ and $enc(C_2)$ contain $z$ parts and exactly one part which contains non-zero values. The non-zero part of $enc(C_1)$ must be non-zero also in $enc(C_2)$, because $enc(C_1)\leq enc(C_2)$. Then $o(T_1)=o(T_2)$, so the trees are isomorphic. Suppose there is an isomorphism $f:T_1\rightarrow T_2$. For every membrane $d\in T_1$, $l_1(d)=l_2(f(d))$ and $c_1(d)\subseteq c_2(f(d))$. Hence, $C_1\leq C_2$.
+  \qed
+\end{dokaz}
+
+\begin{lemma}
+\label{infinite_sequence_of_configurations_lemma}
+  For sequential active P system with limit on the total number of membranes $L$ for every infinite sequence of configurations $\{C_i\}_{i=0}^\infty\exists i<j: C_i\leq C_j$.
+\end{lemma}
+
+\begin{dokaz}
+  Suppose an infinite sequence $\{enc(C_i)\}_{i=0}^\infty$. We use a variation of Dickson's lemma (\cite{Figueira11Dickson}): Every infinite sequence of tuples from $\mathbb N^k$ contains an increasing pair. Applied to our sequence, there are two positions $i<j: enc(C_i)\leq enc(C_j)$. From lemma \ref{encoding_lemma}, $C_i\leq C_j$.
+  \qed
+\end{dokaz}
+
+Note that the infinite sequence does not have to correspond with a computation, lemma \ref{infinite_sequence_of_configurations_lemma} holds for any infinite sequence of configurations.
+
+\begin{veta}
+\label{existence_of_infinite_computation_theorem}
+  Existence of infinite computation for active P systems with limit on the total number of membranes is decidable.
+\end{veta}
+
+\begin{dokaz}
+  The algorithm for deciding the problem will traverse the \index{Reachability graph} reachability graph. When it encounters a configuration that covers another configuration, from lemma \ref{rule_applicability_lemma} follows that the same rules can be applied repeatedly, so the algorithm will halt with the answer YES.
+  Otherwise, the algorithm will answer NO.
+  Algorithm will always halt, because if there was an infinite computation, from lemma \ref{infinite_sequence_of_configurations_lemma} there would be two increasing configurations which is already covered in the YES case.
+  \qed
+\end{dokaz}
+
+% subsection existence_of_infinite_computation (end)
 
 \subsection{Concluding remarks} % (fold)
 \label{sub:concluding_remarks}
 
-We have studied the termination problems for active sequential P systems. Unlike deterministic systems, the termination problems cannot be simply reduced to the halting problem. We have shown that active P systems with limit on the number of membranes have decidable existence of infinite computation and undecidable existence of halting computation. It is currently unknown whether the same results apply also for a variant without the limit on the number of membranes, so it could be a subject for the future study.
+We have studied the termination problems for active sequential P systems. Unlike deterministic systems, the termination problems cannot be simply reduced to the halting problem. We have shown that active P systems have undecidable existence of halting computation and active P systems with limit on the number of membranes have decidable existence of infinite computation. It is currently unknown whether the same result holds also for a variant without the limit on the number of membranes, so it could be a subject for the future study.
 
 Regarding the open problem stated in \cite{Ibarra05Active} about sequential active P systems with hard membranes (without communication between membranes), it could be interesting to find a connection between the universality and decidability of these termination problems.
 
