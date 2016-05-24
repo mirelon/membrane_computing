@@ -114,15 +114,22 @@ For example we can look at the P system from the figure \ref{fig:a_single_membra
 \subsection{Existence of halting computation} % (fold)
 \label{sub:existence_of_halting_computation}
 
-In this subsection we will focus on the problem of deciding whether there is a halting computation. Recall that halting computation has no applicable rule in the last configuration.
+In this subsection we will focus on the problem of deciding whether there is a halting computation for sequential active P systems. Recall that halting computation has no applicable rule in the last configuration. We will chain reductions from the halting problem for deterministic register machines.
 
+\begin{lemma}
+\label{existence_of_halting_lemma}
+  Existence of halting computation for nondeterministic register machines is undecidable.
+\end{lemma}
+\begin{dokaz}
+  We will reduce a known undecidable halting problem for deterministic register machines (\cite{Minsky67RegisterMachines}) to nondeterministic case. For a given deterministic register machine $M$ we will transform each instruction $(add(r),k)$ to $(add(r),k,k)$. Although the resulting register machine $M^\prime$ is nondeterministic, it has only one computation, which is the same as the computation of $M$. If we could decide existence of halting computation of $M^\prime$, we could decide whether $M$ halts. \qed
+\end{dokaz}
 \begin{veta}
 \label{existence_of_halting_theorem}
-  Existence of halting computation for active P systems is undecidable.
+  Existence of halting computation for sequential active P systems is undecidable.
 \end{veta}
 
 \begin{dokaz}
-  TODO
+  According to \cite{Ibarra05Active} for a given nondeterministic register machine $M$ there is a sequential active P system $P$ which has a halting computation iff $M$ has. If we could decide existence of halting computation of $P$, using \cite{Ibarra05Active} we could decide existence of halting computation of $M$, which is undecidable (lemma \ref{existence_of_halting_lemma}). \qed
 \end{dokaz}
 
 % subsubsection existence_of_halting_computation (end)
@@ -130,7 +137,7 @@ In this subsection we will focus on the problem of deciding whether there is a h
 \subsection{Existence of infinite computation} % (fold)
 \label{sub:existence_of_infinite_computation}
 
-In this subsection we will focus on the opposite problem: whether there is a computation that is infinite. Due to technical difficulties we will provide a proof only for active P systems with limit on the total number of membranes.
+In this subsection we will focus on the opposite problem: whether there is a computation that is infinite. Although for register machines the existence of infinite computation can be reduces from deterministic to nondeterministic mode as in \ref{existence_of_halting_lemma}, it cannot be reduced sequential active P systems as in \ref{existence_of_halting_theorem}. In fact, the result will be quite the opposite. Due to technical difficulties we will provide a proof only for active P systems with limit on the total number of membranes.
 
 \subsubsection{Active membranes with a limit on the total number of membranes} % (fold)
 \label{ssub:active_membranes_with_a_limit_on_total_number_of_membranes}
