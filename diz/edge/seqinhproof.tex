@@ -1,21 +1,4 @@
 % !TEX root = ../diz.tex
-\begin{lemma}
-\label{lemma:inhibitor_step}
-  If there is at least one object present in each region of a P system, rewriting step in P system with inhibitor set can be simulated by multiple consecutive steps of P system with single inhibitor.
-\end{lemma}
-
-\begin{dokaz}
-  Consider a P system with the alphabet $\Sigma$.
-  For each rule $u\rightarrow v|_{\neg B}$, where $B=\{b_1, b_2, \dots ,b_n\}$ we will have rules:
-    \begin{align*}
-      c\rightarrow&c|GONE_{b}|_{\neg b} \text{~for all~} c\in \Sigma, b\in B \\
-      u|GONE_{b_1}|GONE_{b_2}|\dots|GONE_{b_n}\rightarrow&v|GONE_{b_1}|GONE_{b_2}|\dots|GONE_{b_n}
-    \end{align*}
-
-\end{dokaz}
-
-Note that symbols $GONE_b$ are created automatically when some object $c$ is present in the region. 
-
 \begin{veta}
   The sequential P system with inhibitors defines the same Parikh image of language as P system with maximal parallelism.
 \end{veta}
@@ -56,11 +39,9 @@ Note that symbols $GONE_b$ are created automatically when some object $c$ is pre
       
       There will be such rule for each $0\leq m_i\leq M(a_i)$. It represents the idea that $\dot{a}$ can be used in rewriting in the same way as $a$. Right side of the rules contains symbols $a^\prime$, that prevents the symbols to be rewritten again.
 
-    \item For every symbol $a\in V$ we will have the following rules:
+    \item For every symbol $a\in V$, in order to guarantee at most one occurence of $\dot{a}$ in a region, we will have the following rules:
 
     $a|RUN \rightarrow \dot{a}|RUN|_{\neg \dot{a}}$
-
-    There will be at most one occurrence of $\dot{a}$.
 
     \item For every rule $r_i\in R$ there will be a rule that detects if the rule $r_i$ is not applicable. According to left side of the rule $r_i$, symbol $UNUSABLE_i$ will be created when there is not enough objects to fire the rule $r_i$. It means that left side of rule $r_i$ requires more instances of some object than are present in membrane.
 
@@ -118,14 +99,10 @@ Note that symbols $GONE_b$ are created automatically when some object $c$ is pre
     \item In the restore phase all symbols $a^{\prime}$ will be rewritten to $a$ in order to be able to be rewritten in the next maximal parallel step:
 
     $RESTORE|a^{\prime} \rightarrow RESTORE|a$
-    
-    \item When using lemma~\ref{lemma:inhibitor_step}, there may be some $GONE$ symbols left and now is the time to clear them:
-
-    $RESTORE|GONE_i \rightarrow RESTORE$
 
     \item When the restore phase ends, it sends down a signal that all membranes have been already synchronized and next phase of rewriting has began in upper membranes:
 
-    $RESTORE \rightarrow RUN|SYNCED\downarrow|_{\neg \{a_i^{\prime}|1\leq i\leq n\}\cup\{GONE_i|1\leq i\leq n\}}$
+    $RESTORE \rightarrow RUN|SYNCED\downarrow|_{\neg \{a_i^{\prime}|1\leq i\leq n\}}$
   \end{itemize}
 
   \definecolor{run}{rgb}{1,0.5,0}
@@ -157,9 +134,4 @@ Note that symbols $GONE_b$ are created automatically when some object $c$ is pre
 
   Another interesting idea can be seen in the figure \ref{fig:snapshot_of_all_membrane_states_while_simulating} that when a region is in the $SENDDOWN$ phase and objects are sent through the child membrane, the receiving region is in the $SYNCHRONIZE$ phase waiting for the $SYNCED$ signal, which will be sent to it when $SENDDOWN$ and $RESTORE$ phases finished.
 
-  All membranes are nonempty during the simulation because at least the object representing the current phase is always present. By lemma~\ref{lemma:inhibitor_step} the rules with set of inhibitors can be simulated by single inhibitors.
-
-
 \end{dokaz}
-
-
