@@ -3,7 +3,9 @@
 
 We have tried another approach using rules with inhibitors. This variant is computationally complete in both generating and accepting case. For the generative case we present a proof by a simulation of maximal parallel P system and in the accepting case we prove it can simulate a register machine.
 
-Original definition of \index{P systems!with inhibitors} P systems with inhibitors (see \cite{Ionescu:jucs_10_5:on_p_systems_with}) allow to use only one inhibitor per rule, e.g. $u\rightarrow v|_{\neg i}$. Alternative definition (see \cite{Agrigoroaiei:2010:Dissolution}) allow to use whole inhibitor set in the rule like $u\rightarrow v|_{\neg B}$, where $B$ is a set of objects. Such a rule can be applied only if no element of $B$ is present in the region.
+In the literature there are two definitions of \index{P systems!with inhibitors} P systems with inhibitors.
+Some of them (\cite{Ionescu:jucs_10_5:on_p_systems_with}, \cite{Sburlan05dragos}) allow to use only one inhibitor per rule, e.g. $u\rightarrow v|_{\neg i}$.
+Others use definition (\cite{Agrigoroaiei:2010:Dissolution}, \cite{Sburlan:2006:FurtherResultsPromotersInhibitors}) which allow to use whole inhibitor set in the rule like $u\rightarrow v|_{\neg B}$, where $B$ is a set of objects. Such a rule can be applied only if no element of $B$ is present in the region, where the rule is applied.
 
 For sequential P systems, the following lemma will show the equivalence of these definitions for our setting. However, a special condition must be fulfilled, the regions with such rules cannot be empty.
 
