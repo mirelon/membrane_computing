@@ -1,0 +1,451 @@
+\documentclass[submission,copyright,creativecommons]{../lib/lncs/llncs}
+\providecommand{\event}{CS&P 2015} % Name of the event you are submitting to
+
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{color}
+
+\usepackage{fontenc}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{makeidx}
+\usepackage{enumitem}
+
+% Repeat the same theorem in the appendix
+\usepackage{thmtools, thm-restate}
+\let\theorem\relax
+\declaretheorem{theorem}
+
+\pagestyle{empty}
+\bibliographystyle{../lib/lncs/splncs}
+
+\def\eps{\varepsilon}
+\def\red{\color{red}}
+\def\green{\color{green}}
+\def\goodgap{\hspace{\subfigcapskip}}
+\renewcommand\refname{References}
+
+% Itemize bulet types
+\renewcommand{\labelitemi}{$\bullet$}
+\renewcommand{\labelitemii}{$\cdot$}
+
+% Narrow texts in boxes
+\providecommand{\narrow}[1]{\scalebox{.8}[1.0]{#1}}
+
+\begin{document}
+\title{Sequential P Systems with Active Membranes Working on Sets\thanks{Work supported by the grant VEGA 1/1333/12.}}
+\author{Michal Kováč and Damas Gruska}
+\institute{Faculty of Mathematics, Physics and Informatics, Comenius University}
+\date{\today}
+\maketitle
+
+\begin{abstract}
+We study variants of P systems that are working in the sequential mode. Usually, they are not computationally complete, but there are possible extensions that can increase the computation power. Extensions that implement a notion of zero-checking are often computationally complete.
+P systems with an ability to create new membranes are a rare exception as they are known to be computationally complete even in the sequential mode without using a dedicated zero-check operation. Using sets instead of multisets was inspired by Reaction systems and we show how to use this relaxation in the context of active membranes. We challenge the original definition of a membrane creation because possible multiplicity of labels of child membranes are in conflict with no multiplicity of objects in Reaction systems. We propose more suitable notions of membrane creation and prove computational completeness by simulating a register machine.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:introduction}
+
+% Bio motivation
+
+Membrane systems (P systems) \cite{Paun10OxfordHandbookMembraneComputing} were introduced by P\u{a}un (see \cite{Paun2000108}) as distributed parallel computing devices inspired by the structure and functionality of cells. Starting from the observation that there is an obvious parallelism in the cell biochemistry and relying on the assumption that ``if we wait enough, then all reactions which may take place will take place'', a feature of the P systems is given by the maximal parallel way of using the rules. For various reasons, ranging from looking for more realistic models to just more mathematical challenge, the maximal parallelism was questioned, either simply criticized, or replaced with presumably less restrictive assumptions.
+In some cases, a sequential model may be a more reasonable assumption. In sequential P systems, only one rewriting rule is used in each step of computation. Without priorities, they are equivalent to Petri nets \cite{Ibarra05Active}, hence not computationally complete. However, priorities, inhibitors and other modifications can increase the computation power. It seems that there is a link between universality and ability to zero-check \cite{Alhazov12Properties}.
+
+Standard models of membrane systems have configurations, where any given compartment is represented as a multiset of objects and each computational action is represented by a multiset of simultaneously executed (multiple copies of) individual evolution rules.
+
+Such strong reliance on counting (through multiple copies of objects and rules) may lead to potential problems in two respects. First, one may wonder how realistic is the counting (multiset) mechanism if one needs to represent huge numbers of molecules and instances of biochemical reactions. Second, a membrane system would normally have an infinite state space, making the application
+of formal verifiation techniques impratical or indeed impossible (there exists a rich body of results proving Turing completeness of even very simple kinds of membrane systems).
+
+A radical solution to the state space problems can be provided by reaction systems, which, however, model biochemial reactions in living cells using qualitative (based on presence and absence of entities) rather than quantitative rewriting rules.
+
+Set membrane systems \cite{Kleijn11SetMembrane} are based on sets (of objects or rules) together with the associated set operations, rather than on multisets with multiset operations. An interesting property of maximal parallel steps in set membrane systems is that there is always exactly one maximal parallel set of simultaneously applicable rules, thus such system is deterministic.
+
+Alhazov in \cite{Alhazov05WithoutMultiplicities} proposed P systems, where the multiplicities of objects are ignored, which is essentially the same as set membrane systems. He proved that with bounded number of membranes they have a very limited computing power, exactly the Parikh images of regular languages. On the other hand, allowing membrane creation or division implies the computational completeness.
+
+The sequential mode was only mentioned in \cite{Kleijn11SetMembrane} under the notion of ``min-enabled'' computational step. As well as in the maximal parallel mode, the sequential set membrane systems can also generate only the regular languages \cite{Alhazov05WithoutMultiplicities}.
+
+In section \ref{sec:preliminaries} we recall some computer science basic notions that we will use through the work. Sequential P systems with active membranes working on sets instead of multisets (Sequential active set P systems) are formally presented in section \ref{sec:p systems}.
+
+In section \ref{sec:simulation_of_register_machine} we show the computational completeness by simulating the register machine. In the last section we propose two modifications of the definition of a membrane creation because in the original definition possible multiplicity of labels of child membranes are in conflict with no multiplicity of objects. First modification is called inject-or-create and has no explicit membrane creation rule. Instead, when sending objects to a child membrane, which does not exist, then a new membrane is created and objects are sent to it. Second modification is called wrap-or-create and has an explicit membrane creation rule. However, applying such rule when a child membrane with the same label exists wraps the existing membrane in the newly created one.
+
+\section{Preliminaries}
+\label{sec:preliminaries}
+
+Here we recall several notions from the classical theory of formal languages.
+
+An {\bf alphabet} is a finite nonempty set of symbols. Usually, it is denoted by $\Sigma$. A {\bf string} over an alphabet is a finite sequence of symbols from the alphabet. We denote by $\Sigma^*$ the set of all strings over an alphabet $\Sigma$. By $\Sigma^+$ = $\Sigma^* - \{\eps\}$ we denote the set of all nonempty strings over $\Sigma$. A {\bf language} over the alphabet $\Sigma$ is any subset of $\Sigma^*$.
+
+The number of occurrences of a given symbol $a\in \Sigma$ in the string $w\in \Sigma^*$ is denoted by $|w|_a$. $\Psi_\Sigma(w)=(|w|_{a_1},|w|_{a_2},\dots,|w|_{a_n})$ is called a Parikh vector associated with the string $w\in \Sigma^*$, where $\Sigma=\{a_1,a_2,\dots, a_n\}$. For a language $L\subseteq \Sigma^*$, $\Psi_\Sigma(L)=\{\Psi_\Sigma(w)|w\in L\}$ is the Parikh image of $L$. If FL is a family of languages, PsFL denotes the family of Parikh images of languages in FL.
+
+Next, we recall notions from graph theory.
+
+A {\bf rooted tree} is a tree, in which a particular node is distinguished from the others and called the root node.
+Let $T$ be a rooted tree. We will denote its root node by $r_T$.
+Let $d$ be a node of $T\setminus\{r_T\}$.
+As $T$ is a tree, there is a unique path from $d$ to $r_T$. 
+The node adjacent to $d$ on that path is also unique and is called a {\bf parent node} of $d$ and is denoted by $parent_T(d)$.
+We will denote the set of nodes of $T$ by $V(T)$ and set of its edges by $E(T)$.
+Let $T_1, T_2$ be rooted trees. A bijection $f: V(T_1)\rightarrow V(T_2)$ is an {\bf isomorphism} iff $\{(f(u),f(v))|(u,v)\in E(T_1)\} = E(T_2)$ and $f(r_{T_1}) = r_{T_2}$. 
+
+  
+\section{Sequential active set P systems}
+\label{sec:p systems}
+
+% Membrane structure
+
+The fundamental ingredient of a P system is the {\bf membrane structure} (see \cite{Paun2006Introduction}). It is a hierarchically arranged set of membranes, all contained in the {\bf skin membrane}. Each membrane determines a compartment, also called region, which is the space delimited from above by it and from below by the membranes placed directly inside, if any exists. Clearly, the correspondence between membranes and regions is one-to-one, that is why we sometimes use interchangeably these terms.
+The membrane structure can be also viewed as a rooted tree with the skin membrane as the root node.
+
+A P system consists of a membrane structure, where each membrane is labeled with a number from 1 to $m$. Each membrane contains a set of objects. Objects can be transformed into other objects and sent through a membrane according to given rules defined for membrane labels. The rules are known from the beginning for each possible membrane, even for the ones that do not exist yet, or the ones that will never exist.
+
+In this paper we work with sequential P systems with active membranes working on sets (Sequential active set P systems). The rules can modify the membrane structure by dissolving and creating new membranes. That is why we will define the configuration to include the membrane structure as well.
+
+% P system
+
+\input{p-system-definition}
+
+\section{Simulation of register machine} % (fold)
+\label{sec:simulation_of_register_machine}
+
+\subsection{Register machine} % (fold)
+\label{sub:register_machine}
+
+In this section we will show that sequential active set P systems are powerful computing devices as they can simulate the register machine. The section starts with a definition of deterministic register machine with a definition of a configuration. Next is the formulation of the main theorem followed by a proof made by a simulation. At last the efficiency of the simulation is questioned and various improvements are proposed. 
+
+\begin{definition}
+  A {\bf $n$-register machine} is a tuple $M = (n,P,i,h)$, where:
+  \begin{itemize}
+    \item $n$ is the number of registers,
+    \item $P$ is a set of labeled instructions of the form $j : (op(r),k,l)$, where $op(r)$ is an operation on register $r\leq n$, and $j$, $k$, $l$ are labels from the set $Lab(M)$ such that there are no two instructions with the same label $j$,
+    \item $i$ is the initial label, and
+    \item $h$ is the final label.
+  \end{itemize}
+\end{definition}
+
+The machine is capable of the following instructions:
+\begin{itemize}
+  \item $(add(r),k,l)$ : Add one to the contents of register $r$ and proceed to instruction $k$ or to instruction $l$; in the deterministic variants usually considered in the literature we demand $k = l$.
+  \item $(sub(r),k,l)$ : If register $r$ is not empty, then subtract one from its contents and go to instruction $k$, otherwise proceed to instruction $l$.
+  \item $halt$ : This instruction stops the machine. This additional instruction can only be assigned to the final label $h$.
+\end{itemize}
+
+We will denote by $(op(r), \_, \_)$ any of the operations $add$ and $sub$ operating on the register $r$ having arbitrary following instruction. 
+
+A deterministic $m$-register machine can analyze an input $(n_1,\dots,n_m)\in N_0^m$ in registers 1 to $m$, which is recognized if the register machine finally stops by the halt instruction with all its registers being empty (this last requirement is not necessary). If the machine does not halt, the analysis was not successful.
+
+A configuration of a register machine is a tuple $(r_1, \ldots, r_m, ip)$, where $r_i$ is the value of the register $i$ and $ip$ (instruction pointer) is the label of current instruction to be executed.
+
+% subsection register_machine (end)
+
+\subsection{Simple simulation} % (fold)
+\label{sub:simple_simulation}
+
+The main theorem is stated as follows:
+
+\begin{theorem}
+  Sequential active set P systems are computationally complete.
+\end{theorem}
+
+\begin{proof}
+  Computational completeness is proved by a direct simulation of a register machine, which is also computationally complete.
+
+  For a register machine with $m$ registers we will construct a sequential active set P system $(\Sigma, C_0, R_1, \ldots R_{m+1})$, where $$\Sigma = \{x_j, y_j \text{~for instructions with label~} j\}\cup\{t_i \text{~for each register ~}i\}$$. Skin membrane will be labeled with $m+1$, other labels correspond to registers 1 to $m$. $C_0$ will be the input word for the register machine encoded into a membrane structure by the following encoding: 
+
+  For a configuration of register machine $(r_1, r_2, \ldots r_m, ip)$ the membrane structure will consist of a skin membrane, which will contain $m$ chains consisting of $r_i$ membranes embedded one into another like in a Matryoshka doll with label $i$. The innermost membranes will contain a single object $t_i$. If $r_i = 0$ then $t_i$ is in the skin membrane and there is no membrane with label $i$. Object representing the label of the current instruction ($x_{ip}$) is in the skin membrane.
+
+  We will have following rules in the skin membrane:
+  \begin{enumerate}
+    \item\label{simple_skin_next_instruction} $y_j \rightarrow x_j$,
+    \item\label{simple_skin_send_down} $x_j \rightarrow x_j\downarrow_{i}$ for instruction $j: (op(i), \_, \_)$,
+    \item\label{simple_skin_create} $x_j, t_i \rightarrow [_i y_k, t_i ]_i$ for instruction $j: (add(i), k, k)$,
+    \item\label{simple_skin_sub_empty} $x_j, t_i \rightarrow x_l, t_i$ for instruction $j: (sub(i), \_, l)$
+  \end{enumerate}
+
+  For the membrane $i$:
+  \begin{enumerate}[resume]
+    \item\label{simple_inner_resend_down} $x_j \rightarrow x_j\downarrow_{i}$ for instruction $j: (op(i), \_, \_)$,
+    \item\label{simple_inner_create} $x_j, t_i \rightarrow [_1 y_k, t_i ]_1$ for instruction $j: (add(i), k, k)$,
+    \item\label{simple_inner_resend_up} $y_j \rightarrow y_j\uparrow$ for instruction $j: (op(i), \_, \_)$,
+    \item\label{simple_inner_dissolve} $x_j, t_i \rightarrow y_k, t_i, \delta$ for instruction $j: (sub(i), k, l)$
+  \end{enumerate}
+
+  Object $x_j$ represents the instruction currently executed. It is sent down the chain of membranes by rules \ref{simple_skin_send_down} and \ref{simple_inner_resend_down}. In the innermost membrane the creation of a new membrane (rule \ref{simple_inner_create}), or the dissolution (rule \ref{simple_inner_dissolve}) is performed. Then the next instruction represented by object $y_j$ is sent upwards all the way to the skin membrane by the rule \ref{simple_inner_resend_up}. The object $t_i$ is always present in the innermost membrane. For a SUB instruction there are two rules in the skin membrane, together they implement the zero-test. The rule \ref{simple_skin_send_down} is applicable only if the register is nonempty and the rule \ref{simple_skin_sub_empty} is applicable only if the register is empty by requiring the presence of $t_i$, meaning that the value of register $i$ is zero. \qed
+\end{proof}
+
+\begin{example}
+  Assume a register machine with two registers with values $r_1=2$, $r_2=0$ and instructions:
+  \begin{itemize}
+    \item $1: sub(1),2,3$
+    \item $2: add(2),1,1$
+    \item $3: halt$
+  \end{itemize}
+
+  The initial configuration is $[_3 [_1 [_1 t_1 ]_1 ]_1 [_2 ]_2 t_2 x_1 ]_3$. The computation of the P system is deterministic, at each step there is only one applicable rule. Starting with the rule \ref{simple_skin_send_down} and then the rule \ref{simple_inner_resend_down}, $x_1$ enters the innermost membrane, where the rule \ref{simple_inner_dissolve} dissolves the membrane. The full example computation:
+
+  \begin{enumerate}
+    \item $[_3 [_1 [_1 t_1 ]_1 ]_1 t_2 x_1 ]_3$
+    \item $[_3 [_1 [_1 t_1 ]_1 x_1 ]_1 t_2 ]_3$ (used rule \ref{simple_skin_send_down})
+    \item $[_3 [_1 [_1 t_1 x_1 ]_1 ]_1 t_2 ]_3$ (used rule \ref{simple_inner_resend_down})
+    \item $[_3 [_1 t_1 y_2 ]_1 t_2 ]_3$ (used rule \ref{simple_inner_dissolve})
+    \item $[_3 [_1 t_1 ]_1 t_2 y_2 ]_3$ (used rule \ref{simple_inner_resend_up})
+    \item $[_3 [_1 t_1 ]_1 t_2 x_2 ]_3$ (used rule \ref{simple_skin_next_instruction})
+    \item $[_3 [_1 t_1 ]_1 [_2 t_2 y_1 ]_2 ]_3$ (used rule \ref{simple_skin_create})
+    \item $[_3 [_1 t_1 ]_1 [_2 t_2 ]_2 y_1 ]_3$ (used rule \ref{simple_inner_resend_up})
+    \item $[_3 [_1 t_1 ]_1 [_2 t_2 ]_2 x_1 ]_3$ (used rule \ref{simple_skin_next_instruction})
+    \item $[_3 [_1 t_1 x_1 ]_1 [_2 t_2 ]_2 ]_3$ (used rule \ref{simple_skin_send_down})
+    \item $[_3 [_2 t_2 ]_2 t_1 y_2 ]_3$ (used rule \ref{simple_inner_dissolve})
+    \item $[_3 [_2 t_2 ]_2 t_1 x_2 ]_3$ (used rule \ref{simple_skin_next_instruction})
+    \item $[_3 [_2 t_2 x_2 ]_2 t_1 ]_3$ (used rule \ref{simple_skin_send_down})
+    \item $[_3 [_2 [_2 t_2 y_1 ]_2 ]_2 t_1 ]_3$ (used rule \ref{simple_inner_create})
+    \item $[_3 [_2 [_2 t_2 ]_2 y_1 ]_2 t_1 ]_3$ (used rule \ref{simple_inner_resend_up})
+    \item $[_3 [_2 [_2 t_2 ]_2 ]_2 t_1 y_1 ]_3$ (used rule \ref{simple_inner_resend_up})
+    \item $[_3 [_2 [_2 t_2 ]_2 ]_2 t_1 x_1 ]_3$ (used rule \ref{simple_skin_next_instruction})
+    \item $[_3 [_2 [_2 t_2 ]_2 ]_2 t_1 x_3 ]_3$ (used rule \ref{simple_skin_sub_empty})
+  \end{enumerate}
+
+  We have shown an example computation of P system which simulates the register machine which moves contents of register 1 to the register 2.
+\end{example}
+
+The simulation of the register machine was quite straightforward. We proved that the model is computationally complete. However, the simulation is not very effective. It uses alphabet of size $2 * \text{number of instructions} + \text{number of registers}$, and its number of membranes is linearly dependent on the sum of values of registers. The time needed for executing an instruction on register $i$ is linearly dependent on $r_i$.
+
+% subsection simple_simulation (end)
+
+\subsection{Optimalization of the simulation} % (fold)
+\label{sub:optimalization_of_the_simulation}
+
+In this subsection we address the inefficient usage of membranes in the previous simulation. New, optimized simulation will reduce it to logarithmic dependency.
+
+For a register machine with $m$ registers we will construct a seqeuntial active set P system, where $\Sigma = \{0,1,p,q,s,t\}\cup\{x_j, y_j, z_j \text{~for instructions with label~} j\}$. Skin membrane will be labeled with $m+1$, other labels correspond to registers 1 to $m$.
+
+Assume configuration of register machine $(r_1, r_2, \ldots r_m, ip)$. For register $i$, let $b_1b_2\ldots b_k$ be a binary representation of $r_i$. The skin membrane will contain a chain of $k$ membranes embedded one into another like in a Matryoshka doll with label $i$.
+The membrane in depth $d$ will contain the object $b_{k-d}$, which is either 0 or 1. So the highest-order position in the binary number is represented by the innermost membrane and positions which are more often changed by increments are in membranes closer to the skin membrane. Moreover, the innermost membranes contain a single object $t$. The skin membrane contains the label of the current instruction $x_{ip}$. Other membranes (not skin and not innermost) contain $s$. Direct children of the skin membrane will contain a single object $q$ representing the fact that we don't want the membrane to be dissolved. Object $p$ will be in all membranes except the skin membrane and direct children of the skin membrane. It represents the fact that the membrane can be dissolved, while keeping at least one membrane for binary representation of the register value.
+
+The basic idea is to recursively decide the next action based on lowest position. For incrementing number ending with zero, incrementing the lowest position is enough. Similar simple case is when decrementing number ending with one. For incrementing number ending with one, we decrement the lowest position and recursively call increment on the binary number omitting the lowest position. Similarly, for decrementing number ending with zero, we increment the lowest position and recursively call decrement on the binary number omitting the lowest position.
+There are some special cases, like incrementing 111 to 1000 or decrementing 1000 to 111. In these cases we should change the number of membranes representing positions. There is also an exception to this - decrementing 1 to 0 does not change the number of bits.
+
+We will have following rules in the skin membrane:
+\begin{enumerate}
+  \item\label{optim_skin_next_instruction} $y_j \rightarrow x_j$,
+  \item\label{optim_skin_send_down} $x_j \rightarrow x_j\downarrow_{i}$ for instruction $j: op(i), \_, \_$
+\end{enumerate}
+
+For the membrane $i$ and instruction $j$:
+\begin{enumerate}[resume]
+  \item\label{optim_inner_resend_up} $y_j \rightarrow y_j \uparrow$ (return the next instruction to the skin membrane).
+\end{enumerate}
+
+For the membrane $i$ and instruction $j: add(i),k,k$:
+\begin{enumerate}[resume]
+  \item\label{optim_inner_add_1} $x_j1s \rightarrow x_j\downarrow_{i}0s$ (we decremented lower position, so we must increment higher position (011 to 100, now at 1 to 0)),
+  \item\label{optim_inner_add_0} $x_j0 \rightarrow y_k \uparrow 1$ (we incremented a position and can return and proceed to the next instruction),
+  \item\label{optim_inner_add_1_highest} $x_j1t \rightarrow [_i 1tp]_iy_k\uparrow 0s$ (incrementing 111 to 1000).
+\end{enumerate}
+
+For the membrane $i$ and instruction $j: sub(i),k,l$:
+\begin{enumerate}[resume]
+  \item\label{optim_inner_sub_1} $x_j1s \rightarrow y_k \uparrow 0s$ (we found position to decrement, proceed to the next instruction),
+  \item\label{optim_inner_sub_0} $x_j0s \rightarrow x_j\downarrow_i 1s$ (1000 is decremented to 0111 and now we encountered a 0),
+  \item\label{optim_inner_sub_1_highest} $x_j1tp \rightarrow z_jt \delta$ (decrementing the number of bits),
+  \item\label{optim_inner_sub_1_highest_1} $x_j1tq \rightarrow y_k\uparrow 0tq$ (exception to the rule \ref{optim_inner_sub_1_highest} - decrementing 1 to 0 does not decrement the number of bits),
+  \item\label{optim_inner_sub_remove_s} $z_jst \rightarrow y_kt$ (after decremented the number of bits, remove $s$ in the new highest-order position),
+  \item\label{optim_inner_sub_0_highest} $x_j0t \rightarrow y_l \uparrow 0t$ (trying to decrement a zero)
+\end{enumerate}
+
+\begin{example}
+  Assume a register machine with two registers with values $r_1=3$, $r_2=0$ and the current instruction $j: add(1),k,k$. The corresponding membrane configuration is $[_3 [_1 [_1 1 t p ]_1 1 s q ]_1 [_2 0 t q ]_2 x_j ]_3$.
+
+  The computation of the P system is deterministic, at each step there is only one applicable rule. Starting with the rule \ref{optim_skin_send_down}, $x_j$ will meet the object $1$ in the configuration $[_3 [_1 [_1 1 t p ]_1 1 x_j s q ]_1 [_2 0 t q ]_2 ]_3$. The only applicable rule then is \ref{optim_inner_add_1}, resulting in $[_3 [_1 [_1 1 t p x_j ]_1 0 s q ]_1 [_2 0 t q ]_2 ]_3$. $x_j$ now meets objects 1 and $t$, which means that the only applicable rule is \ref{optim_inner_add_1_highest}, creating a new innermost membrane and resulting in the configuration $[_3 [_1 [_1 [_1 1 t p ]_1 0 p ]_1 0 y_k s q ]_1 [_2 0 t q ]_2 ]_3$. The object $y_k$ is by the rule \ref{optim_inner_resend_up} propagated to the skin membrane, where it is prepared for the next instruction by the rule \ref{optim_skin_next_instruction}.
+\end{example}
+
+\begin{example}
+  Assume a register machine with two registers with values $r_1 = 2$, $r_2 = 0$ and instructions:
+  \begin{itemize}
+    \item $1: sub(1),2,3$
+    \item $2: add(2),1,1$
+    \item $3: halt$
+  \end{itemize}
+
+  The initial configuration is $[_3 [_1 [_1 1 t p ]_1 0 s q ]_1 [_2 0 t q ]_2 x_1 ]_3$. The computation of the P system is deterministic, at each step there is only one applicable rule. Starting with the rule \ref{optim_skin_send_down} and then the rule \ref{optim_inner_sub_0}, $x_1$ enters the innermost membrane, where the 
+  rule \ref{optim_inner_sub_1_highest} dissolves the membrane. The full example computation:
+
+  \begin{enumerate}
+    \item $[_3 [_1 [_1 1 t p ]_1 0 s q ]_1 [_2 0 t q ]_2 x_1 ]_3$
+    \item $[_3 [_1 [_1 1 t p ]_1 0 s q x_1 ]_1 [_2 0 t q ]_2 ]_3$ (used rule \ref{optim_skin_send_down})
+    \item $[_3 [_1 [_1 1 t p x_1 ]_1 1 s q ]_1 [_2 0 t q ]_2 ]_3$ (used rule \ref{optim_inner_sub_0})
+    \item $[_3 [_1 1 s t q z_1 ]_1 [_2 0 t q ]_2 ]_3$ (used rule \ref{optim_inner_sub_1_highest})
+    \item $[_3 [_1 1 t q y_2 ]_1 [_2 0 t q ]_2 ]_3$ (used rule \ref{optim_inner_sub_remove_s})
+    \item $[_3 [_1 1 t q ]_1 [_2 0 t q ]_2 y_2 ]_3$ (used rule \ref{optim_inner_resend_up})
+    \item $[_3 [_1 1 t q ]_1 [_2 0 t q ]_2 x_2 ]_3$ (used rule \ref{optim_skin_next_instruction})
+    \item $[_3 [_1 1 t q ]_1 [_2 0 t q x_2 ]_2 ]_3$ (used rule \ref{optim_skin_send_down})
+    \item $[_3 [_1 1 t q ]_1 [_2 1 t q ]_2 y_1 ]_3$ (used rule \ref{optim_inner_add_0})
+    \item $[_3 [_1 1 t q ]_1 [_2 1 t q ]_2 x_1 ]_3$ (used rule \ref{optim_skin_next_instruction})
+    \item $[_3 [_1 1 t q x_1 ]_1 [_2 1 t q ]_2 ]_3$ (used rule \ref{optim_skin_send_down})
+    \item $[_3 [_1 0 t q ]_1 [_2 1 t q ]_2 y_2 ]_3$ (used rule \ref{optim_inner_add_1_highest})
+    \item $[_3 [_1 0 t q ]_1 [_2 1 t q ]_2 x_2 ]_3$ (used rule \ref{optim_skin_next_instruction})
+    \item $[_3 [_1 0 t q ]_1 [_2 1 t q x_2 ]_2 ]_3$ (used rule \ref{optim_skin_send_down})
+    \item $[_3 [_1 0 t q ]_1 [_2 [_2 1 t p ]_2 0 s q ]_2 y_1 ]_3$ (used rule \ref{optim_inner_add_1_highest})
+    \item $[_3 [_1 0 t q ]_1 [_2 [_2 1 t p ]_2 0 s q ]_2 x_1 ]_3$ (used rule \ref{optim_skin_next_instruction})
+    \item $[_3 [_1 0 t q x_1 ]_1 [_2 [_2 1 t p ]_2 0 s q ]_2 ]_3$ (used rule \ref{optim_skin_send_down})
+    \item $[_3 [_1 0 t q ]_1 [_2 [_2 1 t p ]_2 0 s q ]_2 y_3 ]_3$ (used rule \ref{optim_inner_sub_0_highest})
+    \item $[_3 [_1 0 t q ]_1 [_2 [_2 1 t p ]_2 0 s q ]_2 x_3 ]_3$ (used rule \ref{optim_skin_next_instruction})
+  \end{enumerate}
+
+  We have shown an example computation of P system which simulates the register machine which moves contents of register 1 to the register 2.
+\end{example}
+
+One instruction of the register machine is performed by number of computational steps which is logarithmic on the value of the register the instruction is operated on. The number of membranes is logarithmic as well. The number of objects is $3 * \text{number of instructions} + 6$.
+
+\subsection{Further optimalizations} % (fold)
+\label{sub:further_optimalizations}
+
+Could the simulation be optimized even more? Encoding the register value to a chain of membranes is not making full use of membrane structure. There are many options for a represention of an integer by a tree. For efficient implementation of the increment and decrement instructions, we need an encoding with a property that a local change in the value of the encoding of the entire tree corresponds to a local change in the value of the encodings of its child subtrees. Stein in 1999 \cite{Stein99Plowing} proposed a boustrophedonic variant of Cantor pairing function. The implementation of a sequential active set P system simulating a register machine using this pairing function to encode child subtrees would be quite easy, but we would stick to the logarithmic time in the worst case (diagonal of the pairing function).
+Catalan pairing function \cite{Stanley1986EnumerativeCombinatorics} orders full binary trees by the number of nodes. The time would be logarithmic with a base 4, which is a slight improvement, but asymptotically still the same.
+
+% subsection further_optimalizations (end)
+
+% subsection optimalization_of_the_simulation (end)
+
+% section simulation_of_register_machine (end)
+
+\section{Modified membrane creation semantics} % (fold)
+\label{sec:modified_membrane_creation_semantics}
+
+In this section we will investigate the effect of other semantics of membrane creation. The previous semantics assumed an explicit membrane creation rule. If the current membrane already contains child membrane with the same label as the membrane about to be created, then the rule is not applicable, and the membrane creation is aborted. Similar behavior is in the definition of sending objects to the child membrane. If such membrane does not exist, objects cannot be sent and the rule is not applicable.
+
+These two behaviors are in fact complementary. It seems natural to join these two artificial rule abortions and provide a rule that will always be applicable if the precondition of left side inclusion is fulfilled.
+
+\subsection{Semantics inject-or-create} % (fold)
+\label{sub:semantics_inject_or_create}
+
+We will first examine the case where we have no explicit membrane creation rule. Any rule which is sending some objects to child membrane labeled $j$ will create child membrane $j$ if it does not exist.
+
+Formally, rules can be of form:
+\begin{itemize}
+  \item $u\rightarrow w$, where $u\subseteq \Sigma$, $|u|\geq 1$, $w\subseteq (\Sigma\times\{\cdot, \uparrow, \downarrow_j\})$ and $1\leq j\leq m$,
+  \item a dissolving rule $u\rightarrow w\delta$, where $u\subseteq \Sigma$, $|u|\geq 1$, $w\subseteq (\Sigma\times\{\cdot, \uparrow, \downarrow_j\})$ and $1\leq j\leq m$.
+\end{itemize}
+
+For a sequential active set P system $(\Sigma, C_0, R_1, R_2, \dots , R_m)$, configuration $C = (T, l, c)$, membrane $d\in V(T)$ the rule $r\in R_{l(d)}$ is {\bf applicable} iff:
+\begin{itemize}
+  \item $r = u\rightarrow w$ and $u\subseteq c(d)$,
+  \item $r = u\rightarrow w\delta$ and $u\subseteq c(d)$ and $d\neq r_T$.
+\end{itemize}
+
+\begin{example}
+  Assume the membrane configuration $[_1 [_2 ]_2 a ]_1$. If we apply the rule $a \rightarrow a\downarrow_2$ in the skin membrane, the object $a$ is sent to the membrane 2 because such child membrane already exists. The resulting membrane configuration is $[_1 [_2 a ]_2 ]_1$.
+
+  If we apply the rule $a \rightarrow a\downarrow_3$ in the skin membrane, a new membrane labeled 3 is created, because such child membrane does not exist yet. The resulting membrane configuration is $[_1 [_2 ]_2 [_3 a ]_3 ]_1$.
+\end{example}
+
+% TODO: add picture to the example
+
+\begin{theorem}
+  Sequential active set P systems with inject-or-create semantics are computationally complete.
+\end{theorem}
+
+\begin{proof}
+  The simulation is essentially the same as in section \ref{sub:optimalization_of_the_simulation}. All the rules which are sending objects into a child membrane are already assuming that the child membrane already exists. The only difference is in the rule for membrane creation: $x_j1t \rightarrow [_i 1tp]_iy_k\uparrow 0s$. This rule is applied always in the innermost membrane with no child membranes. Modified simulation will therefore use rule $x_j1t \rightarrow 1\downarrow_i t\downarrow_i p\downarrow_i y_k\uparrow 0s$, which, when applied, creates a child membrane $i$, because no such child membrane exists. \qed
+\end{proof}
+
+The efficiency of this simulation is essentially the same as in section \ref{sub:optimalization_of_the_simulation}, that means logarithmic number of steps for simulating one instruction of the register machine as well as logarithmic number of membranes and the number of objects is $3 * \text{number of instructions} + 5$.
+
+% subsection semantics_inject_or_create (end)
+
+\subsection{Semantics wrap-or-create} % (fold)
+\label{sub:semantics_wrap_or_create}
+
+In this variant we stay with explicit membrane creation rule, but when the membrane with the same label is already contained in the current membrane, the rule remains applicable and the child membrane will be wrapped by a new membrane with the given contents. For example, applying the rule $a \rightarrow [_2 b ]_2 c$ in the membrane 1 of membrane structure $[_1 a [_2 d ]_2 ]_1$ would result in $[_1 c [_2 b [_2 d ]_2 ]_2 ]_1$.
+
+% TODO: example with a picture
+
+\begin{theorem}
+  Sequential active set P systems with wrap-or-create semantics are computationally complete.
+\end{theorem}
+
+\begin{proof}
+  Again, we will show how to simulate the register machine. The simulation will be similar to the one defined in subsection \ref{sub:simple_simulation}, but with additional control objects similar to the second simulation \ref{sub:optimalization_of_the_simulation}.
+
+  For a register machine with $m$ registers we will construct a sequential active set P system $(\Sigma, C_0, R_1, \ldots R_{m+1})$, where $$\Sigma = \{x_j \text{~for instructions with label~} j\}\cup\{t_i, s_i \text{~for each register ~}i\}$$. Skin membrane will be labeled with $m+1$, other labels correspond to registers 1 to $m$. $C_0$ will be the input word for the register machine encoded into a membrane structure by the following encoding: 
+
+  For a configuration of register machine $(r_1, r_2, \ldots r_m, ip)$ the membrane structure will consist of a skin membrane, which will contain $m$ chains consisting of $r_i$ membranes embedded one into another like in a Matryoshka doll with label $i$. Membranes with a child labeled $i$ will contain a single object $s_i$. If the membrane has no child labeled $i$, it contains an object $t_i$. If $r_i = 0$ then $t_i$ is in the skin membrane and there is no membrane with label $i$. Object representing the label of the current instruction ($x_{ip}$) is in the skin membrane.
+
+  We will have following rules in the skin membrane:
+  \begin{enumerate}
+    \item\label{wrap_skin_add_s} $x_j s_i\rightarrow [_i s_i ]_i s_i x_k$ for instruction $j: (add(i), k, \_)$,
+    \item\label{wrap_skin_add_t} $x_j t_i\rightarrow [_i t_i ]_i s_i x_k$ for instruction $j: (add(i), k, \_)$,
+    \item\label{wrap_skin_sub_t} $x_j t_i\rightarrow x_l t_i$ for instruction $j: (sub(i), k, l)$,
+    \item\label{wrap_skin_sub_s} $x_j s_i\rightarrow x_j\downarrow_i$ for instruction $j: (sub(i), k, l)$,
+  \end{enumerate}
+
+  For the membrane $i$:
+  \begin{enumerate}[resume]
+    \item\label{wrap_inner_dissolve} $x_j \rightarrow x_k\delta$
+  \end{enumerate}
+
+  For every $add$ instruction there is just one rule applied in the simulation and for each $sub$ instruction there is one or two instructions, depending on the register value. If $r_i>0$ then the instruction enters the membrane labeled $i$ and dissolves it, decreasing the number of stacked membranes with label $i$. \qed
+\end{proof}
+
+\begin{example}
+  Assume a register machine with two registers with values $r_1=2$ and $r_2=0$ and instructions:
+  \begin{itemize}
+    \item $1: sub(1),2,3$
+    \item $2: add(2),1,1$
+    \item $3: halt$
+  \end{itemize}.
+
+  The initial membrane configuration is $[_3 [_1 [_1 t_1 ]_1 s_1 ]_1 s_1 t_2 x_1 ]_3$. The computation of the P system is deterministic, at each step there is only one applicable rule. Starting with the rule \ref{wrap_skin_sub_s}, $x_1$ enters the inner membrane, where the rule \ref{wrap_inner_dissolve} dissolves the membrane. The full example computation:
+
+  \begin{enumerate}
+    \item $[_3 [_1 [_1 t_1 ]_1 s_1 ]_1 s_1 t_2 x_1 ]_3$
+    \item $[_3 [_1 [_1 t_1 ]_1 s_1 x_1 ]_1 t_2 ]_3$ (used rule \ref{wrap_skin_sub_s})
+    \item $[_3 [_1 t_1 ]_1 s_1 t_2 x_2 ]_3$ (used rule \ref{wrap_inner_dissolve})
+    \item $[_3 [_1 t_1 ]_1 [_2 t_2 ]_2 s_1 s_2 x_1 ]_3$ (used rule \ref{wrap_skin_add_t})
+    \item $[_3 [_1 t_1 x_1 ]_1 [_2 t_2 ]_2 s_2 ]_3$ (used rule \ref{wrap_skin_sub_s})
+    \item $[_3 [_2 t_2 ]_2 t_1 s_2 x_2 ]_3$ (used rule \ref{wrap_inner_dissolve})
+    \item $[_3 [_2 [_2 t_2 ]_2 s_2 ]_2 t_1 s_2 x_1 ]_3$ (used rule \ref{wrap_skin_add_s})
+    \item $[_3 [_2 [_2 t_2 ]_2 s_2 ]_2 t_1 s_2 x_3 ]_3$ (used rule \ref{wrap_skin_sub_t})
+  \end{enumerate}
+
+  We have shown an example computation of P system which simulates the register machine which moves contents of register 1 to the register 2.
+\end{example}
+
+This simulation is the most suitable for simulating the register machine because for incrementing the number of stacked membranes we just need to wrap the topmost membrane into a new membrane. This gained us constant time for executing one instruction, however the number of membranes remains linear on the sum of register values. The number of objects is $\text{number of instructions} + 2 * \text{number of registers}$.
+
+% subsection semantics_wrap_or_create (end)
+
+% section modified_membrane_creation_semantics (end)
+
+\section*{Conclusions} % (fold)
+\label{sec:conclusions}
+
+We have investigated the bridge between membrane systems and reaction systems for the sequential variant with active membranes. We have shown computational completeness by a simulation of a register machine. When using sets instead of multisets, the original definition of creating a membrane may seem obsolete. Therefore, we have proposed alternative definitions for membrane creation: inject-or-create and wrap-or-create. In either case the resulting system has been shown to be universal.
+
+As some simulations are not very effective, we have also proposed ways to improve the efficiency. For the simulation with original membrane creation we managed to reduce time needed for executing one instruction of the register machine from linear to logarithmic time. The wrap-or-create semantics is the most suitable for the simulation as for every instruction of the register machine only constant number of steps of the P system is needed.
+
+\begin{center}
+  \begin{tabular}{|c|c|c|l|}
+    \hline
+    semantics & membranes & time & alphabet \\ \hline
+    original & $O(n)$ & $O(n)$ & $2*\# instr.+\# reg.$ \\ \hline
+    original & $O(log(n))$ & $O(log(n))$ & $3*\# instr.+ 6$ \\ \hline
+    inject-or-create & $O(log(n))$ & $O(log(n))$ & $3*\# instr.+ 6$ \\ \hline
+    wrap-or-create & $O(n)$ & $O(1)$ & $\# instr.+2*\# reg.$ \\ \hline
+  \end{tabular}
+\end{center}
+
+The register value in the simulations is encoded in either unary or binary form. We propose other options to encode the register value as a tree structure of membranes and leave the construction of the simulation as a topic for further study.
+
+For the future study we suggest an investigation of decidability properties of these models as well as other inspirations from Reaction systems, e. g. non-permanency of objects.
+
+% section conclusions (end)
+
+\bibliography{set}
+
+\end{document}
