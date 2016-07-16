@@ -47,7 +47,7 @@
 
 \begin{abstract}
 We study variants of P systems that are working in the sequential mode. Usually, they are not computationally complete, but there are possible extensions that can increase the computation power. Extensions that implement a notion of zero-checking are often computationally complete.
-P systems with an ability to create new membranes are a rare exception as they are known to be computationally complete even in the sequential mode without using a dedicated zero-check operation. Using sets instead of multisets was inspired by Reaction systems and we show how to use this relaxation in the context of active membranes. We challenge the original definition of a membrane creation because possible multiplicity of labels of child membranes are in conflict with no multiplicity of objects in Reaction systems. We propose more suitable notions of membrane creation and prove computational completeness by simulating a register machine.
+P systems with an ability to create new membranes are a rare exception as they are known to be computationally complete even in the sequential mode without using a dedicated zero-check operation. Using sets instead of multisets was inspired by reaction systems and we show how to use this relaxation in the context of active membranes. We challenge the original definition of a membrane creation because possible multiplicity of labels of child membranes are in conflict with no multiplicity of objects in reaction systems. We propose more suitable notions of membrane creation and prove computational completeness by simulating a register machine.
 \end{abstract}
 
 \section{Introduction}
@@ -61,7 +61,7 @@ In some cases, a sequential model may be a more reasonable assumption. In sequen
 Standard models of membrane systems have configurations, where any given compartment is represented as a multiset of objects and each computational action is represented by a multiset of simultaneously executed (multiple copies of) individual evolution rules.
 
 Such strong reliance on counting (through multiple copies of objects and rules) may lead to potential problems in two respects. First, one may wonder how realistic is the counting (multiset) mechanism if one needs to represent huge numbers of molecules and instances of biochemical reactions. Second, a membrane system would normally have an infinite state space, making the application
-of formal verifiation techniques impratical or indeed impossible (there exists a rich body of results proving Turing completeness of even very simple kinds of membrane systems).
+of formal verification techniques impractical or indeed impossible (there exists a rich body of results proving Turing completeness of even very simple kinds of membrane systems).
 
 A radical solution to the state space problems can be provided by reaction systems, which, however, model biochemial reactions in living cells using qualitative (based on presence and absence of entities) rather than quantitative rewriting rules.
 
@@ -222,7 +222,7 @@ The simulation of the register machine was quite straightforward. We proved that
 
 In this subsection we address the inefficient usage of membranes in the previous simulation. New, optimized simulation will reduce it to logarithmic dependency.
 
-For a register machine with $m$ registers we will construct a seqeuntial active set P system, where $\Sigma = \{0,1,p,q,s,t\}\cup\{x_j, y_j, z_j \text{~for instructions with label~} j\}$. Skin membrane will be labeled with $m+1$, other labels correspond to registers 1 to $m$.
+For a register machine with $m$ registers we will construct a sequential active set P system, where $\Sigma = \{0,1,p,q,s,t\}\cup\{x_j, y_j, z_j \text{~for instructions with label~} j\}$. Skin membrane will be labeled with $m+1$, other labels correspond to registers 1 to $m$.
 
 Assume configuration of register machine $(r_1, r_2, \ldots r_m, ip)$. For register $i$, let $b_1b_2\ldots b_k$ be a binary representation of $r_i$. The skin membrane will contain a chain of $k$ membranes embedded one into another like in a Matryoshka doll with label $i$.
 The membrane in depth $d$ will contain the object $b_{k-d}$, which is either 0 or 1. So the highest-order position in the binary number is represented by the innermost membrane and positions which are more often changed by increments are in membranes closer to the skin membrane. Moreover, the innermost membranes contain a single object $t$. The skin membrane contains the label of the current instruction $x_{ip}$. Other membranes (not skin and not innermost) contain $s$. Direct children of the skin membrane will contain a single object $q$ representing the fact that we don't want the membrane to be dissolved. Object $p$ will be in all membranes except the skin membrane and direct children of the skin membrane. It represents the fact that the membrane can be dissolved, while keeping at least one membrane for binary representation of the register value.
@@ -442,7 +442,7 @@ As some simulations are not very effective, we have also proposed ways to improv
 
 The register value in the simulations is encoded in either unary or binary form. We propose other options to encode the register value as a tree structure of membranes and leave the construction of the simulation as a topic for further study.
 
-For the future study we suggest an investigation of decidability properties of these models as well as other inspirations from Reaction systems, e. g. non-permanency of objects.
+For the future study we suggest an investigation of decidability properties of these models as well as other inspirations from reaction systems, e. g. non-permanency of objects.
 
 % section conclusions (end)
 
