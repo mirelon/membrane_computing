@@ -157,9 +157,12 @@ The main theorem is stated as follows:
 \begin{proof}
   Computational completeness is proved by a direct simulation of a register machine, which is also computationally complete.
 
-  For a register machine $(m,P,i,h,Lab)$ we will construct a sequential active set P system $(\Sigma, C_0, R_1, \ldots R_{m+1})$, where $$\Sigma = \{x_j, y_j \text{~for~} j\in Lab\}\cup\{t_i \text{~for each register ~}i\}$$. Skin membrane will be labeled with $m+1$, other labels correspond to registers 1 to $m$. $C_0$ will be the input word for the register machine encoded into a membrane structure by the following encoding: 
+  For a register machine $(m,P,i,h,Lab)$ we will construct a sequential active set P system $(\Sigma, C_0, R_1, \ldots R_{m+1})$, where $$\Sigma = \{x_j, y_j \text{~for~} j\in Lab\}\cup\{t_i \text{~for each register ~}i\}$$. Skin membrane will be labeled with $m+1$ and labels 1 to $m$ are reserved for membranes representing registers 1 to $m$. $C_0$ will be the input word for the register machine encoded into a membrane structure by the following encoding: 
 
   For a configuration of register machine $(r_1, r_2, \ldots r_m, ip)$ the membrane structure will consist of a skin membrane, which will contain $m$ chains consisting of $r_i$ membranes embedded one into another like in a Matryoshka doll with label $i$. The innermost membranes will contain a single object $t_i$. If $r_i = 0$ then $t_i$ is in the skin membrane and there is no membrane with label $i$. Object representing the label of the current instruction ($x_{ip}$) is in the skin membrane.
+  \begin{example}
+    For a configuration of register machine $(2,0,1)$ the membrane structure is $[_3 [_1 [_1 t_1 ]_1 ]_1 t_2 x_1 ]_3$. The register 1 has value 2, so there are 2 nested membranes with label 1 and the innermost membrane contains an object $t_1$. The register 2 has value 0 so there is object $t_2$ is in the skin membrane with no membrane labeled with 2. In the skin membrane the object $x_1$ represents the current instruction label 1.
+  \end{example}
 
   We will have following rules in the skin membrane:
   \begin{enumerate}
@@ -223,7 +226,7 @@ The simulation of the register machine was quite straightforward. We proved that
 
 In this subsection we address the inefficient usage of membranes in the previous simulation. New, optimized simulation will reduce it to logarithmic dependency.
 
-For a register machine $(m,P,i,h,Lab)$ we will construct a sequential active set P system, where $\Sigma = \{0,1,p,q,s,t\}\cup\{x_j, y_j, z_j \text{~for~} j\in Lab\}$. Skin membrane will be labeled with $m+1$, other labels correspond to registers 1 to $m$.
+For a register machine $(m,P,i,h,Lab)$ we will construct a sequential active set P system, where $\Sigma = \{0,1,p,q,s,t\}\cup\{x_j, y_j, z_j \text{~for~} j\in Lab\}$. Skin membrane will be labeled with $m+1$ and labels 1 to $m$ are reserved for membranes representing registers 1 to $m$.
 
 Assume configuration of register machine $(r_1, r_2, \ldots r_m, ip)$. For register $i$, let $b_1b_2\ldots b_k$ be a binary representation of $r_i$. The skin membrane will contain a chain of $k$ membranes embedded one into another like in a Matryoshka doll with label $i$.
 The membrane in depth $d$ will contain the object $b_{k-d}$, which is either 0 or 1. So the highest-order position in the binary number is represented by the innermost membrane and positions which are more often changed by increments are in membranes closer to the skin membrane. Moreover, the innermost membranes contain a single object $t$. The skin membrane contains the label of the current instruction $x_{ip}$. Other membranes (not skin and not innermost) contain $s$. Direct children of the skin membrane will contain a single object $q$ representing the fact that we don't want the membrane to be dissolved. Object $p$ will be in all membranes except the skin membrane and direct children of the skin membrane. It represents the fact that the membrane can be dissolved, while keeping at least one membrane for binary representation of the register value.
@@ -373,7 +376,7 @@ In this variant we stay with explicit membrane creation rule, but when the membr
 \begin{proof}
   Again, we will show how to simulate the register machine. The simulation will be similar to the one defined in subsection \ref{sub:simple_simulation}, but with additional control objects similar to the second simulation \ref{sub:optimalization_of_the_simulation}.
 
-  For a register machine $(m,P,i,h,Lab)$ we will construct a sequential active set P system $(\Sigma, C_0, R_1, \ldots R_{m+1})$, where $$\Sigma = \{x_j \text{~for~} j\in Lab\}\cup\{t_i, s_i \text{~for each register ~}i\}$$. Skin membrane will be labeled with $m+1$, other labels correspond to registers 1 to $m$. $C_0$ will be the input word for the register machine encoded into a membrane structure by the following encoding: 
+  For a register machine $(m,P,i,h,Lab)$ we will construct a sequential active set P system $(\Sigma, C_0, R_1, \ldots R_{m+1})$, where $$\Sigma = \{x_j \text{~for~} j\in Lab\}\cup\{t_i, s_i \text{~for each register ~}i\}$$. Skin membrane will be labeled with $m+1$ and labels 1 to $m$ are reserved for membranes representing registers 1 to $m$. $C_0$ will be the input word for the register machine encoded into a membrane structure by the following encoding: 
 
   For a configuration of register machine $(r_1, r_2, \ldots r_m, ip)$ the membrane structure will consist of a skin membrane, which will contain $m$ chains consisting of $r_i$ membranes embedded one into another like in a Matryoshka doll with label $i$. Membranes with a child labeled $i$ will contain a single object $s_i$. If the membrane has no child labeled $i$, it contains an object $t_i$. If $r_i = 0$ then $t_i$ is in the skin membrane and there is no membrane with label $i$. Object representing the label of the current instruction ($x_{ip}$) is in the skin membrane.
 
