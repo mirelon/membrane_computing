@@ -1,4 +1,4 @@
-\documentclass[submission,copyright,creativecommons]{../lib/lncs/llncs}
+\documentclass[journal]{journal}
 \providecommand{\event}{CS&P 2015} % Name of the event you are submitting to
 
 \usepackage[utf8]{inputenc}
@@ -15,7 +15,12 @@
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{makeidx}
+\let\labelindent\relax % http://tex.stackexchange.com/questions/170772/command-labelindent-already-defined
 \usepackage{enumitem}
+
+% Standard definitions used in llncs.cls and missing in journal.cls
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}
 
 % Repeat the same theorem in the appendix
 \usepackage{thmtools, thm-restate}
@@ -41,7 +46,7 @@
 \begin{document}
 \title{Sequential P Systems with Active Membranes Working on Sets\thanks{Work supported by the grant VEGA 1/1333/12.}}
 \author{Michal Kováč and Damas Gruska}
-\institute{Faculty of Mathematics, Physics and Informatics, Comenius University}
+% \institute{Faculty of Mathematics, Physics and Informatics, Comenius University}
 \date{\today}
 \maketitle
 
@@ -180,7 +185,7 @@ The main theorem is stated as follows:
     \item\label{simple_inner_dissolve} $x_j, t_i \rightarrow y_k, t_i, \delta$ for instruction $j: (sub(i), k, l)$
   \end{enumerate}
 
-  Object $x_j$ represents the instruction currently executed. It is sent down the chain of membranes by rules \ref{simple_skin_send_down} and \ref{simple_inner_resend_down}. In the innermost membrane the creation of a new membrane (rule \ref{simple_inner_create}), or the dissolution (rule \ref{simple_inner_dissolve}) is performed. Then the next instruction represented by object $y_j$ is sent upwards all the way to the skin membrane by the rule \ref{simple_inner_resend_up}. The object $t_i$ is always present in the innermost membrane. For a SUB instruction there are two rules in the skin membrane, together they implement the zero-test. The rule \ref{simple_skin_send_down} is applicable only if the register is nonempty and the rule \ref{simple_skin_sub_empty} is applicable only if the register is empty by requiring the presence of $t_i$, meaning that the value of register $i$ is zero. \qed
+  Object $x_j$ represents the instruction currently executed. It is sent down the chain of membranes by rules \ref{simple_skin_send_down} and \ref{simple_inner_resend_down}. In the innermost membrane the creation of a new membrane (rule \ref{simple_inner_create}), or the dissolution (rule \ref{simple_inner_dissolve}) is performed. Then the next instruction represented by object $y_j$ is sent upwards all the way to the skin membrane by the rule \ref{simple_inner_resend_up}. The object $t_i$ is always present in the innermost membrane. For a SUB instruction there are two rules in the skin membrane, together they implement the zero-test. The rule \ref{simple_skin_send_down} is applicable only if the register is nonempty and the rule \ref{simple_skin_sub_empty} is applicable only if the register is empty by requiring the presence of $t_i$, meaning that the value of register $i$ is zero.
 \end{proof}
 
 \begin{example}
@@ -356,7 +361,7 @@ For a sequential active set P system $(\Sigma, C_0, R_1, R_2, \dots , R_m)$, con
 \end{theorem}
 
 \begin{proof}
-  The simulation is essentially the same as in section \ref{sub:optimalization_of_the_simulation}. All the rules which are sending objects into a child membrane are already assuming that the child membrane already exists. The only difference is in the rule for membrane creation: $x_j1t \rightarrow [_i 1tp]_iy_k\uparrow 0s$. This rule is applied always in the innermost membrane with no child membranes. Modified simulation will therefore use rule $x_j1t \rightarrow 1\downarrow_i t\downarrow_i p\downarrow_i y_k\uparrow 0s$, which, when applied, creates a child membrane $i$, because no such child membrane exists. \qed
+  The simulation is essentially the same as in section \ref{sub:optimalization_of_the_simulation}. All the rules which are sending objects into a child membrane are already assuming that the child membrane already exists. The only difference is in the rule for membrane creation: $x_j1t \rightarrow [_i 1tp]_iy_k\uparrow 0s$. This rule is applied always in the innermost membrane with no child membranes. Modified simulation will therefore use rule $x_j1t \rightarrow 1\downarrow_i t\downarrow_i p\downarrow_i y_k\uparrow 0s$, which, when applied, creates a child membrane $i$, because no such child membrane exists.
 \end{proof}
 
 The efficiency of this simulation is essentially the same as in section \ref{sub:optimalization_of_the_simulation}, that means logarithmic number of steps for simulating one instruction of the register machine as well as logarithmic number of membranes and the number of objects is $3 * \text{number of instructions} + 5$.
@@ -394,7 +399,7 @@ In this variant we stay with explicit membrane creation rule, but when the membr
     \item\label{wrap_inner_dissolve} $x_j \rightarrow x_k\delta$
   \end{enumerate}
 
-  For every $add$ instruction there is just one rule applied in the simulation and for each $sub$ instruction there is one or two instructions, depending on the register value. If $r_i>0$ then the instruction enters the membrane labeled $i$ and dissolves it, decreasing the number of stacked membranes with label $i$. \qed
+  For every $add$ instruction there is just one rule applied in the simulation and for each $sub$ instruction there is one or two instructions, depending on the register value. If $r_i>0$ then the instruction enters the membrane labeled $i$ and dissolves it, decreasing the number of stacked membranes with label $i$.
 \end{proof}
 
 \begin{example}
@@ -434,16 +439,18 @@ We have investigated the bridge between membrane systems and reaction systems fo
 
 As some simulations are not very effective, we have also proposed ways to improve the efficiency. For the simulation with original membrane creation we managed to reduce time needed for executing one instruction of the register machine from linear to logarithmic time. The wrap-or-create semantics is the most suitable for the simulation as for every instruction of the register machine only constant number of steps of the P system is needed.
 
-\begin{center}
+\begin{figure}[h]
+  \centering
   \begin{tabular}{|c|c|c|l|}
     \hline
     semantics & membranes & time & alphabet \\ \hline
-    original & $O(n)$ & $O(n)$ & $2*\# instr.+\# reg.$ \\ \hline
-    original & $O(log(n))$ & $O(log(n))$ & $3*\# instr.+ 6$ \\ \hline
-    inject-or-create & $O(log(n))$ & $O(log(n))$ & $3*\# instr.+ 6$ \\ \hline
-    wrap-or-create & $O(n)$ & $O(1)$ & $\# instr.+2*\# reg.$ \\ \hline
+    original & $O(n)$ & $O(n)$ & $2i+r$ \\ \hline
+    original & $O(log(n))$ & $O(log(n))$ & $3i+6$ \\ \hline
+    inject-or-create & $O(log(n))$ & $O(log(n))$ & $3i+6$ \\ \hline
+    wrap-or-create & $O(n)$ & $O(1)$ & $i+2r$ \\ \hline
   \end{tabular}
-\end{center}
+  \caption{A comparison of different membrane creation semantics. Alphabet size in the last column depends on number of instructions $i$ and number of registers $r$.}
+\end{figure}
 
 The register value in the simulations is encoded in either unary or binary form. We propose other options to encode the register value as a tree structure of membranes and leave the construction of the simulation as a topic for further study.
 
