@@ -10,16 +10,16 @@
 
   It is important to note that in the maximal parallel step the rewriting occurs in all membranes, so we need to synchronize this process. Every membrane will have a state, represented as an object.
 
-  The $RUN$ state represents that the rewriting still occurs. When there are no more rules to apply, the region has done its maximal parallel step and proceeds to the state $SYNCHRONIZE$. Other states are just technical - we need to implement sending objects between membranes and preparing for the next maximal parallel step by unmarking newly created objects in the current maximal parallel step, which have been marked to prevent double rewriting in one step.
+  The $\mathit{RUN}$ state represents that the rewriting still occurs. When there are no more rules to apply, the region has done its maximal parallel step and proceeds to the state $\mathit{SYNCHRONIZE}$. Other states are just technical - we need to implement sending objects between membranes and preparing for the next maximal parallel step by unmarking newly created objects in the current maximal parallel step, which have been marked to prevent double rewriting in one step.
 
   \begin{itemize}
-    \item $RUN$: Rewriting occurs. Objects that are to be sent to the parent membrane are directly sent because the parent membrane is already in $RUN$ or $SYNCHRONIZE$ phase, so the $a^{\prime}$ symbols that are sent don't break anything. But objects that are to be sent down, cannot be sent immediately because child membranes can be in the previous phase waiting to restore symbols from previous step. Current symbols could interfere with them and be rewritten twice in this step. Such objects are only marked as ``to be sent down'': $a^{\downarrow\prime}$
+    \item $\mathit{RUN}$: Rewriting occurs. Objects that are to be sent to the parent membrane are directly sent because the parent membrane is already in $\mathit{RUN}$ or $\mathit{SYNCHRONIZE}$ phase, so the $a^{\prime}$ symbols that are sent don't break anything. But objects that are to be sent down, cannot be sent immediately because child membranes can be in the previous phase waiting to restore symbols from previous step. Current symbols could interfere with them and be rewritten twice in this step. Such objects are only marked as ``to be sent down'': $a^{\downarrow\prime}$
 
-    \item $SYNCHRONIZE$: Rewriting has ended and the membrane is waiting to get signal $SYNCED$ from the parent membrane to continue to the next step.
+    \item $\mathit{SYNCHRONIZE}$: Rewriting has ended and the membrane is waiting to get signal $\mathit{SYNCED}$ from the parent membrane to continue to the next step.
 
-    \item $SENDDOWN$: Signal $SYNCED$ was caught and now all descendant membranes are in $SYNCHRONIZE$ phase so $a^{\downarrow\prime}$ can be sent down.
+    \item $\mathit{SENDDOWN}$: Signal $\mathit{SYNCED}$ was caught and now all descendant membranes are in $\mathit{SYNCHRONIZE}$ phase so $a^{\downarrow\prime}$ can be sent down.
 
-    \item $RESTORE$: All $a^{\prime}$ symbols are being restored to $a$, so the next step of rewriting can take place.
+    \item $\mathit{RESTORE}$: All $a^{\prime}$ symbols are being restored to $a$, so the next step of rewriting can take place.
   \end{itemize}
 
   % Rewriting rules
@@ -33,76 +33,76 @@
       \begin{align*}
         &a_1^{M(a_1)-m_1}\dot{a}_1^{m_1}
         a_2^{M(a_2)-m_2}\dot{a}_2^{m_2}\dots
-        a_n^{M(a_n)-m_n}\dot{a}_n^{m_n}|RUN \\
-        \rightarrow &a_1^{\prime N(a_1)}a_2^{\prime N(a_2)}\dots a_n^{\prime N(a_n)}|RUN
+        a_n^{M(a_n)-m_n}\dot{a}_n^{m_n}|\mathit{RUN} \\
+        \rightarrow &a_1^{\prime N(a_1)}a_2^{\prime N(a_2)}\dots a_n^{\prime N(a_n)}|\mathit{RUN}
       \end{align*}
       
       There will be such rule for each $0\leq m_i\leq M(a_i)$. It represents the idea that $\dot{a}$ can be used in rewriting in the same way as $a$. Right side of the rules contains symbols $a^\prime$, that prevents the symbols to be rewritten again.
 
     \item For every symbol $a\in V$, in order to guarantee at most one occurence of $\dot{a}$ in a region, we will have the following rules:
 
-    $a|RUN \rightarrow \dot{a}|RUN|_{\neg \dot{a}}$
+    $a|\mathit{RUN} \rightarrow \dot{a}|\mathit{RUN}|_{\neg \dot{a}}$
 
-    \item For every rule $r_i\in R$ there will be a rule that detects if the rule $r_i$ is not applicable. According to left side of the rule $r_i$, symbol $UNUSABLE_i$ will be created when there is not enough objects to fire the rule $r_i$. It means that left side of rule $r_i$ requires more instances of some object than are present in membrane.
+    \item For every rule $r_i\in R$ there will be a rule that detects if the rule $r_i$ is not applicable. According to left side of the rule $r_i$, symbol $\mathit{UNUSABLE_i}$ will be created when there is not enough objects to fire the rule $r_i$. It means that left side of rule $r_i$ requires more instances of some object than are present in membrane.
 
     If the left side is of type:
     \begin{itemize}
       \item $a$: It is a context free rule. The rule can't be used if there is no occurrence of $a$ nor $\dot{a}$.
 
-      $RUN \rightarrow UNUSABLE_i|RUN|_{\neg\{UNUSABLE_i, a, \dot{a}\}}$
+      $\mathit{RUN} \rightarrow \mathit{UNUSABLE_i}|\mathit{RUN}|_{\neg\{\mathit{UNUSABLE_i}, a, \dot{a}\}}$
 
       \item $ab$: It is a cooperative rule with two distinct objects on the left side. The rule cannot be used if there is one of them missing.
 
-      $RUN \rightarrow UNUSABLE_i|RUN|_{\neg\{UNUSABLE_i, a, \dot{a}\}}$
+      $\mathit{RUN} \rightarrow \mathit{UNUSABLE_i}|\mathit{RUN}|_{\neg\{\mathit{UNUSABLE_i}, a, \dot{a}\}}$
 
-      $RUN \rightarrow UNUSABLE_i|RUN|_{\neg\{UNUSABLE_i, b, \dot{b}\}}$
+      $\mathit{RUN} \rightarrow \mathit{UNUSABLE_i}|\mathit{RUN}|_{\neg\{\mathit{UNUSABLE_i}, b, \dot{b}\}}$
 
       \item $a^2$: It is a cooperative rule with two same objects. The rule can't be used if there is at most one occurrence of the symbol. That happens if there is no occurrence of $a$. There can still be $\dot{a}$, but at most one occurrence.
 
-      $RUN \rightarrow UNUSABLE_i|RUN|_{\neg\{UNUSABLE_i, a\}}$
+      $\mathit{RUN} \rightarrow \mathit{UNUSABLE_i}|\mathit{RUN}|_{\neg\{\mathit{UNUSABLE_i}, a\}}$
     \end{itemize}
 
     \item For every membrane with label $i$ there will be a rule:
     \begin{align*}
-      &UNUSABLE_1|UNUSABLE_2|\dots|UNUSABLE_m|RUN \\
-      \rightarrow &SYNCHRONIZE|SYNCTOKEN_i\uparrow
+      &\mathit{UNUSABLE_1}|\mathit{UNUSABLE_2}|\dots|\mathit{UNUSABLE_m}|\mathit{RUN} \\
+      \rightarrow &\mathit{SYNCHRONIZE}|\mathit{SYNCTOKEN_i}\uparrow
     \end{align*}
 
     If no rule can be used, maximal parallel step in the region is completed hence it goes to the synchronization phase and sends a synchronization token to the parent membrane.
 
     \item For every membrane there will be a rule:
     \begin{align*}
-      &SYNCHRONIZE|SYNCTOKEN_j \\
-      \rightarrow &SYNCHRONIZE|SYNCTOKEN_j\uparrow
+      &\mathit{SYNCHRONIZE}|\mathit{SYNCTOKEN_j} \\
+      \rightarrow &\mathit{SYNCHRONIZE}|\mathit{SYNCTOKEN_j}\uparrow
     \end{align*}
 
     Membrane resends all synchronization tokens from child membranes to the parent membrane.
 
     \item In the skin membrane there is a rule which collects all the synchronization tokens from all membranes $1\dots k$ and then sends down signal that synchronization is complete. But before that, there can be some symbols that should be sent down, but they weren't, because the region below could have not started the rewriting phase that time. The result was just marked with $a^{\downarrow\prime}$.
     \begin{align*}
-      &SYNCTOKEN_1|\dots|SYNCTOKEN_k|SYNCHRONIZE \\
-      \rightarrow &SENDDOWN
+      &\mathit{SYNCTOKEN_1}|\dots|\mathit{SYNCTOKEN_k}|\mathit{SYNCHRONIZE} \\
+      \rightarrow &\mathit{SENDDOWN}
     \end{align*}
 
     \item Every membrane other than skin membrane have to receive the signal to go to the senddown phase:
 
-    $SYNCHRONIZE|SYNCED \rightarrow SENDDOWN$
+    $\mathit{SYNCHRONIZE}|\mathit{SYNCED} \rightarrow \mathit{SENDDOWN}$
 
     \item Every membrane will have rules for every symbol $a\in V$ to send down all unsent objects that should have been sent down:
 
-    $SENDDOWN|a^{\downarrow\prime} \rightarrow SENDDOWN|a^{\prime}\downarrow$
+    $\mathit{SENDDOWN}|a^{\downarrow\prime} \rightarrow \mathit{SENDDOWN}|a^{\prime}\downarrow$
 
     \item Every membrane will have a rule for detecting when all such objects have been sent and it goes to restore phase:
 
-    $SENDDOWN \rightarrow RESTORE|_{\neg \{a_i^{\downarrow\prime}|1\leq i\leq n\}}$
+    $\mathit{SENDDOWN} \rightarrow \mathit{RESTORE}|_{\neg \{a_i^{\downarrow\prime}|1\leq i\leq n\}}$
 
     \item In the restore phase all symbols $a^{\prime}$ will be rewritten to $a$ in order to be able to be rewritten in the next maximal parallel step:
 
-    $RESTORE|a^{\prime} \rightarrow RESTORE|a$
+    $\mathit{RESTORE}|a^{\prime} \rightarrow \mathit{RESTORE}|a$
 
     \item When the restore phase ends, it sends down a signal that all membranes have been already synchronized and next phase of rewriting has began in upper membranes:
 
-    $RESTORE \rightarrow RUN|SYNCED\downarrow|_{\neg \{a_i^{\prime}|1\leq i\leq n\}}$
+    $\mathit{RESTORE} \rightarrow \mathit{RUN}|\mathit{SYNCED}\downarrow|_{\neg \{a_i^{\prime}|1\leq i\leq n\}}$
   \end{itemize}
 
   \definecolor{run}{rgb}{1,0.5,0}
@@ -130,8 +130,8 @@
 
   The pairs of possible phases of the parent and child membrane are shown in the figure \ref{fig:possible_pairs_of_states_of_parent_and_child_membrane} along with transitions between two consecutive global synchronizations - after the maximal parallel steps $i$ and $i+1$.
 
-  In the figure \ref{fig:snapshot_of_all_membrane_states_while_simulating} the membrane structure is presented as a hierarchical structure. Every membrane is in one of four phases. It can be seen that the sending of the objects is performed in such phases that the receiving membrane is in either $RUN$ or $SYNCHRONIZE$ phase, so the received objects (marked $a^\prime$) does not interfere with rewriting.
+  In the figure \ref{fig:snapshot_of_all_membrane_states_while_simulating} the membrane structure is presented as a hierarchical structure. Every membrane is in one of four phases. It can be seen that the sending of the objects is performed in such phases that the receiving membrane is in either $\mathit{RUN}$ or $\mathit{SYNCHRONIZE}$ phase, so the received objects (marked $a^\prime$) does not interfere with rewriting.
 
-  Another interesting idea can be seen in the figure \ref{fig:snapshot_of_all_membrane_states_while_simulating} that when a region is in the $SENDDOWN$ phase and objects are sent through the child membrane, the receiving region is in the $SYNCHRONIZE$ phase waiting for the $SYNCED$ signal, which will be sent to it when $SENDDOWN$ and $RESTORE$ phases finished.
+  Another interesting idea can be seen in the figure \ref{fig:snapshot_of_all_membrane_states_while_simulating} that when a region is in the $\mathit{SENDDOWN}$ phase and objects are sent through the child membrane, the receiving region is in the $\mathit{SYNCHRONIZE}$ phase waiting for the $\mathit{SYNCED}$ signal, which will be sent to it when $\mathit{SENDDOWN}$ and $\mathit{RESTORE}$ phases finished.
 
 \end{dokaz}
