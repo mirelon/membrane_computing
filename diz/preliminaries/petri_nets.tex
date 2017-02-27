@@ -33,6 +33,12 @@ If a transition $t$ is enabled, it may fire by removing $\varphi(p,t)$ tokens fr
 \end{example}
 
 \begin{definition}
+  By establishing an ordering on the elements of $P$ and $T$ (i.e. $P=\{p_1, p_2, \dots p_k\}$ and $T=\{t_1, t_2, \dots t_m\}$), we define the $k\times m$ \index{Incidence matrix} {\bf incidence matrix} $[T]$ so that $[T](i,j) = \varphi(t_j, p_i) - \varphi(p_i, t_j)$. 
+\end{definition}
+
+Note that $\varphi(t_j, p_i), \varphi(p_i, t_j), [T](i,j)$ represents the number of tokens removed, added, and changed in place $i$ when transition $j$ fires once. Thus, if we view a marking $\mu$ as a $k$-dimensional column vector in which the $i$th component is $\mu(p_i)$, $j$th column of $[T]$ is then a $k$-dimensional vector such that if $\mu\xrightarrow{t_j} \mu^\prime$, then the following state equation holds: $\mu + [T](j) = \mu^\prime$. We call this column vector a {\bf displacement} of transaction $t_j$ and denote it with $\Delta(t_j)$.
+
+\begin{definition}
   A \index{Petri net!marked} {\bf marked Petri net} is a tuple $(P,T,\varphi,\mu_0)$, where $(P,T,\varphi)$ is a Petri net and $\mu_0$ is called the initial marking.
 \end{definition}
 
