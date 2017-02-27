@@ -16,7 +16,7 @@ The edges of the bipartite graph are annotated by either $\varphi(p,t)$ or $\var
   A {\bf marking} is a mapping $\mu: P\rightarrow \mathbb N$.
 \end{definition}
 
-The mapping $\mu$ assigns certain number of tokens to each place of the net.
+The mapping $\mu$ assigns certain number of tokens to each place of the net. For places $P=\{p_1, p_2, \dots, p_n\}$ we can view a marking $\mu$ as an $n$-dimensional column vector in which the $i$th component is $\mu(p_i)$. Examplar usage of such vectors is in the Figure \ref{fig:example reachability graph}.
 
 \begin{definition}
   A marking $\mu_1$ {\bf covers} marking $\mu_2$, when $\forall p\in P: \mu_1(p)\geq\mu_2(p)$ - in each place there is no less tokens in $\mu_1$ than in $\mu_2$. We denote it by $\mu_1\geq\mu_2$.
