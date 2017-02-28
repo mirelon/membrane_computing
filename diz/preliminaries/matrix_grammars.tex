@@ -17,7 +17,13 @@ A {\bf rewriting step} $x\Rightarrow y$ holds only if there is a matrix $(u_1\ri
 \end{definition}
 
 \begin{example}
-Consider the following matrix grammar: $$G=(\{\sigma, X,Y\}, \{ a,b,c\}, M, \sigma),$$ where $M$ contains three matrices: $$[S\rightarrow XY], [X\rightarrow aXb, Y\rightarrow cY], [X\rightarrow ab, Y\rightarrow c].$$ There are only context-free rules, yet the grammar generate the context-sensitive language $\{a^nb^nc^n|n\geq 1\}$.
+Consider the following matrix grammar:
+$$G=(\{\sigma, X,Y\}, \{ a,b,c\}, M, \sigma),$$
+where $M$ contains three matrices:
+$$[\sigma\rightarrow XY], [X\rightarrow aXb, Y\rightarrow cY], [X\rightarrow ab, Y\rightarrow c].$$
+The following example computation of $G$ uses the first matrix, then three times the second matrix and finally the last matrix:
+$$S\Rightarrow XY\Rightarrow aXbcY\Rightarrow aaXbbccY\Rightarrow aaaXbbbcccY\Rightarrow aaabbbccc$$
+Although there are only context-free rules, yet the grammar generate the context-sensitive language $\{a^nb^nc^n|n\geq 1\}$.
 \end{example}
 
 The family of matrix grammars is denoted $MAT$. It is known that $CF \subset MAT \subset RE$. Interestingly, $MAT \cap {a}^* \subset R$ (see \cite{Besozzi:PhD:2004}).
