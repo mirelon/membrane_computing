@@ -1,15 +1,10 @@
 % !TEX root = ../diz.tex
-Context-free grammars are well-studied and well-behaved in terms of decidability, but many real-world problems cannot be described with context-free grammars. Grammars with regulated rewriting are grammars with mechanisms to regulate the application of rules, so that certain derivations are avoided. Thus, with context-free rules and regulated rewriting mechanisms, one can often generate languages that are not context-free.
+Context-free grammars are well-studied and well-behaved in terms of decidability, but many real-world problems cannot be described with context-free grammars. Grammars with regulated rewriting are grammars with mechanisms to regulate the application of rules, so that certain derivations are avoided. They often have a higher generative capacity than context-free grammars.
 
-One of these is a matrix grammar \cite{Dassow12RegulatedRewriting}, in which instead of single productions, productions are grouped together into finite sequences. A production cannot be applied separately, it must be applied in sequence.
+Matrix grammars (\cite{Cremers73OnMatrixLanguages}), as introduced by Abraham (1965) fall into this category. Rewriting rules cannot be applied separately, but they are grouped together into finite sequences, and they must be applied in sequence.
 
 \begin{definition}
-A \index{Grammar!matrix} {\bf matrix grammar} is a tuple $G = (N,T,M,\sigma)$, where:
-\begin{itemize}
-  \item $N, T$ are disjoint alphabets of non-terminal and terminal symbols,
-  \item $\sigma\in N$ is the initial non-terminal,
-  \item $M$ is a finite set of matrices, which are sequences of context-free rules of the form $u\rightarrow v$, where $u\in N$ and $v\in (N\cup T)^*$.
-\end{itemize}
+Let $G = (N, T, P, \sigma)$ be a context-free grammar. Let $M$ be a finite set of matrices, which are sequences of context-free rules from $P$. These sequences are called matrices and the pair $G_m = (G, M)$ is called a context-free \index{matrix grammar}{\bf matrix grammar}.
 \end{definition}
 
 \begin{definition}
@@ -18,11 +13,13 @@ A {\bf rewriting step} $x\Rightarrow y$ holds only if there is a matrix $(u_1\ri
 
 \begin{example}
 Consider the following matrix grammar:
-$$G=(\{\sigma, X,Y\}, \{ a,b,c\}, M, \sigma),$$
-where $M$ contains three matrices:
+$$G_m=((\{\sigma, X,Y\}, \{ a,b,c\}, P, \sigma), M),$$
+where $P$ contains rules
+$$\sigma\rightarrow XY, X\rightarrow aXb, Y\rightarrow cY, X\rightarrow ab, Y\rightarrow c$$
+and $M$ contains three matrices:
 $$[\sigma\rightarrow XY], [X\rightarrow aXb, Y\rightarrow cY], [X\rightarrow ab, Y\rightarrow c].$$
-The following example computation of $G$ uses the first matrix, then three times the second matrix and finally the last matrix:
-$$S\Rightarrow XY\Rightarrow aXbcY\Rightarrow aaXbbccY\Rightarrow aaaXbbbcccY\Rightarrow aaabbbccc$$
+The following example computation of $G_m$ uses the first matrix, then three times the second matrix and finally the last matrix:
+$$\sigma\Rightarrow XY\Rightarrow aXbcY\Rightarrow aaXbbccY\Rightarrow aaaXbbbcccY\Rightarrow aaabbbccc$$
 Although there are only context-free rules, yet the grammar generate the context-sensitive language $\{a^nb^nc^n|n\geq 1\}$.
 \end{example}
 
