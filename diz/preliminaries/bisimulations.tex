@@ -18,17 +18,19 @@ If $p,q\in S$ and $a\in A$, then $(p,a,q)\in \rightarrow$ is usually written as 
 
 \begin{definition}
   Let $(S_1, A, \rightarrow)$ and $(S_2, A, \rightarrow)$ be two labeled transition systems.
-  A \index{Bisimulation} {\bf bisimulation} is a binary relation $R\subseteq S_1\times S_2$ such that if $(s_1,s_2)\in R$ then:
+  A \index{Bisimulation!strong} {\bf strong bisimulation} is a binary relation $R\subseteq S_1\times S_2$ such that if $(s_1,s_2)\in R$ then:
   \begin{enumerate}
     \item for each $s_1\xrightarrow{a} t_1$ there is some $s_2\xrightarrow{a} t_2$ such that $(t_1, t_2)\in R$,
     \item for each $s_2\xrightarrow{a} t_2$ there is some $s_1\xrightarrow{a} t_1$ such that $(t_1, t_2)\in R$.
   \end{enumerate}
 \end{definition}
 
-Sometimes, we want to allows systems to perform internal (silent) steps, of which the impact is considered unobservable. There are multiple notions of the bisimulation. The definition above is called a strong bisimulation.
+If there exists a strong bisimulation we say the two systems are strongly bisimilar.
+
+Sometimes, we want to allow systems to perform internal (silent) steps, of which the impact is considered unobservable. That is why there are multiple notions of the bisimulation.
 
 \begin{definition}
-  A \index{State transition system!with silent actions} {\bf labeled transition system with silent actions} is a triple $(S, A, \rightarrow)$, where $S$ is a set of states, $A$ is a set of actions, also a silent action $\tau$ is assumed that is not in $A$ and $\rightarrow\subseteq (A\cup\tau)\times S$ is the transition relation.
+  A \index{State transition system!with silent actions} {\bf labeled transition system with silent actions} is a triple $(S, A, \rightarrow)$, where $S$ is a set of states, $A$ is a set of actions, also a silent action $\tau$ is assumed that is not in $A$ and $\rightarrow\subseteq S\times(A\cup\tau)\times S$ is the transition relation.
 \end{definition}
 
 We use $A_\tau$ to denote $A\cup\{\tau\}$.
@@ -41,8 +43,10 @@ By $\xRightarrow{\tau^*}$ we denote the transitive and reflexive closure of $\xr
 We also say that $\rho$ is a run from $s_0$. We denote $first(\rho)=s_0$ and $last(\rho)=s_n$.
 
 \begin{definition}
-  A relation $R\subseteq S\times S$ is called a \index{Bisimulation!branching} {\bf branching bisimulation} if it is symmetric and satisfies the following transfer property: if $rRs$ and $r\xrightarrow{a} r^\prime$ then either $a=\tau$ and $r^\prime Rs$ of there exist $s^\prime,s^{\prime\prime}\in S$ such that $s \xRightarrow{\tau^*} s^\prime \xrightarrow{a} s^{\prime\prime}$, $rRs^\prime$ and $r^\prime Rs^{\prime\prime}$.
+  A relation $R\subseteq S\times S$ is called a \index{Bisimulation!branching} {\bf branching bisimulation} if it is symmetric and satisfies the following transfer property: if $rRs$ and $r\xrightarrow{a} r^\prime$ then either $a=\tau$ and $r^\prime Rs$ or there are two states $s^\prime,s^{\prime\prime}\in S$ such that $s \xRightarrow{\tau^*} s^\prime \xrightarrow{a} s^{\prime\prime}$, $rRs^\prime$ and $r^\prime Rs^{\prime\prime}$.
 \end{definition}
+
+If there exists a branching bisimulation we say the two systems are branching bisimilar.
 
 \begin{figure}
   \centering
@@ -93,12 +97,13 @@ We also say that $\rho$ is a run from $s_0$. We denote $first(\rho)=s_0$ and $la
   The diagrams shown in the Figure \ref{fig:transfer diagram for branching bisimulation} summarize the main transfer properties of branching bisimulation. We have used the dashed lines to represent the relations that have to be established in order to conclude that the two states connected by the plain line are bisimilar.
 \end{example}
 
-We could have strengthened the above definition of branching bisimulation by requiring all intermediate states in $s\xRightarrow{\tau^*}s^\prime$ to be related with $r$. However, that would lead to the same equivalence relation \cite{DeNicola95Bisimulations}. 
+We could have strengthened the above definition of branching bisimulation by requiring all intermediate states in $s\xRightarrow{\tau^*}s^\prime$ to be related with $r$. However, that would lead to the same equivalence relation as is proven in \cite{DeNicola95Bisimulations}. 
 
 \begin{definition}
   A relation $R\subseteq S\times S$ is called a \index{Bisimulation!weak} {\bf weak bisimulation} if it is symmetric and satisfies the following transfer property: if $rRs$ and $r\xRightarrow{a} r^\prime$ then there exist $s^\prime\in S$ such that $s \xRightarrow{a} s^\prime$ and $r^\prime Rs^{\prime}$.
 \end{definition}
 
+If there exists a weak bisimulation we say the two systems are weakly bisimilar.
 This means that two states are considered equivalent if they lead via the same sequences of visible actions to bisimilar states. The intermediate states are not questioned. The diagram in the Figure \ref{fig:transfer diagram for weak bisimulation} summarizes the transfer property for the weak bisimulation. We have used the same notational conventions of the Figure \ref{fig:transfer diagram for branching bisimulation}.
 
 \begin{figure}
@@ -155,7 +160,7 @@ This means that two states are considered equivalent if they lead via the same s
 \begin{example}
   In the Figure \ref{fig:example run of a labeled transition system} a participant in a contest opens a door and then it is decided if he wins a car or flowers. In the Figure \ref{fig:example run of a labeled transition system with hidden branching before the first action} the price is decided beforehand so when a participant opens a door, he can directly see his outcome. We can model these events (open door, win car, win flowers) as actions of a labeled transition system.
 
-  The contestant is not interested in the inner states of the system, he only sees these events. For him, the two systems are bisimular in terms of the weak bisimulation.
+  The contestant is not interested in the inner states of the system, he only sees these events. For him, the two systems are weakly bisimilar.
 
-  In the state right after opening the door and before the price is given there is no way for him knowing the outcome. However, in the system from the Figure \ref{fig:example run of a labeled transition system with hidden branching before the first action} some people who organize the contest already know what is the outcome. For them, the system is not bisimilar in terms of the branching bisimulations.
+  In the state right after opening the door and before the price is given there is no way for him knowing the outcome. However, in the system from the Figure \ref{fig:example run of a labeled transition system with hidden branching before the first action} some people who organize the contest already know what is the outcome. For them, the system is not branching bisimilar.
 \end{example}
