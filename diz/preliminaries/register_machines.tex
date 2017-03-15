@@ -17,4 +17,8 @@ The machine is capable of the following instructions:
   \item $halt$ : This instruction stops the machine. This additional instruction can only be assigned to the final label $h$.
 \end{itemize}
 
-A deterministic $m$-register machine can analyze an input $(n_1,\dots,n_m)\in N_0^m$ in registers 1 to $m$, which is recognized if the register machine finally stops by the halt instruction with all its registers being empty (this last requirement is not necessary). If the machine does not halt, the analysis was not successful.
+\begin{definition}
+  A configuration of an $n$-register machine $M = (n,P,i,h)$ is a tuple $(j, m_1, \dots , m_n)$, where $j$ is a label of an instruction from $P$ and $(m_1,\dots,m_n)\in N_0^n$ are contents of registers 1 to $m$.
+\end{definition}
+
+An $n$-register machine can analyze an input $(n_1,\dots,n_m)\in N_0^n$ in registers 1 to $n$, which is recognized if the register machine finally stops by the halt instruction with all its registers being empty (this last requirement is not necessary). If the machine does not halt, the analysis was not successful.

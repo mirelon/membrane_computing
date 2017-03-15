@@ -1,5 +1,6 @@
 % !TEX root = ../diz.tex
 In the common sense, vacuum represents a state of space with no or a little matter in it. Using vacuum in modelling frameworks can help express certain phenomena more easily. We define a new P system variant, which creates a special vacuum object in a region as soon as the region becomes empty.
+The vacuum object persists in ther region until it is consumed by a rule.
 If we made the vacuum to be removed automatically when an object enters the region, there would be no difference with the variant without vacuum objects because of no interactions with it. Instead, the vacuum can be removed explicitly by a rule, e.g. with some interaction with other object. However, it is still created automatically, so we allow the vacuum object to occur only on the left side of rules.
 
 One can object that if there is an interaction of the vacuum object with another object in the same region, the region is nonempty at that time and it does not make sense to have nonempty region with vacuum. But the vacuum object can be regarded as a memory footprint of the past event, when the region was empty. It is just waiting there to be processed.
@@ -15,27 +16,28 @@ There will be a phase in the computational step before the rewriting takes place
 \end{veta}
 
 \begin{dokaz}
-  We will prove the universality by simulating the \index{Register machine} register machine. If there was a symbol for every register as in the proof~\ref{proof:reg_by_inh}, the vacuum object would be created only if all registers are empty. But for the simulation of the $sub()$ instruction we need to detect when one concrete register is empty.
+  We will prove the universality by simulating the \index{Register machine} register machine. If there was a symbol for every register as in the proof~\ref{proof:reg_by_inh}, the vacuum object would be created only if all registers are empty. But for the simulation of the $sub$ operation we need to detect if one concrete register is empty.
   
   We will have a membrane for each register. These membranes will be contained in the skin membrane. The value of register $i$ will be represented by the multiplicity of object $a$ in membrane $i$.
   
-  The alphabet will consist of the instruction labels from the register machine and the counter object $a$. Initially, the skin membrane contains only the instruction label. There will be rules to send the instruction label to the corresponding membrane where the instruction is executed. After the execution the next instruction label is sent back to the skin membrane.
+  The alphabet will contain objects representing the instruction labels of the register machine and the object $a$, the multiplicity of which represents the contents of a register. Initially, the skin membrane contains only the instruction label. There will be rules to send the object representing the instruction label to the corresponding membrane where the instruction is executed. After the execution the object representing the next instruction label is sent back to the skin membrane.
   
   We will have following rules in the skin membrane:
   
   \begin{itemize}
-  \item $e \rightarrow e\downarrow_j$ for an instruction of type $e : (add(j), f)$ or $e : (sub(j), f, z)$ and
-  \item $h \rightarrow h\downarrow$ for a halting instruction $h$.
+    \item $e \rightarrow e\downarrow_j$ for an instruction of type $e : (add(j), k, l)$ or $e : (sub(j), k, l)$ and
+    \item $h \rightarrow h\downarrow$ for a halting instruction $h$.
   \end{itemize}
   
   And in every inner membrane $j$:
   
   \begin{itemize}
-  \item $e \rightarrow a|f\uparrow$ for instructions of type $e : (add(j), f)$,
-  \item $e|a \rightarrow f\uparrow$ for instructions of type $e : (sub(j), f, z)$,
-  \item $e|\nu \rightarrow z\uparrow$ for instructions of type $e : (sub(j), f, z)$, and
-  \item $h|a \rightarrow h|a$
+    \item $e \rightarrow a|k\uparrow$ for instructions of type $e : (add(j), k, l)$,
+    \item $e \rightarrow a|l\uparrow$ for instructions of type $e : (add(j), k, l)$,
+    \item $e|a \rightarrow k\uparrow$ for instructions of type $e : (sub(j), k, l)$,
+    \item $e|\nu \rightarrow l\uparrow$ for instructions of type $e : (sub(j), k, l)$, and
+    \item $h|a \rightarrow h|a$ for a halting instruction $h$.
   \end{itemize}
 
-  When halting, if there is an nonempty register, it will cycle forever with the last rule. However, if all registers are empty, the halting instruction label will stay in all membranes and the computation will halt. \qed  
+  When halting, if there is an nonempty register, the last rule $h|a \rightarrow h|a$ will always be applicable as there is no rule to consume objects $h$ and $a$. However, if all registers are empty, $h$ will stay in all membranes and the computation will halt. \qed  
 \end{dokaz}
