@@ -121,7 +121,7 @@ In this subsection we will focus on the problem of deciding whether there is a h
   Existence of halting computation for nondeterministic register machines is undecidable.
 \end{lemma}
 \begin{dokaz}
-  We will reduce a known undecidable halting problem for deterministic register machines (\cite{Minsky67RegisterMachines}) to nondeterministic case. For a given deterministic register machine $M$ we will transform each instruction $(add(r),k)$ to $(add(r),k,k)$. Although the resulting register machine $M^\prime$ is nondeterministic, it has only one computation, which is the same as the computation of $M$. If we could decide existence of halting computation of $M^\prime$, we could decide whether $M$ halts. \qed
+  Deterministic register machines are a special case of nondeterministic register machines. The only difference is a constraint $k = l$ on the instructions $(add(j), k, l)$. Therefore if we could decide existence of halting computation for nondeterministic register machines, we could also decide it for deterministic case, which is not possible (\cite{Minsky67RegisterMachines}). \qed
 \end{dokaz}
 \begin{veta}
 \label{existence_of_halting_theorem}
