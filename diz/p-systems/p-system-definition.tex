@@ -87,7 +87,7 @@ The $(m+1)$-tuple $(\mu, w_1,w_2,\ldots w_m)$ constitutes the initial configurat
 Note that the membrane structure can be different from the initial membrane structure, according to the dissolving action, which will be explained later.
 
 \begin{definition}
-  A rule $(r: u\rightarrow v)\in R_i$ is {\bf applicable} in the configuration $C = (\mu^\prime, w^\prime_1,w^\prime_2,\ldots w^\prime_m)$ of the P system $\Pi$, iff the following conditions are fulfilled:
+  A rule $r: u\rightarrow v$ is {\bf applicable} in the configuration $C = (\mu^\prime, w^\prime_1,w^\prime_2,\ldots w^\prime_m)$ of the P system $\Pi$, iff $\exists i$ such that $r\in R_i$ and the following conditions are fulfilled:
   \begin{enumerate}
     \item $u\subseteq w^\prime_i$,
     \item for any object, which appears in $v$ in the form $(a, in_j)$ there is a membrane $j$ directly inside $i$,
@@ -96,7 +96,8 @@ Note that the membrane structure can be different from the initial membrane stru
 \end{definition}
 
 \begin{definition}
-  The {\bf result of the application of the rule} $r: u\rightarrow v\in R_i$ in the configuration $C = (\mu^\prime, w^\prime_1,w^\prime_2,\ldots w^\prime_m)$ of the P system $\Pi$ is determined by the following prescription:
+  Suppose a rule $r: u\rightarrow v$ that belongs to a set of rules $R_i$.
+  The {\bf result of the application of the rule} $r$ in the configuration $C = (\mu^\prime, w^\prime_1,w^\prime_2,\ldots w^\prime_m)$ of the P system $\Pi$ is determined by the following prescription:
   \begin{itemize}
     \item the multiset $u$ is subtracted from $w_i$;
     \item if an object appears in $v$ in the form $(a, here)$, then it remains in the same region $i$ (the indication here will often be omitted);
