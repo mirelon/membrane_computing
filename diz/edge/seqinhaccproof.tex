@@ -6,13 +6,13 @@
 
 \begin{dokaz}
 \label{proof:reg_by_inh}
-  Suppose we have an $n$-register machine $M = (n,P,i,h)$. In our simulation we will have a membrane structure consisting of single membrane and the contents of register $j$ will be represented by the multiplicity of the object $a_j$.
+  Suppose we have an $n$-register machine $M = (n,P,i,h,Lab)$. In our simulation we will have a membrane structure consisting of single membrane and the contents of register $j$ will be represented by the multiplicity of the object $a_j$.
 
   We will simulate the register machine by P system $(\Sigma, \mu, w, R)$, where:
   \begin{itemize}
-    \item $\Sigma$ is an alphabet consisting of symbols that represent registers $a_1,\dots a_n$, instruction labels from the register machine $M$ and a halting symbol $\#$,
+    \item $\Sigma$ is an alphabet consisting of $n$ objects that represent registers ($a_1,\dots a_n$), instruction labels $Lab$ and a halting symbol $\#$,
     \item $\mu$ is a membrane structure consisting of one single membrane,
-    \item $w$ is initial contents of the membrane. It contains symbols for the input for the machine $a_i^{n_i}$ where $n_i$ is initial state of register with label $i$ and initial instruction label $e$.
+    \item $w$ is initial contents of the membrane. It contains objects for the input for the machine $a_i^{n_i}$ where $n_i$ is initial state of register with label $i$ and initial instruction label $e$.
     \item $R$ is a set of rules in the skin membrane.
   \end{itemize}
     

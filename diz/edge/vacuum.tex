@@ -16,9 +16,9 @@ There will be a phase in the computational step before the rewriting takes place
 \end{veta}
 
 \begin{dokaz}
-  We will prove the universality by simulating the \index{Register machine} register machine. If there was a symbol for every register as in the proof~\ref{proof:reg_by_inh}, the vacuum object would be created only if all registers are empty. But for the simulation of the $sub$ operation we need to detect if one concrete register is empty.
+  We will prove the universality by simulating the \index{Register machine} register machine. If there was an object for every register as in the simulation in the proof~\ref{proof:reg_by_inh}, the vacuum object would be created only if all registers are empty. But for the simulation of the $sub$ operation we need to detect if one concrete register is empty.
   
-  We will have a membrane for each register. These membranes will be contained in the skin membrane. The value of register $i$ will be represented by the multiplicity of object $a$ in membrane $i$.
+  In this simulation the skin membrane has a child membrane for each register. The value of register $i$ will be represented by the multiplicity of object $a$ in membrane $i$.
   
   The alphabet will contain objects representing the instruction labels of the register machine and the object $a$, the multiplicity of which represents the contents of a register. Initially, the skin membrane contains only the instruction label. There will be rules to send the object representing the instruction label to the corresponding membrane where the instruction is executed. After the execution the object representing the next instruction label is sent back to the skin membrane.
   
