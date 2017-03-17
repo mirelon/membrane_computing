@@ -23,14 +23,29 @@
     \item $\mathit{\bf RESTORE}$: All $a^{\prime}$ symbols are being restored to $a$, preparing for the next maximal parallel step.
   \end{itemize}
 
+  % Objects
+
+  We will now introduce the objects used in the simulation.
+  
+  \begin{itemize}
+    \item The alphabet $\Sigma$ of the maximal parallel P system.
+    \item $a^\prime$ for $a\in\Sigma$ used as products of a rule application waiting for the synchronization.
+    \item $a^{\downarrow\prime}$ for $a\in\Sigma$ used as products of a rule application which should be sent down. 
+    \item $\dot{a}$ for $a\in\Sigma$ can be used normally in rewriting, with a constraint to have at most one instance of $\dot{a}$ in a membrane. It helps with deciding presence of an applicable rule. 
+    \item objects representing phases $\mathit{RUN}$, $\mathit{SYNCHRONIZE}$, $\mathit{SENDDOWN}$, $\mathit{RESTORE}$.
+    \item $SYNCTOKEN_i$ for each membrane with label $i$ to let the skin membrane know the membrane $i$ is waiting in synchronization phase.
+    \item $SYNCED$ used as a broadcast from the skin membrane to let each membrane know that each other membrane has already been synchronized.
+    \item $NA_j$ meaning the rule $r_j$ is not applicable. There is at most one occurence of $NA_j$ in a membrane.
+  \end{itemize}
+
   % Rewriting rules
 
-  We will now define the evolution rules of the simulating P system.
+  We will now define the evolution rules in a membrane with label $i$ of the simulating P system.
 
   \begin{itemize}
-    \item For every rule $r_i\in R$ such that
+    \item For every rule $r_j\in R_i$ such that
       \begin{align*}
-        r_i = a_1^{M(a_1)}a_2^{M(a_2)}\dots a_n^{M(a_n)} \rightarrow a_1^{N(a_1)}a_2^{N(a_2)}\dots a_n^{N(a_n)}
+        r_j = a_1^{M(a_1)}a_2^{M(a_2)}\dots a_n^{M(a_n)} \rightarrow a_1^{N(a_1)}a_2^{N(a_2)}\dots a_n^{N(a_n)}
       \end{align*}
       we will have the following rules:
       \begin{align*}
@@ -40,72 +55,60 @@
         \rightarrow &a_1^{\prime N(a_1)}a_2^{\prime N(a_2)}\dots a_n^{\prime N(a_n)}|\mathit{RUN}
       \end{align*}
       
-      There will be such rule for each $0\leq m_i\leq M(a_i)$. It represents the idea that $\dot{a}$ can be used in rewriting in the same way as $a$. Right side of the rules contains symbols $a^\prime$, that prevents the symbols to be rewritten again.
+      There will be such rule for each $0\leq m_k\leq min(M(a_k),1)$. It represents the idea that $\dot{a_k}$ can be used in rule application in the same way as $a_k$. The number of occurences of $\dot{a_k}$ is 0 or 1. If $M(a_k) = 0$, the rule $r_j$ has no presence of $a_k$ on the left side so in this case we will have just rules where $m_k=0$. Right side of the rules contains symbols $a^\prime$, that prevents the symbols to be evolved again.
 
-    \item For every symbol $a\in V$, in order to guarantee at most one occurence of $\dot{a}$ in a membrane, we will have the following rules:
+    \item For every object $a\in\Sigma$, in order to guarantee at most one occurence of $\dot{a}$ in the membrane, we will have the following rule:
+    $$a|\mathit{RUN} \rightarrow \dot{a}|\mathit{RUN}|_{\neg \dot{a}}$$
 
-    $a|\mathit{RUN} \rightarrow \dot{a}|\mathit{RUN}|_{\neg \dot{a}}$
+    \item For every rule $r_j\in R_i$ there will be a rule that detects if the rule $r_j$ is not applicable. If there is not enough objects present in the membrane to satisfy left side of the rule $r_j$, object $\mathit{NA_i}$ is created.
 
-    \item For every rule $r_i\in R$ there will be a rule that detects if the rule $r_i$ is not applicable. According to left side of the rule $r_i$, symbol $\mathit{UNUSABLE_i}$ will be created when there is not enough objects to fire the rule $r_i$. It means that left side of rule $r_i$ requires more instances of some object than are present in membrane.
-
-    If the left side is of type:
+    If the left side of the rule $r_i$ is of type:
     \begin{itemize}
-      \item $a$: It is a context free rule. The rule can't be used if there is no occurrence of $a$ nor $\dot{a}$.
-
-      $\mathit{RUN} \rightarrow \mathit{UNUSABLE_i}|\mathit{RUN}|_{\neg\{\mathit{UNUSABLE_i}, a, \dot{a}\}}$
-
-      \item $ab$: It is a cooperative rule with two distinct objects on the left side. The rule cannot be used if there is one of them missing.
-
-      $\mathit{RUN} \rightarrow \mathit{UNUSABLE_i}|\mathit{RUN}|_{\neg\{\mathit{UNUSABLE_i}, a, \dot{a}\}}$
-
-      $\mathit{RUN} \rightarrow \mathit{UNUSABLE_i}|\mathit{RUN}|_{\neg\{\mathit{UNUSABLE_i}, b, \dot{b}\}}$
-
-      \item $a^2$: It is a cooperative rule with two same objects. The rule can't be used if there is at most one occurrence of the symbol. That happens if there is no occurrence of $a$. There can still be $\dot{a}$, but at most one occurrence.
-
-      $\mathit{RUN} \rightarrow \mathit{UNUSABLE_i}|\mathit{RUN}|_{\neg\{\mathit{UNUSABLE_i}, a\}}$
+      \item $a$: It is a context free rule. This rule cannot be applied iff there is no occurrence of $a$ nor $\dot{a}$.
+        $$\mathit{RUN} \rightarrow \mathit{NA_j}|\mathit{RUN}|_{\neg\{\mathit{NA_j}, a, \dot{a}\}}$$
+      \item $ab$: It is a cooperative rule with two distinct objects on the left side. This rule cannot be applied iff there is one of them missing.
+        \begin{align*}
+          &\mathit{RUN} \rightarrow \mathit{NA_j}|\mathit{RUN}|_{\neg\{\mathit{NA_j}, a, \dot{a}\}}\\
+          &\mathit{RUN} \rightarrow \mathit{NA_j}|\mathit{RUN}|_{\neg\{\mathit{NA_j}, b, \dot{b}\}}
+        \end{align*}
+      \item $a^2$: It is a cooperative rule requiring presence of two instances of an object. This rule cannot be applied iff there is at most one occurrence of the object. That happens iff there is no occurrence of $a$. There can still be $\dot{a}$, but at most one occurrence.
+        $$\mathit{RUN} \rightarrow \mathit{NA_j}|\mathit{RUN}|_{\neg\{\mathit{NA_j}, a\}}$$
     \end{itemize}
 
-    \item For every membrane with label $i$ there will be a rule:
+    \item A rule detecting the maximal set of rules has been applied and no further rule is applicable:
     \begin{align*}
-      &\mathit{UNUSABLE_1}|\mathit{UNUSABLE_2}|\dots|\mathit{UNUSABLE_m}|\mathit{RUN} \\
-      \rightarrow &\mathit{SYNCHRONIZE}|\mathit{SYNCTOKEN_i}\uparrow
+      &\mathit{NA_1}|\mathit{NA_2}|\dots|\mathit{NA_{|R_i|}}|\mathit{RUN} \\
+      \rightarrow &\mathit{SYNCHRONIZE}|\mathit{SYNCTOKEN_i}
     \end{align*}
 
-    If no rule can be used, maximal parallel step in the region is completed hence it goes to the synchronization phase and sends a synchronization token to the parent membrane.
+    If no additional rule can be applied, the simulation of a maximal parallel step in the membrane is complete and it waits for other membranes to complete their maximal parallel step.
 
-    \item For every membrane there will be a rule:
+    \item Membrane $i>1$ (different from the skin membrane) resends synchronization token originating from any membrane $l$ to the parent membrane with a purpose of deliver it to the skin membrane:
     \begin{align*}
-      &\mathit{SYNCHRONIZE}|\mathit{SYNCTOKEN_j} \\
-      \rightarrow &\mathit{SYNCHRONIZE}|\mathit{SYNCTOKEN_j}\uparrow
+      &\mathit{SYNCHRONIZE}|\mathit{SYNCTOKEN_l} \\
+      \rightarrow &\mathit{SYNCHRONIZE}|\mathit{SYNCTOKEN_l}\uparrow
     \end{align*}
 
-    Membrane resends all synchronization tokens from child membranes to the parent membrane.
-
-    \item In the skin membrane there is a rule which collects all the synchronization tokens from all membranes $1\dots k$ and then sends down signal that synchronization is complete. But before that, there can be some symbols that should be sent down, but they weren't, because the region below could have not started the rewriting phase that time. The result was just marked with $a^{\downarrow\prime}$.
+    \item In the skin membrane ($i=1$) there is a rule which collects synchronization tokens from all membranes $1\dots p$ and then executes the phases $\mathit{SENDDOWN}$ and $\mathit{RESTORE}$ after which it sends down signal that synchronization is complete.
     \begin{align*}
-      &\mathit{SYNCTOKEN_1}|\dots|\mathit{SYNCTOKEN_k}|\mathit{SYNCHRONIZE} \\
+      &\mathit{SYNCTOKEN_1}|\dots|\mathit{SYNCTOKEN_p}|\mathit{SYNCHRONIZE} \\
       \rightarrow &\mathit{SENDDOWN}
     \end{align*}
 
-    \item Every membrane other than skin membrane have to receive the signal to go to the senddown phase:
+    \item Every membrane other than skin membrane ($i>1$) is waiting for the $\mathit{SYNCED}$ signal to go to the senddown phase:
+    $$\mathit{SYNCHRONIZE}|\mathit{SYNCED} \rightarrow \mathit{SENDDOWN}$$
 
-    $\mathit{SYNCHRONIZE}|\mathit{SYNCED} \rightarrow \mathit{SENDDOWN}$
+    \item Every membrane will have rules to send down all objects prepared to be sent down $a^{\downarrow\prime}$, where $a\in \Sigma$:
+    $$\mathit{SENDDOWN}|a^{\downarrow\prime} \rightarrow \mathit{SENDDOWN}|a^{\prime}\downarrow$$
 
-    \item Every membrane will have rules for every symbol $a\in V$ to send down all unsent objects that should have been sent down:
+    \item Every membrane will have a rule for detecting when all such objects have been sent down in order to proceed to the $\mathit{RESTORE}$ phase:
+    $$\mathit{SENDDOWN} \rightarrow \mathit{RESTORE}|_{\neg \{a^{\downarrow\prime}|a\in\Sigma\}}$$
 
-    $\mathit{SENDDOWN}|a^{\downarrow\prime} \rightarrow \mathit{SENDDOWN}|a^{\prime}\downarrow$
+    \item In the $\mathit{RESTORE}$ phase all objects $a^{\prime}$ will be evolved to $a$ so it can be evolved in the next maximal parallel step:
+    $$\mathit{RESTORE}|a^{\prime} \rightarrow \mathit{RESTORE}|a$$
 
-    \item Every membrane will have a rule for detecting when all such objects have been sent and it goes to restore phase:
-
-    $\mathit{SENDDOWN} \rightarrow \mathit{RESTORE}|_{\neg \{a_i^{\downarrow\prime}|1\leq i\leq n\}}$
-
-    \item In the restore phase all symbols $a^{\prime}$ will be rewritten to $a$ in order to be able to be rewritten in the next maximal parallel step:
-
-    $\mathit{RESTORE}|a^{\prime} \rightarrow \mathit{RESTORE}|a$
-
-    \item When the restore phase ends, it sends down a signal that all membranes have been already synchronized and next phase of rewriting has began in upper membranes:
-
-    $\mathit{RESTORE} \rightarrow \mathit{RUN}|\mathit{SYNCED}\downarrow|_{\neg \{a_i^{\prime}|1\leq i\leq n\}}$
+    \item Descendant membranes are waiting for the signal $\mathit{SYNCED}$, which is sent to child membranes only when the $\mathit{RESTORE}$ phase ends. It also means that the next maximal parallel step is already being simulated in the ancestor membranes ($\mathit{RUN}$ or $\mathit{SYNCHRONIZE}$ phase):
+    $$\mathit{RESTORE} \rightarrow \mathit{RUN}|\mathit{SYNCED}\downarrow|_{\neg \{a^{\prime}|a\in\Sigma\}}$$
   \end{itemize}
 
   \definecolor{run}{rgb}{1,0.5,0}
