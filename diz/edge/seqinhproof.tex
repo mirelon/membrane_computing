@@ -1,28 +1,31 @@
 % !TEX root = ../diz.tex
 \begin{veta}
-  The sequential P system with cooperative rules and inhibitors can simulate any maximal parallel P system with cooperative rules without dissolution.
+  Any maximal parallel P system with cooperative rules without dissolution can be simulated by a sequential P system with cooperative rules and inhibitors.
 \end{veta}
 
 \begin{dokaz}
-  We show that we can simulate maximal parallel step of P system with several steps of sequential P system with inhibitors. The proof is quite technical with some workarounds.
+  We show that we can simulate a step of the maximal parallel P system with several steps of a sequential P system with inhibitors.
 
   % Membrane states
 
-  It is important to note that in the maximal parallel step the rewriting occurs in all membranes, so we need to synchronize this process. Every membrane will have a state, represented as an object.
+  It is important to note that in the maximal parallel step the evolution occurs simultaneously in all membranes, so we need to synchronize this process.
+  The steps of the sequential P system simulating the maximal parallel step are divided into several phases. Every membrane will have a phase, represented as an object. There is exactly one phase object in each membrane. 
 
-  The $\mathit{RUN}$ state represents that the rewriting still occurs. When there are no more rules to apply, the region has done its maximal parallel step and proceeds to the state $\mathit{SYNCHRONIZE}$. Other states are just technical - we need to implement sending objects between membranes and preparing for the next maximal parallel step by unmarking newly created objects in the current maximal parallel step, which have been marked to prevent double rewriting in one step.
+  The $\mathit{RUN}$ phase represents that the rules of the maximal parallel P system are being applied, one-by-one. When there are no more rules to apply, the membrane has done its maximal parallel step and proceeds to the phase $\mathit{SYNCHRONIZE}$. Other phases are just technical - we need to implement sending objects between membranes and preparing for the next maximal parallel step by unmarking newly created objects in the current maximal parallel step, which have been marked to prevent double evolution in one step.
 
   \begin{itemize}
-    \item $\mathit{RUN}$: Rewriting occurs. Objects that are to be sent to the parent membrane are directly sent because the parent membrane is already in $\mathit{RUN}$ or $\mathit{SYNCHRONIZE}$ phase, so the $a^{\prime}$ symbols that are sent don't break anything. But objects that are to be sent down, cannot be sent immediately because child membranes can be in the previous phase waiting to restore symbols from previous step. Current symbols could interfere with them and be rewritten twice in this step. Such objects are only marked as ``to be sent down'': $a^{\downarrow\prime}$
+    \item $\mathit{\bf RUN}$: Rules of the maximal parallel P system are being applied. Products are marked ($a^\prime$ instead of $a$) in order to prevent further evolution in the same maximal parallel step. Objects that are to be sent to the parent membrane are directly sent because the parent membrane is in $\mathit{RUN}$ or $\mathit{SYNCHRONIZE}$ phase (see figure \ref{fig:possible_pairs_of_states_of_parent_and_child_membrane}), so the $a^{\prime}$ symbols that are sent will not be used in any rule until phase $\mathit{RESTORE}$. But objects that are to be sent down, cannot be sent immediately because child membranes can be in the previous phase waiting to restore symbols from previous step. Objects $a^\prime$ could interfere with them resulting in double application in current maximal parallel step. Such objects are only marked as $a^{\downarrow\prime}$ to be sent down in the phase $\mathit{SENDDOWN}$. When the phase $\mathit{RUN}$ ends, next phase $\mathit{SYNCHRONIZE}$ takes place, while emitting an object $\mathit{SYNCTOKEN}$ to the parent membrane with a purpose to deliver it to the skin membrane.
 
-    \item $\mathit{SYNCHRONIZE}$: Rewriting has ended and the membrane is waiting to get signal $\mathit{SYNCED}$ from the parent membrane to continue to the next step.
+    \item $\mathit{\bf SYNCHRONIZE}$: There was no applicable rule left so the membrane is waiting to get signal $\mathit{SYNCED}$ from the parent membrane to proceed to the next phase. And also resending all $\mathit{SYNCTOKEN}$ objects to the parent membrane.
 
-    \item $\mathit{SENDDOWN}$: Signal $\mathit{SYNCED}$ was caught and now all descendant membranes are in $\mathit{SYNCHRONIZE}$ phase so $a^{\downarrow\prime}$ can be sent down.
+    \item $\mathit{\bf SENDDOWN}$: Signal $\mathit{SYNCED}$ was caught, which means that every membrane has already been in the $\mathit{SYNCHRONIZE}$ phase. And all descendant membranes are in $\mathit{SYNCHRONIZE}$ phase. In this phase all the objects $a^{\downarrow\prime}$ can be sent down.
 
-    \item $\mathit{RESTORE}$: All $a^{\prime}$ symbols are being restored to $a$, so the next step of rewriting can take place.
+    \item $\mathit{\bf RESTORE}$: All $a^{\prime}$ symbols are being restored to $a$, preparing for the next maximal parallel step.
   \end{itemize}
 
   % Rewriting rules
+
+  We will now define the evolution rules of the simulating P system.
 
   \begin{itemize}
     \item For every rule $r_i\in R$ such that
@@ -39,7 +42,7 @@
       
       There will be such rule for each $0\leq m_i\leq M(a_i)$. It represents the idea that $\dot{a}$ can be used in rewriting in the same way as $a$. Right side of the rules contains symbols $a^\prime$, that prevents the symbols to be rewritten again.
 
-    \item For every symbol $a\in V$, in order to guarantee at most one occurence of $\dot{a}$ in a region, we will have the following rules:
+    \item For every symbol $a\in V$, in order to guarantee at most one occurence of $\dot{a}$ in a membrane, we will have the following rules:
 
     $a|\mathit{RUN} \rightarrow \dot{a}|\mathit{RUN}|_{\neg \dot{a}}$
 

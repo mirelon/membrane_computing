@@ -1,13 +1,25 @@
 % !TEX root = ../diz.tex
 \index{P systems!sequential} A sequential variant without priorities and with cooperative rules is not universal (see \cite{Ibarra04dang}). They have tried modifying the variant to increase the computational power and showed that with rules for membrane creation with unbounded number of membranes it became universal.
 
-We have tried another approach using rules with inhibitors. This variant is computationally complete in both generating and accepting case. For the generative case we present a proof by a simulation of maximal parallel P system and in the accepting case we prove it can simulate a register machine. These results were published in \cite{Kovac14Inhibitors}.
+We have tried another approach using rules with inhibitors. We show that this variant is computationally complete in both generating and accepting case. For the generative case we present a proof by a simulation of maximal parallel P system and in the accepting case we prove it can simulate a register machine. These results were published in \cite{Kovac14Inhibitors}.
 
 In the literature there are two variants of \index{P systems!with inhibitors} rules with inhibitors.
-Some of them (\cite{Ionescu:jucs_10_5:on_p_systems_with}, \cite{Sburlan05dragos}) allow to use only one inhibitor per rule, e.g. $u\rightarrow v|_{\neg i}$.
-Others (\cite{Agrigoroaiei:2010:Dissolution}, \cite{Sburlan:2006:FurtherResultsPromotersInhibitors}) are more expressive allowing to use whole inhibitor set in the rule like $u\rightarrow v|_{\neg B}$, where $B$ is a set of objects. Such a rule can be applied only if no element of $B$ is present in the region, where the rule is applied.
+\begin{enumerate}
+  \item Some of them (\cite{Ionescu:jucs_10_5:on_p_systems_with}, \cite{Sburlan05dragos}) allow to use only one inhibitor per rule, e.g. $u\rightarrow v|_{\neg i}$.
+  \item Others (\cite{Agrigoroaiei:2010:Dissolution}, \cite{Sburlan:2006:FurtherResultsPromotersInhibitors}) are more expressive allowing to use a set of inhibitors per rule, e.g. $u\rightarrow v|_{\neg B}$, where $B$ is a set of objects. Such a rule can be applied only if no element of $B$ is present in the region, where the rule is applied.
+\end{enumerate}
 
-Our proof uses rules with set of inhibitors, but they could also be implemented with rules with a single inhibitor, while the complexity of the simulation would be increased. 
+Our proof uses variant of rules with a set of inhibitors, but they could also be implemented with rules with a single inhibitor, while the complexity of the simulation would be increased.
+Dissolution could be also solved with increased complexity by introducing additional phases of the simulation. But because P systems without dissolution are still computationally complete \cite{Agrigoroaiei:2010:Dissolution}, and for the sake of simplicity, we simulate only rules without dissolution 
+
+\begin{definition}
+\label{def:evolution_rule_without_dissolution}
+  An {\bf evolution rule without dissolution} over an alphabet $\Sigma$ in a P system with $m$ membranes is a pair $(u,v)$, which is usually written as $u\rightarrow v$, where $u$ is a string over $\Sigma$ and $v$ is a string over $\Sigma\times(\{here, out\}\cup\{in_j|1\leq j\leq m\})$.
+\end{definition}
+
+\begin{definition}
+  An {\bf evolution rule with inhibitors without dissolution} is a triple $(u,v,B)$, which is usually written as $u\rightarrow v|_{\neg B}$, where $(u,v)$ is an evolution rule without dissolution by definition \ref{def:evolution_rule_without_dissolution} and $B\subseteq\Sigma$ is a set of objects called inhibitors of the rule.
+\end{definition}
 
 \input{seqinhproof}
 
