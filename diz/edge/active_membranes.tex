@@ -177,7 +177,7 @@ But the results are still quite interesting, because:
 \end{veta}
 
 \begin{dokaz}
-  The proof of this theorem for sequential active P systems in \cite{Ibarra05Active} uses simulation of register machines and during the simulation, every configuration has at most three membranes. Hence a universal active P system with limit on the total number of membranes exists (e.g. with $L=3$). \qed
+  The proof of this theorem for sequential active P systems in \cite{Ibarra05Active} uses simulation of register machines and during the simulation, every configuration has at most three membranes. Hence a universal active P system with limit on the total number of membranes exists (e.g. with $L=3$).
   \qed
 \end{dokaz}
 
@@ -271,7 +271,7 @@ The entire tree will be encoded into concatenated sequences of encoded nodes in 
 
 Since there are only finitely many non-isomorphic trees with at most $L$ nodes (\cite{Cayley1881RootedTrees}), there is a constant $z$ such that we can uniquely assign the tree an order number $o(T) \leq z$.
 
-The entire configuration will be encoded in tuple which consists of $z$ parts. All but the part with index $o(T)$ will contain just zeros. The part with index $o(T)$ will contain the encoding of the tree.
+The entire configuration will be encoded in tuple which consists of $z$ parts. All parts except the part with index $o(T)$ will contain just zeros. The part with index $o(T)$ will contain the encoding of the tree. This property ensures that different tree structures are encoded into tuples with nonzero values in different parts making them incomparable.
 
 \begin{example}
   Consider $L=2$. There are just two rooted trees with at most 2 nodes. We can define $o(T)=1$ for the single-node tree and $o(T)=2$ for the tree with a root and one child. So the encodings of configurations from figure \ref{fig:sample_membrane_configurations} contain two parts. Configurations $C_1, C_2$, and $C_3$ consists of one membrane, so their $o(T)=1$ and the second part is filled with zeroes. Configuration $C_4$ contains two membranes, so its $o(T)=2$ and the first part of its encoding will be filled with zeroes. 
