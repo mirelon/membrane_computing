@@ -111,7 +111,7 @@ Recently, several computational models based on the membrane structure have been
 \subsubsection{P systems} % (fold)
 \label{subs:p_systems}
 
-\index{P systems} P systems (see \cite{Paun98}) were introduced in 1998 as a system with membrane structure that contains multisets of objects and rewriting rules that are executed in a maximally parallel manner. Since then, a huge amount of variants have been created with various computation powers. We have investigated the power of several such variants. Additionally, we propose a new variants various notions of emptyness detection, where the rules can describe what will happen to an object that arrives to an empty membrane.
+\index{P systems} P systems (see \cite{Paun98}) were introduced in 1998 as a system with membrane structure that contains multisets of objects and rewriting rules that are executed in a maximally parallel manner. Since then, a huge amount of variants have been created with various computation powers. We have investigated the computational power and other attributes of several such variants. Additionally, we propose a new variants various notions of emptyness detection, where the rules can describe what will happen to an object that arrives to an empty membrane.
 
 P systems with existing and newly proposed variants will be discussed in the chapter \ref{cha:p_systems}.
 
@@ -125,17 +125,84 @@ Aside from P systems, other models based on the membrane structure have been cre
 \subsubsection{The Calculus of Looping Sequences} % (fold)
 \label{subs:calculus_of_looping_sequences}
 
+In the last few years many formalisms originally developed by computer scientists to model systems of interacting components have been applied to biology. Here, we can mention Petri nets (see section \ref{sec:petri_nets}). Others, such as P systems (see chapter \ref{cha:p_systems}), have been proposed as biologically inspired computational models and have been later applied to the description of biological systems.
+
+Many of these models either offer only very low-level interaction primitives or they are specialized to the description of some particular kinds of phenomena such as membrane interactions or protein interactions making the model be not so flexible to allow describing easily new activities observed on membranes without extending the formalism to model such activities.
+
 Barbuti in \cite{Barbuti07CLS} concluded that there is a need for a formalism having a simple notation, having the ability of describing biological systems at different levels of abstractions, having some notions of compositionality and being flexible enough to allow describing new kinds of phenomena as they are discovered, without being specialized to the description of a particular class of systems. The \index{Calculus of Looping Sequences} Calculus of Looping Sequences (CLS) was introduced in \cite{Barbuti07CLS}.
 
-The membrane structure in CLS is defined recursively, consisting of terms $T$ and sequences $S$:
-$$ T ::= S \mid (S)^L\rfloor T \mid T|T$$
-$$ S ::= \eps \mid a \mid S\cdot S,$$
-where $a$ is a symbol from the alphabet, $\eps$ represents the empty sequence, $\cdot$ is a sequencing operator, $(S)^L$ is a looping operator, $|$ is a parallel composition operator and $\rfloor$ is a containment operator.
+A CLS model consists of a term and a set of rewriting rules. The term is intended to represent the structure of the modeled system and the rewriting rules to represent the events that may cause the system to evolve.
 
-Membranes are represented by a sequence that is looped around.
-Several extensions of the CLS have been proposed. In CLS+ the looping operator can be applied to a parallel composition of sequences, which represents a notion of a fluid membrane.
-CLS+ can be translated to CLS (see \cite{Barbuti07CLS}).
-Milazzo in his PhD thesis \cite{Milazzo07CLS} includes also a simulation of a P system using CLS. The major difficulty is simulating the maximal parallelism of rule application.
+The membrane structure in CLS is defined recursively, consisting of terms and sequences.
+
+We start with defining the syntax of terms. We assume a possibly infinite alphabet $\Sigma$ of symbols.
+
+\begin{definition}
+  Terms $T$ and sequences $S$ of CLS are given by the following grammar:
+  \begin{align*}
+    T ::= S \bigpipe (S)^L\rfloor T \bigpipe T|T\\
+    S ::= \eps \bigpipe a \bigpipe S\cdot S
+  \end{align*}
+  where $a\in \Sigma$ and $\eps$ represents the empty sequence. We denote with $\mathcal T$ the infinite set of terms and with $\mathcal S$ the infinite set of sequences.
+\end{definition}
+
+\begin{figure}
+  \centering
+  \begin{tikzpicture}[node distance=16mm,-triangle 45]
+    \node(a){a};
+    \node[right=12mm of a](f){f};
+    \node[right= of f](g){g};
+    \node[right=12mm of g](c){c};
+    \node[below=10mm of f](d){d};
+    \node[right= of d](e){e};
+    \node[below right=16mm and 8mm of d.center](b){b};
+    \node[below=10mm of b](description){A representation of the term $(a\cdot b\cdot c)^L\rfloor ((d\cdot e)^L | f\cdot g)$.};
+    \draw (a) edge[bend right=60] (b);
+    \draw (b) edge[bend right=60] (c);
+    \draw (c) edge[bend right=60] (a);
+    \draw (d) edge[bend right=60] (e);
+    \draw (e) edge[bend right=60] (d);
+    \draw (f) edge (g);
+  \end{tikzpicture}
+  \caption{Example CLS}
+  \label{fig:example cls}
+\end{figure}
+
+In CLS we have a sequencing operator $\_\cdot\_$, a looping operator $(\_)^L$, a parallel composition operator $\_|\_$ and a containment operator $\_\rfloor\_$. Sequencing can be used to concatenate elements of the alphabet $\Sigma$. The empty sequence $\eps$ denotes the concatenation of zero symbols. A term can be either a sequence or a looping sequence (that is the application of the looping operator to a sequence) containing another term, or the parallel composition of two terms. By definition, looping and containment are always applied together, hence we can consider them as a single binary operator $(\_)^L\rfloor\_$ which applies to one sequence and one term.
+
+\begin{example}
+  In the Figure \ref{fig:example cls} we show an example of CLS and its visual representation. The same structure may be represented by syntactically different terms, e.g. $(b\cdot c\cdot a)^L\rfloor (f\cdot g | (e\cdot d)^L)$. We introduce a structural congruence relation to identify such terms.
+\end{example}
+
+\begin{definition}
+  The structural congruence relations $\equiv_S$ and $\equiv_T$ are the least congruence relations on sequences and on terms, respectively, satisfying the following rules:
+  \begin{itemize}
+    \item $S_1\cdot(S_2\cdot S_3)\equiv_S (S_1\cdot S_2)\cdot S_3$
+    \item $S\cdot\eps\equiv_S \eps\cdot S\equiv_S S$
+    \item $S_1\equiv_S S_2$ implies $S_1\equiv_T S_2$ and $(S_1)^L\rfloor T\equiv_T (S_2)^L\rfloor T$
+    \item $T_1|T_2\equiv_T T_2|T_1$
+    \item $T_1|(T_2|T_3)\equiv_T (T_1|T_2)|T_3$
+    \item $T|\eps\equiv_T T$
+    \item $(\eps)^L\rfloor\eps\equiv_T\eps$
+    \item $(S_1\cdot S_2)^L\rfloor T\equiv_T (S_2\cdot S_1)^L\rfloor T$
+  \end{itemize}
+\end{definition}
+
+Note that the last rule does not introduce the commutativity of sequences, but only says that looping sequences can rotate.
+
+What could look strange in CLS is the use of looping sequences for the description of membranes, as sequencing is not a commutative operation and this does not correspond to the usual fluid representation of membrane surface in which objects can move freely. What one would expect is to have a multiset or a parallel composition of objects on a membrane. For this reason, a variant called CLS+ was introduced in \cite{Milazzo07CLS}, in which the looping operator can be applied
+to a parallel composition of sequences.
+
+\begin{definition}
+  Terms $T$, branes $B$ and sequences $S$ of CLS+ are given by the following grammar:
+  \begin{align*}
+    T ::= S \bigpipe (B)^L\rfloor T \bigpipe T|T\\
+    B ::= S \bigpipe B|B\\
+    S ::= \eps \bigpipe a \bigpipe S\cdot S
+  \end{align*}
+\end{definition}
+
+The structural congruence relation of CLS+ is a trivial extension of the one of CLS. The only difference is that commutativity of branes replaces rotation of looping sequences. CLS+ models can be translated into CLS models, while preserving the semantics of the model \cite{Barbuti07CLS}. Milazzo in his PhD thesis \cite{Milazzo07CLS} includes also a simulation of a P system using CLS. The major difficulty was the simulation of the maximal parallel rule application.
 
 % subsubsection calculus_of_looping_sequences (end)
 
