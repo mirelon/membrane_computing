@@ -3,7 +3,7 @@
 
 The above quote from \cite{Peterson81PetriNets} was a fair summary of current beliefs in the Petri net community regarding extensions of the basic Petri net mode: extensions are either Turing-powerful of they are not real extensions.
 
-It is not the case as shown in \cite{Dufourd98Reset}. There exist extensions of Petri nets which do not allow zero testing but that will actually increase the computational power and decrease the decision power (e.g. boundedness becomes undecidable).
+It is not the case as shown in \cite{Dufourd98Reset}. They show extensions of Petri nets which do not allow zero testing but that will actually increase the computational power and decrease the decision power (e.g. boundedness becomes undecidable).
 
 In this chapter we investigate several ``weak'' extensions of sequential P systems, which allow for zero-testing, aiming to fit in layers between mere reformulations of the basic sequential P system and universal sequential P systems with inhibitors. The work is currently in progress, therefore the results are mostly partial with just rough outlines of the proofs.
 
@@ -12,12 +12,24 @@ We will extend the definition of evolution rules with additional decision option
 \subsection{Objects avoiding empty regions} % (fold)
 \label{sub:objects_avoiding_empty_regions}
 
-We will have a specific subset of objects, which when occur in a rule in form of $(a, out)$ or $(a, in_j)$, and the target region is empty, they are not sent and stay in the current region instead. For a clarification, we present an algorithm for the rule application \vpageref[below]{alg:application_of_a_rule_in_a_p_system_with_objects_avoiding_empty_regions} (algorithm \ref{alg:application_of_a_rule_in_a_p_system_with_objects_avoiding_empty_regions}).
+We will have a specific subset of objects, which when occur in a rule in form of $(a, out)$ or $(a, in_j)$, and the target region is empty, they are not sent and stay in the current region instead.
+
+\begin{definition}
+  P system with objects avoiding empty regions is a tuple $$\Pi = (\Sigma, \Gamma, \mu, w_1, w_2,\ldots , w_m, R_1, R_2,\ldots , R_m),$$ where $$(\Sigma, \mu, w_1, w_2,\ldots , w_m, R_1, R_2,\ldots , R_m)$$ is a P system and $\Gamma\subseteq\Sigma$ is a subset of objects avoiding empty regions.
+\end{definition}
+
+We present an algorithm for the rule application \vpageref[below]{alg:application_of_a_rule_in_a_p_system_with_objects_avoiding_empty_regions} (algorithm \ref{alg:application_of_a_rule_in_a_p_system_with_objects_avoiding_empty_regions}).
+
+\begin{example}
+  Suppose a P system with objects avoiding empty regions $(\Sigma = \{a,b\}, \Gamma = \{a\}, \mu = [_1[_2]_2]_1, w_1 = a, w_2 = \eps, \\R_1 = \{a\rightarrow a\downarrow_2b\downarrow_2\}, R_2 = \{\})$.
+
+  The computation starts with an empty region 2 and the object $a$ in the region 1. Application of the rule sends the object $b$ into the region 2 and the object $a$ stays in the current region because it is avoiding the empty region 2. In the next step, the application of the rule sends both objects into the region 2, because it already contains the object $b$. The computation finishes with objects $abb$ in the region 2 and empty region 1.
+\end{example}
 
 \begin{algorithm}
   \caption{Application of a single rule in a P system with objects avoiding empty regions}\label{alg:application_of_a_rule_in_a_p_system_with_objects_avoiding_empty_regions}
   \begin{algorithmic}[1]
-    \Procedure{RuleAplication}{applicable rule $u\rightarrow v\in R_i$, configuration $C = (\mu^\prime, w^\prime_1,w^\prime_2,\ldots w^\prime_m)$, set of objects avoiding empty regions $\Gamma\subseteq\Sigma$}
+    \Procedure{RuleAplication}{applicable rule $u\rightarrow v\in R_i$, configuration $C = (\mu, w_1,w_2,\ldots w_m)$, set of objects avoiding empty regions $\Gamma\subseteq\Sigma$}
       \State $w_i := w_i - u$
       \ForAll{$(a, here)\in v$}
         \State $w_i := w_i + a$
@@ -29,7 +41,7 @@ We will have a specific subset of objects, which when occur in a rule in form of
           \State $w_{parent(i)} := w_{parent(i)} + a$
         \EndIf
       \EndFor
-      \ForAll{$(a, in_j)\in v$}      
+      \ForAll{$(a, in_j)\in v$}
         \If{$a\in\Gamma$ and $j$ is empty}
           \State $w_i := w_i + a$
         \Else
@@ -46,31 +58,41 @@ We will have a specific subset of objects, which when occur in a rule in form of
 
 % subsection objects_avoiding_empty_regions (end)
 
-\subsection{Objects altering when sent to empty region} % (fold)
-\label{sub:objects_altering_when_sent_to_empty_region}
+\subsection{Objects altering when entering empty region} % (fold)
+\label{sub:objects_altering_when_entering_empty_region}
 
-We will have rules of type $u\rightarrow v$, where $u$ is a string over $\Sigma$ and $v=v^\prime$ or $v=v^\prime\delta$, where $v^\prime$ is a string over $\Sigma\times(\{here, out\}\cup\{in_j|1\leq j\leq m\})\times\Sigma$ and $\delta$ is a special symbol not in $\Sigma$.
+We represent altering the objects entering empty regions with a mapping $\Phi: \Sigma\rightarrow\Sigma$. The mapping defines for each object what it will become when sent to an empty region.
 
-An occurence of $(a, out, b)$ or $(a, in_j, b)$ in the right hand side of a rule is interpreted so that if the target region is empty, the object is altered and $b$ is sent instead of $a$ if the target region is nonempty. We present an algorithm for this variant of the rule application \vpageref[below]{alg:application_of_a_rule_in_a_p_system_with_objects_altering_when_sent_to_empty_region} (algorithm \ref{alg:application_of_a_rule_in_a_p_system_with_objects_altering_when_sent_to_empty_region}).
+\begin{definition}
+  P system with objects altering when entering empty region is a tuple $$\Pi = (\Sigma, \Phi, \mu, w_1, w_2,\ldots , w_m, R_1, R_2,\ldots , R_m),$$ where $$(\Sigma, \mu, w_1, w_2,\ldots , w_m, R_1, R_2,\ldots , R_m)$$ is a P system and $\Phi: \Sigma\rightarrow\Sigma$ is a mapping of objects.
+\end{definition}
+
+We present an algorithm for this variant of the rule application \vpageref[below]{alg:application_of_a_rule_in_a_p_system_with_objects_altering_when_entering_empty_region} (algorithm \ref{alg:application_of_a_rule_in_a_p_system_with_objects_altering_when_entering_empty_region}).
+
+\begin{example}
+  Suppose a P system with objects altering when entering empty region $(\Sigma = \{a,b\}, \Phi = \{a\rightarrow b, b\rightarrow b\}, \mu = [_1[_2]_2]_1, w_1 = a, w_2 = \eps, \\R_1 = \{a\rightarrow ba\downarrow_2, b\rightarrow a\downarrow_2\}, R_2 = \{\})$.
+
+  The computation starts with an empty region 2 and the object $a$ in the region 1. Application of the rule $a\rightarrow ba\downarrow_2$ produces an object $b$ which stays in the current region and the second product $a$ is sent into the region 2, which is empty, so the produced $a$ is altered to $b$. Now both regions contains an object $b$. In the next step, the application of the rule $b\rightarrow a\downarrow_2$ in region 1 sends the produced object $a$ into the region 2, but this time it is not altered because the region is nonempty. The computation finishes with objects $ab$ in the region 2 and empty region 1.
+\end{example}
 
 \begin{algorithm}
-  \caption{Application of a single rule in a P system with objects altering when sent to empty region}\label{alg:application_of_a_rule_in_a_p_system_with_objects_altering_when_sent_to_empty_region}
+  \caption{Application of a single rule in a P system with objects altering when entering empty region}\label{alg:application_of_a_rule_in_a_p_system_with_objects_altering_when_entering_empty_region}
   \begin{algorithmic}[1]
-    \Procedure{RuleAplication}{applicable rule $u\rightarrow v\in R_i$, configuration $C = (\mu^\prime, w^\prime_1,w^\prime_2,\ldots w^\prime_m)$}
+    \Procedure{RuleAplication}{applicable rule $u\rightarrow v\in R_i$, configuration $C = (\mu, w_1,w_2,\ldots w_m)$}
       \State $w_i := w_i - u$
-      \ForAll{$(a, here, b)\in v$}
+      \ForAll{$(a, here)\in v$}
         \State $w_i := w_i + a$
       \EndFor
-      \ForAll{$(a, out, b)\in v$}
+      \ForAll{$(a, out)\in v$}
         \If{$parent(i)$ is empty}
-          \State $w_{parent(i)} := w_{parent(i)} + b$
+          \State $w_{parent(i)} := w_{parent(i)} + \Phi(a)$
         \Else
           \State $w_{parent(i)} := w_{parent(i)} + a$
         \EndIf
       \EndFor
-      \ForAll{$(a, in_j, b)\in v$}      
+      \ForAll{$(a, in_j)\in v$}
         \If{$j$ is empty}
-          \State $w_j := w_j + b$
+          \State $w_j := w_j + \Phi(a)$
         \Else
           \State $w_j := w_j + a$
         \EndIf
@@ -83,7 +105,7 @@ An occurence of $(a, out, b)$ or $(a, in_j, b)$ in the right hand side of a rule
   \end{algorithmic}
 \end{algorithm}
 
-% subsection objects_altering_when_sent_to_empty_region (end)
+% subsection objects_altering_when_entering_empty_region (end)
 
 \subsection{Vacuum objects} % (fold)
 \label{sub:vacuum_objects}
@@ -93,6 +115,6 @@ An occurence of $(a, out, b)$ or $(a, in_j, b)$ in the right hand side of a rule
 \subsection{Concluding remarks} % (fold)
 \label{sub:concluding_remarks_of_emptyness_detection}
 
-The above presented variants show possible implementations of zero-check by the feature of emptyness detection which is specific for membrane systems. The aim of the current research is to find a variant with zero-check that won't lead to computational completeness. The current status is that sequential P systems with objects altering when sent to empty region (subsection \ref{sub:objects_altering_when_sent_to_empty_region}) and sequential P systems with vacuum objects (subsection \ref{sub:vacuum_objects}) are universal because we can simulate a register machine. On the other hand, the other variant with objects avoiding empty regions (subsection \ref{sub:objects_avoiding_empty_regions}) is more promising for our goal because the standard contruction of register machine do not work. We conjecture this variant is not universal, possibly equivalent with Petri nets.
+The above presented variants show possible implementations of zero-check by the feature of emptyness detection which is specific for membrane systems. The aim of the current research is to find a variant with zero-check that won't lead to computational completeness. The current status is that sequential P systems with objects altering when entering empty region (subsection \ref{sub:objects_altering_when_entering_empty_region}) and sequential P systems with vacuum objects (subsection \ref{sub:vacuum_objects}) are universal because we can simulate a register machine. On the other hand, the other variant with objects avoiding empty regions (subsection \ref{sub:objects_avoiding_empty_regions}) is more promising for our goal because the standard contruction of register machine do not work. We conjecture this variant is not universal, possibly equivalent with Petri nets.
 
 % subsection concluding_remarks (end)
