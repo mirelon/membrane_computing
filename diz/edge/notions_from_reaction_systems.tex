@@ -277,10 +277,10 @@ We leave the second proposal of assuming non-permanency of objects in sequential
     \end{veta}
 
     \begin{dokaz}
-      The simulation is essentially the same as in section \ref{ssub:optimalization_of_the_simulation}. All the rules which are sending objects into a child membrane are already assuming that the child membrane already exists. The only difference is in the rule for membrane creation: $x_j1t \rightarrow [_i 1tp]_iy_k\uparrow 0s$. This rule is applied always in the innermost membrane with no child membranes. Modified simulation will therefore use rule $x_j1t \rightarrow 1\downarrow_i t\downarrow_i p\downarrow_i y_k\uparrow 0s$, which, when applied, creates a child membrane $i$, because no such child membrane exists.
+      The simulation is essentially the same as in section \ref{ssub:optimalization_of_the_simulation}. All the rules which are sending objects into a child membrane are already assuming that the child membrane already exists. The only difference is in the rule for membrane creation: $x_j1t \rightarrow [_i 1tp]_iy_k\uparrow 0s$. This rule is applied always in the innermost membrane with no child membranes. Modified simulation will therefore use rule $x_j1t \rightarrow 1\downarrow_i t\downarrow_i p\downarrow_i y_k\uparrow 0s$, which, when applied, creates a child membrane $i$, because no such child membrane exists. It results in the same configuration as in the simulation with original semantics. 
     \end{dokaz}
 
-    The efficiency of this simulation is essentially the same as in section \ref{ssub:optimalization_of_the_simulation}, that means logarithmic number of steps for simulating one instruction of the register machine as well as logarithmic number of membranes and the number of objects is $3 * \text{number of instructions} + 5$.
+    The efficiency of this simulation is essentially the same as in section \ref{ssub:optimalization_of_the_simulation}, that means logarithmic number of steps for simulating one instruction of the register machine as well as logarithmic number of membranes. The number of objects used is one less than in the simulation with original semantics: $3 * \text{number of instructions} + 5$.
 
   % subsubsection semantics_inject_or_create (end)
 
