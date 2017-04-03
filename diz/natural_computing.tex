@@ -34,7 +34,6 @@ DNA can also be used as a digital data storage with 5.5 petabits per cubic milli
 \section{Biologically inspired computing models} % (fold)
 \label{sec:biologically_inspired_computing_models}
 
-
 On the other hand, the birth of biologically inspired frameworks started the investigation of mathematical models and their properties and technological requirements for their implementation by biological hardware.
 Those frameworks are inspired by the nature in the way it ``computes'', and has gone through the evolution for billions of years.
 
@@ -60,9 +59,13 @@ Neural networks have broad applicability to real world problems and are best if 
 \begin{itemize}
   \item Image recognition: OCR, web search by image
   \item Music recognition by voice sample
+  \item Speech recognition
   \item Time series forecast: weather, stock
   \item Diagnosing of illnesses
+  \item Natural language processing
 \end{itemize}
+
+Besides real world problems, Graves et al. \cite{Graves14NeuralTM} extended the capabilities of neural networks by coupling them to external memory resources, allowing them to infer simple algorithms such as copying and sorting.
 
 % subsection neural_networks (end)
 
@@ -74,6 +77,18 @@ Neural networks have broad applicability to real world problems and are best if 
 Idea of evolutionary computing was introduced in the 1960's by I. Rechenberg. Nowadays they have been applied to find solution of many optimization problems. They also can be used to design or to train a neural network \cite{Montana:1989:TrainNeuronByGenetic}.
 
 % subsection evolutionary_algorithms (end)
+
+\subsection{L systems} % (fold)
+\label{sub:l_systems}
+
+In 1968, a Hungarian botanist and theoretical biologist Aristid Lindenmayer introduced a new string rewriting algorithm named Lindenmayer systems (or \index{L-systems} L-systems for short) \cite{Lindenmayer68, Rozenberg12Lindenmayer}. Inspired by the growth of plants, they have proven to be among the most beautiful examples of interdisciplinary science, where work in one area induces fruitful ideas and results in other areas:
+\begin{itemize}
+  \item Computer graphics - simulated evolution of plants, where L-systems are used as genetic encoding. The phenotypes are the branching structures resulting from the derivation and graphic interpretation of the genotypes \cite{Ochoa98GeneticLSystems}.
+  \item Abstract framework for music composers to allow generation of musical structure \cite{Manousakis06MusicalLSystems}.
+  \item Generating nonlinear missions in PC games, where multiple possible paths can lead to the goal of the mission \cite{Togelius2016LSystemsLevels}.
+\end{itemize}
+
+% subsection l_systems (end)
 
 % Membranes
 
