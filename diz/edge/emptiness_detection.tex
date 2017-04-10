@@ -5,7 +5,7 @@ The above quote from \cite{Peterson81PetriNets} was a fair summary of current be
 
 It is not the case as shown in \cite{Dufourd98Reset}. They show extensions of Petri nets which do not allow zero testing but that will actually increase the computational power and decrease the decision power (e.g. boundedness becomes undecidable).
 
-In this chapter we investigate several ``weak'' extensions of sequential P systems, which allow for zero-testing, aiming to fit in layers between mere reformulations of the basic sequential P system and universal sequential P systems with inhibitors.
+In this Chapter we investigate several ``weak'' extensions of sequential P systems, which allow for zero-testing, aiming to fit in layers between mere reformulations of the basic sequential P system and universal sequential P systems with inhibitors.
 
 We will extend the definition of evolution rules with additional decision option for objects that are being sent through a membrane to another region. Recall the original definition of the evolution rule \ref{def:evolution_rule}: $u\rightarrow v$, where $u$ is a string over $\Sigma$ and $v=v^\prime$ or $v=v^\prime\delta$, where $v^\prime$ is a string over $\Sigma\times(\{here, out\}\cup\{in_j|1\leq j\leq m\})$ and $\delta$ is a special symbol not in $\Sigma$. Recall also the algorithm \ref{alg:application_of_a_rule_in_a_p_system}, which will be extended in following subsections.
 
