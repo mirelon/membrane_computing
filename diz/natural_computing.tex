@@ -1,9 +1,9 @@
 % !TEX root = diz.tex
 Recently, an interdisciplinary research between the fields of Computer Science and Biology has been rapidly growing. Natural computing consists of three classes of methods:
 \begin{itemize}
-  \item those that are based on the use of computers to simulate natural phenomena
-  \item those that employ natural materials (e.g., molecules) to compute
-  \item those that take inspiration from nature for the development of novel problem-solving techniques
+  \item Those that are based on the use of computers to simulate natural phenomena (Section~\ref{sec:bioinformatics}).
+  \item Those that employ natural materials (e.g., molecules) to compute (Section~\ref{sec:biomolecular_computing}).
+  \item Those that take inspiration from nature for the development of novel problem-solving techniques (Section~\ref{sec:biologically_inspired_computing_models}).
 \end{itemize}
 
 % Bioinformatics (slaves of biologists)
@@ -89,6 +89,104 @@ In 1968, a Hungarian botanist and theoretical biologist Aristid Lindenmayer intr
 \end{itemize}
 
 % subsection l_systems (end)
+
+\subsection{Cellular automaton} % (fold)
+\label{sub:cellular_automaton}
+
+A cellular automaton (CA) is a discrete dynamical system that consists of an infinite array of cells. Each cell has a state from a finite state set. The cells change their states according to a local update rule that provides the new state based on the old states of the cell and its neighbors. All states use the same update rule, and the updating happens simultaneously at all cells. The updating is repeated over and over again at discrete time steps, leading to a time evolution of the system.
+
+The first CA studies by John von Neumann in the late 1940s were biologically motivated, related to self-replication in universal systems \cite{Neumann66Cellular}. John von Neumann considered cells to be arranged in a two-dimensional grid.
+
+Widespread popular interest for cellular automaton was spread by Game of Life introduced by John Conway in 1970 \cite{Gardner70Life}. Conway’s criterion was that the rule should neither lead to populations which quickly died out, nor which quickly expanded without end from random finite initial configuration. The state of a cell in a two-dimensional grid is determined by the state of 8 neighbouring cells.
+
+\begin{itemize}
+  \item A live cell survives if it has two or three live neighbors.
+  \item A new cell is born whenever there are three live neighbors.
+  \item All other cells either die or remain inactive.
+\end{itemize}
+
+These simple rules which resembles behavior of bacteria has quickly become popular and various real-world phenomena now have corresponding behavior with the same notion in Game of Life. Comprehensive glossary and new discoveries are summarized in the LifeWiki \cite{LifeWiki}.
+{\bf Still life} is a configuration which does not change in time. The simplest still life is a {\bf block}, which is a $2\times 2$ square in figure \ref{fig:block} where each cell has exactly three neighbors.
+The feature of the game that probably caused intensive interest was undoubtedly the discovery of oscillators (periodic forms) and gliders (translating oscillators)
+{\bf Alternators} are oscillators with period 2. The simplest oscillator is a {\bf blinker} (figure \ref{fig:blinker}), which is a structure consisting of three live cells alternating in form between three horizontal cells and three vertical cells.
+A {\bf glider} (figure \ref{fig:glider}) is a pattern that travels across the board. It was discovered while attempting to track the evolution of the {\bf R-pentomino}\index{R-pentomino} which is by far the most active polyomino with fewer than six cells. All of the others stabilize in at most 10 steps, but the R-pentomino does not do so until step 1103, by which time it has a population of 116 live cells. The glider it releases in generation 69, noticed by Richard K. Guy, was the first glider ever observed. Gliders are important because they can be used to transmit information over long distances and collided with each other to form more complicated objects. Gliders can be generated with a {\bf glider gun}\index{glider gun}. It is possible to construct logic gates such as AND, OR and NOT using gliders. Rendell \cite{Rendell15LifeUniversal} even constructs a universal Turing machine.
+
+\tikzstyle{conway} = [scale=0.5]
+\tikzstyle{cell} = [rectangle,draw=black,thick,minimum size=4mm,fill=black]
+\tikzstyle{emptycell} = [rectangle,draw=black,thick,minimum size=5mm]
+\newcommand{\conwaygrid}[2]{
+  \foreach \x in {1,...,#1}{
+      \foreach \y in {1,...,#2}
+        \node[emptycell] at (\x,\y){};
+  }
+}
+
+\begin{figure}
+  \centering
+  \begin{minipage}{.4\textwidth}
+    \centering
+      \begin{tikzpicture}[conway]
+      \conwaygrid{4}{4};
+      \node[cell] at (2,2){}; 
+      \node[cell] at (2,3){}; 
+      \node[cell] at (3,2){};
+      \node[cell] at (3,3){};
+    \end{tikzpicture}
+    \captionof{figure}{Block}
+    \label{fig:block}
+  \end{minipage}
+  \hspace{.01\textwidth}
+  \begin{minipage}{.55\textwidth}
+    \centering
+    \begin{tikzpicture}[conway]
+      \conwaygrid{10}{5};
+      \node[cell] at (2,3){}; 
+      \node[cell] at (3,3){}; 
+      \node[cell] at (4,3){};
+      \node[cell] at (8,2){};
+      \node[cell] at (8,3){};
+      \node[cell] at (8,4){};
+    \end{tikzpicture}
+    \captionof{figure}{Blinker}
+    \label{fig:blinker}
+  \end{minipage}
+\end{figure}
+
+\begin{figure}
+  \begin{minipage}{.45\textwidth}
+    \centering
+    \begin{tikzpicture}[conway]
+      \conwaygrid{5}{5};
+      \node[cell] at (2,4){}; 
+      \node[cell] at (3,4){}; 
+      \node[cell] at (4,4){};
+      \node[cell] at (4,3){};
+      \node[cell] at (3,2){};
+    \end{tikzpicture}
+    \captionof{figure}{Glider}
+    \label{fig:glider}
+  \end{minipage}
+  \hspace{.01\textwidth}
+  \begin{minipage}{.45\textwidth}
+    \centering
+    \begin{tikzpicture}[conway]
+      \conwaygrid{5}{5};
+      \node[cell] at (2,3){}; 
+      \node[cell] at (3,2){}; 
+      \node[cell] at (3,3){};
+      \node[cell] at (3,4){};
+      \node[cell] at (4,4){};
+    \end{tikzpicture}
+    \captionof{figure}{R-pentomino}
+    \label{fig:r-pentomino}
+  \end{minipage}
+\end{figure}
+
+Physicists, biologists, economists, mathematicians, philosophers, generative scientists and others are interested in Conway’s Game of Life in order to observe the way that complex patterns can emerge from the implementation of very simple rules.
+
+Elementary one dimensional version of Game of Life known as Rule 110 is also capable of universal computation \cite{Cook04LifeOneDimensionalUniversal}. It is arguably the simplest known Turing complete system.
+
+% subsection cellular_automaton (end)
 
 \subsection{Swarm Intelligence} % (fold)
 \label{sub:swarm_intelligence}
