@@ -1,9 +1,17 @@
 % !TEX root = ../diz.tex
-In this Chapter we propose various modifications of sequential P systems and study their effect on computing power and decidability of behavioral properties.
+In previous Chapter we defined P systems and presented the current state of the research of the P system variants. Especially the parallelism options have been investigated more thoroughly, but there are still some gaps that should be filled. For many variants the computational completeness has been proven only when working in the maximally parallel mode. In most cases the sequential mode is strictly weaker, but this is not always true.
 
-We have presented the current state of the research of the P system variants. Especially the parallelism options have been investigated very well, but there are still some gaps that should be filled. For many variants the universality has been proven only when working in the maximally parallel mode. In most cases the sequential mode is strictly weaker, but this is not always true.
+In this Chapter we investigate several variants of sequential P systems in terms of computational power and decision power of behavioral properties.
 
-We have studied several variants of sequential P systems in terms of computational power and decision power of behavioral properties. Two of these results have appeared as a contribution on the Computability in Europe conference series.
+Inhibitors in section \ref{sec:inhibitors} increase the computational power of sequential P systems. Our proof uses a simulation which shows a way how to transform any maximal parallel P system to a sequential one with inhibitors.
+
+Allowing creation of new membranes increases the computational power of seqeuential P systems \cite{Ibarra05Active} and we inspect some behavioral properties in section \ref{sec:active_membranes}.
+
+In section \ref{sec:emptiness_detection} we propose new variants aiming to fill the gap of computational power between sequential P systems and computational completeness.
+
+Inspired by reaction systems we propose new semantics for membrane creation and study their effect on computational power in section \ref{sec:notions_from_reaction_systems}. 
+
+Three of these results were published in conference proceedings \cite{Kovac14Inhibitors}, \cite{Kovac15TerminationProblems} and \cite{Kovac15SequentialActiveSet}. 
 
 \section{Inhibitors} % (fold)
 \label{sec:inhibitors}
