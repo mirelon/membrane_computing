@@ -6,7 +6,7 @@ The definition of a P system is based on the notion of \index{Membrane!structure
   \item nothing else is in $MS$.
 \end{enumerate}
 
-We assume that each pair of well matching parentheses $[]$ can be labelled in a one-to-one manner by an integer in the set $1\ldots m$, e.g. $[[]_2[]_3]_1$.
+We assume that each pair of well matching parentheses $[]$ can be labeled in a one-to-one manner by an integer in the set $1\ldots m$, e.g. $[[]_2[]_3]_1$.
 
 We define now an equivalence relation over the elements of $MS$: we write $x\sim y$ if and only if:
 \begin{enumerate}
@@ -138,7 +138,7 @@ All these operations are performed in a maximal parallel mode: inside each regio
   \begin{enumerate}
     \item for any membrane with label $1\leq i\leq m$, there is enough objects to allow simultaneous application of rules: $$ \bigcup_{(r: u\rightarrow v)\in supp(\rho)\cap R_i} \rho(r)\cdot u \subseteq w^\prime_i$$,
     \item for any membrane with label $1\leq i\leq m$, any rule $u\rightarrow v\in supp(\rho)\cap R_i$, any object, which appears in $v$ in the form $(a, in_j)$ there is a membrane $j$ directly inside $i$,
-    \item for the skin membrane $i$, any rule $r: u\rightarrow v^\prime\delta\in R_i$ has no occurence in the multiset: $\rho(r)=0$.
+    \item for the skin membrane $i$, any rule $r: u\rightarrow v^\prime\delta\in R_i$ has no occurrence in the multiset: $\rho(r)=0$.
   \end{enumerate}  
 \end{definition}
 
@@ -187,7 +187,7 @@ There are multiple possible ways of assigning a result of a computation \cite{Be
 The result of a computation is clearly only one multiset or a string, but for one initial configuration there can be multiple possible computations. It follows from the fact that there exist more than one maximal multiset of rules that can be applied in each step. Aggregating the results of possible computations a P system defines a language or a Parikh image of a language. 
 
 \begin{example}
-  The P system in figure \ref{fig:p_system_fibonacci} computes a Fibonacci sequence. Maximal parallelism enforces the simultaneous movement of objects between regions 1 and 2. Every second step the number of occurences of the object $e$ in the skin membrane constitutes the following item in Fibonacci sequence. The P system has only one computation, which is infinite.
+  The P system in figure \ref{fig:p_system_fibonacci} computes a Fibonacci sequence. Maximal parallelism enforces the simultaneous movement of objects between regions 1 and 2. Every second step the number of occurrences of the object $e$ in the skin membrane constitutes the following item in Fibonacci sequence. The P system has only one computation, which is infinite.
 \end{example}
 
 \begin{figure}[ht]

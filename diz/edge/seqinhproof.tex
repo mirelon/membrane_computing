@@ -35,7 +35,7 @@
     \item objects representing phases $\mathit{RUN}$, $\mathit{SYNCHRONIZE}$, $\mathit{SENDDOWN}$, $\mathit{RESTORE}$.
     \item $SYNCTOKEN_i$ for each membrane with label $i$ to let the skin membrane know the membrane $i$ is waiting in synchronization phase.
     \item $SYNCED$ used as a broadcast from the skin membrane to let each membrane know that each other membrane has already been synchronized.
-    \item $NA_j$ meaning the rule $r_j$ is not applicable. There is at most one occurence of $NA_j$ in a membrane.
+    \item $NA_j$ meaning the rule $r_j$ is not applicable. There is at most one occurrence of $NA_j$ in a membrane.
   \end{itemize}
 
   At the start of the simulation the configuration of simulating sequential P system is the same as the configuration of the simulated maximal parallel P system, with a $\mathit{RUN}$ symbol in each membrane.
@@ -57,9 +57,9 @@
         \rightarrow &a_1^{\prime N(a_1)}a_2^{\prime N(a_2)}\dots a_n^{\prime N(a_n)}|\mathit{RUN}
       \end{align*}
       
-      There will be such rule for each $0\leq m_k\leq min(M(a_k),1)$. It represents the idea that $\dot{a_k}$ can be used in rule application in the same way as $a_k$. The number of occurences of $\dot{a_k}$ is 0 or 1. If $M(a_k) = 0$, the rule $r_j$ has no presence of $a_k$ on the left side so in this case we will have just rules where $m_k=0$. Right side of the rules contains symbols $a^\prime$, that prevents the symbols to be evolved again.
+      There will be such rule for each $0\leq m_k\leq min(M(a_k),1)$. It represents the idea that $\dot{a_k}$ can be used in rule application in the same way as $a_k$. The number of occurrences of $\dot{a_k}$ is 0 or 1. If $M(a_k) = 0$, the rule $r_j$ has no presence of $a_k$ on the left side so in this case we will have just rules where $m_k=0$. Right side of the rules contains symbols $a^\prime$, that prevents the symbols to be evolved again.
 
-    \item For every object $a\in\Sigma$, in order to guarantee at most one occurence of $\dot{a}$ in the membrane, we will have the following rule:
+    \item For every object $a\in\Sigma$, in order to guarantee at most one occurrence of $\dot{a}$ in the membrane, we will have the following rule:
     $$a|\mathit{RUN} \rightarrow \dot{a}|\mathit{RUN}|_{\neg \dot{a}}$$
 
     \item For every rule $r_j\in R_i$ there will be a rule that detects if the rule $r_j$ is not applicable. If there is not enough objects present in the membrane to satisfy left side of the rule $r_j$, object $\mathit{NA_i}$ is created.
@@ -97,7 +97,7 @@
       \rightarrow &\mathit{SENDDOWN}
     \end{align*}
 
-    \item Every membrane other than skin membrane ($i>1$) is waiting for the $\mathit{SYNCED}$ signal to go to the senddown phase:
+    \item Every membrane other than skin membrane ($i>1$) is waiting for the $\mathit{SYNCED}$ signal to go to the $\mathit{SENDDOWN}$ phase:
     $$\mathit{SYNCHRONIZE}|\mathit{SYNCED} \rightarrow \mathit{SENDDOWN}$$
 
     \item Every membrane will have rules to send down all objects prepared to be sent down $a^{\downarrow\prime}$, where $a\in \Sigma$:

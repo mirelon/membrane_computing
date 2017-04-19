@@ -120,7 +120,7 @@ Sos\'ik in \cite{Sosik:2002:WithoutPriorities} showed that the priorities may be
 
 \index{P systems!sequential} Sequential P systems (see subsection \ref{sub:parallelism_options}) with prioritized rules are universal \cite{Ibarra05Active}, while without the priorities they are not.
 
-As mentioned in subsection \ref{sub:context_in_rules}, P systems with non-cooperative rules only characterize the Parikh image of context-free languages ($PsCF$) \cite{Sburlan05dragos}, it was an open problem, whether priorities could improve the computational power. In \cite{Sburlan05Priorities} Sburnan showed that the variant with prioritized rules is more powerful and characterize exactly the \index{ET0L} Parikh image of $ET0L$ (see section \ref{sec:lindenmayer_systems} and subsection \ref{sec:parikh_s_mapping} in preliminaries).
+As mentioned in subsection \ref{sub:context_in_rules}, P systems with non-cooperative rules only characterize the Parikh image of context-free languages ($PsCF$) \cite{Sburlan05dragos}, it was an open problem, whether priorities could improve the computational power. In \cite{Sburlan05Priorities} Sburlan showed that the variant with prioritized rules is more powerful and characterize exactly the \index{ET0L} Parikh image of $ET0L$ (see section \ref{sec:lindenmayer_systems} and subsection \ref{sec:parikh_s_mapping} in preliminaries).
 
 We may conclude here that adding a priority relation over rules is a powerful feature which often boosts the computational power by allowing finer control mechanisms and limiting otherwise uncontrolled nondeterministic selection of rules to be applied.
 
@@ -190,7 +190,7 @@ All three versions are equal to the sequential mode when $n=1$. For non-universa
 
 % Minimal parallelism
 
-Ciobanu in \cite{Ciobanu05MinimalParallelism} proposes even more restricted version of parallelism: \index{P systems!minimal parallel} minimal parallelism. For each region, if at least one rule can be applied, then at least one rule will be applied. The symport / antiport rules variant has been shown to be universal. In \cite{Ciobanu:2007:MinimalParallelism} the results are extended to a variant with active membranes with unbounded membrane creation and polarisations, which was shown to be universal.
+Ciobanu in \cite{Ciobanu05MinimalParallelism} proposes even more restricted version of parallelism: \index{P systems!minimal parallel} minimal parallelism. For each region, if at least one rule can be applied, then at least one rule will be applied. The symport / antiport rules variant has been shown to be universal. In \cite{Ciobanu:2007:MinimalParallelism} the results are extended to a variant with active membranes with unbounded membrane creation and polarizations, which was shown to be universal.
 
 % Asynchronous
 
@@ -203,7 +203,7 @@ Obviously, for P systems without priorities this is equivalent with just letting
 \subsection{Toxic objects} % (fold)
 \label{sub:toxic_objects}
 
-Some of the P system variants are aimed at increasing modeling power. Introducting \index{P systems!with toxic objects} toxic objects \cite{Alhazov14Toxic} does not increase computational power nor modify the decidability of behavioral properties, but such P systems allow for smaller descriptional complexity, especially for smaller number of rules. Moreover, they have a clear direct biological motivation.
+Some of the P system variants are aimed at increasing modeling power. Introducing \index{P systems!with toxic objects} toxic objects \cite{Alhazov14Toxic} does not increase computational power nor modify the decidability of behavioral properties, but such P systems allow for smaller descriptional complexity, especially for smaller number of rules. Moreover, they have a clear direct biological motivation.
 Toxic objects are a specified subset of alphabet. They must not stay idle as otherwise the computation is abandoned without yielding a result. 
 Alhazov in \cite{Alhazov14Toxic} used toxic objects to improve the known results for catalytic and purely catalytic P systems by significantly reducing the number of rules needed for the constructions in proofs. 
 
@@ -226,9 +226,9 @@ We will present variants of P systems inspired by these assumptions in following
 \index{P systems!with sets} Standard models of membrane systems have configurations, where any given compartment is represented as a multiset of objects and each computational action is represented by a multiset of simultaneously executed (multiple copies of) individual evolution rules.
 
 Such strong reliance on counting (through multiple copies of objects and rules) may lead to potential problems in two respects. First, one may wonder how realistic is the counting (multiset) mechanism if one needs to represent huge numbers of molecules and instances of biochemical reactions. Second, a membrane system would normally have an infinite state space, making the application
-of formal verifiation techniques impratical or indeed impossible (there exists a rich body of results proving Turing completeness of even very simple kinds of membrane systems).
+of formal verification techniques impractical or indeed impossible (there exists a rich body of results proving Turing completeness of even very simple kinds of membrane systems).
 
-A radical solution to the state space problems can be provided by reaction systems (section \ref{sec:reaction_systems}), which, however, model biochemial reactions in living cells using qualitative (based on presence and absence of entities) rather than quantitative rewriting rules.
+A radical solution to the state space problems can be provided by reaction systems (section \ref{sec:reaction_systems}), which, however, model biochemical reactions in living cells using qualitative (based on presence and absence of entities) rather than quantitative rewriting rules.
 
 Set membrane systems \cite{Kleijn11SetMembrane} are based on sets (of objects or rules) together with the associated set operations, rather than on multisets and multiset operations.
 
@@ -236,7 +236,7 @@ Set membrane systems \cite{Kleijn11SetMembrane} are based on sets (of objects or
   A {\bf set membrane system} is a tuple $$\Pi = (\Sigma, \mu, w_1, \ldots, w_m, R_1, \ldots, R_m)$$, such that $\Sigma$ is a finite set of objects, $\mu$ is a membrane structure with $m$ membranes, $w_i\subseteq\Sigma$ is a set of objects initially present in region $i$ and $R_i$ is a finite set of evolution rules of the form $u\rightarrow v$, where $u\subseteq\Sigma$ is a nonempty set of objects and $v\subseteq\Sigma_i$ is a set of indexed objects with $\Sigma_i$ being defined as: $$\Sigma_i = \Sigma\cup\{a_{out}|a\in \Sigma\}\cup\{a_{in_j}|a\in\Sigma\mathrel{and}i=parent(j)\}$$.
 \end{definition}
 
-The difference between the ``qualitative'' and the ``quantitative'' interpretation of the evolution rules is twofold. First, there may be two enabled evolution rules in a compartment with a common object in their left hand sides while there is only a single representant of that object in the current state in the compartment. In the current qualitative setup, the two rules can be executed together. That is, objects are charaterized by their presence rather than their quantity. Second, if two simultaneously executed rules produce the same object in the same compartment, instead of adding two instances of this object, only one is added, so that we never have more than a single representant of an object in any given compartment.
+The difference between the ``qualitative'' and the ``quantitative'' interpretation of the evolution rules is twofold. First, there may be two enabled evolution rules in a compartment with a common object in their left hand sides while there is only a single representative of that object in the current state in the compartment. In the current qualitative setup, the two rules can be executed together. That is, objects are characterized by their presence rather than their quantity. Second, if two simultaneously executed rules produce the same object in the same compartment, instead of adding two instances of this object, only one is added, so that we never have more than a single representative of an object in any given compartment.
 
 Kleijn in \cite{Kleijn11SetMembrane} describes different ways to define a computation step. An interesting property of maximal parallel steps is that there is always exactly one maximal parallel set of enabled rules, thus such system is deterministic.
 

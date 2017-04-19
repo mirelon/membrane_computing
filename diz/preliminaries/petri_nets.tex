@@ -16,7 +16,7 @@ The edges of the bipartite graph are annotated by either $\varphi(p,t)$ or $\var
   A {\bf marking} is a mapping $\mu: P\rightarrow \mathbb N$.
 \end{definition}
 
-The mapping $\mu$ assigns certain number of tokens to each place of the net. For places $P=\{p_1, p_2, \dots, p_n\}$ we can view a marking $\mu$ as an $n$-dimensional column vector in which the $i$th component is $\mu(p_i)$. Examplar usage of such vectors is in the Figure \ref{fig:example reachability graph}.
+The mapping $\mu$ assigns certain number of tokens to each place of the net. For places $P=\{p_1, p_2, \dots, p_n\}$ we can view a marking $\mu$ as an $n$-dimensional column vector in which the $i$th component is $\mu(p_i)$. Exemplar usage of such vectors is in the Figure \ref{fig:example reachability graph}.
 
 \begin{definition}
   A marking $\mu_1$ {\bf covers} marking $\mu_2$, when $\forall p\in P: \mu_1(p)\geq\mu_2(p)$ - in each place there is no less tokens in $\mu_1$ than in $\mu_2$. We denote it by $\mu_1\geq\mu_2$.
@@ -57,10 +57,10 @@ The notation $\mu_0\xrightarrow{*}\mu$ is used to denote the existence of a firi
   Let $\mathcal P = (P,T,\varphi,\mu_0)$ be a marked Petri net. The \index{Reachability set} {\bf reachability set} of $\mathcal P$ is $R(\mathcal(P)) = \{\mu|\mu_0\xrightarrow{*}\mu\}$.
 \end{definition}
 
-A notion of reachability graph is helpful for analyzing the behavior of a Petri net as a tool for visualisation of the structure of the reachability set.
+A notion of reachability graph is helpful for analyzing the behavior of a Petri net as a tool for visualization of the structure of the reachability set.
 
 \begin{definition}
-  Let $\mathcal P = (P,T,\varphi,\mu_0)$ be a marked Petri net. The \index{Reachability graph}\index{Graph!reachability} {\bf reachability graph} of $\mathcal P$ is a labelled graph whose nodes are the reachable markings and edge from $\mu_1$ to $\mu_2$ is labeled with a transition $t\in T$ iff $\mu_1\xrightarrow{t}\mu_2$.
+  Let $\mathcal P = (P,T,\varphi,\mu_0)$ be a marked Petri net. The \index{Reachability graph}\index{Graph!reachability} {\bf reachability graph} of $\mathcal P$ is a labeled graph whose nodes are the reachable markings and edge from $\mu_1$ to $\mu_2$ is labeled with a transition $t\in T$ iff $\mu_1\xrightarrow{t}\mu_2$.
 \end{definition}
 
 \begin{figure}
@@ -124,7 +124,7 @@ A notion of reachability graph is helpful for analyzing the behavior of a Petri 
 
 In spite of its simplicity, the applicability of the technique of reachability graph analysis is rather limited in the sense that it suffers from the state explosion phenomenon as the sizes of the reachability sets grow beyond any primitive recursive function in the worst case \cite{Yen06PetriNets}.
 
-\index{Coverability graph}\index{Graph!coverability} Coverability graph analysis offers an alternative to the techinque of reachability graph analysis by abstracting out certain details to make the graph finite. To understand the intuition behind coverability graphs, consider the figure \ref{fig:example reachability graph} which shows a part of the reachability graph of the Petri net in the figure \ref{fig:example petri net}. Consider the path $(3,0,0,0)\xrightarrow{t_1}(2,1,1,1)\xrightarrow{t_2}(3,1,1,0)$ along which the places $p_2$ and $p_3$ both gain an extra token in the end, i.e. $(3,0,0,0) < (3,1,1,0)$. Clearly they can be made to contain arbitrary large number of tokens by repeating the firing sequence $t_1t_2$ for a sufficient number of times, as $(3,0,0,0)\xrightarrow{t_1t_2}(3,1,1,0)\xrightarrow{t_1t_2}(3,2,2,0)\xrightarrow{t_1t_2}\ldots\xrightarrow{t_1t_2}(3,n,n,0)$, for arbitrary $n$. In order to capture the notion of a place being unbounded, we short-circuit the above infinite sequence of computation as $(3,0,0,0)\xrightarrow{t_1}(2,1,1,1)\xrightarrow{t_2}(3,\omega,\omega,0)$, where $\omega$ is a symbol denoting something being arbitrarily large. As it turns out, the coverability graph of a Petri net is always finite \cite{Karp69ParallelProgramSchemata, Hack:1976:DQP:889753}. The corresponding coverability graph of the example Petri net in the figure \ref{fig:example petri net} is in the figure \ref{fig:example coverability graph}. The algorithm for generating the coverability graph of a Petri net \cite{Yen06PetriNets} is shown \vpageref[below]{alg:coverability_graph}.
+\index{Coverability graph}\index{Graph!coverability} Coverability graph analysis offers an alternative to the technique of reachability graph analysis by abstracting out certain details to make the graph finite. To understand the intuition behind coverability graphs, consider the figure \ref{fig:example reachability graph} which shows a part of the reachability graph of the Petri net in the figure \ref{fig:example petri net}. Consider the path $(3,0,0,0)\xrightarrow{t_1}(2,1,1,1)\xrightarrow{t_2}(3,1,1,0)$ along which the places $p_2$ and $p_3$ both gain an extra token in the end, i.e. $(3,0,0,0) < (3,1,1,0)$. Clearly they can be made to contain arbitrary large number of tokens by repeating the firing sequence $t_1t_2$ for a sufficient number of times, as $(3,0,0,0)\xrightarrow{t_1t_2}(3,1,1,0)\xrightarrow{t_1t_2}(3,2,2,0)\xrightarrow{t_1t_2}\ldots\xrightarrow{t_1t_2}(3,n,n,0)$, for arbitrary $n$. In order to capture the notion of a place being unbounded, we short-circuit the above infinite sequence of computation as $(3,0,0,0)\xrightarrow{t_1}(2,1,1,1)\xrightarrow{t_2}(3,\omega,\omega,0)$, where $\omega$ is a symbol denoting something being arbitrarily large. As it turns out, the coverability graph of a Petri net is always finite \cite{Karp69ParallelProgramSchemata, Hack:1976:DQP:889753}. The corresponding coverability graph of the example Petri net in the figure \ref{fig:example petri net} is in the figure \ref{fig:example coverability graph}. The algorithm for generating the coverability graph of a Petri net \cite{Yen06PetriNets} is shown \vpageref[below]{alg:coverability_graph}.
 
 \begin{figure}
   \centering

@@ -1,6 +1,6 @@
 % !TEX root = ../diz.tex
-In the common sense, vacuum represents a state of space with no or a little matter in it. Using vacuum in modelling frameworks can help express certain phenomena more easily. We define a new P system variant, which creates a special vacuum object in a region as soon as the region becomes empty.
-The vacuum object persists in ther region until it is consumed by a rule.
+In the common sense, vacuum represents a state of space with no or a little matter in it. Using vacuum in modeling frameworks can help express certain phenomena more easily. We define a new P system variant, which creates a special vacuum object in a region as soon as the region becomes empty.
+The vacuum object persists in the region until it is consumed by a rule.
 If we made the vacuum to be removed automatically when an object enters the region, there would be no difference with the variant without vacuum objects because of no interactions with it. Instead, the vacuum can be removed explicitly by a rule, e.g. with some interaction with other object. However, it is still created automatically, so we allow the vacuum object to occur only on the left side of rules.
 
 One can object that if there is an interaction of the vacuum object with another object in the same region, the region is nonempty at that time and it does not make sense to have nonempty region with vacuum. But the vacuum object can be regarded as a memory footprint of the past event, when the region was empty. It is just waiting there to be processed.
