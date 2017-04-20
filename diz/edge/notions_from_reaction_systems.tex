@@ -13,26 +13,31 @@ We leave the second proposal of assuming non-permanency of objects in sequential
 \label{sub:alternative_definition_of_active_p_systems}
   The rules in active P systems can modify the membrane structure by dissolving and creating new membranes. The skin membrane is not allowed to be dissolved, but object can be sent out through the skin membrane (e.g. to be observed by the surroundings). That is why we will define the configuration to include the membrane structure as well as in \cite{Kovac15SequentialActiveSet}.
 
-  Let $\Sigma$ be a set of objects. A {\bf membrane configuration} is a tuple $(T, l, c)$, where:
-  \begin{itemize}
-    \item $T$ is a rooted tree,
-    \item $l\in\mathbb N^{V(T)}$ is a mapping that assigns for each node of $T$ a number (label),
-    \item $c\in(2^\Sigma)^{V(T)}$ is a mapping that assigns for each node of $T$ a set of objects from $\Sigma$, so it represents the contents of the membrane.
-  \end{itemize}
+  \begin{definition}
+    Let $\Sigma$ be a set of objects. A {\bf membrane configuration} is a tuple $(T, l, c)$, where:
+    \begin{itemize}
+      \item $T$ is a rooted tree,
+      \item $l\in\mathbb N^{V(T)}$ is a mapping that assigns for each node of $T$ a number (label),
+      \item $c\in(2^\Sigma)^{V(T)}$ is a mapping that assigns for each node of $T$ a set of objects from $\Sigma$, so it represents the contents of the membrane.
+    \end{itemize}
+  \end{definition}
 
   The common representation of a membrane structure in this section is by a string, where a membrane is denoted by a pair of matching square brackets with the subscript indicating the label of the membrane, e.g. $[_1 [_2 ab ]_2 ac ]_1$.
 
-  A {\bf sequential active set P system} is a tuple $(\Sigma, C_0, R_1, R_2, \dots , R_m)$, where:
-  \begin{itemize}
-    \item $\Sigma$ is a set of objects,
-    \item $C_0$ is the initial membrane configuration,
-    \item $R_1,R_2,\dots, R_m$ are finite sets of rewriting rules associated with the labels $1,2,\dots,m$ and can be of forms:
+  \begin{definition}
+  \label{def:sequential_active_p_system}
+    A {\bf sequential active set P system} is a tuple $$(\Sigma, C_0, R_1, R_2, \dots , R_m),$$ where:
     \begin{itemize}
-      \item $u\rightarrow w$, where $u\subseteq \Sigma$, $|u|\geq 1$, $w\subseteq (\Sigma\times\{\cdot, \uparrow, \downarrow_j\})$ and $1\leq j\leq m$,
-      \item a dissolving rule $u\rightarrow w\delta$, where $u\subseteq \Sigma$, $|u|\geq 1$, $w\subseteq (\Sigma\times\{\cdot, \uparrow, \downarrow_j\})$ and $1\leq j\leq m$,
-      \item a membrane creation $u\rightarrow [_j v_1]_j v_2$, where $u\subseteq \Sigma$, $|u|\geq 1$, $v_1, v_2\subseteq \Sigma$ and $1\leq j\leq m$.
+      \item $\Sigma$ is a set of objects,
+      \item $C_0$ is the initial membrane configuration,
+      \item $R_1,R_2,\dots, R_m$ are finite sets of rewriting rules associated with the labels $1,2,\dots,m$ and can be of forms:
+      \begin{itemize}
+        \item $u\rightarrow w$, where $u\subseteq \Sigma$, $|u|\geq 1$, $w\subseteq (\Sigma\times\{\cdot, \uparrow, \downarrow_j\})$ and $1\leq j\leq m$,
+        \item a dissolving rule $u\rightarrow w\delta$, where $u\subseteq \Sigma$, $|u|\geq 1$, $w\subseteq (\Sigma\times\{\cdot, \uparrow, \downarrow_j\})$ and $1\leq j\leq m$,
+        \item a membrane creation $u\rightarrow [_j v_1]_j v_2$, where $u\subseteq \Sigma$, $|u|\geq 1$, $v_1, v_2\subseteq \Sigma$ and $1\leq j\leq m$.
+      \end{itemize}
     \end{itemize}
-  \end{itemize}
+  \end{definition}
 
   For the first two forms, each rewriting rule may specify for each object on the right side, whether it stays in the current region (we will omit the symbol $\cdot$), moves through the membrane to the parent region ($\uparrow$) or to a specific child region ($\downarrow_j$, where $j$ is a label of a membrane).
   We denote these transfers with an arrow immediately after the symbol.
@@ -45,12 +50,15 @@ We leave the second proposal of assuming non-permanency of objects in sequential
 
   % applicable rule definition
 
-  For a sequential active set P system $(\Sigma, C_0, R_1, R_2, \dots , R_m)$, configuration $C = (T, l, c)$, membrane $d\in V(T)$ the rule $r\in R_{l(d)}$ is {\bf applicable} iff:
-  \begin{itemize}
-    \item $r = u\rightarrow w$ and $u\subseteq c(d)$ and for all $(a,\downarrow_k)\in w$ there exists $d_2\in V(T)$ such that $l(d_2)=k \wedge parent(d_2) = d$,
-    \item $r = u\rightarrow w\delta$ and $u\subseteq c(d)$ and for all $(a,\downarrow_k)\in w$ there exists $d_2\in V(T)$ such that $l(d_2)=k \wedge parent(d_2) = d$ and $d\neq r_T$,
-    \item $r = u\rightarrow [_j v_1]_j v_2$, $u\subseteq c(d)$ and $d$ has no child membrane with label $j$ ($\forall d_2\in V(T):  parent(d_2)=d \Rightarrow l(d_2)\neq j$).
-  \end{itemize}
+  \begin{definition}
+  \label{def:rule_is_applicable_in_sequential_active_p_system}
+    For a sequential active set P system $(\Sigma, C_0, R_1, R_2, \dots , R_m)$, configuration $C = (T, l, c)$, membrane $d\in V(T)$ the rule $r\in R_{l(d)}$ is {\bf applicable} in membrane $d$ iff:
+    \begin{itemize}
+      \item $r = u\rightarrow w$ and $u\subseteq c(d)$ and for all $(a,\downarrow_k)\in w$ there exists $d_2\in V(T)$ such that $l(d_2)=k \wedge parent(d_2) = d$,
+      \item $r = u\rightarrow w\delta$ and $u\subseteq c(d)$ and for all $(a,\downarrow_k)\in w$ there exists $d_2\in V(T)$ such that $l(d_2)=k \wedge parent(d_2) = d$ and $d\neq r_T$,
+      \item $r = u\rightarrow [_j v_1]_j v_2$, $u\subseteq c(d)$ and $d$ has no child membrane with label $j$ ($\forall d_2\in V(T):  parent(d_2)=d \Rightarrow l(d_2)\neq j$).
+    \end{itemize}
+  \end{definition}
 
   In this section we assume only sequential systems, so in each step of the computation, there is one rule nondeterministically chosen among all applicable rules in all membranes to be applied.
 
@@ -252,17 +260,21 @@ We leave the second proposal of assuming non-permanency of objects in sequential
     
     We will first examine the case where we have no explicit membrane creation rule. Any rule which is sending some objects to child membrane labeled $j$ will create child membrane $j$ if it does not exist.
 
-    Formally, rules can be of form:
-    \begin{itemize}
-      \item $u\rightarrow w$, where $u\subseteq \Sigma$, $|u|\geq 1$, $w\subseteq (\Sigma\times\{\cdot, \uparrow, \downarrow_j\})$ and $1\leq j\leq m$,
-      \item a dissolving rule $u\rightarrow w\delta$, where $u\subseteq \Sigma$, $|u|\geq 1$, $w\subseteq (\Sigma\times\{\cdot, \uparrow, \downarrow_j\})$ and $1\leq j\leq m$.
-    \end{itemize}
+    \begin{definition}
+      A {\bf sequential active set P system with inject-or-create membrane creation} is a sequential active set P system where rules can be of form:
+      \begin{itemize}
+        \item $u\rightarrow w$, where $u\subseteq \Sigma$, $|u|\geq 1$, $w\subseteq (\Sigma\times\{\cdot, \uparrow, \downarrow_j\})$ and $1\leq j\leq m$,
+        \item a dissolving rule $u\rightarrow w\delta$, where $u\subseteq \Sigma$, $|u|\geq 1$, $w\subseteq (\Sigma\times\{\cdot, \uparrow, \downarrow_j\})$ and $1\leq j\leq m$.
+      \end{itemize}
+    \end{definition}
 
-    For a sequential active set P system $(\Sigma, C_0, R_1, R_2, \dots , R_m)$, configuration $C = (T, l, c)$, membrane $d\in V(T)$ the rule $r\in R_{l(d)}$ is {\bf applicable} iff:
-    \begin{itemize}
-      \item $r = u\rightarrow w$ and $u\subseteq c(d)$,
-      \item $r = u\rightarrow w\delta$ and $u\subseteq c(d)$ and $d\neq r_T$.
-    \end{itemize}
+    \begin{definition}
+      For a sequential active set P system with inject-or-create membrane creation $(\Sigma, C_0, R_1, R_2, \dots , R_m)$, configuration $C = (T, l, c)$, membrane $d\in V(T)$ the rule $r\in R_{l(d)}$ is {\bf applicable} iff:
+      \begin{itemize}
+        \item $r = u\rightarrow w$ and $u\subseteq c(d)$,
+        \item $r = u\rightarrow w\delta$ and $u\subseteq c(d)$ and $d\neq r_T$.
+      \end{itemize}
+    \end{definition}
 
     \begin{example}
       Assume the membrane configuration $[_1 [_2 ]_2 a ]_1$. If we apply the rule $a \rightarrow a\downarrow_2$ in the skin membrane, the object $a$ is sent to the membrane 2 because such child membrane already exists. The resulting membrane configuration is $[_1 [_2 a ]_2 ]_1$.
@@ -287,7 +299,11 @@ We leave the second proposal of assuming non-permanency of objects in sequential
   \subsubsection{Semantics wrap-or-create} % (fold)
   \label{ssub:semantics_wrap_or_create}
     
-    In this variant we stay with explicit membrane creation rule, but when the membrane with the same label is already contained in the current membrane, the rule remains applicable and the child membrane will be wrapped by a new membrane with the given contents. For example, applying the rule $a \rightarrow [_2 b ]_2 c$ in the membrane 1 of membrane structure $[_1 a [_2 d ]_2 ]_1$ would result in $[_1 c [_2 b [_2 d ]_2 ]_2 ]_1$.
+    In this variant we stay with explicit membrane creation rule (we use the definition \ref{def:sequential_active_p_system}), but when the membrane with the same label is already contained in the current membrane, the rule remains applicable and the child membrane will be wrapped by a new membrane with the given contents. For example, applying the rule $a \rightarrow [_2 b ]_2 c$ in the membrane 1 of membrane structure $[_1 a [_2 d ]_2 ]_1$ would result in $[_1 c [_2 b [_2 d ]_2 ]_2 ]_1$.
+
+    \begin{definition}
+      For a sequential active set P system with wrap-or-create membrane creation $(\Sigma, C_0, R_1, R_2, \dots , R_m)$, configuration $C = (T, l, c)$, membrane $d\in V(T)$ the rule $r\in R_{l(d)}$ is {\bf applicable} iff it is applicable according to definition \ref{def:rule_is_applicable_in_sequential_active_p_system} or $r = u\rightarrow [_j v_1]_j v_2$, where $u\subseteq c(d)$.
+    \end{definition}
 
     % TODO: example with a picture
 
