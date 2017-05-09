@@ -261,3 +261,34 @@ The paper \cite{Paun12BridgingReactionSystems} includes a proof of computational
 % subsubsection p_systems_with_no_permanence (end)
 
 % subsection variants_inspired_by_reaction_systems (end)
+
+\subsection{Comparison of computing power} % (fold)
+\label{sub:comparison_of_computing_power}
+
+In this subsection we provide a table summarizing known results for computing power of some variants that are a combination of values of several attributes. Each column in table \ref{table:known_results_for_computing_power} represents an attribute of P systems that is often mentioned in a literature. A cell containing symbol ``*'' represents that the result holds for any modification of the attribute.
+
+The table includes 6 attributes with 2 alternative values and one attribute with 3 alternative values: cooperative, non-cooperative, catalytic rules. This makes 192 possible combinations, out of which only 129 are mentioned. The table is far from complete. We could not find a mention of the missing combinations in available literature.
+
+\begin{sidewaystable}
+  \centering
+  \begin{tabular}{|c|c|c|c|c|c|c||c|c|}
+    \hline
+    Mode & Rules & Inhibitors & Promoters & Priorities & Dissolution & Active & Power & Source \\ \hline
+    Max parallel & cooperative & * & * & * & * & * & $PsRE$ & \cite{Paun98} \\ \hline
+    Max parallel & catalytic & * & * & * & * & * & $PsRE$ & \cite{Paun98} \\ \hline
+    Max parallel & non-cooperative & without & without & without & with & passive & $PsCF$ & \cite{Sburlan05dragos} \\ \hline
+    Max parallel & non-cooperative & with & without & without & with & passive & $ET0L$ & \cite{Sburlan:2006:FurtherResultsPromotersInhibitors} \\ \hline
+    Max parallel & non-cooperative & without & without & with & with & * & $ET0L$ & \cite{Sburlan05Priorities} \\ \hline
+    Sequential & cooperative & * & * & with & with & * & $PsRE$ & \cite{Ibarra05Active} \\ \hline
+    Sequential & cooperative & without & without & without & with & passive & $VASS$ & \cite{Ibarra05Active} \\ \hline
+    Sequential & cooperative & * & * & * & with & active & $PsRE$ & \cite{Ibarra05Active} \\ \hline
+    Sequential & cooperative & with & * & * & * & passive & $PsRE$ & \cite{Kovac14Inhibitors} \\ \hline
+    Sequential & catalytic & without & without & without & with & passive & $Semilinear$ & \cite{Ibarra04dang} \\ \hline
+  \end{tabular}
+  \caption{Known results for computing power of some P system variants}
+  \label{table:known_results_for_computing_power}
+\end{sidewaystable}
+
+\FloatBarrier
+
+% subsection comparison_of_computing_power (end)
