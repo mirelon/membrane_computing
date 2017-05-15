@@ -1,5 +1,5 @@
 % !TEX root = ../diz.tex
-The definition of a P system is based on the notion of \index{Membrane!structure} membrane structure \cite{Besozzi:PhD:2004}, which is introduced in terms of the language $MS$ over the alphabet $\{[, ]\}$, consisting of the strings recurrently defined as follows:
+The definition of a P system is based on the notion of \index{Membrane!structure} membrane structure \cite{Besozzi:PhD:2004}, \cite{Paun98}, \cite{Paun2006Introduction}, which is introduced in terms of the language $MS$ over the alphabet $\{[, ]\}$, consisting of the strings recurrently defined as follows:
 \begin{enumerate}
   \item $[]\in MS$,
   \item if $\mu_1, \ldots, \mu_n \in MS$, then $[\mu_1\ldots\mu_n] \in MS$,
@@ -8,7 +8,7 @@ The definition of a P system is based on the notion of \index{Membrane!structure
 
 We assume that each pair of well matching parentheses $[]$ can be labeled in a one-to-one manner by an integer in the set $1\ldots m$, e.g. $[[]_2[]_3]_1$.
 
-We define now an equivalence relation over the elements of $MS$: we write $x\sim y$ if and only if:
+We write $x\sim y$ if and only if:
 \begin{enumerate}
   \item $x=[]_i$ and $y=[]_i$,
   \item $x=[\mu_1\ldots\mu_n]_j$, $y=[\xi_1\ldots\xi_n]_j$ and $\mu_i\sim\xi_{p(i)}$ for every $i$ and for some permutation $p$.
@@ -32,18 +32,6 @@ Thus, the order of parentheses is irrelevant as long as they are at the same hie
   Any membrane without any other membrane inside (appearing in a membrane structure in the form $[]$) is called an \index{Membrane!elementary} {\bf elementary membrane}.
 \end{definition}
 
-\begin{definition}
-  The number of membranes in $\mu$ is called the {\bf degree} of $\mu$ and it is denoted by $deg(\mu)$.
-\end{definition}
-
-\begin{definition}
-  The depth of a membrane structure $\mu$, $dep(\mu)$, is recurrently defined as:
-  \begin{enumerate}
-    \item if $\mu = []$, then $dep(\mu) = 1$;
-    \item if $\mu = [\mu_1\ldots\mu_n]$ for some $\mu_1, \ldots, \mu_n\in MS$, then $dep(\mu) = 1 + max\{dep(\mu_i\} | 1\leq i\leq n)$.
-  \end{enumerate}
-\end{definition}
-
 Each membrane determines a compartment, also called region, the space delimited from above by it and from below by the membranes placed directly inside, if any exists. The correspondence membrane-region is one-to-one, that is why we sometimes use interchangeably these terms.
 
 
@@ -62,7 +50,7 @@ An example of such rule is $ab^2\rightarrow (a,here)(b,in_3)(c,out)(c,here)$. An
 
 Note that the strings $u, v$ are understood as representations of multisets over $\Sigma$, in a sense from section \ref{sec:multisets}.
 
-We are now ready to proceed with a formal definition of a P system of degree $m$.
+We are now ready to proceed with a formal definition of a P system.
 
 \begin{definition}
   A \index{P systems!definition} {\bf P system} is a tuple $$\Pi = (\Sigma, \mu, w_1, w_2,\ldots , w_m, R_1, R_2,\ldots , R_m),$$ where:
