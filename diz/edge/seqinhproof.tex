@@ -14,11 +14,11 @@
   The $\mathit{RUN}$ phase represents that the rules of the maximal parallel P system are being applied, one-by-one. When there are no more rules to apply, the membrane has done its maximal parallel step and proceeds to the phase $\mathit{SYNCHRONIZE}$. Other phases are just technical - we need to implement sending objects between membranes and preparing for the next maximal parallel step by unmarking newly created objects in the current maximal parallel step, which have been marked to prevent double evolution in one step.
 
   \begin{itemize}
-    \item $\mathit{\bf RUN}$: Rules of the maximal parallel P system are being applied. Products are marked ($a^\prime$ instead of $a$) in order to prevent further evolution in the same maximal parallel step. Objects that are to be sent to the parent membrane are directly sent because the parent membrane is in $\mathit{RUN}$ or $\mathit{SYNCHRONIZE}$ phase (see figure \ref{fig:possible_pairs_of_states_of_parent_and_child_membrane}), so the $a^{\prime}$ symbols that are sent will not be used in any rule until phase $\mathit{RESTORE}$. But objects that are to be sent down, cannot be sent immediately because child membranes can be in the previous phase waiting to restore symbols from previous step. Objects $a^\prime$ could interfere with them resulting in double application in current maximal parallel step. Such objects are only marked as $a^{\downarrow\prime}$ to be sent down in the phase $\mathit{SENDDOWN}$. When the phase $\mathit{RUN}$ ends, next phase $\mathit{SYNCHRONIZE}$ takes place, while emitting an object $\mathit{SYNCTOKEN}$ to the parent membrane with a purpose to deliver it to the skin membrane.
+    \item $\mathit{\bf RUN}$: Rules of the maximal parallel P system are being applied. Products are marked ($a^\prime$ instead of $a$) in order to prevent further evolution in the same maximal parallel step. Objects that are to be sent to the parent membrane are directly sent because the parent membrane is in $\mathit{RUN}$ or $\mathit{SYNCHRONIZE}$ phase (see figure \ref{fig:possible_pairs_of_states_of_parent_and_child_membrane}), so the $a^{\prime}$ symbols that are sent will not be used in any rule until phase $\mathit{RESTORE}$. But objects that are to be sent down to child membrane $l$, cannot be sent immediately because membrane $l$ can be in the previous phase waiting to restore symbols from previous step. Objects $a^\prime$ could interfere with them resulting in double application in current maximal parallel step. Such objects are only marked as $a^{\downarrow_l\prime}$ to be sent down in the phase $\mathit{SENDDOWN}$. When the phase $\mathit{RUN}$ ends, next phase $\mathit{SYNCHRONIZE}$ takes place, while emitting an object $\mathit{SYNCTOKEN}$ to the parent membrane with a purpose to deliver it to the skin membrane.
 
     \item $\mathit{\bf SYNCHRONIZE}$: There was no applicable rule left so the membrane is waiting to get signal $\mathit{SYNCED}$ from the parent membrane to proceed to the next phase. And also resending all $\mathit{SYNCTOKEN}$ objects to the parent membrane.
 
-    \item $\mathit{\bf SENDDOWN}$: Signal $\mathit{SYNCED}$ was caught, which means that every membrane has already been in the $\mathit{SYNCHRONIZE}$ phase. And all descendant membranes are in $\mathit{SYNCHRONIZE}$ phase. In this phase all the objects $a^{\downarrow\prime}$ can be sent down.
+    \item $\mathit{\bf SENDDOWN}$: Signal $\mathit{SYNCED}$ was caught, which means that every membrane has already been in the $\mathit{SYNCHRONIZE}$ phase. And all descendant membranes are in $\mathit{SYNCHRONIZE}$ phase. In this phase all the objects $a^{\downarrow_l\prime}$ can be sent down.
 
     \item $\mathit{\bf RESTORE}$: All $a^{\prime}$ symbols are being restored to $a$, preparing for the next maximal parallel step.
   \end{itemize}
@@ -30,7 +30,7 @@
   \begin{itemize}
     \item The alphabet $\Sigma$ of the maximal parallel P system.
     \item $a^\prime$ for $a\in\Sigma$ used as products of a rule application waiting for the synchronization.
-    \item $a^{\downarrow\prime}$ for $a\in\Sigma$ used as products of a rule application which should be sent down. 
+    \item $a^{\downarrow_l\prime}$ for $a\in\Sigma$ and $1\leq l\leq m$ used as products of a rule application which should be sent down to membrane $l$. 
     \item $\dot{a}$ for $a\in\Sigma$ can be used normally in rewriting, with a constraint to have at most one instance of $\dot{a}$ in a membrane. It helps with deciding presence of an applicable rule. 
     \item objects representing phases $\mathit{RUN}$, $\mathit{SYNCHRONIZE}$, $\mathit{SENDDOWN}$, $\mathit{RESTORE}$.
     \item $SYNCTOKEN_i$ for each membrane with label $i$ to let the skin membrane know the membrane $i$ is waiting in synchronization phase.
@@ -47,14 +47,14 @@
   \begin{itemize}
     \item For every rule $r_j\in R_i$ such that
       \begin{align*}
-        r_j = a_1^{M(a_1)}a_2^{M(a_2)}\dots a_n^{M(a_n)} \rightarrow a_1^{N(a_1)}a_2^{N(a_2)}\dots a_n^{N(a_n)}
+        r_j = a_1^{M(a_1)}a_2^{M(a_2)}\dots a_n^{M(a_n)} \rightarrow b_1\dots b_x c_1\uparrow\dots c_y\uparrow d_1\downarrow_{l_1}\dots d_z\downarrow_{l_z}
       \end{align*}
       we will have the following rules:
       \begin{align*}
         &a_1^{M(a_1)-m_1}\dot{a}_1^{m_1}
         a_2^{M(a_2)-m_2}\dot{a}_2^{m_2}\dots
         a_n^{M(a_n)-m_n}\dot{a}_n^{m_n}|\mathit{RUN} \\
-        \rightarrow &a_1^{\prime N(a_1)}a_2^{\prime N(a_2)}\dots a_n^{\prime N(a_n)}|\mathit{RUN}
+        \rightarrow &b_1^\prime\dots b_x^\prime c_1^\prime\uparrow\dots c_y^\prime\uparrow d_1^{\downarrow_{l_1}\prime}\dots d_z^{\downarrow_{l_z}\prime}|\mathit{RUN}
       \end{align*}
       
       There will be such rule for each $0\leq m_k\leq min(M(a_k),1)$. It represents the idea that $\dot{a_k}$ can be used in rule application in the same way as $a_k$. The number of occurrences of $\dot{a_k}$ is 0 or 1. If $M(a_k) = 0$, the rule $r_j$ has no presence of $a_k$ on the left side so in this case we will have just rules where $m_k=0$. Right side of the rules contains symbols $a^\prime$, that prevents the symbols to be evolved again.
@@ -100,17 +100,17 @@
     \item Every membrane other than skin membrane ($i>1$) is waiting for the $\mathit{SYNCED}$ signal to go to the $\mathit{SENDDOWN}$ phase:
     $$\mathit{SYNCHRONIZE}|\mathit{SYNCED} \rightarrow \mathit{SENDDOWN}$$
 
-    \item Every membrane will have rules to send down all objects prepared to be sent down $a^{\downarrow\prime}$, where $a\in \Sigma$:
-    $$\mathit{SENDDOWN}|a^{\downarrow\prime} \rightarrow \mathit{SENDDOWN}|a^{\prime}\downarrow$$
+    \item Every membrane will have rules to send down all objects prepared to be sent down $a^{\downarrow_l\prime}$, where $a\in \Sigma$ and $1\leq l\leq m$:
+    $$\mathit{SENDDOWN}|a^{\downarrow_l\prime} \rightarrow \mathit{SENDDOWN}|a^{\prime}\downarrow_l$$
 
     \item Every membrane will have a rule for detecting when all such objects have been sent down in order to proceed to the $\mathit{RESTORE}$ phase:
-    $$\mathit{SENDDOWN} \rightarrow \mathit{RESTORE}|_{\neg \{a^{\downarrow\prime}|a\in\Sigma\}}$$
+    $$\mathit{SENDDOWN} \rightarrow \mathit{RESTORE}|_{\neg \{a^{\downarrow_l\prime}|a\in\Sigma, 1\leq l\leq m\}}$$
 
     \item In the $\mathit{RESTORE}$ phase all objects $a^{\prime}$ will be evolved to $a$ so it can be evolved in the next maximal parallel step:
     $$\mathit{RESTORE}|a^{\prime} \rightarrow \mathit{RESTORE}|a$$
 
-    \item Descendant membranes are waiting for the signal $\mathit{SYNCED}$, which is sent to child membranes only when the $\mathit{RESTORE}$ phase ends. It also means that the next maximal parallel step is already being simulated in the ancestor membranes ($\mathit{RUN}$ or $\mathit{SYNCHRONIZE}$ phase):
-    $$\mathit{RESTORE} \rightarrow \mathit{RUN}|\mathit{SYNCED}\downarrow|_{\neg \{a^{\prime}|a\in\Sigma\}}$$
+    \item Descendant membranes are waiting for the signal $\mathit{SYNCED}$, which is sent to all direct child membranes $l_1\dots l_z$ when the $\mathit{RESTORE}$ phase ends. It also means that the next maximal parallel step is already being simulated in the ancestor membranes ($\mathit{RUN}$ or $\mathit{SYNCHRONIZE}$ phase):
+    $$\mathit{RESTORE} \rightarrow \mathit{RUN}|\mathit{SYNCED}\downarrow_{l_1}|\dots|\mathit{SYNCED}\downarrow_{l_z}|_{\neg \{a^{\prime}|a\in\Sigma\}}$$
   \end{itemize}
 
   \definecolor{run}{rgb}{1,0.5,0}
