@@ -143,3 +143,16 @@
   Another interesting idea can be seen in the figure \ref{fig:snapshot_of_all_membrane_states_while_simulating} that when a region is in the $\mathit{SENDDOWN}$ phase and objects are sent through the child membrane, the receiving region is in the $\mathit{SYNCHRONIZE}$ phase waiting for the $\mathit{SYNCED}$ signal, which will be sent to it when $\mathit{SENDDOWN}$ and $\mathit{RESTORE}$ phases finished. \qed
 
 \end{dokaz}
+
+It is even possible to define a \index{Bisimulation!branching}branching bisimulation between states of the two P systems in the simulation above. We define:
+\begin{enumerate}
+  \item a labeled transition system $L_1$ for simulated maximal parallel P systems
+  \item a labeled transition system with silent actions $L_2$ for simulating sequential P system, where all rule applications are treated as silent actions except the rule
+    \begin{align*}
+      &\mathit{SYNCTOKEN_1}|\dots|\mathit{SYNCTOKEN_p}|\mathit{SYNCHRONIZE} \\
+      \rightarrow &\mathit{SENDDOWN}
+    \end{align*}
+\end{enumerate}
+
+Note that the above mentioned rule can be applied only in the skin membrane, when all membranes are in $\mathit{SYNCHRONIZE}$ phase, so it is applied exactly once per simulation of one maximal parallel step.
+Then, we could establish a branching bisimulation (see definition \ref{def:branching_bisimulation}) between the labeled transition systems $L_1$ and $L_2$ in this way: we group all possible states of $L_2$ between two visible actions together according to the above described simulation and relate them to the corresponding state of $L_1$.

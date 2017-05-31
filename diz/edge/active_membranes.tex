@@ -1,5 +1,5 @@
 % !TEX root = ../diz.tex
-In this section we study a variant of \index{P systems!sequential} sequential P systems where universality can be achieved without checking for zero by allowing membranes to be created unlimited number of times \cite{Ibarra05Active}. Such P systems are called active P systems. Contrary, if we place a limit on the number of times a membrane is created, we get a class of P systems which is only equivalent to vector addition systems, hence not universal. There results were published in \cite{Kovac15TerminationProblems}.
+In this section we study a variant of \index{P systems!sequential} sequential P systems where universality can be achieved without checking for zero by allowing membranes to be created unlimited number of times \cite{Ibarra05Active}. Such P systems are called active P systems. Contrary, if we place a limit on the number of times a membrane is created, we get a class of P systems which is only equivalent to \index{Vector addition systems}vector addition systems, hence not universal. There results were published in \cite{Kovac15TerminationProblems}.
 
 In subsection \ref{sub:active_p_systems} we will introduce membrane structure and formally define membrane configuration and active P system, because standard definitions are not convenient for our formal proofs.
 
@@ -12,7 +12,7 @@ The subsection \ref{sub:termination_problems} contains two main results. The exi
   \label{def:membrane_structure}
   Let $\Sigma$ be a set of objects. We denote by $\mathbb N^\Sigma$ a set of all mappings from $\Sigma$ to $\mathbb N$, which represents all multisets of objects from $\Sigma$. A \index{Membrane!configuration} {\bf membrane configuration} is a tuple $(T, l, c)$, where:
   \begin{itemize}
-    \item $T$ is a rooted tree,
+    \item $T$ is a \index{Tree!rooted}rooted tree,
     \item $l\in\mathbb N^{V(T)}$ is a mapping that assigns for each node of $T$ a number (label), where $l(r_T)=1$, so the skin membrane is always labeled with 1,
     \item $c\in(\mathbb N^\Sigma)^{V(T)}$ is a mapping that assigns for each node of $T$ a multiset of objects from $\Sigma$, so it represents the contents of the membrane.
   \end{itemize}

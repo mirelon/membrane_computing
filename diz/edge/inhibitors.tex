@@ -3,6 +3,9 @@
 
 We have tried another approach using rules with inhibitors. We show that this variant is computationally complete in both generating and accepting case. For the generative case we present a proof by a simulation of maximal parallel P system and in the accepting case we prove it can simulate a register machine. These results were published in \cite{Kovac14Inhibitors}.
 
+\subsection{Generating case} % (fold)
+\label{sub:generating_case}
+
 In the literature there are two variants of \index{P systems!with inhibitors} rules with inhibitors.
 \begin{enumerate}
   \item Some of them (\cite{Ionescu:jucs_10_5:on_p_systems_with}, \cite{Sburlan05dragos}) allow to use only one inhibitor per rule, e.g. $u\rightarrow v|_{\neg i}$.
@@ -10,6 +13,7 @@ In the literature there are two variants of \index{P systems!with inhibitors} ru
 \end{enumerate}
 
 Our proof uses variant of rules with a set of inhibitors, but they could also be implemented with rules with a single inhibitor, while the complexity of the simulation would be increased.
+
 Dissolution could be also solved with increased complexity by introducing additional phases of the simulation. But because P systems without dissolution are still computationally complete \cite{Agrigoroaiei:2010:Dissolution}, and for the sake of simplicity, we simulate only rules without dissolution 
 
 \begin{definition}
@@ -23,9 +27,16 @@ Dissolution could be also solved with increased complexity by introducing additi
 
 \input{seqinhproof}
 
-We have also reached this result in the accepting case by simulation of \index{Register machine} register machines.
+% subsection generating_case (end)
+
+\subsection{Accepting case} % (fold)
+\label{sub:accepting_case}
+
+We have also reached computational completeness in the accepting case by simulation of \index{Register machine} register machines.
 
 \input{seqinhaccproof}
+
+% subsection accepting_case (end)
 
 \subsection{Concluding remarks} % (fold)
 \label{sub:concluding_remarks_of_inhibitors}
