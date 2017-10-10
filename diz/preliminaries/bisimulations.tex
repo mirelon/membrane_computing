@@ -43,6 +43,7 @@ By $\xRightarrow{\tau^*}$ we denote the transitive and reflexive closure of $\xr
 We also say that $\rho$ is a run from $s_0$. We denote $first(\rho)=s_0$ and $last(\rho)=s_n$.
 
 \begin{definition}
+\label{def:branching_bisimulation}
   A relation $R\subseteq S\times S$ is called a \index{Bisimulation!branching} {\bf branching bisimulation} if it is symmetric and satisfies the following transfer property: if $rRs$ and $r\xrightarrow{a} r^\prime$ then either $a=\tau$ and $r^\prime Rs$ or there are two states $s^\prime,s^{\prime\prime}\in S$ such that $s \xRightarrow{\tau^*} s^\prime \xrightarrow{a} s^{\prime\prime}$, $rRs^\prime$ and $r^\prime Rs^{\prime\prime}$.
 \end{definition}
 
