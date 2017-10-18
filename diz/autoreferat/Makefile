@@ -3,7 +3,7 @@ all: autoreferat.tex
 
 bib: autoreferat.tex autoreferat.bib own_publications.bib
 	pdflatex autoreferat.tex
-	bibtex bu1
-	bibtex bu2
+	bibtex autoreferat.1
+	bibtex autoreferat.1
 	pdflatex autoreferat.tex
 	pdflatex autoreferat.tex
