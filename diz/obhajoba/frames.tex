@@ -9,7 +9,7 @@
 \title{Biologicky motivované \\výpočtové modely}
 \author[Mgr. Michal Kováč]{Mgr. Michal Kováč\\{\small Školiteľ: doc. RNDr. Damas Gruska, PhD.}}
 \institute{FMFI UK}
-\date{5.11.2015}
+\date{17.1.2018}
 \begin{document}
 % \renewcommand{\pause}{}
 
@@ -20,6 +20,11 @@
 \begin{frame}
 \tableofcontents
 \end{frame}
+\note{
+  V úvode prezentácie vám predstavím rôzne výpočtové modely motivované biologiou. Najviac sme sa venovali P systémom, preto budem pokračovať formálnou definíciou a prehľadom rôznych variantov P systémov.
+
+  V druhej časti predstavím 4 témy nášho výskumu, z čoho 3 články boli publikované. V našej práci sme skúmali viaceré varianty P systémov a to konkrétne Sekvenčné P systémy s inhibítormi, Sekvenčné P systémy s aktívnymi membránami, Sekvenčné P systémy s množinami namiesto multimnožín, z čoho všetky spomenuté témy boli publikované. Dalším variantom P systémov, ktorým sme sa zaoberali bola Detekcia prázdnosti membrán.
+}
 
 \section{Prehľad problematiky} % (fold)
 \label{sec:prehlad_problematiky}
@@ -43,23 +48,22 @@
 
   Jednak v rámci biológie môžu slúžiť ako reálne modely správania sa živých systémov, na ktorých môžeme robiť rôzne virtuálne biologické experimenty, prípadne verifikovať správnosť nášho chápania ich biologickej činnosti.
 
-  Na druhej strane môžu slúžiť ako modely na popis aj iných ako biologických systémov, čo otvára rad teoretických informatických otázok (napr. výpočtová sila)
+  Na druhej strane môžu slúžiť ako modely na popis aj iných ako biologických systémov, čo otvára rad teoretických informatických otázok, napr. výpočtová sila alebo analýza behaviorálnych vlastností.
 }
 
 \begin{frame}[t]\frametitle{Biologicky motivované \\výpočtové modely}
   \begin{itemize}
     \item Neurónové siete (od 1943)
-    \item Celulárne automaty (od 1948)
+    \item Celulárne automaty (od 1968)
     \item Evolučné algoritmy (od 1954)
     \item L systémy (od 1968)
+    \item Swarm Intelligence (od 1989)
     \item P systémy (od 1998) \cite{Paun98}
-    \item Calculi of Looping Sequences (od 2007)
-    \item Reaction systems (od 2007)
     \item \dots
   \end{itemize}
 \end{frame}
 \note{
-  Dlho skúmané modely ako neurónové siete, celulárne automaty, evolučné algoritmy, či L systémy, si už našli svoje uplatnenie v praxi, kým membránové systémy sú ešte len v začiatkoch svojho vývoja.
+  Dlho skúmané modely ako neurónové siete, celulárne automaty, evolučné algoritmy, L systémy, či swarm intelligence, si už našli svoje uplatnenie v praxi, kým membránové systémy sú ešte len v začiatkoch svojho vývoja.
 }
 
 % subsection prehlad_modelov (end)
@@ -80,12 +84,80 @@
 
 \end{frame}
 \note{
-  Membránové systémy sú inšpirované bunkami. Základom je preto membránová štruktúra, ktorá pozostáva z regiónov, ktoré sú oddelené membránami. Tvorí to hierarchickú štruktúru, ktorá sa dá zobraziť ako strom.
+  Membránové systémy sú inšpirované bunkami. Základom je preto membránová štruktúra, ktorá pozostáva z regiónov, ktoré sú oddelené membránami. Tvorí to hierarchickú štruktúru, ktorá sa dá zobraziť aj ako strom.
+
+  NEXT SLIDE
+
+  Obsahom regionov je multimnožina objektov, ktoré v realite predstavujú napr. molekuly, vírusy, enzýmy alebo proteíny.
+
+  NEXT SLIDE
+
+  Objekty medzi sebou môžu interagovať. Táto interakcia je definovaná prepisovacími pravidlami.
 }
 
+\begin{frame}[t]\frametitle{Prepisovacie pravidlá}
+  $u\rightarrow v$, where
+  \begin{itemize}
+    \item $u\in\mathbb{N}^\Sigma$
+    \pause
+    \item $v=v^\prime$ or $v=v^\prime\delta$, where $\delta\notin\Sigma$
+    \item $v^\prime\in\mathbb{N}^{\Sigma\times(\{here, out\}\cup\{in_j|1\leq j\leq m\})}$
+  \end{itemize}
+\end{frame}
+\note{
+  Prepisovacie pravidlá majú ľavú a pravú stranu. Na ľavej strane sú reaktanty, čo je multimnožina objektov.
+
+  NEXT SLIDE
+
+  Na pravej strane sú produkty, čo je multimnožina objektov, pričom pre každý objekt sa definuje, či ostáva v aktuálnom regione, alebo ide cez membránu do vonkajšieho regionu alebo cez membránu s daný označením do vnútorného regionu.
+
+  Delta je špeciálny symbol, ktorý nepatrí abecede, ktorý ked je prítomný, tak po aplikovaní pravidla sa rozpustí membrána, v ktorej sa pravidlo aplikovalo a obsah membrány sa vyleje von.
+
+  Pravidlo je aplikovateľné v danom regione, ak sú reaktanty obsiahnuté v multimnožine objektov, ktorá sa aktuálne nachádza v danom regione.  
+}
+
+\begin{frame}[t]\frametitle{Varianty pravidiel}
+  $u\rightarrow v$
+  \begin{itemize}
+    \item Kooperatívne ($u\in\mathbb{N}^\Sigma$) (PsRE \cite{Paun98})
+    \pause
+    \item Nekooperatívne ($u\in\Sigma$) (PsCF \cite{Sburlan05dragos})
+    \pause
+    \item Nekooperatívne s inhibítormi ($u \rightarrow v\ |_{\neg{Inh}}, Inh\subseteq\Sigma$) (PsET0L \cite{Ionescu:jucs_10_5:on_p_systems_with})
+    \pause
+    \item Katalytické ($cu \rightarrow cv, u\in\Sigma, c\in C\subseteq\Sigma$)
+    \begin{itemize}
+      \item s 2 katalyzátormi (PsRE \cite{Freund2005TwoCatalysts})
+      \item s 1 katalyzátorom (otvorený problém)
+      \item s 1 katalyzátorom a inhibítormi (PsRE \cite{Ionescu:jucs_10_5:on_p_systems_with})
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+\note{
+  Literatúra spomína rôzne spôsoby definovania prepisovacieho pravidla. Pôvodná definícia, ktorú uvádza Paun, používa kooperatívne pravidlá v znení, ako som uviedol. Takto definované P systémy sú Turingovsky úplné.
+
+  NEXT SLIDE
+
+  Nekooperatívne pravidlá neumožňujú interakciu medzi objektami, takže na ľavej strane je vždy iba jeden objekt. Takto definované P systémy sú ekvivalentné Parikhovmu zobrazeniu bezkontextových jazykov.
+
+  NEXT SLIDE
+
+  Pravidlá s inhibítormi umožňujú špecifikovať množinu objektov, inhibítorov, z ktorých ak aspoň jeden je prítomný v regione, tak dané pravidlo sa nemôže uplatniť. Takto definované P systémy sú ekvivalentné Parikhovmu zobrazeniu triedy jazykov ET0L.
+}
+\newpage
+\note{
+  Katalytické pravidlá umožňujú objektom interagovať iba s objektom z množiny katalizátorov.
+  Dva katalyzátory stačia na Turingovskú úplnosť. Výpočtovú silu P systémov s jedným katalyzátorom nevieme zaradiť, je to otvorený problém. Ak ale umožníme pravidlá s inhibítormi, dosiahneme Turingovskú úplnosť.
+}
+    
 \begin{frame}[t]\frametitle{Výpočet a jazyk}
   \begin{itemize}
-    \item Maximálny paralelizmus
+    \item Krok výpočtu
+    \begin{itemize}
+      \item Sekvenčný
+      \item Paralelný
+      \item Maximálne paralelný
+    \end{itemize}
     \pause
     \item Jazyk
     \begin{itemize}
@@ -95,26 +167,34 @@
     \end{itemize}
   \end{itemize}
 \end{frame}
+\note{
+  Postupné uplatňovanie pravidiel definuje výpočet.
 
-\begin{frame}[t]\frametitle{Varianty pravidiel}
+  V jednom kroku výpočtu sa uplatní:
   \begin{itemize}
-    \item Kooperatívne ($a\ |\ b\ |\ b \rightarrow b$) (RE \cite{Paun98})
-    \pause
-    \item Nekooperatívne ($b \rightarrow c$) (CF \cite{Sburlan05dragos})
-    \pause
-    \item Nekooperatívne s inhibítormi ($a \rightarrow b\ |_{\neg{c,d}}$) (ET0L \cite{Ionescu:jucs_10_5:on_p_systems_with})
-    \pause
-    \item Katalytické ($a\ |\ b \rightarrow a\ |\ c\ |\ d$)
-    \begin{itemize}
-      \item s 2 katalyzátormi (RE \cite{Freund2005TwoCatalysts})
-      \item s 1 katalyzátorom (otvorený problém)
-      \item s 1 katalyzátorom a inhibítormi (RE \cite{Ionescu:jucs_10_5:on_p_systems_with})
-    \end{itemize}
+    \itemsep0em
+    \item presne jedno pravidlo (sekv. mod)
+    \item aspoň jedno pravidlo (paralelný mod)
+    \item maximálna multimnožina pravidiel
   \end{itemize}
-\end{frame}
-\note{}
+
+  V pôvodnej definícii, ktorú uvádza Paun, sa používa maximálny paralelizmus.
+}
 \newpage
-\note{}
+\note{
+  P systém definuje jazyk rôznymi spôsobmi. Môže to byť jazyk nad slovami - postupnosťami objektov alebo jazyk nad multimnožinami.
+  
+  V generatívnom mode môžeme zobrať objekty vypustené do prostredia počas výpočtu a túto postupnosť objektov alebo multimnožinu objektov zahrnúť do jazyka.
+  Kedže pre daný P systém vdaka nedeterminizmu existuje viac možných výpočtov, veľkosť definovaného jazyka môže byť aj väčsia ako 1.
+}
+\newpage
+\note{
+  V akceptačnom mode môžeme pre nejaké zobrazenie slov alebo multimnožín na konfigurácie P systému pre dané slovo spustiť výpočet s konfiguráciou, ktorá je obrazom toho slova podľa daného zobrazenia.
+  
+  V akceptačnom mode môžeme pre nejaké zobrazenie $f$ slov na konfigurácie P systému pre dané slovo $w$ spustiť výpočet s konfiguráciou $f(w)$.
+
+  Ak tento výpočet zastaví, teda sa už nedá použiť žiadne dalšie pravidlo, dané slovo alebo multimnožinu zahrnieme do jazyka.
+}
 
 \begin{frame}[t]\frametitle{Sekvenčné P systémy}
   \begin{itemize}
@@ -236,21 +316,6 @@
   \end{itemize}  
 \end{frame}
 
-% subsection sekven_n_p_syst_my_s_akt_vnymi_membr_nami (end)
-
-\subsection{Detekcia prázdnosti membrán} % (fold)
-\label{sub:detekcia_pr_zdnosti_membr_n}
-
-\begin{frame}[t]{Detekcia prázdnosti membrán}
-  \begin{itemize}
-    \item Objekty vyhýbajúce sa prázdnym membránam
-    \pause
-    \item Mutovanie objektov pri poslaní do prázdnej membrány
-    \pause
-    \item Objekt reprezetujúci vákuum
-  \end{itemize}  
-\end{frame}
-
 % subsection detekcia_pr_zdnosti_membr_n (end)
 
 \subsection{Sekvenčné P systémy s množinami namiesto multimnožín} % (fold)
@@ -350,6 +415,21 @@
 \end{frame}
 
 % subsection sekven_n_p_syst_my_s_mno_inami_namiesto_multimno_n (end)
+
+% subsection sekven_n_p_syst_my_s_akt_vnymi_membr_nami (end)
+
+\subsection{Detekcia prázdnosti membrán} % (fold)
+\label{sub:detekcia_pr_zdnosti_membr_n}
+
+\begin{frame}[t]{Detekcia prázdnosti membrán}
+  \begin{itemize}
+    \item Objekty vyhýbajúce sa prázdnym membránam
+    \pause
+    \item Mutovanie objektov pri poslaní do prázdnej membrány
+    \pause
+    \item Objekt reprezetujúci vákuum
+  \end{itemize}  
+\end{frame}
 
 % section sk_man_varianty_p_syst_mov (end)
 
