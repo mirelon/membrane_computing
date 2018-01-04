@@ -197,6 +197,8 @@
   V akceptačnom mode môžeme pre nejaké zobrazenie $f$ slov na konfigurácie P systému pre dané slovo $w$ spustiť výpočet s konfiguráciou $f(w)$.
 
   Ak tento výpočet zastaví, teda sa už nedá použiť žiadne dalšie pravidlo, dané slovo alebo multimnožinu zahrnieme do jazyka.
+
+  Pre väčšinu známych modelov sú generatívny aj akceptačný mod rovnako silné, u P systémoch to nie je vždy tak, preto sa oplatí skúmať obidva mody.
 }
 
 \begin{frame}[t]\frametitle{Sekvenčné P systémy}
@@ -206,17 +208,23 @@
     \item Sekvenčné P systémy s kooperatívnymi pravidlami (VASS \cite{Dang:2005:Sequential})
     \pause
     \begin{itemize}
-      \item s prioritami (RE \cite{Dang:2005:Sequential})
-      \pause
-      \item s aktívnymi membránami (RE \cite{Dang:2005:Sequential})
-      \pause
-      \item {\bf s inhibítormi (RE \cite{Kovac14})}
-    \end{itemize}
-    \pause
-    
+      \item s prioritami (PsRE \cite{Dang:2005:Sequential})
+      \item s aktívnymi membránami (PsRE \cite{Dang:2005:Sequential})
+      \item {\bf s inhibítormi (PsRE \cite{Kovac14})}
+    \end{itemize}    
   \end{itemize}
 \end{frame}
-\note{}
+\note{
+  Maximálny paralelizmus je veľmi silná vlastnosť. Globálny časovač reakcií vo väčšine prípadov tvorí hranicu toho, čo je, a čo nie je Turingovsky úplné. Ani v bunke sa nenachádza taký časovač, podľa ktorého by sa reakcie synchronizovali. Preto sa hľadajú spôsoby, ako túto vlastnosť odľahčiť, prípadne, akými spôsobmi by sa dal rozšíriť sekvenčný mod, aby sa dosiahla Turingovská úplnosť.
+
+  NEXT SLIDE
+
+  Sekvenčné P systémy s kooperatívnymi pravidlami nie sú Turingovsky úplné, lebo sú ekvivalentné s Vector Addition Systems a s Petriho sieťami.
+
+  NEXT SLIDE
+
+  Ak sa pridajú pravidlá s prioritami, alebo s aktívnymi membránami, alebo s inhibítormi, takto definované P systémy sú už Turingovsky úplné.
+}
 
 % subsection p_systemy (end)
 
