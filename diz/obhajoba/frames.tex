@@ -241,6 +241,9 @@
     \item \bibentry{Kovac14}
   \end{itemize}
 \end{frame}
+\note{
+  Posledný zo spomenutých rozšírení sme prezentovali na konferencii Computability in Europe 2014 a náš článok je publikovaný v zborníku.
+}
 
 
 \begin{frame}[t]\frametitle{Prehľad simulácie pre akceptačný mód}
@@ -258,7 +261,62 @@
     \end{itemize}
   \end{itemize}
 \end{frame}
-\note{}
+\note{
+  Uviedli sme dôkaz Turingovskej úplnosti pre akceptačný aj generatívny mod. Pre akceptačný mod sme ukázali simuláciu registrového stroja. Obsah registra x sa reprezentuje početnosťou objektu x. Navyše máme objekt pre každú inštrukciu. Inhibítory sme využili na simuláciu inštrukcie SUB.
+}
+
+\begin{frame}[t]\frametitle{Prehľad simulácie pre akceptačný mód}
+  \begin{itemize}
+    \item Registrový stroj $M = (n, P, i, h, Lab)$
+    \pause
+    \item P systém $(\Sigma, \mu, w, R)$
+    \begin{itemize}
+      \item $\Sigma = Lab\cup a_j, 1\leq j\leq n\cup \#$
+      \pause
+      \item $w = i\cup a_i^{n_i}, n_i$ je počiatočná hodnota registra $i$
+      \pause
+      \item $\forall (e : add(j), k, l)\in P: $
+      \begin{itemize}
+        \item $e\rightarrow a_jk\in R$ 
+        \item $e\rightarrow a_jl\in R$ 
+      \end{itemize}
+      \pause
+      \item $\forall (e : sub(j), k, l)\in P: $
+      \begin{itemize}
+        \item $ea_j\rightarrow k\in R$ 
+        \item $e\rightarrow l|_\neg{a_j}\in R$ 
+      \end{itemize}
+      \pause
+      \item $ha_j\rightarrow h\#\in R$
+      \item $\#\rightarrow\#\in R$
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+\note{
+  Formálne, majme registrový stroj M, kde n je počet registrov, P je množina inštrukcií označených značkami z množiny Lab, i je označenie počiatočnej inštrukcie, h je označenie koncovej inštrukcie.
+
+  NEXT SLIDE
+
+  Zostrojíme P systém s jednou membránou, v abecede budú označenia inštrukcií, symboly zodpovedajúce jednotlivým registrom a špeciálny ukončovací symbol mriežka.
+
+  NEXT SLIDE
+
+  V počiatočnej konfigurácii membrána obsahuje označenie počiatočnej inštrukcie registrového stroja a objekty $a_i$ podľa počiatočného stavu registrov.
+}
+\newpage
+\note{
+  Pre všetky inštrukcie ADD, ktoré zvýšia hodnotu registra $j$ o jedna a nasledujúca inštrukcia je k alebo l (rozhoduje sa nedeterministicky) budeme mať pravidlá, ktoré prepíše symbol zodpovedajúci označeniu inštrukcie na symbol $a_j$ a symbol zodpovedajúci označeniu nasledujúcej inštrukcie. 
+
+  NEXT SLIDE
+
+  Uvažujme inštrukciu SUB, ktorá ak má register $j$ kladnú hodnotu, tak ju zníži o jedna, a ak je register $j$ prázdny, tak ju nezníži, ale bude iná nasledujúca inštrukcia. Pre takáto inštrukciu budeme mať v P systéme dve pravidlá. Prvé pravidlo je kooperatívne, ktoré skonzumuje symbol $a_j$ a vytvorí symbol $k$ zodpovedajúci označeniu nasledujúcej inštrukcie. Druhé pravidlo je s inhibítorom a aplikovať sa môže len, ak sa v regione nenachádza symbol $a_j$.
+}
+\newpage
+\note{
+  Ked uvažujeme registrové stroje, kde musia byť všetky registre prázdne, aby sa výpočet korektne ukončil, máme pravidlá, ktoré pri dosiahnutí koncovej inštrukcie $h$, ak je niektorý register neprázdny, vytvorí sa špeciálny symbol, ktorý tam už ostane navždy, a vdaka poslednému pravidlu sa dosiahne, že výpočet nezastaví.
+
+  Dokázali sme, že pre každý registrový stroj vieme zostrojiť sekvenčný P systém s inhibítormi, ktorý v akceptačnom mode zastaví na rovnakých vstupoch ako registrový stroj.
+}
 
 \begin{frame}[t]\frametitle{Prehľad simulácie pre generatívny mód}
   \begin{itemize}
@@ -266,12 +324,44 @@
     \pause
     \item Každý maximálne paralelný krok $\Pi_1$ simulujeme sekvenčnými krokmi $\Pi_2$.
     \pause
-    \item Produkty si označujeme, aby neboli použité, kým neskončí daný maximálne paralelný krok.
+    \item Maximálne paralelný krok rozdeľujeme na 4 fázy:
     \pause
-    \item Pomocou inhibítorov zistíme moment, kedy sa už v $\Pi_2$ nedá aplikovať žiadne pravidlo, aby sa mohol simulovať ďalší maximálne paralelný krok.
+    \begin{itemize}
+      \item RUN
+      \pause
+      \item SYNCHRONIZE
+      \pause
+      \item SENDDOWN
+      \item RESTORE
+    \end{itemize}
   \end{itemize}
 \end{frame}
-\note{}
+\note{
+  V generatívnom mode sme sa rozhodli pre simuláciu maximálne paralelného P systému Pi 1 pomocou sekvenčného P systému s inhibítormi Pi 2.
+
+  NEXT SLIDE
+
+  Každý maximálne paralelný krok Pi 1 simulujeme pomocou niekoľkých sekvenčných krokov Pi 2.
+}
+\newpage
+\note{
+  Kedže pravidlá sa uplatňujú simultánne vo všetkých membránach, tento proces treba synchronizovať.
+  Maximálne paralelný krok rozdeľujeme na 4 fázy. Fáza je reprezentovaná špeciálnym objektom a všekty pravidlá sú kooperatívne, na ľavej strane každého pravidla je fáza, ku ktorej sa pravidlo viaže.
+}
+\newpage
+\note{
+  V prvej fáze RUN v Pi 2 po jednom prepisujeme symboly pomocou pravidiel zodpovedajúcim pravidlám v Pi 1, akurát produkty si označujeme, aby neboli znovu použité, kým neskončí simulácia jedného maximálne paralelného kroku. Pomocou inhibítorov zistíme moment, kedy sa už v Pi 2 nedá aplikovať žiadne dalšie pravidlo, ktoré by sa mohlo zahrnúť do multimnožiny pravidiel aplikovaných v Pi 1. To nám zaručí, že aplikované pravidlá sú maximálnou multimnožinou a môžeme prejsť do simulácie dalšieho maximálne paralelného kroku.
+}
+\newpage
+\note{
+  V druhej fáze SYNCHRONIZE sa v každom regione čaká na ostatné regiony, aby sa spustil další maximálne paralelný krok. Pošle sa synchronizačný token do vonkajšej membrány. V nej, ked sa pozbierajú tokeny zo všetkých membrán, tak vonkajšia membrána pošle signál všetkým membránam, aby mohli začať další maximálne paralelný krok.
+}
+\newpage
+\note{
+  Po synchronizácii treba označené objekty odznačiť, aby boli pripravené na další maximálne paralelný krok. To sa deje vo fáze RESTORE.
+
+  Posielanie objektov cez membránu do obaľujúcej membrány sa môže vykonať vo fáze RUN. Ale ak by sme poslali objekt do vnútornej membrány, tá ešte môže byť vo fáze RESTORE predchádzajúceho maximálne paralelného kroku. V tom prípade by sa stihli poslané objekty ešte odznačiť a mohli by sa uplatniť pravidlá toho istého maximálne paralelného kroku. Preto musíme počkať na synchronizáciu a posielanie objektov nadol vykonávať medzi fázou SYNCHRONIZE a fázou RESTORE. Túto fázu sme nazvali SENDDOWN.
+}
 
 % subsection sekven_n_p_syst_my_s_inhib_tormi (end)
 
