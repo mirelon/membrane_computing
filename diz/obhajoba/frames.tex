@@ -423,15 +423,15 @@
   Kedže pre netederministické modely môže výpočet zastaviť aj nezastaviť, má zmysel pýtať sa dve rôzne otázky: či existuje konečný výpočet a či existuje nekonečný výpočet.
 }
 
-\begin{frame}[t]\frametitle{Aktívny P systém}
+\begin{frame}[t,label=active_p_system_definition]\frametitle{Aktívny P systém}
   \begin{itemize}
     \item Membránova konfigurácia $(T, l, c)$, kde
     \begin{itemize}
       \item $T$ je stromová štruktúra
       \pause
-      \item $l\in\mathbb{N}^{V(T)}, l(r_T)=1$
+      \item $l: V(T) \rightarrow \{1, \ldots, m\}$
       \pause
-      \item $c\in (\mathbb{N}^\Sigma)^V(T)$
+      \item $c: V(T) \rightarrow \mathbb{N}^\Sigma$
      \end{itemize}
      \item Aktívny P systém je $(\Sigma, C_0, R_1, R_2, \dots, R_m)$, kde
      \begin{itemize}
@@ -448,7 +448,7 @@
 
   NEXT SLIDE
 
-  l je označenie membrán - zobrazenie vrcholov na čísla, kde označenie koreňa je 1
+  l je označenie membrán - zobrazenie vrcholov na čísla
 
   NEXT SLIDE
 
@@ -613,7 +613,7 @@
 
 \begin{frame}[t]\frametitle{P systémy s množinami objektov}
   \begin{itemize}
-    \item Alhazov \cite{Alhazov05WithoutMultiplicities}: počty objektov sa ignorujú
+    \item \cite{Alhazov05WithoutMultiplicities}: počty objektov sa ignorujú
     \pause
     \begin{itemize}
       \item Maximálny paralelizmus $\Rightarrow$ determinizmus.
@@ -623,7 +623,7 @@
       \item S aktívnymi membránami je model univerzálny.
       \pause
     \end{itemize}
-    \item Kleijn, Koutny \cite{Kleijn11SetMembrane}: ``min-enabled'' computational step (= sekvenčný mód)
+    \item \cite{Kleijn11SetMembrane}: ``min-enabled'' computational step (= sekvenčný mód)
     \pause
     \begin{itemize}
       \item Ekvivalencia s konečnostavovými automatmi.
@@ -657,31 +657,39 @@
 
   NEXT SLIDE
 
-  Sekvenčné P systémy pracujúce s množinami majú tieto vlastnosti: Pravidlá sú bez konfliktu, lebo objekty sa môžu zúčastniť ako reaktanty súčasne vo viacerých pravidlách a ak je objekt použitý aspoň v jednom pravidle ako reaktant, bude spotrebovaný.
+  Sekvenčné P systémy pracujúce s množinami majú tieto vlastnosti: Pravidlá sú bez konfliktu, lebo objekty sa môžu zúčastniť ako reaktanty súčasne vo viacerých pravidlách. Ak je objekt použitý aspoň v jednom pravidle ako reaktant, bude spotrebovaný.
 }
 
-\begin{frame}[t]\frametitle{Sekvenčné P systémy s množinami objektov a aktívnymi membránami}
+\againframe<3->[t]{active_p_system_definition}
+\note{
+  Na tomto mieste by som chcel znovu pripomenúť definíciu aktívneho P systému.
+}
+
+\begin{frame}[t]\frametitle{Aktívny P systém s množinami objektov}
   \begin{itemize}
-    \item $\Pi = (\Sigma, C_0, R_1, \ldots R_m)$
-    \pause
-    \item $C = (T, l, c)$
+    \item Membránova konfigurácia $(T, l, c)$, kde
     \begin{itemize}
+      \item $T$ je stromová štruktúra
       \item $l: V(T) \rightarrow \{1, \ldots, m\}$
       \item $c: V(T) \rightarrow 2^\Sigma$
-    \end{itemize}
-    \pause
-    \item Pravidlá
-    \begin{itemize}
-      \item $u\rightarrow w$
-      \item $u\rightarrow w\delta$
-      \item $u\rightarrow [_j v_1]_j v_2$,
-
-      kde $u \in \Sigma, |u|\geq 1$, $v_1,v_2\in \mathbb{N}$ a $w\in (\Sigma\times\{\cdot, \uparrow, \downarrow_{j}\})$
-    \end{itemize}
-
+     \end{itemize}
+     \item Aktívny P systém je $(\Sigma, C_0, R_1, R_2, \dots, R_m)$, kde
+     \begin{itemize}
+       \item $\Sigma$ je abeceda
+       \item $C_0$ je počiatočná membránová konfigurácia
+       \item $R_i$ je množina pravidiel
+     \end{itemize}
   \end{itemize}
 \end{frame}
-\note{}
+
+% \item Pravidlá
+% \begin{itemize}
+%   \item $u\rightarrow w$
+%   \item $u\rightarrow w\delta$
+%   \item $u\rightarrow [_j v_1]_j v_2$,
+
+%   kde $u \in \Sigma, |u|\geq 1$, $v_1,v_2\in \mathbb{N}$ a $w\in (\Sigma\times\{\cdot, \uparrow, \downarrow_{j}\})$
+% \end{itemize}
 
 \begin{frame}[t]\frametitle{Iné spôsoby vytvárania membrány}
   \begin{itemize}
@@ -696,6 +704,22 @@
     \item Wrap-or-create
   \end{itemize}
 \end{frame}
+\note{
+  Pravidlá, ktoré vytvárajú nové membrány, majú isté problémy. Napríklad, čo sa stane, ak sa dva krát po sebe vytvorí membrána s tým istým označením?
+  Tu máme dve možnosti. Bud vytvorenie druhej membrány v definícii nejakým spôsobom zakážeme, aby sme zachovali invariant, kde existuje iba jedna membrána s daným označením. Alebo povolíme dve susedné membrány s rovnakým označením, ale potom treba riešiť situáciu, ked sa posiela objekt do membrány, či sa pošle do jednej, alebo do obidvoch.
+
+  Podľa pôvodnej definície je pravidlo neaplikovateľné aj v prípade, ked sa posiela objekt do membrány s označením, ktoré sa v aktuálnom regione nenachádza.
+}
+\newpage
+\note{
+  Preto sme vymysleli alternatívne definície vytvárania membrány.
+
+  Inject or create zjednocuje pravidlo pre posielanie a pravidlo pre vytváranie membrány. V prípade, ak membrána s daným označením existuje, tak sa daný objekt do nej pošle. Ak neexistuje, tak sa daný objekt zabalí do novej membrány.
+
+  NEXT SLIDE
+
+  Wrap or create ponecháva explicitné pravidlo na vytvorenie novej membrány, ale ak membrána s daným označením uz existuje, tak ju zabalí do novej membrány s tým istým označením. 
+}
 
 \begin{frame}[t]\frametitle{Simulácia registrového stroja}
   \begin{center}
@@ -712,6 +736,24 @@
     \end{tabular}
   \end{center}
 \end{frame}
+\note{
+  Pri všetkých variantoch sme ukázali Turingovskú úplnosť pomocou simulácie registrového stroju. Jednotlivé simulácie sme medzi sebou porovnali s ohľadom na dve veličiny.
+  Merali sme maximálny počet membrán v niektorej konfigurácii P systému v závislosti od najvyššej hodnoty registra.
+  A tiež sme merali počet krokov výpočtu P systému potrebných na simuláciu jedného kroku registrového stroja.
+  V prvom riadku tabuľky je jednoduchá simulácia podľa pôvodnej definície, ktorá nie je veľmi efektívna. Na jeden krok registrového stroja je potrebných až $O(n)$ krokov.
+}
+\newpage
+\note{
+  Pomocou binárneho označenia membrán sa nám podarilo optimalizovať túto simuláciu na logaritmický čas.
+  
+  NEXT SLIDE
+
+  Pomocou sémantika inject or create sa sa podarilo simulovať registrový stroj podobným spôsobom s tou istou zložitosťou.
+
+  NEXT SLIDE
+
+  Sémantika wrap or create sa ukázala ako vhodnejšia, čo sa týka časovej zložitosti, ale počet vytvorených membrán v simulácii sa znížiť nepodarilo.
+}
 
 % subsection sekven_n_p_syst_my_s_mno_inami_namiesto_multimno_n (end)
 
@@ -729,6 +771,14 @@
     \item Objekt reprezetujúci vákuum
   \end{itemize}  
 \end{frame}
+\note{
+  Skúmali sme aj dalšie varianty, ktoré nejakým spôsobom umožňujú detekciu prázdnosti membrán, ktorá by bola špecifická pre P systémy.
+  Uvažovali sme napríklad objekty vyhýbajúce sa prázdnym membránam. Pravidlo posielajúce objekt do prázdnej membrány sa síce uplatní, ale daný objekt ostane v aktuálnej membráne.
+  V inom variante sa daný objekt síce pošle do membrány, ale ak je prázdna, tak sa z neho stane iný objekt.
+  A posledný variant obsahuje špeciálne objekty, ktoré reprezentujú vákum. Takýto objekt sa vytvorí automaticky v prázdnej membráne, nemôže byť vytvorený prepisovacím pravidlom. Môže ale byť na ľavej strane pravidiel, teda interagovať s inými objektami.
+
+  Pri týchto variantoch sme dosiahli iba čiastočné, alebo triviálne výsledky, ktoré neboli vhodné na publikáciu.
+}
 
 % section sk_man_varianty_p_syst_mov (end)
 
@@ -741,11 +791,33 @@
 
 \begin{frame}[t]{Vyjadrenia k posudkom}
   \begin{itemize}
-    \item Štandardnou motiváciou pre skúmanie týchto modelov je potenciál vysokého paralelizmu. Práca je príliš zameraná na sekvenčný mód, ktorý úplne eliminuje potenciál tohto modelu.
+    \item Dôkaz zrejme vyžaduje drobnú úpravu pre prípad $M(a_i) > 1$ v pravidle $r_j$ na str. 60
     \pause
-    \item V práci sa hovorí o slabých rozšíreniach sekvenčných P systémov s čiastočnými výsledkami. Aký je v uvedenom smere pokrok od podania dizertácie?
+    \item Pozor na formuláciu v dôkaze 4.2.6. Nekonečná postupnosť môže byť aj konštantná a vtedy rastúci pár neexistuje. Analogicky v dôkaze 4.2.7 treba rastúci pár zameniť za neklesajúci pár.
+    \pause
+    \item Ak porovnávam kódy ako reťazce, $enc(C_1) < enc(C_2)$ môže platiť aj v situácii, keď príslušné ``stromy'' nie sú izomorfné, čo podľa môjho názoru znamená, že dôkaz Lemy 4.2.5 neplatí (opačná implikácia platí).
+    \pause
+    \item Je nutné dávať dávať umelý predpoklad na ohraničenie počtu membrán zvonku cez zablokovanie aplikovateľnosti pravidla vytvárajúceho novú membránu v situácii, ktorá by viedla k prekročeniu stanoveného počtu membrán keď aktívne P-systémy s obmedzeným sumárnym počtom membrán sú univerzálne?
   \end{itemize}
 \end{frame}
+\note{
+  Áno, máte pravdu. Dôkaz funguje len pre pravidlá s ľavou stranou veľkosti nanajvýš 2. Napr. pre pravidlá s ľavou stranou veľkosti 3 by sme potrebovali, aby $M(a_i) = 2$. Dalo by sa to spraviť zavedením symbolov s dvomi bodkami, ktoré by mali v každej membráne nanajvýš 1 výskyt. Navyše by symbol s dvomi bodkami mohol vzniknúť iba, ak je prítomný symbol s jednou bodkou. Tým pádom by sme vedeli zistiť, že dané pravidlo s tromi rovnakými symbolmi na ľavej strane nie je aplikovateľné. Analogicky by to bolo aj pre väčšie počty symbolov na ľavej strane.
+
+  NEXT SLIDE
+
+  Áno, má tam byť neklesajúci. Hoci uvádzam znamienko <=, v texte mám increasing.
+}
+\newpage
+\note{
+  Keď stromy nie sú izomorfné, tak podľa preorderu dostanú iný order number, a teda v kódovaní bude nenulová iná časť. Tým pádom nebude platiť ani $enc(C_1) < enc(C_2)$ ani $enc(C_2) < enc(C_1)$. Inými slovami - ak sú kódovania porovnateľné $enc(C_1) < enc(C_2)$ alebo $enc(C_2) < enc(C_1)$, potom už nutne musí byť nenulová tá istá časť a teda stromy sú izomorfné.
+
+}
+\newpage
+\note{
+  Ak je otázka: ``Dá sa tento umelý predpoklad vynútiť inak?'' -> Nenapadá mi žiadny iný spôsob, ako by sa dalo v definícii vynútiť dodržiavanie tohto ohraničeni.
+
+  Ak je otázka: ``Fungoval by ten dôkaz aj bez tohto umelého predpokladu?'' -> Pravdepodobne áno, ale v dokáže využívame tento limit pri stanovení počtu navzájom neizomorfných stromov. Bez tohto umelého predpokladu máme iba hypotézu, že by to šlo pomocou tvrdenia, že ak máme nekonečnú postupnosť membránových štruktúr, kde susedné prvky postupnosti sa líšia len vytvorením alebo rozpustením membrány, tak sa v nej bude nejaká vlastnosť opakovať tak, aby existovali dva prvky postupnosti, ktoré sa dajú potom cykliť. 
+}
 
 \newsavebox\mytempbib
 \savebox\mytempbib{\parbox{\textwidth}{\bibliography{obhajoba}}}
