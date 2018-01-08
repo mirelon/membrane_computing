@@ -363,6 +363,28 @@
   Posielanie objektov cez membránu do obaľujúcej membrány sa môže vykonať vo fáze RUN. Ale ak by sme poslali objekt do vnútornej membrány, tá ešte môže byť vo fáze RESTORE predchádzajúceho maximálne paralelného kroku. V tom prípade by sa stihli poslané objekty ešte odznačiť a mohli by sa uplatniť pravidlá toho istého maximálne paralelného kroku. Preto musíme počkať na synchronizáciu a posielanie objektov nadol vykonávať medzi fázou SYNCHRONIZE a fázou RESTORE. Túto fázu sme nazvali SENDDOWN.
 }
 
+\begin{frame}[t]\frametitle{Zhrnutie výsledkov pre sekvenčné P systémy s inhibítormi}
+  \begin{itemize}
+    \item Sekvenčné P systémy s inhibítormi sú Turingovsky úplné
+    \pause
+    \item Podobné výsledky pre Petriho siete
+    \pause
+    \item Rozpúšťanie, vytváranie membrán, pravidlá s prioritami
+    \item Výskum iných obmedzení pravidiel
+  \end{itemize}
+\end{frame}
+\note{
+  Ukázali sme, že v akceptačnom aj v generatívnom mode sú sekvenčné P systémy s inhibítormi Turingovsky úplné.
+
+  NEXT SLIDE
+
+  Hoci tieto výsledky nie sú veľmi prekvapivé, nakoľko podobné výsledky s inhibítormi už boli ukázané pre Petriho siete, prínos týchto simulácií je aj v ukázaní spôsobu konverzie medzi rôznymi modelmi, čo môže pomôcť v daľšom výskume.
+
+  NEXT SLIDE
+
+  Další výskum môže nadviazať a doplniť simuláciu o iné aspekty P systémov, napriklad rozpúšťanie, vytváranie membrán, pravidlá s prioritami, ako aj skúsiť iné obmedzenie pravidiel, napíklad obmedzenie kooperácie alebo obmedzenie sily inhibítorov. 
+}
+
 % subsection sekven_n_p_syst_my_s_inhib_tormi (end)
 
 \subsection{Sekvenčné P systémy s aktívnymi membránami} % (fold)
@@ -370,13 +392,20 @@
 
 \begin{frame}[t]\frametitle{Sekvenčné P systémy s aktívnymi membránami}
   \begin{itemize}
-    \item Bez limitu počtu aplikovaní pravidla na vytvorenie membrány (RE \cite{Ibarra05Active})
+    \item Bez limitu počtu aplikovaní pravidla na vytvorenie membrány (PsRE \cite{Ibarra05Active})
     \pause
     \item \bibentry{Kovac15Active}
   \end{itemize}
-
-  
 \end{frame}
+\note{
+  Druhá publikácia tiež súvisí so sekvenčnými P systémami, ale namiesto inhibítorov sme uvažovali rozšírenie, ktoré je unikátne pre P systémy, a to sú aktívne membrány.
+
+  Ak povolíme pravidlá, ktoré vytvárajú nové membrány, a nestanovíme žiadny limit na počet aplikovaní takýchto pravidiel, dosiahneme Turingovskú úplnosť, ako ukázal Ibarra v roku 2005. Ukázal aj, že pri obmedzení počtu aplikovaní takýchto pravidiel je to ekvivalentné variantu bez takýchto pravidiel.
+
+  NEXT SLIDE
+
+  Analyzovali sme rozhodnuteľnosť niektorých behaviorálnych vlastností a výsledky sme prezentovali a boli publikované v zborníku z konferencie Computability in Europe 2015 v Bukurešti.
+}
 
 \begin{frame}[t]\frametitle{Problém zastavenia}
   \begin{itemize}
@@ -386,22 +415,153 @@
   \end{itemize}
 
 \end{frame}
-\note{}
+\note{ 
+  Problém zastavenia je definovaný iba pre deterministické modely.
+
+  NEXT SLIDE
+
+  Kedže pre netederministické modely môže výpočet zastaviť aj nezastaviť, má zmysel pýtať sa dve rôzne otázky: či existuje konečný výpočet a či existuje nekonečný výpočet.
+}
+
+\begin{frame}[t]\frametitle{Aktívny P systém}
+  \begin{itemize}
+    \item Membránova konfigurácia $(T, l, c)$, kde
+    \begin{itemize}
+      \item $T$ je stromová štruktúra
+      \pause
+      \item $l\in\mathbb{N}^{V(T)}, l(r_T)=1$
+      \pause
+      \item $c\in (\mathbb{N}^\Sigma)^V(T)$
+     \end{itemize}
+     \item Aktívny P systém je $(\Sigma, C_0, R_1, R_2, \dots, R_m)$, kde
+     \begin{itemize}
+       \item $\Sigma$ je abeceda
+       \item $C_0$ je počiatočná membránová konfigurácia
+       \item $R_i$ je množina pravidiel
+     \end{itemize}
+  \end{itemize}
+\end{frame}
+\note{
+  Aby sa pri dôkazoch lepšie manipulovalo s konfiguráciou, upravili sme definíciu aktívneho P systému, kde sme izolovali pojem membránová konfigurácia.
+
+  Je to trojica (T, l, c), kde T je stromová štruktúra
+
+  NEXT SLIDE
+
+  l je označenie membrán - zobrazenie vrcholov na čísla, kde označenie koreňa je 1
+
+  NEXT SLIDE
+
+  c je zobrazenie vrcholov stromu T na multimnožinu symbolov, čo predstavuje obsah membrány.
+}
+\newpage
+\note{
+  Aktívny P systém je m+2 tica, kde $\Sigma$ je abeceda, $C_0$ je počiatočná membránová konfigurácia a $R_i$ je množina pravidiel asociovaná s označením membrány $i$. Okrem pôvodne definovaných typov pravidiel máme aj pravidlo na vytvorenie membrány s daným označením a daným obsahom. 
+}
+
+\begin{frame}[t]{Existencia konečného výpočtu}
+  \begin{itemize}
+    \item Nerozhodnuteľný problém
+    \pause
+    \item Redukcia na halting problem  
+  \end{itemize}  
+\end{frame}
+\note{
+  Podarilo sa nám dokázať, že existencia konečného výpočtu pre sekvenčné P systémy s aktívnymi membránami je nerozhodnuteľný problém.
+
+  NEXT SLIDE
+
+  Dôkaz je pomocou redukcie. Ibarra v článku uvádza simuláciu, vdaka ktorej môžeme tvrdiť, že ak by sme vedeli rozhodovať existenciu konečného výpočtu pre sekvenčné P systémy s aktívnymi membránami, potom by sme vedeli rozhodovať existenciu konečného výpočtu pre registrové stroje, čo je už známy nerozhodnuteľný problém.
+}
 
 \begin{frame}[t]\frametitle{Existencia nekonečného výpočtu}
   \begin{itemize}
+    \item Rozhodnuteľný problém
+    \pause
+    \item Obmedzenie na počet membrán
+    \pause
     \item Graf dosiahnuteľnosti
-    \pause
-    \item Čiastočné usporiadanie $\leq$:
-    \begin{itemize}
-      \item $C_1 \leq C_2 \Rightarrow$ každé pravidlo v $C_1$ je aplikovateľné v $C_2$.
-      \pause
-      \item Pre každú nekonečnú postupnosť konfigurácií existuje $C_1, C_2$: $C_1 \rightarrow^* C_2$ a $C_1 \leq C_2$.
-    \end{itemize}
-    \pause
-    \item Dicksonova lemma: Pre každú nekonečnú postupnosť n-tíc nad $\mathbb{N}$ $\{a_i\}_{i=0}^\infty$ existujú $i<j$: $a_i\leq a_j$
   \end{itemize}
 \end{frame}
+\note{
+  Skúmali sme aj opačný problém - existenciu nekonečného výpočtu.
+  Podarilo sa nám dokázať opačný výsledok - je to rozhodnuteľný problém.
+}
+\newpage
+\note{
+  Dôkaz uvádzame iba pre obmedzenie na počet membrán, ktoré sa nachádzajú v ľubovoľnej konfigurácii. Veríme, že to platí aj bez tohto obmedzenia, rozšíriť dôkaz sa ale napriek snahe nepodarilo.
+
+  Obmedzenie na počet membrán vynútime upravenou definíciou, pravidlo na vytvorenie membrány je aplikovateľné, iba ak je počet membrán v konfigurácii menší ako stanovený limit.
+  Aj ked toto obmedzenie nie je veľmi realistické z biologického hľadiska, výsledok je zaujímavý, lebo sekvenčné P systémy s aktívnymi membránami sú Turingovsky úplné aj s týmto obmedzením - pri simulácii registrového stroja sa v každej konfigurácii nachádzajú najviac tri membrány.
+
+  Dôkaz využíva graf dosiahnuteľnosti. V prípade jednej membrány konfigurácia obsahuje iba multimnožinu objektov, preto sa dá použiť štandardná konštrukcia grafu dosiahnuteľnosti pre Petriho siete.
+}
+
+
+\begin{frame}[t]\frametitle{Existencia nekonečného výpočtu}
+  \begin{itemize}
+    \item Čiastočné usporiadanie $\leq$:
+    \pause
+    \begin{itemize}
+      \item $C_1 = (T_1, l_1, c_1)$
+      \item $C_2 = (T_2, l_2, c_2)$
+      \pause
+      \item $C_1 \leq C_2$, ak $\exists$ izomorfizmus $f: T_1\rightarrow T_2$ taký, že: $\forall d\in T_1$ platí:
+      \pause
+      \begin{itemize}
+        \item $l_1(d) = l_2(f(d))$
+        \pause
+        \item $c_1(d)\subseteq c_2(f(d))$
+      \end{itemize}
+    \end{itemize}
+    \pause
+    \item $C_1 \leq C_2 \Rightarrow$ každé pravidlo v $C_1$ je aplikovateľné v $C_2$.
+  \end{itemize}
+\end{frame}
+\note{
+  Vo všeobecnosti potrebujeme ale rozšíriť definíciu čiastočného usporiadania konfigurácií.
+
+  NEXT SLIDE
+
+  Majme konfigurácie $C_1$ a $C_2$.
+
+  NEXT SLIDE
+
+  $C_1$ je menšia ako $C_2$ ($C_2$ pokrýva $C_1$), ak existuje izomorfizmus $f$, ktorý pre každú membránu:
+  
+  NEXT SLIDE
+
+  zachováva označenia $l_1(d) = l_2(f(d))$
+
+  NEXT SLIDE
+
+  a zachováva obsah: $c_1(d)\subseteq c_2(f(d))$
+
+  NEXT SLIDE
+
+  Táto definícia nám umožňuje tvrdiť, že ak $C_2$ pokrýva $C_1$, potom každé pravidlo aplikovateľné v $C_1$ je aplikovateľné v $C_2$.
+}
+
+\begin{frame}[t]\frametitle{Existencia nekonečného výpočtu}
+  \begin{itemize}
+    \item Dicksonova lemma: Pre každú nekonečnú postupnosť n-tíc nad $\mathbb{N}$ $\{a_i\}_{i=0}^\infty$ existujú $i<j$: $a_i\leq a_j$
+    \pause
+    \item Pre každú nekonečnú postupnosť konfigurácií existuje $C_1, C_2$: $C_1 \rightarrow^* C_2$ a $C_1 \leq C_2$.
+    \pause
+    \item Kodovanie konfigurácií $enc(C_1)\leq enc(C_2) \Rightarrow C_1 \leq C_2$
+  \end{itemize}
+\end{frame}
+\note{
+  Na tomto mieste by som chcel spomenúť Dicksonovu lemu. Tá tvrdí, že pre každú nekonečnú postupnosť n-tíc nad $\mathbb{N}$ $\{a_i\}_{i=0}^\infty$ existujú $i<j$: $a_i\leq a_j$.
+
+  NEXT SLIDE
+
+  Dokážeme nasledovné tvrdenie: Pre každú nekonečnú postupnosť konfigurácií existuje $C_1, C_2$: $C_1 \rightarrow^* C_2$ a $C_1 \leq C_2$.
+
+  NEXT SLIDE
+
+  Definujeme kodovanie konfigurácií do ntíc s vlastnosťou, že ak $enc(C_1)\leq enc(C_2)$, potom $C_1 \leq C_2$. Vdaka tomuto kodovaniu a pomocou Dicksonovej lemy dokážeme aj pôvodnú vetu, že pre každú nekonečnú postupnosť konfigurácií existuje $C_1, C_2$: $C_1 \rightarrow^* C_2$ a $C_1 \leq C_2$.
+}
 
 \begin{frame}[t]{Algoritmus rozhodujúci existenciu nekonečného výpočtu}
   \begin{itemize}
@@ -410,12 +570,16 @@
     \item Ak traverzovanie skončilo $\Rightarrow$ NO.
   \end{itemize}
 \end{frame}
+\note{
+  Algoritmus, ktorý rozhoduje existencu nekonečného výpočtu je teda nasledovný:
 
-\begin{frame}[t]{Existencia konečného výpočtu}
-  \begin{itemize}
-    \item Pre daný P systém $\Pi$ a danú konfiguráciu $C$ vieme zostrojiť P systém $\Pi^\prime: \exists$ konečný výpočet $\Pi^\prime\Leftrightarrow C$ je dosiahnuteľná v $\Pi$.  
-  \end{itemize}  
-\end{frame}
+  Traverzuj graf dosiahnuteľnosti.
+  
+  Ak sa dosiahne konfigurácia $C_2$, taká, že na ceste z počiatočnej konfigurácie existuje $C_1$ taká, že $C_2$ pokrýva $C_1$, tak nekonečný výpočet existuje.
+  Ak traverzovanie skončilo, tak nekonečný výpočet neexistuje.
+
+  Dokazali sme, že existencia nekonečného výpočtu sa pri sekvenčných P systémov s aktívnymi membránami s obmedzením na počet membrán dá rozhodovať. Výskum môže pokračovať úpravou dôkazu, kde sa odstráni toto obmedzenie.
+}
 
 % subsection detekcia_pr_zdnosti_membr_n (end)
 
@@ -427,6 +591,9 @@
     \item \bibentry{Kovac15Set}
   \end{itemize}
 \end{frame}
+\note{
+  Skúmali sme aj varianty inšpirované formalizmom Reaction Systems, konkrétne, nahradili sme obsah membrány, namiesto multimnožín uvažujeme množiny objektov.
+}
 
 \begin{frame}[t]{Nevýhody používania multimnožín}
   \begin{itemize}
@@ -434,6 +601,15 @@
     \item Nepraktická analýza kvôli veľkosti stavového priestoru
   \end{itemize}
 \end{frame}
+\note{
+  K tomuto rozhodnutiu nás viedli dve otázky.
+
+  Nakoľko realistické je reprezentovať presný počet objektov? Niekedy nás zaujíma iba výskyt, napríklad či sa v membráne nachádza vírus, alebo nie.
+
+  NEXT SLIDE
+
+  Ak uvažujeme multimnožiny, máme problém explozie stavového priestoru, ktorý sa potom neprakticky analyzuje. V prípade množín je stavový priestor menší, čo umožňuje jednoduchšiu analýzu.
+}
 
 \begin{frame}[t]\frametitle{P systémy s množinami objektov}
   \begin{itemize}
@@ -460,7 +636,29 @@
     \end{itemize}
   \end{itemize}
 \end{frame}
-\note{}
+\note{
+  Alhazov v roku 2005 uvažoval o P systémoch, kde sa ignorovali počty objektov. Pri maximálnom paralelizme je výpočet deterministický, lebo pravidlá nie sú navzájom konfliktné a maximálna multimnožina simultánne aplikovateľných pravidliel je v každej konfigurácii iba jedna.
+
+  NEXT SLIDE
+
+  Takto definované P systémy sú ekvivalentné s konečnostavovými automatmi, čo sa týka výpočtovej sily.
+
+  NEXT SLIDE
+
+  S aktívnymi membránami je model univerzálny.
+}
+\newpage
+\note{
+  Kleijn a Koutny v roku 2011 skúmali rôzne mody výpočtu pre P systémy pracujúce s množinami a sekvenčný bol tiež spomenutý pod názvom ``min-enabled''.
+
+  NEXT SLIDE
+
+  Ukázala sa ekvivalencia s konečnostavovými automatmi.
+
+  NEXT SLIDE
+
+  Sekvenčné P systémy pracujúce s množinami majú tieto vlastnosti: Pravidlá sú bez konfliktu, lebo objekty sa môžu zúčastniť ako reaktanty súčasne vo viacerých pravidlách a ak je objekt použitý aspoň v jednom pravidle ako reaktant, bude spotrebovaný.
+}
 
 \begin{frame}[t]\frametitle{Sekvenčné P systémy s množinami objektov a aktívnymi membránami}
   \begin{itemize}
