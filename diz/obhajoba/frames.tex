@@ -32,8 +32,8 @@
 \section{Prehľad problematiky} % (fold)
 \label{sec:prehlad_problematiky}
 
-\subsection{Prehľad modelov} % (fold)
-\label{sub:prehlad_modelov}
+\subsection{Biologicky motivované modely} % (fold)
+\label{sub:biologicky_motivovane_modely}
 
 \begin{frame}[t]\frametitle{Biologicky motivované \\výpočtové modely}
   Dvojaké uplatnenie:
@@ -69,7 +69,7 @@
   Dlho skúmané modely ako neurónové siete, celulárne automaty, evolučné algoritmy, L systémy, či swarm intelligence, si už našli svoje uplatnenie v praxi, kým membránové systémy sú ešte len v začiatkoch svojho vývoja.
 }
 
-% subsection prehlad_modelov (end)
+% subsection biologicky_motivovane_modely (end)
 
 \subsection{P systémy} % (fold)
 \label{sub:p_systemy}
@@ -80,9 +80,9 @@
   \includegraphics[width=0.3\textwidth]{membrane_tree.png}
   \pause
   \begin{itemize}
-    \item Multimnožiny
+    \item Multimnožiny objektov
     \pause
-    \item Pravidlá
+    \item Prepisovacie pravidlá
   \end{itemize}
 
 \end{frame}
@@ -91,7 +91,7 @@
 
   NEXT SLIDE
 
-  Obsahom regionov je multimnožina objektov, ktoré v realite predstavujú napr. molekuly, vírusy, enzýmy alebo proteíny.
+  Obsahom regionov sú multimnožiny objektov, ktoré v realite predstavujú napr. molekuly, vírusy, enzýmy alebo proteíny.
 
   NEXT SLIDE
 
@@ -117,6 +117,70 @@
   Delta je špeciálny symbol, ktorý nepatrí abecede, ktorý ked je prítomný, tak po aplikovaní pravidla sa rozpustí membrána, v ktorej sa pravidlo aplikovalo a obsah membrány sa vyleje von.
 
   Pravidlo je aplikovateľné v danom regione, ak sú reaktanty obsiahnuté v multimnožine objektov, ktorá sa aktuálne nachádza v danom regione.  
+}
+
+
+\begin{frame}[t]\frametitle{Prepisovacie pravidlá}
+  \includegraphics[scale=0.3]{fibonacci_rules.jpg}
+\end{frame}
+\note{
+  Toto je ukážka P systému, ktorý generuje Fibonacciho postupnosť. Má tri membrány a pracuje s piatimi objektami a,b,c,d,e. V membráne s označením 1 sú dve pravidlá. Prvé pravidlo prepíše objekt c na objekty a,b,e, a pošle objekty a,b do vnútornej membrány a objekt e do vonkajšej membrány. Druhé pravidlo prepíše objekt d na objekt a a pošle ho do vnútornej membrány. Vo vnútornej membráne sú dve pravidlá. Prvé prepíše a na c a pošle ho von. Druhé pravidlo prepíše b na d a pošle ho von.
+}
+    
+\begin{frame}[t]\frametitle{Krok výpočtu P systému}
+  \begin{itemize}
+    \item Krok výpočtu
+    \begin{itemize}
+      \item Sekvenčný
+      \item Paralelný
+      \item Maximálne paralelný
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+\note{
+  Postupné uplatňovanie pravidiel definuje výpočet.
+
+  V jednom kroku výpočtu sa uplatní:
+  \begin{itemize}
+    \itemsep0em
+    \item presne jedno pravidlo (sekv. mod)
+    \item aspoň jedno pravidlo (paralelný mod)
+    \item maximálna multimnožina pravidiel
+  \end{itemize}
+
+  V pôvodnej definícii, ktorú uvádza Paun, sa používa maximálny paralelizmus.
+}
+
+\begin{frame}[t]\frametitle{Ukážka výpočtu P systému}
+  \includegraphics[scale=0.3]{fibonacci.jpg}
+\end{frame}
+\note{
+  V úvodnej konfigurácii ukážkového P systému je aplikovateľné iba prvé pravidlo vo vnútornej membráne. A sa prepíše na c a pošle von. V dalšom kroku sa v prepíše na abe, e sa pošle von, ab dnu. V dalšom kroku sa vdaka maximálnemu paralelizmu musia aplikovať vo vnútornej membráne obidve pravidlá, preto sa objekty ab prepíšu na cd a pošlú von. V daľšom kroku sa vdaka maximálnemu paralelizmu musia aplikovať obidve pravidlá, preto pôjdu dve áčka a jedno béčko do vnútornej membrány a jedno éčko von.
+
+  Tento výpočet nikdy neskončí a každý druhý krok sa do vonkajšej membrány pošle počet éčok zodpovedajúci dalšiemu prvku Fibonacciho postupnosti.
+}
+
+\begin{frame}[t]\frametitle{Jazyk definovaný P systémom}
+  \begin{itemize}
+    \item Jazyk nad posupnosťami/multimnožinami objektov
+    \begin{itemize}
+      \item Generatívny mód: postupnosť/multimnožina objektov vypustených do okolitého prostredia
+      \pause
+      \item Akceptačný mód: vstupnú multimnožinu vložíme do špecifickej membrány, ak výpočet zastaví, akceptujeme
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+\note{
+  P systém definuje jazyk rôznymi spôsobmi. Môže to byť jazyk nad slovami - postupnosťami objektov alebo jazyk nad multimnožinami.
+  
+  V generatívnom mode môžeme zobrať objekty vypustené do prostredia počas výpočtu a túto postupnosť objektov alebo multimnožinu objektov zahrnúť do jazyka.
+  Kedže pre daný P systém vdaka nedeterminizmu existuje viac možných výpočtov, veľkosť definovaného jazyka môže byť aj väčsia ako 1.
+}
+\newpage
+\note{
+  V akceptačnom mode vstupnú multimnožinu vložíme do špecifickej membrány a spustíme výpočet, ktorý ak zastaví, tak vstupnú multimnožinu zahrnieme do jazyka.
+
+  Pre väčšinu známych modelov sú generatívny aj akceptačný mod rovnako silné, u P systémoch to nie je vždy tak, preto sa oplatí skúmať obidva mody.
 }
 
 \begin{frame}[t]\frametitle{Varianty pravidiel}
@@ -151,50 +215,6 @@
 \note{
   Katalytické pravidlá umožňujú objektom interagovať iba s objektom z množiny katalizátorov.
   Dva katalyzátory stačia na Turingovskú úplnosť. Výpočtovú silu P systémov s jedným katalyzátorom nevieme zaradiť, je to otvorený problém. Ak ale umožníme pravidlá s inhibítormi, dosiahneme Turingovskú úplnosť.
-}
-    
-\begin{frame}[t]\frametitle{Výpočet a jazyk}
-  \begin{itemize}
-    \item Krok výpočtu
-    \begin{itemize}
-      \item Sekvenčný
-      \item Paralelný
-      \item Maximálne paralelný
-    \end{itemize}
-    \pause
-    \item Jazyk
-    \begin{itemize}
-      \item Generatívny mód: postupnosť objektov vypustených do okolitého prostredia
-      \pause
-      \item Akceptačný mód: vstupnú multimnožinu vložíme do špecifickej membrány, ak výpočet zastaví, akceptujeme
-    \end{itemize}
-  \end{itemize}
-\end{frame}
-\note{
-  Postupné uplatňovanie pravidiel definuje výpočet.
-
-  V jednom kroku výpočtu sa uplatní:
-  \begin{itemize}
-    \itemsep0em
-    \item presne jedno pravidlo (sekv. mod)
-    \item aspoň jedno pravidlo (paralelný mod)
-    \item maximálna multimnožina pravidiel
-  \end{itemize}
-
-  V pôvodnej definícii, ktorú uvádza Paun, sa používa maximálny paralelizmus.
-}
-\newpage
-\note{
-  P systém definuje jazyk rôznymi spôsobmi. Môže to byť jazyk nad slovami - postupnosťami objektov alebo jazyk nad multimnožinami.
-  
-  V generatívnom mode môžeme zobrať objekty vypustené do prostredia počas výpočtu a túto postupnosť objektov alebo multimnožinu objektov zahrnúť do jazyka.
-  Kedže pre daný P systém vdaka nedeterminizmu existuje viac možných výpočtov, veľkosť definovaného jazyka môže byť aj väčsia ako 1.
-}
-\newpage
-\note{
-  V akceptačnom mode vstupnú multimnožinu vložíme do špecifickej membrány a spustíme výpočet, ktorý ak zastaví, tak vstupnú multimnožinu zahrnieme do jazyka.
-
-  Pre väčšinu známych modelov sú generatívny aj akceptačný mod rovnako silné, u P systémoch to nie je vždy tak, preto sa oplatí skúmať obidva mody.
 }
 
 \begin{frame}[t]\frametitle{Sekvenčné P systémy}
@@ -232,16 +252,43 @@
 \subsection{Sekvenčné P systémy s inhibítormi} % (fold)
 \label{sub:sekven_n_p_syst_my_s_inhib_tormi}
 
-\begin{frame}[t]\frametitle{Sekvenčné P systémy s inhibítormi}
-  \begin{itemize}
-    \item \bibentry{Kovac14}
-  \end{itemize}
-  \vfill\vspace{3cm}\hfill\includegraphics[scale=0.05]{water.png}
+\begin{frame}[c]\frametitle{Vlastné výsledky}
+  \centering
+  \Huge Vlastné výsledky
 \end{frame}
 \note{
-  Posledný zo spomenutých rozšírení sme prezentovali na konferencii Computability in Europe 2014 a náš článok je publikovaný v zborníku.
+  Teraz nasleduje druhá časť prezentácie, v ktorej predstavím vlastné výsledky.
+  \includegraphics[scale=0.05]{water.png}
 }
 
+\begin{frame}[c]\frametitle{Sekvenčné P systémy s inhibítormi}
+  \centering
+  \Huge 1. Sekvenčné P systémy s inhibítormi
+\end{frame}
+\note{
+  Prvý variant P systémov, ktorým sme sa zaoberali, sú sekvenčné P systémy s inhibítormi.
+}
+
+\begin{frame}[t]\frametitle{Sekvenčné P systémy s inhibítormi}
+  \begin{itemize}
+    \item Pravidlo s inhibítormi: $u\rightarrow v|_I$, $I\subseteq\Sigma$
+    \pause
+    \item Turingovská úplnosť pre akceptačný aj generatívny mód
+    \pause
+    \item \bibentry{Kovac14}
+  \end{itemize}
+\end{frame}
+\note{
+  Toto rozšírenie umožňuje k pravidlám pridať množinu inhibítorov I, z ktorých ak sa aspoň jeden nachádza v aktuálnej membráne, pravidlo nie je aplikovateľné.
+
+  NEXT SLIDE
+
+  Dokázali sme Turingovskú úplnosť pre akceptačný aj generatívny mód.
+
+  NEXT SLIDE
+
+  Tieto výsledky sme prezentovali na konferencii Computability in Europe 2014 a náš článok je publikovaný v zborníku.
+}
 
 \begin{frame}[t]\frametitle{Prehľad simulácie pre akceptačný mód}
   \begin{itemize}
@@ -259,7 +306,7 @@
   \end{itemize}
 \end{frame}
 \note{
-  Uviedli sme dôkaz Turingovskej úplnosti pre akceptačný aj generatívny mod. Pre akceptačný mod sme ukázali simuláciu registrového stroja. Obsah registra x sa reprezentuje početnosťou objektu x. Navyše máme objekt pre každú inštrukciu. Inhibítory sme využili na simuláciu inštrukcie SUB.
+  Pre akceptačný mód sme ukázali simuláciu registrového stroja. Obsah registra x sa reprezentuje početnosťou objektu x. Navyše máme objekt pre každú inštrukciu. Inhibítory sme využili na simuláciu inštrukcie SUB.
 }
 
 \begin{frame}[t]\frametitle{Prehľad simulácie pre akceptačný mód}
@@ -268,7 +315,7 @@
     \pause
     \item P systém $(\Sigma, \mu, w, R)$
     \begin{itemize}
-      \item $\Sigma = Lab\cup a_j, 1\leq j\leq n\cup \#$
+      \item $\Sigma = Lab\cup \#\cup a_j, 1\leq j\leq n$
       \pause
       \item $w = i\cup a_i^{n_i}, n_i$ je počiatočná hodnota registra $i$
       \pause
@@ -312,7 +359,7 @@
 \note{
   Ked uvažujeme registrové stroje, kde musia byť všetky registre prázdne, aby sa výpočet korektne ukončil, máme pravidlá, ktoré pri dosiahnutí koncovej inštrukcie $h$, ak je niektorý register neprázdny, vytvorí sa špeciálny symbol, ktorý tam už ostane navždy, a vdaka poslednému pravidlu sa dosiahne, že výpočet nezastaví.
 
-  Dokázali sme, že pre každý registrový stroj vieme zostrojiť sekvenčný P systém s inhibítormi, ktorý v akceptačnom mode zastaví na rovnakých vstupoch ako registrový stroj.
+  Dokázali sme, že pre každý registrový stroj vieme zostrojiť sekvenčný P systém s inhibítormi, ktorý v akceptačnom móde zastaví na rovnakých vstupoch ako registrový stroj.
 }
 
 \begin{frame}[t]\frametitle{Prehľad simulácie pre generatívny mód}
@@ -334,7 +381,7 @@
   \end{itemize}
 \end{frame}
 \note{
-  V generatívnom mode sme sa rozhodli pre simuláciu maximálne paralelného P systému Pi 1 pomocou sekvenčného P systému s inhibítormi Pi 2.
+  V generatívnom móde sme sa rozhodli pre simuláciu maximálne paralelného P systému Pi 1 pomocou sekvenčného P systému s inhibítormi Pi 2.
 
   NEXT SLIDE
 
@@ -371,7 +418,7 @@
   \end{itemize}
 \end{frame}
 \note{
-  Ukázali sme, že v akceptačnom aj v generatívnom mode sú sekvenčné P systémy s inhibítormi Turingovsky úplné.
+  Ukázali sme, že v akceptačnom aj v generatívnom móde sú sekvenčné P systémy s inhibítormi Turingovsky úplné.
 
   NEXT SLIDE
 
@@ -379,7 +426,7 @@
 
   NEXT SLIDE
 
-  Další výskum môže nadviazať a doplniť simuláciu o iné aspekty P systémov, napriklad rozpúšťanie, vytváranie membrán, pravidlá s prioritami, ako aj skúsiť iné obmedzenie pravidiel, napíklad obmedzenie kooperácie alebo obmedzenie sily inhibítorov. 
+  Další výskum môže nadviazať a doplniť simuláciu o iné aspekty P systémov, napriklad rozpúšťanie, vytváranie membrán, pravidlá s prioritami, ako aj skúsiť iné obmedzenie pravidiel, napríklad obmedzenie kooperácie alebo obmedzenie sily inhibítorov.
 }
 
 % subsection sekven_n_p_syst_my_s_inhib_tormi (end)
@@ -387,22 +434,41 @@
 \subsection{Sekvenčné P systémy s aktívnymi membránami} % (fold)
 \label{sub:sekven_n_p_syst_my_s_akt_vnymi_membr_nami}
 
+\begin{frame}[c]\frametitle{Sekvenčné P systémy s aktívnymi membránami}
+  \centering
+  \Huge 2. Sekvenčné P systémy s aktívnymi membránami
+\end{frame}
+\note{
+  Druhý variant P systémov, ktorým sme sa zaoberali, sú sekvenčné P systémy s aktívnymi membránami.
+  \includegraphics[scale=0.05]{water.png}
+}
+
 \begin{frame}[t]\frametitle{Sekvenčné P systémy s aktívnymi membránami}
   \begin{itemize}
+    \item Pravidlo, ktoré vytvorí membránu: $u\rightarrow [_j v]_j$, $u\in \mathbb{N}^\Sigma, v\in \mathbb{N}^\Sigma, 1\leq j\leq m$
+    \pause
     \item Bez limitu počtu aplikovaní pravidla na vytvorenie membrány (PsRE \cite{Ibarra05Active})
+    \pause
+    \item Rozhodnuteľnosť existencie nekonečného výpočtu
+    \item Nerozhodnuteľnost existencie konečného výpočtu
     \pause
     \item \bibentry{Kovac15Active}
   \end{itemize}
-  \vfill\vspace{1cm}\hfill\includegraphics[scale=0.05]{water.png}
 \end{frame}
 \note{
-  Druhá publikácia tiež súvisí so sekvenčnými P systémami, ale namiesto inhibítorov sme uvažovali rozšírenie, ktoré je unikátne pre P systémy, a to sú aktívne membrány.
-
-  Ak povolíme pravidlá, ktoré vytvárajú nové membrány, a nestanovíme žiadny limit na počet aplikovaní takýchto pravidiel, dosiahneme Turingovskú úplnosť, ako ukázal Ibarra v roku 2005. Ukázal aj, že pri obmedzení počtu aplikovaní takýchto pravidiel je to ekvivalentné variantu bez takýchto pravidiel.
+  Pravidlo, ktoré vytvorí membránu, na pravej strane špecifikuje označenie membrány a multimnožinu objektov, ktoré sa v nej budú po vytvorení nachádzať.
 
   NEXT SLIDE
 
-  Analyzovali sme rozhodnuteľnosť niektorých behaviorálnych vlastností a výsledky sme prezentovali a boli publikované v zborníku z konferencie Computability in Europe 2015 v Bukurešti.
+  Ak pre sekvenčné P systémy povolíme pravidlá, ktoré vytvárajú nové membrány, a nestanovíme žiadny limit na počet aplikovaní takýchto pravidiel, dosiahneme Turingovskú úplnosť, ako ukázal Ibarra v roku 2005. Ukázal aj, že pri obmedzení počtu aplikovaní takýchto pravidiel je to ekvivalentné variantu bez takýchto pravidiel.
+
+  NEXT SLIDE
+
+  Pre tento variant sme analyzovali rozhodnuteľnosť behaviorálnych vlastností. Podarilo sa nám dokázať, ze existencia nekonečného výpočtu je rozhodnuteľný problém a existencia konečného výpočtu je nerozhodnuteľný problém.
+
+  NEXT SLIDE
+
+  Tieto výsledky sme prezentovali a boli publikované v zborníku z konferencie Computability in Europe 2015 v Bukurešti.
 }
 
 \begin{frame}[t]\frametitle{Problém zastavenia}
@@ -414,7 +480,7 @@
 
 \end{frame}
 \note{ 
-  Problém zastavenia je definovaný iba pre deterministické modely.
+  Spomenuté behaviorálne vlastnosti sa podobajú na problém zastavenia. Ten je ale definovaný iba pre deterministické modely.
 
   NEXT SLIDE
 
@@ -442,15 +508,15 @@
 \note{
   Aby sa pri dôkazoch lepšie manipulovalo s konfiguráciou, upravili sme definíciu aktívneho P systému, kde sme izolovali pojem membránová konfigurácia.
 
-  Je to trojica (T, l, c), kde T je stromová štruktúra
+  Je to trojica $(T, l, c)$, kde $T$ je stromová štruktúra
 
   NEXT SLIDE
 
-  l je označenie membrán - zobrazenie vrcholov na čísla
+  $l$ je označenie membrán - zobrazenie vrcholov na čísla
 
   NEXT SLIDE
 
-  c je zobrazenie vrcholov stromu T na multimnožinu symbolov, čo predstavuje obsah membrány.
+  $c$ je zobrazenie vrcholov stromu $T$ na multimnožinu symbolov, čo predstavuje obsah membrány.
 }
 \newpage
 \note{
@@ -575,8 +641,21 @@
   
   Ak sa dosiahne konfigurácia $C_2$, taká, že na ceste z počiatočnej konfigurácie existuje $C_1$ taká, že $C_2$ pokrýva $C_1$, tak nekonečný výpočet existuje.
   Ak traverzovanie skončilo, tak nekonečný výpočet neexistuje.
+}
 
-  Dokazali sme, že existencia nekonečného výpočtu sa pri sekvenčných P systémov s aktívnymi membránami s obmedzením na počet membrán dá rozhodovať. Výskum môže pokračovať úpravou dôkazu, kde sa odstráni toto obmedzenie.
+\begin{frame}[t]\frametitle{Zhrnutie výsledkov pre sekvenčné P systémy s aktívnymi membránami}
+  \begin{itemize}
+    \item Existencia nekonečného výpočtu je rozhodnuteľná.
+    \pause
+    \item Existencia konečného výpočtu je nerozhodnuteľná.
+  \end{itemize}
+\end{frame}
+\note{
+  Dokazali sme, že existencia nekonečného výpočtu sa pri sekvenčných P systémov s aktívnymi membránami s obmedzením na počet membrán dá rozhodovať. Otvorený problém ostáva, či to platí pre variant bez tohto obmedzenia. Veríme, že áno, ale nemáme k tomu dôkaz.
+
+  NEXT SLIDE
+
+  Tiež sme dokázali, že existencia konečného výpočtu je nerozhodnuteľná. Dokázali sme to pomocou redukcie na problém zastavenia.
 }
 
 % subsection detekcia_pr_zdnosti_membr_n (end)
@@ -584,23 +663,29 @@
 \subsection{Sekvenčné P systémy s množinami namiesto multimnožín} % (fold)
 \label{sub:sekven_n_p_syst_my_s_mno_inami_namiesto_multimno_n}
 
-\begin{frame}[t]{Sekvenčné P systémy s množinami namiesto multimnožín}
-  \begin{itemize}
-    \item \bibentry{Kovac15Set}
-  \end{itemize}
-  \vfill\vspace{2.5cm}\hfill\includegraphics[scale=0.05]{water.png}
+\begin{frame}[c]\frametitle{Sekvenčné P systémy s množinami namiesto multimnožín}
+  \centering
+  \Huge 3. Sekvenčné P systémy s množinami namiesto multimnožín
 \end{frame}
 \note{
-  Skúmali sme aj varianty inšpirované formalizmom Reaction Systems, konkrétne, nahradili sme obsah membrány, namiesto multimnožín uvažujeme množiny objektov.
+  Tretí variant P systémov, ktorým sme sa zaoberali, sú sekvenčné P systémy s množinami namiesto multimnožín.
+  \includegraphics[scale=0.05]{water.png}
 }
 
-\begin{frame}[t]{Nevýhody používania multimnožín}
+\begin{frame}[t]{Sekvenčné P systémy s množinami namiesto multimnožín}
   \begin{itemize}
+    \item Inšpirácia z Reaction systems
+    \pause
     \item Nakoľko realistické je reprezentovať presný počet objektov?
+    \pause
     \item Nepraktická analýza kvôli veľkosti stavového priestoru
   \end{itemize}
 \end{frame}
 \note{
+  Inšpirácia pre tento variant pramenila z formalizmu Reaction systems. Nahradili sme obsah membrány, kde namiesto multimnožín uvažujeme množiny objektov.
+
+  NEXT SLIDE
+
   K tomuto rozhodnutiu nás viedli dve otázky.
 
   Nakoľko realistické je reprezentovať presný počet objektov? Niekedy nás zaujíma iba výskyt, napríklad či sa v membráne nachádza vírus, alebo nie.
@@ -681,15 +766,6 @@
   \end{itemize}
 \end{frame}
 
-% \item Pravidlá
-% \begin{itemize}
-%   \item $u\rightarrow w$
-%   \item $u\rightarrow w\delta$
-%   \item $u\rightarrow [_j v_1]_j v_2$,
-
-%   kde $u \in \Sigma, |u|\geq 1$, $v_1,v_2\in \mathbb{N}$ a $w\in (\Sigma\times\{\cdot, \uparrow, \downarrow_{j}\})$
-% \end{itemize}
-
 \begin{frame}[t]\frametitle{Iné spôsoby vytvárania membrány}
   \begin{itemize}
     \item Problémy pôvodnej definície:
@@ -720,7 +796,7 @@
   Wrap or create ponecháva explicitné pravidlo na vytvorenie novej membrány, ale ak membrána s daným označením uz existuje, tak ju zabalí do novej membrány s tým istým označením. 
 }
 
-\begin{frame}[t]\frametitle{Simulácia registrového stroja}
+\begin{frame}[t]\frametitle{Zhrnutie výsledkov}
   \begin{center}
     \begin{tabular}{c|c|c}
       \hline
@@ -754,12 +830,31 @@
   Sémantika wrap or create sa ukázala ako vhodnejšia, čo sa týka časovej zložitosti, ale počet vytvorených membrán v simulácii sa znížiť nepodarilo.
 }
 
+\begin{frame}[t]\frametitle{Zhrnutie výsledkov}
+  \begin{itemize}
+    \item \bibentry{Kovac15Set}
+  \end{itemize}
+\end{frame}
+\note{
+  Tieto výsledky sme prezentovali a boli publikované v zborníku z konferencie Concurrency, Specification and Programming 2015 v Rzesove.
+  Rozšírená verzia článku bola zaslaná do karentovaného časopisu Fundamenta Informaticae.
+}
+
 % subsection sekven_n_p_syst_my_s_mno_inami_namiesto_multimno_n (end)
 
 % subsection sekven_n_p_syst_my_s_akt_vnymi_membr_nami (end)
 
 \subsection{Detekcia prázdnosti membrán} % (fold)
 \label{sub:detekcia_pr_zdnosti_membr_n}
+
+\begin{frame}[c]\frametitle{Detekcia prázdnosti membrán}
+  \centering
+  \Huge 4. Detekcia prázdnosti membrán
+\end{frame}
+\note{
+  Zaoberali sme sa aj inými variantami P systémov, ktoré rôznymi spôsobmi umožňujú detekciu prázdnosti membrán a využívajú to pri výpočte.
+  \includegraphics[scale=0.05]{water.png}
+}
 
 \begin{frame}[t]{Detekcia prázdnosti membrán}
   \begin{itemize}
@@ -771,9 +866,14 @@
   \end{itemize}  
 \end{frame}
 \note{
-  Skúmali sme aj dalšie varianty, ktoré nejakým spôsobom umožňujú detekciu prázdnosti membrán, ktorá by bola špecifická pre P systémy.
   Uvažovali sme napríklad objekty vyhýbajúce sa prázdnym membránam. Pravidlo posielajúce objekt do prázdnej membrány sa síce uplatní, ale daný objekt ostane v aktuálnej membráne.
+
+  NEXT SLIDE
+
   V inom variante sa daný objekt síce pošle do membrány, ale ak je prázdna, tak sa z neho stane iný objekt.
+  
+  NEXT SLIDE
+
   A posledný variant obsahuje špeciálne objekty, ktoré reprezentujú vákum. Takýto objekt sa vytvorí automaticky v prázdnej membráne, nemôže byť vytvorený prepisovacím pravidlom. Môže ale byť na ľavej strane pravidiel, teda interagovať s inými objektami.
 
   Pri týchto variantoch sme dosiahli iba čiastočné, alebo triviálne výsledky, ktoré neboli vhodné na publikáciu.
