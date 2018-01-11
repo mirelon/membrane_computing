@@ -888,22 +888,124 @@
 \end{center}
 \end{frame}
 
-\begin{frame}[t]{Vyjadrenia k posudkom}
+\begin{frame}[t]{Vyjadrenia k posudkom (doc. Sosík)}
   \begin{itemize}
-    \item Dôkaz zrejme vyžaduje drobnú úpravu pre prípad $M(a_i) > 1$ v pravidle $r_j$ na str. 60
-    \pause
-    \item Pozor na formuláciu v dôkaze 4.2.6. Nekonečná postupnosť môže byť aj konštantná a vtedy rastúci pár neexistuje. Analogicky v dôkaze 4.2.7 treba rastúci pár zameniť za neklesajúci pár.
+    \item The statement of Theorem 4.1.2 should be reformulated, although intuitive meaning is clear. $PsRE$ does not equal to mentioned P systems but to the family of number sets they generate.
+    \item {\bf Theorem 4.1.2}: Sequential P systems with cooperative rules and inhibitors can simulate register machines and thus equal $PsRE$.
   \end{itemize}
 \end{frame}
 \note{
-  Áno, máte pravdu. Dôkaz funguje len pre pravidlá s ľavou stranou veľkosti nanajvýš 2. Napr. pre pravidlá s ľavou stranou veľkosti 3 by sme potrebovali, aby $M(a_i) = 2$. Dalo by sa to spraviť zavedením symbolov s dvomi bodkami, ktoré by mali v každej membráne nanajvýš 1 výskyt. Navyše by symbol s dvomi bodkami mohol vzniknúť iba, ak je prítomný symbol s jednou bodkou. Tým pádom by sme vedeli zistiť, že dané pravidlo s tromi rovnakými symbolmi na ľavej strane nie je aplikovateľné. Analogicky by to bolo aj pre väčšie počty symbolov na ľavej strane.
+  Komentár ohľadom znenia vety 4.1.2, kde sa tvrdí, že P systémy sú ekvivalentné $PsRE$ - takto sa to často používa v literatúre.
+}
+
+\begin{frame}[t]{Vyjadrenia k posudkom (doc. Sosík)}
+  \begin{itemize}
+    \item The statement of Theorem 4.1.2 should be reformulated, although intuitive meaning is clear. $PsRE$ does not equal to mentioned P systems but to the family of number sets they generate.
+    \item {\bf Theorem 4.1.2}: Sequential P systems with cooperative rules and inhibitors can simulate register machines and thus {\bf generate} $PsRE$.
+  \end{itemize}
+\end{frame}
+\note{
+  Avšak správne má byť, že P systémy generujú triedu jazykov $PsRE$.
+}
+
+\begin{frame}[t]{Vyjadrenia k posudkom (doc. Sosík)}
+  \begin{itemize}
+    \item Symbols in rules in Section 4.4.2 are sometimes separated by commas (Ex. 4.4.1), sometimes not (p. 87). In Section 4.2, separators $|$ are sometimes used, sometimes not.
+    \pause
+    \item {\bf Example 4.4.1}: $x_j,t_i\rightarrow x_l,t_i$
+    \item {\bf p. 87}: $z_jst\rightarrow y_kt$
+    \item {\bf Definition 2.6.3} \dots As elements of a multiset can also be strings, we separate them with the pipe symbol, e.g. $element|element|other\_element$
+    \item {\bf Proof 4.3.1} $e|a\rightarrow k\uparrow$
+  \end{itemize}
+\end{frame}
+\note{
+  Další komentár bol ohľadom zápisu multimnožiny.
 
   NEXT SLIDE
 
-  Áno, má tam byť neklesajúci. Hoci uvádzam znamienko <=, v texte mám increasing.
+  Chyby pramenili často z toho, že v rôznej literatúre sa používalo rôzne označenie. Oddeľovanie čiarkami je chybne. Najviac prehľadné je podľa mňa zápis pomocou stringu, čiže bez oddeľovačov, ale v prípade, ak sú prvky multimnožiny viacznakové, tak sa oddelia zvislou čiarou. Avšak v dôkaze 4.3.1 máme zvislú čiaru použitú aj v prípade jednoznakových prvkov multimnožiny.
 }
 
-\begin{frame}[t]{Vyjadrenia k posudkom}
+\begin{frame}[t]{Vyjadrenia k posudkom (doc. Sosík)}
+  \begin{itemize}
+    \item In rule 6 at p. 84, label 1 of the membrane should be $i$.
+    \item $6: x_jt_i\rightarrow [_1 y_kt_i]_1$
+  \end{itemize}
+\end{frame}
+\note{
+  Další komentár bol ohľadom označenia membrány v dôkaze. Pri simulácii operácie $ADD(i)$ registrového stroja máme pravidlo, ktoré vytvorí membránu s označením $i$.
+}
+
+\begin{frame}[t]{Vyjadrenia k posudkom (doc. Sosík)}
+  \begin{itemize}
+    \item In rule 6 at p. 84, label 1 of the membrane should be $i$.
+    \item $6: x_jt_i\rightarrow [_{\bf i} y_kt_i ]_{\bf i}$
+  \end{itemize}
+\end{frame}
+\note{
+  Má tam byť $i$ namiesto 1.
+}
+
+\begin{frame}[t]{Vyjadrenia k posudkom (doc. Sosík)}
+  \begin{itemize}
+    \item It is not clear where Proof 4.4.1 ends. Example 4.4.1 presents the general part of the proof (translation of rules of a register machine into a P system), hence it should be denoted as an example.
+    \pause
+    \item Dôkaz 4.4.1 má dve strany, Example 4.4.1 je jeden odstavec v strede. Potom ešte pokračuje dôkaz.
+  \end{itemize}
+\end{frame}
+\note{
+  Dôkaz 4.4.1 má dve strany, Example 4.4.1 ukazuje konfiguráciu P systému pre ukážkovú konfiguráciu registrového stroja. Je to jeden odstavec v strede dôkazu, ktorý potom ešte pokračuje. Správne by mal byť example až po skončení dôkazu.
+}
+
+\begin{frame}[t]{Vyjadrenia k posudkom (doc. Pardubská)}
+  \begin{itemize}
+    \item Dôkaz zrejme vyžaduje drobnú úpravu pre prípad $M(a_i) > 1$ v pravidle $r_j$ na str. 60
+    \pause
+    \item Áno, dôkaz funguje len pre pravidlá s ľavou stranou veľkosti nanajvýš 2
+    \item $a|\mathit{RUN} \rightarrow \dot{a}|\mathit{RUN}|_{\neg \dot{a}}$
+    \item $\forall r_j\in R_i$ such that
+      \begin{align*}
+        r_j = a_1^{M(a_1)}a_2^{M(a_2)}\dots a_n^{M(a_n)} \rightarrow a_1^{N(a_1)}a_2^{N(a_2)}\dots a_n^{N(a_n)}
+      \end{align*}
+      we will have the following rules ($\forall 0\leq m_k\leq min(M(a_k),1)$):
+      \begin{align*}
+        &a_1^{M(a_1)-m_1}\dot{a}_1^{m_1}
+        a_2^{M(a_2)-m_2}\dot{a}_2^{m_2}\dots
+        a_n^{M(a_n)-m_n}\dot{a}_n^{m_n}|\mathit{RUN} \\
+        \rightarrow &a_1^{\prime N(a_1)}a_2^{\prime N(a_2)}\dots a_n^{\prime N(a_n)}|\mathit{RUN}
+      \end{align*}
+  \end{itemize}
+\end{frame}
+\note{
+  Dôkaz zrejme vyžaduje drobnú úpravu pre prípad $M(a_i) > 1$
+
+  NEXT SLIDE
+
+  Áno, máte pravdu. Dôkaz funguje len pre pravidlá s ľavou stranou veľkosti nanajvýš 2.
+
+  V simulácii sa vytvárajú objekty označené bodkou, v regione môže byť nanajvýš jeden objekt označený bodkou. Tento sa dá používať pri prepisovacích pravidlách rovnako, ako by to bol objekt bez bodky.
+}
+\newpage
+\note{
+  Ale umožňuje zistiť, kedy už pravidlo, ktoré má na ľavej strane 2 rovnaké objekty, nie je aplikovateľné. 
+
+  Pre pravidlá s ľavou stranou obsahujúcou 3 rovnaké objekty by sme potrebovali, aby $M(a_i) = 2$. Dalo by sa to spraviť zavedením symbolov s dvomi bodkami, ktoré by mali v každej membráne nanajvýš 1 výskyt. Navyše by symbol s dvomi bodkami mohol vzniknúť iba, ak je prítomný symbol s jednou bodkou. Tým pádom by sme vedeli zistiť, že dané pravidlo s tromi rovnakými symbolmi na ľavej strane nie je aplikovateľné. Analogicky by to bolo aj pre väčšie počty symbolov na ľavej strane.
+}
+
+\begin{frame}[t]{Vyjadrenia k posudkom (doc. Pardubská)}
+  \begin{itemize}
+    \item Pozor na formuláciu v dôkaze 4.2.6. Nekonečná postupnosť môže byť aj konštantná a vtedy rastúci pár neexistuje. Analogicky v dôkaze 4.2.7 treba rastúci pár zameniť za neklesajúci pár.
+    \pause
+    \item Áno, má tam byť neklesajúci. Hoci je uvedené znamienko $\leq$, v texte je použité ``increasing''.
+  \end{itemize}
+\end{frame}
+\note{
+  V dôkazoch treba rastúci pár zameniť za neklesajúci pár.
+
+  Áno, má tam byť neklesajúci. Hoci je uvedené znamienko $\leq$, v texte je použité ``increasing''.
+}
+
+\begin{frame}[t]{Vyjadrenia k posudkom (doc. Pardubská)}
   \begin{itemize}
     \item Ak porovnávam kódy ako reťazce, $enc(C_1) < enc(C_2)$ môže platiť aj v situácii, keď príslušné ``stromy'' nie sú izomorfné, čo podľa môjho názoru znamená, že dôkaz Lemy 4.2.5 neplatí (opačná implikácia platí).
     \pause
@@ -935,29 +1037,50 @@
 \end{frame}
 \note{
   Keď stromy nie sú izomorfné, tak podľa preorderu dostanú iný order number, a teda v kódovaní bude nenulová iná časť. Tým pádom nebude platiť ani $enc(C_1) < enc(C_2)$ ani $enc(C_2) < enc(C_1)$. Porovanie kodovaní nie je alfabetické, ale podľa pozícií. Na to, aby bolo jedno kodovanie väčsie ako druhé, musí byť aspoň na jednej pozícii väčšie a na ostatných väčšie alebo rovné. Inými slovami - ak sú kódovania porovnateľné $enc(C_1) < enc(C_2)$ alebo $enc(C_2) < enc(C_1)$, potom už nutne musí byť nenulová tá istá časť a teda stromy sú izomorfné.
-
-  NEXT SLIDE
-
+}
+\newpage
+\note{
   Na tomto príklade máme stanovený limit na počet membrán 2. Existujú len dve navzájom neizomorfné stromové štruktúry s nanajvýš dvomi vrcholmi, bud je to samostatný vrchol alebo koreň plus jeden vrchol. Preto kodovanie pozostáva z dvoch častí. Uvádzam príklady dvoch membránových konfigurácií. Prvá má poradové číslo 1, preto je nenulová iba prvá časť kodovania. Druhá má poradové číslo 2, preto je nenulová len druhá časť kodovania.
 
   Kodovanie jednej časti je zreťazenie kodovania jednotlivých membrán po prechode preorderom. V prvej konfigurácii máme jeden objekt a a nula objektov b, preto sa kodovanie začína 10. Označenie membrány je 2, preto kodovanie má na príslušnej pozícii 1.
   Kodovanie druhej konfigurácie začína rovnako, 10, ale kedže má označenie 1, tak pokračuje 10. Vnútorná membrána obsahuje jedno a a dve bé, preto kodovanie pokračuje 12 a kedže má označenie 1, tak sa kodovanie zakončí 10.
 }
 
-\begin{frame}[t]{Vyjadrenia k posudkom}
+\begin{frame}[t]{Vyjadrenia k posudkom (doc. Pardubská)}
   \begin{itemize}
     \item Je nutné dávať dávať umelý predpoklad na ohraničenie počtu membrán zvonku cez zablokovanie aplikovateľnosti pravidla vytvárajúceho novú membránu v situácii, ktorá by viedla k prekročeniu stanoveného počtu membrán keď aktívne P-systémy s obmedzeným sumárnym počtom membrán sú univerzálne?
+    \pause
+    \item V dôkaze využívame tento limit pri stanovení počtu navzájom neizomorfných stromov.
+    \item Nekonečná postupnosť membránových štruktúr $\Rightarrow$ dve štruktúry $T_1, T_2$ s nejakou vlastnosťou, vdaka ktorej budeme môcť tvrdiť, že postupnosť je nekonečná.
+    \begin{itemize}
+      \item $T_1$ je podstrom $T_2$
+      \item $parent(v_1) = v_2$ v $T_1$, potom $parent^*(v_1) = v_2$ v $T_2$
+    \end{itemize}
   \end{itemize}
 \end{frame}
 \note{
-  Ak je otázka: ``Dá sa tento umelý predpoklad vynútiť inak?'' -> Nenapadá mi žiadny iný spôsob, ako by sa dalo v definícii vynútiť dodržiavanie tohto ohraničeni.
+  Je nutné dávať dávať umelý predpoklad na ohraničenie počtu membrán?
 
-  Ak je otázka: ``Fungoval by ten dôkaz aj bez tohto umelého predpokladu?'' -> Pravdepodobne áno, ale v dokáže využívame tento limit pri stanovení počtu navzájom neizomorfných stromov. Bez tohto umelého predpokladu máme iba hypotézu, že by to šlo pomocou tvrdenia, že ak máme nekonečnú postupnosť membránových štruktúr, kde susedné prvky postupnosti sa líšia len vytvorením alebo rozpustením membrány, tak sa v nej bude nejaká vlastnosť opakovať tak, aby existovali dva prvky postupnosti, ktoré sa dajú potom cykliť. 
+  NEXT SLIDE
+
+  V dôkaze využívame tento limit pri stanovení počtu navzájom neizomorfných stromov. Bez tohto umelého predpokladu by dôkaz nefungoval. Máme hypotézu, že by to šlo pomocou tvrdenia, že ak máme nekonečnú postupnosť membránových štruktúr, kde susedné prvky postupnosti sa líšia len vytvorením alebo rozpustením membrány, tak sa v nej nájdu dva prvky postupnosti s nejakou vlastnosťou, vdaka ktorej budeme môcť tvrdiť, že postupnosť je nekonečná.
+}
+\newpage
+\note{
+  Hľadali sme danú vlastnosť. Ako prvé sme skúsili, že membránová štruktúra je podstromom štruktúry, ktorá sa nachádza niekde neskôr v postupnosti. Toto sa ukázalo ako nedostatočná požiadavka. Nevyplývalo z toho, že postupnosť je nekonečná.
+
+  Vlastnosť, kde sa zachováva, že vzťah parent-child sa zachováva (akurät sa medzi ne môže dostať nová membrána), sa tiež ukázala byť nedostatočná. Predpokladáme, že existuje nejaká štrukturálna vlastnosť, ktorá sa zachová, umožní tvrdiť, že postupnosť je nekonečná.
 }
 
 \begin{frame}[t]{Vyjadrenia k posudkom}
   \begin{itemize}
     \item Mohli by ste vysvetliť motivácie pre definované modifikácie P-systémov v závere kapitoly 4?
+    \pause
+    \item V pôvodnej definícii:
+    \begin{itemize}
+      \item Posielanie do membrány je definované iba pre prípad, kedy cieľová membrána existuje.
+      \item Vytvorenie novej membrány bolo definované iba pre prípad, kedy cieľová membrána neexistuje
+    \end{itemize}
   \end{itemize}
 \end{frame}
 \note{
