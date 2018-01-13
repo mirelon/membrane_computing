@@ -88,13 +88,9 @@
 \end{frame}
 \note{
   Membránové systémy sú inšpirované bunkami. Základom je preto membránová štruktúra, ktorá pozostáva z regiónov, ktoré sú oddelené membránami. Tvorí to hierarchickú štruktúru, ktorá sa dá zobraziť aj ako strom.
-
-  NEXT SLIDE
-
+  \noindent\rule{\textwidth}{1pt}
   Obsahom regionov sú multimnožiny objektov, ktoré v realite predstavujú napr. molekuly, vírusy, enzýmy alebo proteíny.
-
-  NEXT SLIDE
-
+  \noindent\rule{\textwidth}{1pt}
   Objekty medzi sebou môžu interagovať. Táto interakcia je definovaná prepisovacími pravidlami.
 }
 
@@ -109,9 +105,7 @@
 \end{frame}
 \note{
   Prepisovacie pravidlá majú ľavú a pravú stranu. Na ľavej strane sú reaktanty, čo je multimnožina objektov.
-
-  NEXT SLIDE
-
+  \noindent\rule{\textwidth}{1pt}
   Na pravej strane sú produkty, čo je multimnožina objektov, pričom pre každý objekt sa definuje, či ostáva v aktuálnom regione, alebo ide cez membránu do vonkajšieho regionu alebo cez membránu s daný označením do vnútorného regionu.
 
   Delta je špeciálny symbol, ktorý nepatrí abecede, ktorý ked je prítomný, tak po aplikovaní pravidla sa rozpustí membrána, v ktorej sa pravidlo aplikovalo a obsah membrány sa vyleje von.
@@ -202,13 +196,9 @@
 \end{frame}
 \note{
   Literatúra spomína rôzne spôsoby definovania prepisovacieho pravidla. Pôvodná definícia, ktorú uvádza Paun, používa kooperatívne pravidlá v znení, ako som uviedol. Takto definované P systémy sú Turingovsky úplné.
-
-  NEXT SLIDE
-
+  \noindent\rule{\textwidth}{1pt}
   Nekooperatívne pravidlá neumožňujú interakciu medzi objektami, takže na ľavej strane je vždy iba jeden objekt. Takto definované P systémy sú ekvivalentné Parikhovmu zobrazeniu bezkontextových jazykov.
-
-  NEXT SLIDE
-
+  \noindent\rule{\textwidth}{1pt}
   Pravidlá s inhibítormi umožňujú špecifikovať množinu objektov, inhibítorov, z ktorých ak aspoň jeden je prítomný v regione, tak dané pravidlo sa nemôže uplatniť. Takto definované P systémy sú ekvivalentné Parikhovmu zobrazeniu triedy jazykov ET0L.
 }
 \newpage
@@ -232,13 +222,9 @@
 \end{frame}
 \note{
   Maximálny paralelizmus je veľmi silná vlastnosť. Globálny časovač reakcií vo väčšine prípadov tvorí hranicu toho, čo je, a čo nie je Turingovsky úplné. Ani v bunke sa nenachádza taký časovač, podľa ktorého by sa reakcie synchronizovali. Preto sa hľadajú spôsoby, ako túto vlastnosť odľahčiť, prípadne, akými spôsobmi by sa dal rozšíriť sekvenčný mod, aby sa dosiahla Turingovská úplnosť.
-
-  NEXT SLIDE
-
+  \noindent\rule{\textwidth}{1pt}
   Sekvenčné P systémy s kooperatívnymi pravidlami nie sú Turingovsky úplné, lebo sú ekvivalentné s Vector Addition Systems a s Petriho sieťami.
-
-  NEXT SLIDE
-
+  \noindent\rule{\textwidth}{1pt}
   Ak sa pridajú pravidlá s prioritami, alebo s aktívnymi membránami, alebo s inhibítormi, takto definované P systémy sú už Turingovsky úplné.
 }
 
@@ -280,14 +266,10 @@
 \end{frame}
 \note{
   Toto rozšírenie umožňuje k pravidlám pridať množinu inhibítorov I, z ktorých ak sa aspoň jeden nachádza v aktuálnej membráne, pravidlo nie je aplikovateľné.
-
-  NEXT SLIDE
-
+  \noindent\rule{\textwidth}{1pt}
   Dokázali sme Turingovskú úplnosť pre akceptačný aj generatívny mód.
-
-  NEXT SLIDE
-
-  Tieto výsledky sme prezentovali na konferencii Computability in Europe 2014 a náš článok je publikovaný v zborníku.
+  \noindent\rule{\textwidth}{1pt}
+  Tieto výsledky sme prezentovali na konferencii Computability in Europe v roku 2014 v Budapešti a náš článok je publikovaný v zborníku.
 }
 
 \begin{frame}[t]\frametitle{Prehľad simulácie pre akceptačný mód}
@@ -338,21 +320,15 @@
 \end{frame}
 \note{
   Formálne, majme registrový stroj M, kde n je počet registrov, P je množina inštrukcií označených značkami z množiny Lab, i je označenie počiatočnej inštrukcie, h je označenie koncovej inštrukcie.
-
-  NEXT SLIDE
-
+  \noindent\rule{\textwidth}{1pt}
   Zostrojíme P systém s jednou membránou, v abecede budú označenia inštrukcií, symboly zodpovedajúce jednotlivým registrom a špeciálny ukončovací symbol mriežka.
-
-  NEXT SLIDE
-
+  \noindent\rule{\textwidth}{1pt}
   V počiatočnej konfigurácii membrána obsahuje označenie počiatočnej inštrukcie registrového stroja a objekty $a_i$ podľa počiatočného stavu registrov.
 }
 \newpage
 \note{
   Pre všetky inštrukcie ADD, ktoré zvýšia hodnotu registra $j$ o jedna a nasledujúca inštrukcia je k alebo l (rozhoduje sa nedeterministicky) budeme mať pravidlá, ktoré prepíše symbol zodpovedajúci označeniu inštrukcie na symbol $a_j$ a symbol zodpovedajúci označeniu nasledujúcej inštrukcie. 
-
-  NEXT SLIDE
-
+  \noindent\rule{\textwidth}{1pt}
   Uvažujme inštrukciu SUB, ktorá ak má register $j$ kladnú hodnotu, tak ju zníži o jedna, a ak je register $j$ prázdny, tak ju nezníži, ale bude iná nasledujúca inštrukcia. Pre takáto inštrukciu budeme mať v P systéme dve pravidlá. Prvé pravidlo je kooperatívne, ktoré skonzumuje symbol $a_j$ a vytvorí symbol $k$ zodpovedajúci označeniu nasledujúcej inštrukcie. Druhé pravidlo je s inhibítorom a aplikovať sa môže len, ak sa v regione nenachádza symbol $a_j$.
 }
 \newpage
@@ -382,9 +358,7 @@
 \end{frame}
 \note{
   V generatívnom móde sme sa rozhodli pre simuláciu maximálne paralelného P systému Pi 1 pomocou sekvenčného P systému s inhibítormi Pi 2.
-
-  NEXT SLIDE
-
+  \noindent\rule{\textwidth}{1pt}
   Každý maximálne paralelný krok Pi 1 simulujeme pomocou niekoľkých sekvenčných krokov Pi 2.
 }
 \newpage
@@ -399,12 +373,8 @@
 \newpage
 \note{
   V druhej fáze SYNCHRONIZE sa v každom regione čaká na ostatné regiony, aby sa spustil další maximálne paralelný krok. Pošle sa synchronizačný token do vonkajšej membrány. V nej, ked sa pozbierajú tokeny zo všetkých membrán, tak vonkajšia membrána pošle signál všetkým membránam, aby mohli začať další maximálne paralelný krok.
-}
-\newpage
-\note{
-  Po synchronizácii treba označené objekty odznačiť, aby boli pripravené na další maximálne paralelný krok. To sa deje vo fáze RESTORE.
 
-  Posielanie objektov cez membránu do obaľujúcej membrány sa môže vykonať vo fáze RUN. Ale ak by sme poslali objekt do vnútornej membrány, tá ešte môže byť vo fáze RESTORE predchádzajúceho maximálne paralelného kroku. V tom prípade by sa stihli poslané objekty ešte odznačiť a mohli by sa uplatniť pravidlá toho istého maximálne paralelného kroku. Preto musíme počkať na synchronizáciu a posielanie objektov nadol vykonávať medzi fázou SYNCHRONIZE a fázou RESTORE. Túto fázu sme nazvali SENDDOWN.
+  Dalšie dve fázy sú čisto technického charakteru. Vo fáze SENDDOWN sa zvlášť posielajú objekty do vnútorných membrán a vo fáze RESTORE sa všetko v rámci regionu pripravuje na další maximálne paralelný krok.
 }
 
 \begin{frame}[t]\frametitle{Zhrnutie výsledkov pre sekvenčné P systémy s inhibítormi}
@@ -419,13 +389,9 @@
 \end{frame}
 \note{
   Ukázali sme, že v akceptačnom aj v generatívnom móde sú sekvenčné P systémy s inhibítormi Turingovsky úplné.
-
-  NEXT SLIDE
-
+  \noindent\rule{\textwidth}{1pt}
   Hoci tieto výsledky nie sú veľmi prekvapivé, nakoľko podobné výsledky s inhibítormi už boli ukázané pre Petriho siete, prínos týchto simulácií je aj v ukázaní spôsobu konverzie medzi rôznymi modelmi, čo môže pomôcť v daľšom výskume.
-
-  NEXT SLIDE
-
+  \noindent\rule{\textwidth}{1pt}
   Další výskum môže nadviazať a doplniť simuláciu o iné aspekty P systémov, napriklad rozpúšťanie, vytváranie membrán, pravidlá s prioritami, ako aj skúsiť iné obmedzenie pravidiel, napríklad obmedzenie kooperácie alebo obmedzenie sily inhibítorov.
 }
 
@@ -457,18 +423,14 @@
 \end{frame}
 \note{
   Pravidlo, ktoré vytvorí membránu, na pravej strane špecifikuje označenie membrány a multimnožinu objektov, ktoré sa v nej budú po vytvorení nachádzať.
-
-  NEXT SLIDE
-
-  Ak pre sekvenčné P systémy povolíme pravidlá, ktoré vytvárajú nové membrány, a nestanovíme žiadny limit na počet aplikovaní takýchto pravidiel, dosiahneme Turingovskú úplnosť, ako ukázal Ibarra v roku 2005. Ukázal aj, že pri obmedzení počtu aplikovaní takýchto pravidiel je to ekvivalentné variantu bez takýchto pravidiel.
-
-  NEXT SLIDE
-
+  \noindent\rule{\textwidth}{1pt}
+  Ak pre sekvenčné P systémy povolíme pravidlá vytvárajúce nové membrány, a nestanovíme limit na počet aplikovaní takýchto pravidiel, dosiahneme Turingovskú úplnosť, ako ukázal Ibarra v roku 2005. Ukázal aj, že pri obmedzení počtu aplikovaní takýchto pravidiel je to dá simulovať variantom bez takýchto pravidiel.
+}
+\newpage
+\note{
   Pre tento variant sme analyzovali rozhodnuteľnosť behaviorálnych vlastností. Podarilo sa nám dokázať, ze existencia nekonečného výpočtu je rozhodnuteľný problém a existencia konečného výpočtu je nerozhodnuteľný problém.
-
-  NEXT SLIDE
-
-  Tieto výsledky sme prezentovali a boli publikované v zborníku z konferencie Computability in Europe 2015 v Bukurešti.
+  \noindent\rule{\textwidth}{1pt}
+  Tieto výsledky sme prezentovali na konferencii Computability in Europe v roku 2015 v Bukurešti a článok bol publikovaný v zborníku z tejto konferencie.
 }
 
 \begin{frame}[t]\frametitle{Problém zastavenia}
@@ -481,10 +443,8 @@
 \end{frame}
 \note{ 
   Spomenuté behaviorálne vlastnosti sa podobajú na problém zastavenia. Ten je ale definovaný iba pre deterministické modely.
-
-  NEXT SLIDE
-
-  Kedže pre netederministické modely môže výpočet zastaviť aj nezastaviť, má zmysel pýtať sa dve rôzne otázky: či existuje konečný výpočet a či existuje nekonečný výpočet.
+  \noindent\rule{\textwidth}{1pt}
+  Kedže pre netederministické modely môže existovať výpočet, ktorý zastaví, aj výpočet, ktorý nezastaví, má zmysel pýtať sa dve rôzne otázky: či existuje konečný výpočet a či existuje nekonečný výpočet.
 }
 
 \begin{frame}[t,label=active_p_system_definition]\frametitle{Aktívny P systém}
@@ -509,61 +469,47 @@
   Aby sa pri dôkazoch lepšie manipulovalo s konfiguráciou, upravili sme definíciu aktívneho P systému, kde sme izolovali pojem membránová konfigurácia.
 
   Je to trojica $(T, l, c)$, kde $T$ je stromová štruktúra
-
-  NEXT SLIDE
-
+  \noindent\rule{\textwidth}{1pt}
   $l$ je označenie membrán - zobrazenie vrcholov na čísla
-
-  NEXT SLIDE
-
+  \noindent\rule{\textwidth}{1pt}
   $c$ je zobrazenie vrcholov stromu $T$ na multimnožinu symbolov, čo predstavuje obsah membrány.
-}
-\newpage
-\note{
-  Aktívny P systém je m+2 tica, kde $\Sigma$ je abeceda, $C_0$ je počiatočná membránová konfigurácia a $R_i$ je množina pravidiel asociovaná s označením membrány $i$. Okrem pôvodne definovaných typov pravidiel máme aj pravidlo na vytvorenie membrány s daným označením a daným obsahom. 
+  \noindent\rule{\textwidth}{1pt}
+  Aktívny P systém je m+2 tica, kde $\Sigma$ je abeceda, $C_0$ je počiatočná membránová konfigurácia a $R_i$ je množina pravidiel asociovaná s označením membrány $i$.
 }
 
 \begin{frame}[t]{Existencia konečného výpočtu}
   \begin{itemize}
-    \item Nerozhodnuteľný problém
+    \item Existencia konečného výpočtu je nerozhodnuteľný problém
     \pause
     \item Redukcia na halting problem  
   \end{itemize}  
 \end{frame}
 \note{
   Podarilo sa nám dokázať, že existencia konečného výpočtu pre sekvenčné P systémy s aktívnymi membránami je nerozhodnuteľný problém.
-
-  NEXT SLIDE
-
+  \noindent\rule{\textwidth}{1pt}
   Dôkaz je pomocou redukcie. Ibarra v článku uvádza simuláciu, vdaka ktorej môžeme tvrdiť, že ak by sme vedeli rozhodovať existenciu konečného výpočtu pre sekvenčné P systémy s aktívnymi membránami, potom by sme vedeli rozhodovať existenciu konečného výpočtu pre registrové stroje, čo je už známy nerozhodnuteľný problém.
 }
 
 \begin{frame}[t]\frametitle{Existencia nekonečného výpočtu}
   \begin{itemize}
-    \item Rozhodnuteľný problém
+    \item Existencia nekonečného výpočtu je rozhodnuteľný problém
     \pause
     \item Obmedzenie na počet membrán
-    \pause
-    \item Graf dosiahnuteľnosti
   \end{itemize}
 \end{frame}
 \note{
-  Skúmali sme aj opačný problém - existenciu nekonečného výpočtu.
-  Podarilo sa nám dokázať opačný výsledok - je to rozhodnuteľný problém.
-}
-\newpage
-\note{
-  Dôkaz uvádzame iba pre obmedzenie na počet membrán, ktoré sa nachádzajú v ľubovoľnej konfigurácii. Veríme, že to platí aj bez tohto obmedzenia, rozšíriť dôkaz sa ale napriek snahe nepodarilo.
+  Skúmali sme aj opačný problém - existenciu nekonečného výpočtu. Podarilo sa nám dokázať, že je to rozhodnuteľný problém.
+  \noindent\rule{\textwidth}{1pt}
+  Dôkaz uvádzame iba pre obmedzenie na počet membrán, ktoré sa nachádzajú v ľubovoľnej konfigurácii.
 
-  Obmedzenie na počet membrán vynútime upravenou definíciou, pravidlo na vytvorenie membrány je aplikovateľné, iba ak je počet membrán v konfigurácii menší ako stanovený limit.
-  Aj ked toto obmedzenie nie je veľmi realistické z biologického hľadiska, výsledok je zaujímavý, lebo sekvenčné P systémy s aktívnymi membránami sú Turingovsky úplné aj s týmto obmedzením - pri simulácii registrového stroja sa v každej konfigurácii nachádzajú najviac tri membrány.
-
-  Dôkaz využíva graf dosiahnuteľnosti. V prípade jednej membrány konfigurácia obsahuje iba multimnožinu objektov, preto sa dá použiť štandardná konštrukcia grafu dosiahnuteľnosti pre Petriho siete.
+  Aj ked toto obmedzenie nie je veľmi realistické z biologického hľadiska, výsledok je aj tak zaujímavý, lebo sekvenčné P systémy s aktívnymi membránami sú Turingovsky úplné aj s týmto obmedzením - pri simulácii registrového stroja sa v každej konfigurácii nachádzajú najviac tri membrány.
 }
 
 
 \begin{frame}[t]\frametitle{Existencia nekonečného výpočtu}
   \begin{itemize}
+    \item Graf dosiahnuteľnosti
+    \pause
     \item Čiastočné usporiadanie $\leq$:
     \pause
     \begin{itemize}
@@ -571,10 +517,8 @@
       \item $C_2 = (T_2, l_2, c_2)$
       \pause
       \item $C_1 \leq C_2$, ak $\exists$ izomorfizmus $f: T_1\rightarrow T_2$ taký, že: $\forall d\in T_1$ platí:
-      \pause
       \begin{itemize}
         \item $l_1(d) = l_2(f(d))$
-        \pause
         \item $c_1(d)\subseteq c_2(f(d))$
       \end{itemize}
     \end{itemize}
@@ -583,26 +527,16 @@
   \end{itemize}
 \end{frame}
 \note{
+  Dôkaz využíva graf dosiahnuteľnosti. V prípade jednej membrány konfigurácia obsahuje iba multimnožinu objektov, preto sa dá použiť štandardná konštrukcia grafu dosiahnuteľnosti pre Petriho siete.
+  \noindent\rule{\textwidth}{1pt}  
   Vo všeobecnosti potrebujeme ale rozšíriť definíciu čiastočného usporiadania konfigurácií.
-
-  NEXT SLIDE
-
+}
+\newpage
+\note{
   Majme konfigurácie $C_1$ a $C_2$.
-
-  NEXT SLIDE
-
-  $C_1$ je menšia ako $C_2$ ($C_2$ pokrýva $C_1$), ak existuje izomorfizmus $f$, ktorý pre každú membránu:
-  
-  NEXT SLIDE
-
-  zachováva označenia $l_1(d) = l_2(f(d))$
-
-  NEXT SLIDE
-
-  a zachováva obsah: $c_1(d)\subseteq c_2(f(d))$
-
-  NEXT SLIDE
-
+  \noindent\rule{\textwidth}{1pt}
+  $C_2$ pokrýva $C_1$ (zapisujeme $C_1$ je menšia, alebo rovná ako $C_2$), ak existuje izomorfizmus $f$, ktorý pre každú membránu zachováva označenia a zachováva obsah, tým, že obsah každej membrány v $C_1$ je multimnožina obsiahnutá v obsahu zodpovedajúcej membrány v $C_2$.
+  \noindent\rule{\textwidth}{1pt}
   Táto definícia nám umožňuje tvrdiť, že ak $C_2$ pokrýva $C_1$, potom každé pravidlo aplikovateľné v $C_1$ je aplikovateľné v $C_2$.
 }
 
@@ -616,15 +550,11 @@
   \end{itemize}
 \end{frame}
 \note{
-  Na tomto mieste by som chcel spomenúť Dicksonovu lemu. Tá tvrdí, že pre každú nekonečnú postupnosť n-tíc nad $\mathbb{N}$ $\{a_i\}_{i=0}^\infty$ existujú $i<j$: $a_i\leq a_j$.
-
-  NEXT SLIDE
-
+  Na tomto mieste by som chcel spomenúť Dicksonovu lemu. Tá tvrdí, že pre každú nekonečnú postupnosť n-tíc nad prirodzenými číslami existujú indexy $i<j$: $a_i\leq a_j$, pričom sa porovnávajú jednotlivé pozície v ntici.
+  \noindent\rule{\textwidth}{1pt}
   Dokážeme nasledovné tvrdenie: Pre každú nekonečnú postupnosť konfigurácií existuje $C_1, C_2$: $C_1 \rightarrow^* C_2$ a $C_1 \leq C_2$.
-
-  NEXT SLIDE
-
-  Definujeme kodovanie konfigurácií do ntíc s vlastnosťou, že ak $enc(C_1)\leq enc(C_2)$, potom $C_1 \leq C_2$. Vdaka tomuto kodovaniu a pomocou Dicksonovej lemy dokážeme aj pôvodnú vetu, že pre každú nekonečnú postupnosť konfigurácií existuje $C_1, C_2$: $C_1 \rightarrow^* C_2$ a $C_1 \leq C_2$.
+  \noindent\rule{\textwidth}{1pt}
+  Definovali sme kodovanie konfigurácií do ntíc s vlastnosťou, že ak $enc(C_1)\leq enc(C_2)$, potom $C_1 \leq C_2$. Vdaka tomuto kodovaniu a pomocou Dicksonovej lemy dokážeme aj pôvodnú vetu, že pre každú nekonečnú postupnosť konfigurácií existuje $C_1, C_2$: $C_1 \rightarrow^* C_2$ a $C_1 \leq C_2$.
 }
 
 \begin{frame}[t]{Algoritmus rozhodujúci existenciu nekonečného výpočtu}
@@ -652,9 +582,7 @@
 \end{frame}
 \note{
   Dokazali sme, že existencia nekonečného výpočtu sa pri sekvenčných P systémov s aktívnymi membránami s obmedzením na počet membrán dá rozhodovať. Otvorený problém ostáva, či to platí pre variant bez tohto obmedzenia. Veríme, že áno, ale nemáme k tomu dôkaz.
-
-  NEXT SLIDE
-
+  \noindent\rule{\textwidth}{1pt}
   Tiež sme dokázali, že existencia konečného výpočtu je nerozhodnuteľná. Dokázali sme to pomocou redukcie na problém zastavenia.
 }
 
@@ -683,15 +611,11 @@
 \end{frame}
 \note{
   Inšpirácia pre tento variant pramenila z formalizmu Reaction systems. Nahradili sme obsah membrány, kde namiesto multimnožín uvažujeme množiny objektov.
-
-  NEXT SLIDE
-
+  \noindent\rule{\textwidth}{1pt}
   K tomuto rozhodnutiu nás viedli dve otázky.
 
   Nakoľko realistické je reprezentovať presný počet objektov? Niekedy nás zaujíma iba výskyt, napríklad či sa v membráne nachádza vírus, alebo nie.
-
-  NEXT SLIDE
-
+  \noindent\rule{\textwidth}{1pt}
   Ak uvažujeme multimnožiny, máme problém explozie stavového priestoru, ktorý sa potom neprakticky analyzuje. V prípade množín je stavový priestor menší, čo umožňuje jednoduchšiu analýzu.
 }
 
@@ -722,25 +646,17 @@
 \end{frame}
 \note{
   Alhazov v roku 2005 uvažoval o P systémoch, kde sa ignorovali počty objektov. Pri maximálnom paralelizme je výpočet deterministický, lebo pravidlá nie sú navzájom konfliktné a maximálna multimnožina simultánne aplikovateľných pravidliel je v každej konfigurácii iba jedna.
-
-  NEXT SLIDE
-
+  \noindent\rule{\textwidth}{1pt}
   Takto definované P systémy sú ekvivalentné s konečnostavovými automatmi, čo sa týka výpočtovej sily.
-
-  NEXT SLIDE
-
+  \noindent\rule{\textwidth}{1pt}
   S aktívnymi membránami je model univerzálny.
 }
 \newpage
 \note{
   Kleijn a Koutny v roku 2011 skúmali rôzne mody výpočtu pre P systémy pracujúce s množinami a sekvenčný bol tiež spomenutý pod názvom ``min-enabled''.
-
-  NEXT SLIDE
-
+  \noindent\rule{\textwidth}{1pt}
   Ukázala sa ekvivalencia s konečnostavovými automatmi.
-
-  NEXT SLIDE
-
+  \noindent\rule{\textwidth}{1pt}
   Sekvenčné P systémy pracujúce s množinami majú tieto vlastnosti: Pravidlá sú bez konfliktu, lebo objekty sa môžu zúčastniť ako reaktanty súčasne vo viacerých pravidlách. Ak je objekt použitý aspoň v jednom pravidle ako reaktant, bude spotrebovaný.
 }
 
@@ -790,9 +706,7 @@
   Preto sme vymysleli alternatívne definície vytvárania membrány.
 
   Inject or create zjednocuje pravidlo pre posielanie a pravidlo pre vytváranie membrány. V prípade, ak membrána s daným označením existuje, tak sa daný objekt do nej pošle. Ak neexistuje, tak sa daný objekt zabalí do novej membrány.
-
-  NEXT SLIDE
-
+  \noindent\rule{\textwidth}{1pt}
   Wrap or create ponecháva explicitné pravidlo na vytvorenie novej membrány, ale ak membrána s daným označením uz existuje, tak ju zabalí do novej membrány s tým istým označením. 
 }
 
@@ -820,13 +734,9 @@
 \newpage
 \note{
   Pomocou binárneho označenia membrán sa nám podarilo optimalizovať túto simuláciu na logaritmický čas.
-  
-  NEXT SLIDE
-
-  Pomocou sémantika inject or create sa sa podarilo simulovať registrový stroj podobným spôsobom s tou istou zložitosťou.
-
-  NEXT SLIDE
-
+    \noindent\rule{\textwidth}{1pt}
+  Pomocou sémantiky inject or create sa sa podarilo simulovať registrový stroj podobným spôsobom s tou istou zložitosťou.
+  \noindent\rule{\textwidth}{1pt}
   Sémantika wrap or create sa ukázala ako vhodnejšia, čo sa týka časovej zložitosti, ale počet vytvorených membrán v simulácii sa znížiť nepodarilo.
 }
 
@@ -836,7 +746,7 @@
   \end{itemize}
 \end{frame}
 \note{
-  Tieto výsledky sme prezentovali a boli publikované v zborníku z konferencie Concurrency, Specification and Programming 2015 v Rzesove.
+  Tieto výsledky sme prezentovali a boli publikované v zborníku z konferencie Concurrency, Specification and Programming v roku 2015 v Rzesove.
   Rozšírená verzia článku bola zaslaná do karentovaného časopisu Fundamenta Informaticae.
 }
 
@@ -867,13 +777,9 @@
 \end{frame}
 \note{
   Uvažovali sme napríklad objekty vyhýbajúce sa prázdnym membránam. Pravidlo posielajúce objekt do prázdnej membrány sa síce uplatní, ale daný objekt ostane v aktuálnej membráne.
-
-  NEXT SLIDE
-
+  \noindent\rule{\textwidth}{1pt}
   V inom variante sa daný objekt síce pošle do membrány, ale ak je prázdna, tak sa z neho stane iný objekt.
-  
-  NEXT SLIDE
-
+    \noindent\rule{\textwidth}{1pt}
   A posledný variant obsahuje špeciálne objekty, ktoré reprezentujú vákum. Takýto objekt sa vytvorí automaticky v prázdnej membráne, nemôže byť vytvorený prepisovacím pravidlom. Môže ale byť na ľavej strane pravidiel, teda interagovať s inými objektami.
 
   Pri týchto variantoch sme dosiahli iba čiastočné, alebo triviálne výsledky, ktoré neboli vhodné na publikáciu.
@@ -881,10 +787,9 @@
 
 % section sk_man_varianty_p_syst_mov (end)
 
-
 \begin{frame}[plain]
 \begin{center}
-  Ďakujem za pozornosť
+  \Huge Ďakujem za pozornosť
 \end{center}
 \end{frame}
 
@@ -920,9 +825,7 @@
 \end{frame}
 \note{
   Další komentár bol ohľadom zápisu multimnožiny.
-
-  NEXT SLIDE
-
+  \noindent\rule{\textwidth}{1pt}
   Chyby pramenili často z toho, že v rôznej literatúre sa používalo rôzne označenie. Oddeľovanie čiarkami je chybne. Najviac prehľadné je podľa mňa zápis pomocou stringu, čiže bez oddeľovačov, ale v prípade, ak sú prvky multimnožiny viacznakové, tak sa oddelia zvislou čiarou. Avšak v dôkaze 4.3.1 máme zvislú čiaru použitú aj v prípade jednoznakových prvkov multimnožiny.
 }
 
@@ -954,7 +857,7 @@
   \end{itemize}
 \end{frame}
 \note{
-  Dôkaz 4.4.1 má dve strany, Example 4.4.1 ukazuje konfiguráciu P systému pre ukážkovú konfiguráciu registrového stroja. Je to jeden odstavec v strede dôkazu, ktorý potom ešte pokračuje. Správne by mal byť example až po skončení dôkazu.
+  Dôkaz 4.4.1 má dve strany, Example 4.4.1 ukazuje konfiguráciu P systému pre ukážkovú konfiguráciu registrového stroja. Je to jeden odstavec v strede dôkazu, ktorý potom ešte pokračuje. Mohli sme dôkaz lepšie štruktúrovať.
 }
 
 \begin{frame}[t]{Vyjadrenia k posudkom (doc. Pardubská)}
@@ -978,9 +881,7 @@
 \end{frame}
 \note{
   Dôkaz zrejme vyžaduje drobnú úpravu pre prípad $M(a_i) > 1$
-
-  NEXT SLIDE
-
+  \noindent\rule{\textwidth}{1pt}
   Áno, máte pravdu. Dôkaz funguje len pre pravidlá s ľavou stranou veľkosti nanajvýš 2.
 
   V simulácii sa vytvárajú objekty označené bodkou, v regione môže byť nanajvýš jeden objekt označený bodkou. Tento sa dá používať pri prepisovacích pravidlách rovnako, ako by to bol objekt bez bodky.
@@ -1060,9 +961,7 @@
 \end{frame}
 \note{
   Je nutné dávať dávať umelý predpoklad na ohraničenie počtu membrán?
-
-  NEXT SLIDE
-
+  \noindent\rule{\textwidth}{1pt}
   V dôkaze využívame tento limit pri stanovení počtu navzájom neizomorfných stromov. Bez tohto umelého predpokladu by dôkaz nefungoval. Máme hypotézu, že by to šlo pomocou tvrdenia, že ak máme nekonečnú postupnosť membránových štruktúr, kde susedné prvky postupnosti sa líšia len vytvorením alebo rozpustením membrány, tak sa v nej nájdu dva prvky postupnosti s nejakou vlastnosťou, vdaka ktorej budeme môcť tvrdiť, že postupnosť je nekonečná.
 }
 \newpage
@@ -1080,6 +979,7 @@
     \begin{itemize}
       \item Posielanie do membrány je definované iba pre prípad, kedy cieľová membrána existuje.
       \item Vytvorenie novej membrány bolo definované iba pre prípad, kedy cieľová membrána neexistuje
+      \item Prirodzene sa žiadalo zjednotiť tieto dva pojmy, aby výsledný jeden pojem bol definovaný vo všetkých prípadoch, aj ked cieľová membrána existuje, aj ked neexistuje $\Rightarrow$ inject-or-create
     \end{itemize}
   \end{itemize}
 \end{frame}
