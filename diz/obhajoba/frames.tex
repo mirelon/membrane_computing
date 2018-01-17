@@ -156,7 +156,7 @@
 
 \begin{frame}[t]\frametitle{Jazyk definovaný P systémom}
   \begin{itemize}
-    \item Jazyk nad posupnosťami/multimnožinami objektov
+    \item Jazyk nad postupnosťami/multimnožinami objektov
     \begin{itemize}
       \item Generatívny mód: postupnosť/multimnožina objektov vypustených do okolitého prostredia
       \pause
@@ -195,7 +195,7 @@
   \end{itemize}
 \end{frame}
 \note{
-  Literatúra spomína rôzne spôsoby definovania prepisovacieho pravidla. Pôvodná definícia, ktorú uvádza Paun, používa kooperatívne pravidlá v znení, ako som uviedol. Takto definované P systémy sú Turingovsky úplné.
+  Literatúra spomína rôzne spôsoby definovania prepisovacieho pravidla. Pôvodná definícia, používa kooperatívne pravidlá v znení, ako som uviedol. Takto definované P systémy sú Turingovsky úplné.
   \noindent\rule{\textwidth}{1pt}
   Nekooperatívne pravidlá neumožňujú interakciu medzi objektami, takže na ľavej strane je vždy iba jeden objekt. Takto definované P systémy sú ekvivalentné Parikhovmu zobrazeniu bezkontextových jazykov.
   \noindent\rule{\textwidth}{1pt}
@@ -280,11 +280,6 @@
     \item Objekt pre každú inštrukciu
     \pause
     \item SUB inštrukcia sa simuluje pomocou inhibítora
-    \begin{itemize}
-      \item $i: SUB(x,j,k)$
-      \item $ix\rightarrow j$
-      \item $i\rightarrow k|_{\neg{x}}$
-    \end{itemize}
   \end{itemize}
 \end{frame}
 \note{
@@ -313,8 +308,11 @@
         \item $e\rightarrow l|_\neg{a_j}\in R$ 
       \end{itemize}
       \pause
-      \item $ha_j\rightarrow h\#\in R$
-      \item $\#\rightarrow\#\in R$
+      \item Akceptovanie prázdnymi registrami:
+      \begin{itemize}
+        \item $ha_j\rightarrow h\#\in R$
+        \item $\#\rightarrow\#\in R$
+      \end{itemize}
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -329,7 +327,7 @@
 \note{
   Pre všetky inštrukcie ADD, ktoré zvýšia hodnotu registra $j$ o jedna a nasledujúca inštrukcia je k alebo l (rozhoduje sa nedeterministicky) budeme mať pravidlá, ktoré prepíše symbol zodpovedajúci označeniu inštrukcie na symbol $a_j$ a symbol zodpovedajúci označeniu nasledujúcej inštrukcie. 
   \noindent\rule{\textwidth}{1pt}
-  Uvažujme inštrukciu SUB, ktorá ak má register $j$ kladnú hodnotu, tak ju zníži o jedna, a ak je register $j$ prázdny, tak ju nezníži, ale bude iná nasledujúca inštrukcia. Pre takáto inštrukciu budeme mať v P systéme dve pravidlá. Prvé pravidlo je kooperatívne, ktoré skonzumuje symbol $a_j$ a vytvorí symbol $k$ zodpovedajúci označeniu nasledujúcej inštrukcie. Druhé pravidlo je s inhibítorom a aplikovať sa môže len, ak sa v regione nenachádza symbol $a_j$.
+  Uvažujme inštrukciu SUB, ktorá ak má register $j$ kladnú hodnotu, tak ju zníži o jedna, a ak je register $j$ prázdny, tak ju nezníži, ale bude iná nasledujúca inštrukcia. Pre takúto inštrukciu budeme mať v P systéme dve pravidlá. Prvé pravidlo je kooperatívne, ktoré skonzumuje symbol $a_j$ a vytvorí symbol $k$ zodpovedajúci označeniu nasledujúcej inštrukcie. Druhé pravidlo je s inhibítorom a aplikovať sa môže len, ak sa v regione nenachádza symbol $a_j$.
 }
 \newpage
 \note{
@@ -416,7 +414,7 @@
     \item Bez limitu počtu aplikovaní pravidla na vytvorenie membrány (PsRE \cite{Ibarra05Active})
     \pause
     \item Rozhodnuteľnosť existencie nekonečného výpočtu
-    \item Nerozhodnuteľnost existencie konečného výpočtu
+    \item Nerozhodnuteľnosť existencie konečného výpočtu
     \pause
     \item \bibentry{Kovac15Active}
   \end{itemize}
@@ -456,6 +454,7 @@
       \item $l: V(T) \rightarrow \{1, \ldots, m\}$
       \pause
       \item $c: V(T) \rightarrow \mathbb{N}^\Sigma$
+      \pause
      \end{itemize}
      \item Aktívny P systém je $(\Sigma, C_0, R_1, R_2, \dots, R_m)$, kde
      \begin{itemize}
@@ -586,7 +585,7 @@
   Tiež sme dokázali, že existencia konečného výpočtu je nerozhodnuteľná. Dokázali sme to pomocou redukcie na problém zastavenia.
 }
 
-% subsection detekcia_pr_zdnosti_membr_n (end)
+% subsection sekven_n_p_syst_my_s_akt_vnymi_membr_nami (end)
 
 \subsection{Sekvenčné P systémy s množinami namiesto multimnožín} % (fold)
 \label{sub:sekven_n_p_syst_my_s_mno_inami_namiesto_multimno_n}
@@ -628,7 +627,7 @@
       \pause
       \item Ekvivalencia s konečnostavovými automatmi.
       \pause
-      \item S aktívnymi membránami je model univerzálny.
+      \item S aktívnymi membránami je model Turingovsky úplný.
       \pause
     \end{itemize}
     \item \cite{Kleijn11SetMembrane}: ``min-enabled'' computational step (= sekvenčný mód)
@@ -649,7 +648,7 @@
   \noindent\rule{\textwidth}{1pt}
   Takto definované P systémy sú ekvivalentné s konečnostavovými automatmi, čo sa týka výpočtovej sily.
   \noindent\rule{\textwidth}{1pt}
-  S aktívnymi membránami je model univerzálny.
+  S aktívnymi membránami je model Turingovsky úplný.
 }
 \newpage
 \note{
@@ -660,7 +659,7 @@
   Sekvenčné P systémy pracujúce s množinami majú tieto vlastnosti: Pravidlá sú bez konfliktu, lebo objekty sa môžu zúčastniť ako reaktanty súčasne vo viacerých pravidlách. Ak je objekt použitý aspoň v jednom pravidle ako reaktant, bude spotrebovaný.
 }
 
-\againframe<3->[t]{active_p_system_definition}
+\againframe<4->[t]{active_p_system_definition}
 \note{
   Na tomto mieste by som chcel znovu pripomenúť definíciu aktívneho P systému.
 }
@@ -726,7 +725,7 @@
   \end{center}
 \end{frame}
 \note{
-  Pri všetkých variantoch sme ukázali Turingovskú úplnosť pomocou simulácie registrového stroju. Jednotlivé simulácie sme medzi sebou porovnali s ohľadom na dve veličiny.
+  Pri všetkých variantoch sme ukázali Turingovskú úplnosť pomocou simulácie registrového stroja. Jednotlivé simulácie sme medzi sebou porovnali s ohľadom na dve veličiny.
   Merali sme maximálny počet membrán v niektorej konfigurácii P systému v závislosti od najvyššej hodnoty registra.
   A tiež sme merali počet krokov výpočtu P systému potrebných na simuláciu jedného kroku registrového stroja.
   V prvom riadku tabuľky je jednoduchá simulácia podľa pôvodnej definície, ktorá nie je veľmi efektívna. Na jeden krok registrového stroja je potrebných až $O(n)$ krokov.
@@ -752,21 +751,36 @@
 
 % subsection sekven_n_p_syst_my_s_mno_inami_namiesto_multimno_n (end)
 
-% subsection sekven_n_p_syst_my_s_akt_vnymi_membr_nami (end)
+\subsection{Záver} % (fold)
+\label{sub:zaver}
 
-\subsection{Detekcia prázdnosti membrán} % (fold)
-\label{sub:detekcia_pr_zdnosti_membr_n}
-
-\begin{frame}[c]\frametitle{Detekcia prázdnosti membrán}
+\begin{frame}[c]\frametitle{Záver}
   \centering
-  \Huge 4. Detekcia prázdnosti membrán
+  \Huge Záver
 \end{frame}
 \note{
-  Zaoberali sme sa aj inými variantami P systémov, ktoré rôznymi spôsobmi umožňujú detekciu prázdnosti membrán a využívajú to pri výpočte.
+  Na záver zhrniem dosiahnuté výsledky a predstavím možnosti dalšieho výskumu
   \includegraphics[scale=0.05]{water.png}
 }
 
-\begin{frame}[t]{Detekcia prázdnosti membrán}
+\begin{frame}[t]{Záver}
+  \begin{itemize}
+    \item Sekvenčné P systémy s inhibítormi sú Turingovsky úplné
+    \begin{itemize}
+      \item simulácia maximálne paralelného systému
+      \item simulácia registrového stroja
+    \end{itemize}
+    \item Sekvenčné P systémy s aktívnymi membránami
+    \begin{itemize}
+      \item existencia nekonečnej postupnosti je rozhodnuteľný problém
+      \item existencia konečnej postupnosti je nerozhodnuteľný problém
+    \end{itemize}
+    \item Sekvenčné P systémy s aktívnymi membránami s množinami namiesto multimnožín sú Turingovsky úplné
+  \end{itemize}  
+\end{frame}
+
+\begin{frame}[t]{Záver}
+  Detekcia prázdnosti membrán
   \begin{itemize}
     \item Objekty vyhýbajúce sa prázdnym membránam
     \pause
@@ -971,7 +985,7 @@
   Vlastnosť, kde sa zachováva, že vzťah parent-child sa zachováva (akurät sa medzi ne môže dostať nová membrána), sa tiež ukázala byť nedostatočná. Predpokladáme, že existuje nejaká štrukturálna vlastnosť, ktorá sa zachová, umožní tvrdiť, že postupnosť je nekonečná.
 }
 
-\begin{frame}[t]{Vyjadrenia k posudkom}
+\begin{frame}[t]{Vyjadrenia k posudkom (doc. Pardubská)}
   \begin{itemize}
     \item Mohli by ste vysvetliť motivácie pre definované modifikácie P-systémov v závere kapitoly 4?
     \pause
